@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="it">
+<meta name="mat-num"     content="1">
+<meta name="mat-title"   content="Hardware počítače">
+<title>Hardware počítače – IT Maturita 2026</title>
+<style>
+  :root {
+    --teal-light:#E1F5EE;--teal-dark:#085041;--teal-mid:#1D9E75;
+    --blue-light:#E6F1FB;--blue-dark:#0C447C;--blue-mid:#378ADD;
+    --amber-light:#FAEEDA;--amber-dark:#633806;--amber-mid:#EF9F27;
+    --coral-light:#FAECE7;--coral-dark:#4A1B0C;
+    --purple-light:#EEEDFE;--purple-dark:#3C3489;--purple-mid:#534AB7;
+    --green-light:#EAF3DE;--green-dark:#27500A;
+    --gray-bg:#F8F7F5;--gray-border:#E0DED8;
+    --text:#1a1a18;--text-muted:#5a5955;
+    --white:#ffffff;
+    --mono:'Courier New',Courier,monospace;
+    --radius:10px;--radius-sm:5px;
+    --flag-accent:#EF9F27;
+    --flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;
+  }
+
+  body.dark {
+    --teal-light:#0D2E24;--teal-dark:#5ECBA8;--teal-mid:#3DC9A3;
+    --blue-light:#0D1F33;--blue-dark:#7BB8F0;--blue-mid:#4A9DE0;
+    --amber-light:#2A1E0A;--amber-dark:#F5C06A;--amber-mid:#F0B040;
+    --coral-light:#2A1208;--coral-dark:#F5A08A;
+    --purple-light:#1A1840;--purple-dark:#A09DF0;--purple-mid:#7A77E0;
+    --green-light:#132208;--green-dark:#8FD058;
+    --gray-bg:#111110;--gray-border:#2E2D2A;
+    --text:#F0EFEB;--text-muted:#A8A49E;
+    --white:#1C1C1A;
+    --flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;
+    --flag-accent:#F0B040;
+  }
+  body.dark .cc-teal  {border-color:#1A4535}
+  body.dark .cc-blue  {border-color:#1E3A5A}
+  body.dark .cc-amber {border-color:#3D2C0F}
+  body.dark .cc-coral {border-color:#3D1810}
+  body.dark .cc-purple{border-color:#2A2870}
+  body.dark .tbl tr:nth-child(even) td{background:#161614}
+  body.dark .mem-bar  {opacity:0.85}
+  body.dark .mono     {background:#1a1a18}
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto}
+
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.25rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px}
+  .header p{font-size:13px;color:var(--text-muted)}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+  .badge{font-size:12px;font-weight:500;padding:4px 10px;border-radius:20px;white-space:nowrap}
+  .badge-blue{background:var(--blue-light);color:var(--blue-dark)}
+  .badge-purple{background:var(--purple-light);color:var(--purple-dark)}
+
+  .flag-summary{display:none;align-items:center;gap:5px;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .flag-summary.visible{display:inline-flex;}
+  .flag-summary::before{content:"⚑ ";}
+  .dark-btn{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.15s;}
+  .dark-btn:hover{color:var(--text);}
+
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color 0.2s,box-shadow 0.2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 0.4rem;text-transform:uppercase;letter-spacing:0.03em}
+  h4{font-size:13.5px;font-weight:600;color:var(--text);margin:0.75rem 0 0.3rem}
+  p,li{font-size:14px;color:var(--text-muted)}
+  ul{padding-left:1.2rem}
+  li{margin-bottom:4px}
+  .kw{font-weight:600;color:var(--text)}
+  .mono{font-family:var(--mono);font-size:12.5px;background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:3px;padding:1px 5px;color:var(--text)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:0.6rem}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:0.6rem}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:0.6rem}
+
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:0.85rem 1rem}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px}
+
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:0.85rem 1rem}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:0.85rem 1rem}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:0.85rem 1rem}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:0.85rem 1rem}
+  .cc-purple{background:var(--purple-light);border:0.5px solid #CECBF6;border-radius:var(--radius-sm);padding:0.85rem 1rem}
+  .cc-teal strong{color:var(--teal-dark)}
+  .cc-blue strong{color:var(--blue-dark)}
+  .cc-amber strong{color:var(--amber-dark)}
+  .cc-coral strong{color:var(--coral-dark)}
+  .cc-purple strong{color:var(--purple-dark)}
+
+  .accent-teal{border-left:3px solid var(--teal-mid);padding-left:12px;margin:0.5rem 0}
+  .accent-blue{border-left:3px solid var(--blue-mid);padding-left:12px;margin:0.5rem 0}
+  .accent-amber{border-left:3px solid var(--amber-mid);padding-left:12px;margin:0.5rem 0}
+  .accent-purple{border-left:3px solid var(--purple-mid);padding-left:12px;margin:0.5rem 0}
+
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:5px}
+  .t-teal{background:var(--teal-light);color:var(--teal-dark)}
+  .t-blue{background:var(--blue-light);color:var(--blue-dark)}
+  .t-amber{background:var(--amber-light);color:var(--amber-dark)}
+  .t-coral{background:var(--coral-light);color:var(--coral-dark)}
+  .t-purple{background:var(--purple-light);color:var(--purple-dark)}
+
+  .tbl{width:100%;border-collapse:collapse;margin-top:0.6rem;font-size:13px}
+  .tbl th{background:var(--gray-bg);border:0.5px solid var(--gray-border);padding:7px 10px;text-align:left;font-weight:600;color:var(--text);font-size:12px;text-transform:uppercase;letter-spacing:0.03em;}
+  .tbl td{border:0.5px solid var(--gray-border);padding:7px 10px;color:var(--text-muted);vertical-align:top}
+  .tbl tr:nth-child(even) td{background:#FAFAF8}
+  .tbl td strong{color:var(--text);font-weight:600}
+
+  .mem-pyramid{margin:0.75rem 0}
+  .mem-row{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+  .mem-bar{height:32px;border-radius:var(--radius-sm);display:flex;align-items:center;padding:0 12px;font-size:12px;font-weight:600;white-space:nowrap;flex-shrink:0;}
+  .mem-info{font-size:12px;color:var(--text-muted)}
+  .mem-info span{font-family:var(--mono);font-size:11px;background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:3px;padding:1px 5px;margin-right:6px}
+
+  .steps{counter-reset:step;list-style:none;padding-left:0}
+  .steps li{counter-increment:step;display:flex;gap:10px;padding:0.45rem 0;border-bottom:0.5px solid var(--gray-border);font-size:14px;color:var(--text-muted);}
+  .steps li:last-child{border-bottom:none}
+  .steps li::before{content:counter(step);min-width:22px;height:22px;background:var(--blue-light);color:var(--blue-dark);border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+
+  .comp-row{display:flex;gap:10px;padding:0.6rem 0;border-bottom:0.5px solid var(--gray-border);align-items:flex-start}
+  .comp-row:last-child{border-bottom:none;padding-bottom:0}
+  .comp-label{font-size:11px;font-weight:700;white-space:nowrap;padding:2px 8px;border-radius:4px;align-self:flex-start;margin-top:2px;min-width:80px;text-align:center;}
+  .cl-blue{background:var(--blue-light);color:var(--blue-dark)}
+  .cl-teal{background:var(--teal-light);color:var(--teal-dark)}
+  .cl-amber{background:var(--amber-light);color:var(--amber-dark)}
+  .cl-coral{background:var(--coral-light);color:var(--coral-dark)}
+  .cl-purple{background:var(--purple-light);color:var(--purple-dark)}
+  .comp-content{flex:1;font-size:13.5px;color:var(--text-muted)}
+  .comp-content strong{color:var(--text);font-weight:600}
+
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:0.85rem 0}
+
+  @media print{body{background:white;padding:1rem}.sec-flag{display:none}}
+  @media(max-width:640px){.grid2,.grid3,.grid4{grid-template-columns:1fr}.header{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div>
+      <h1>Hardware počítače</h1>
+      <p>Maturitní otázka IT &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+      <p style="margin-top:6px;font-size:13px;color:var(--text-muted)">Sestavování počítače · Procesor · Hierarchie pamětí · HDD vs. SSD · Cache · Paměťová média</p>
+    </div>
+    <div class="header-right">
+      <span class="badge badge-purple">IT Maturita</span>
+      <span class="badge badge-blue">Hardware</span>
+      <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+      <span class="flag-summary" id="flagSummary"></span>
+    </div>
+  </div>
+
+  <!-- 1 KOMPONENTY -->
+  <div class="section" data-sec="1">
+    <h2><span class="num">1</span> Sestavování počítače – komponenty a parametry<button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button></h2>
+    <div class="comp-row">
+      <span class="comp-label cl-blue">Základní deska</span>
+      <div class="comp-content"><strong>Motherboard</strong> – páteř systému, propojuje všechny komponenty<br>Obsahuje: socket CPU, sloty RAM, PCIe sloty, chipset, BIOS/UEFI čip, konektory SATA/M.2, I/O porty<br><span class="kw">Parametry:</span> socket (kompatibilita s CPU), form factor (ATX / mATX / ITX), podporované frekvence RAM, počet PCIe slotů</div>
+    </div>
+    <div class="comp-row">
+      <span class="comp-label cl-coral">CPU</span>
+      <div class="comp-content"><strong>Procesor</strong> – mozek počítače, vykonává instrukce programů<br><span class="kw">Parametry:</span> počet jader a vláken · taktovací frekvence (GHz, base/boost) · TDP (W) · cache L1/L2/L3 · socket · architektura (x86-64, ARM)</div>
+    </div>
+    <div class="comp-row">
+      <span class="comp-label cl-teal">RAM</span>
+      <div class="comp-content"><strong>Operační paměť</strong> – dočasná paměť pro běžící programy a OS<br>Typy: DDR4, <span class="kw">DDR5</span> (aktuální standard) &nbsp;·&nbsp; Moduly: DIMM (desktop), SO-DIMM (notebook)<br><span class="kw">Parametry:</span> kapacita (GB) · frekvence (MHz) · latence (CL timing) · dual-channel</div>
+    </div>
+    <div class="comp-row">
+      <span class="comp-label cl-purple">GPU</span>
+      <div class="comp-content"><strong>Grafická karta</strong> – zpracovává grafický výstup; u náročných aplikací i GPGPU (ML, rendering)<br>Typy: <span class="kw">dedikovaná</span> (diskrétní, vlastní VRAM) vs. <span class="kw">integrovaná</span> (součást CPU, sdílí RAM)<br><span class="kw">Parametry:</span> VRAM (GB) · paměťová šířka pásma · TDP · rozhraní PCIe x16</div>
+    </div>
+    <div class="comp-row">
+      <span class="comp-label cl-amber">Úložiště</span>
+      <div class="comp-content"><strong>HDD nebo SSD</strong> – trvalé uložení dat (viz sekce 4)<br><span class="kw">Rozhraní:</span> SATA III (~550 MB/s) · M.2 NVMe PCIe (až ~7 000 MB/s)</div>
+    </div>
+    <div class="comp-row">
+      <span class="comp-label cl-teal">PSU</span>
+      <div class="comp-content"><strong>Zdroj</strong> – napájí celý systém<br><span class="kw">Parametry:</span> výkon (W) · účinnost – 80 Plus certifikace (Bronze / Gold / Platinum) · modulárnost</div>
+    </div>
+    <div class="comp-row">
+      <span class="comp-label cl-blue">Chlazení</span>
+      <div class="comp-content">Vzduchové (heatsink + ventilátor) nebo vodní (AIO / custom loop)<br><span class="kw">Parametry:</span> TDP rating · hlučnost (dB) · výška chladiče (kompatibilita s case)</div>
+    </div>
+    <div class="comp-row">
+      <span class="comp-label cl-amber">Case</span>
+      <div class="comp-content">Form factor (ATX / mATX / ITX) · airflow design · počet drive slotů · kabelmanagement</div>
+    </div>
+  </div>
+
+  <!-- 2 PROCESOR -->
+  <div class="section" data-sec="2">
+    <h2><span class="num">2</span> Procesor – registry a instrukce<button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button></h2>
+    <h3>Vnitřní architektura CPU</h3>
+    <div class="grid4">
+      <div class="cc-coral"><strong>ALU</strong>Aritmeticko-logická jednotka – provádí výpočty a logické operace</div>
+      <div class="cc-blue"><strong>FPU</strong>Jednotka desetinné čárky – operace s čísly s plovoucí řádovou čárkou</div>
+      <div class="cc-amber"><strong>Řadič (CU)</strong>Řídí tok dat a instrukcí, koordinuje ostatní části</div>
+      <div class="cc-teal"><strong>Registry</strong>Nejrychlejší úložiště přímo v CPU – viz níže</div>
+    </div>
+    <h3>Registry</h3>
+    <p style="margin-bottom:0.6rem">Malé, extrémně rychlé úložiště přímo uvnitř procesoru. Jsou součástí čipu – přístup bez latence paměťového systému. Velikost odpovídá architektuře (32-bit → 32-bit registry, 64-bit → 64-bit registry).</p>
+    <table class="tbl">
+      <tr><th>Registr</th><th>Funkce</th><th>Příklady (x86-64)</th></tr>
+      <tr><td><strong>Obecné registry</strong></td><td>Ukládají operandy a mezivýsledky výpočtů</td><td><span class="mono">RAX, RBX, RCX, RDX, RSI, RDI</span></td></tr>
+      <tr><td><strong>Instrukční registr (IR)</strong></td><td>Uchovává právě prováděnou instrukci</td><td>—</td></tr>
+      <tr><td><strong>Program Counter (PC / RIP)</strong></td><td>Adresa příští instrukce, která se má vykonat</td><td><span class="mono">RIP</span></td></tr>
+      <tr><td><strong>Příznakový registr (FLAGS)</strong></td><td>Výsledky porovnání a operací (zero, carry, overflow, sign…)</td><td><span class="mono">RFLAGS</span></td></tr>
+      <tr><td><strong>Zásobníkový ukazatel (SP)</strong></td><td>Ukazuje na vrchol zásobníku v paměti</td><td><span class="mono">RSP</span></td></tr>
+      <tr><td><strong>Bázový/indexový registr</strong></td><td>Adresování paměti při práci s poli a strukturami</td><td><span class="mono">RBP, RSI, RDI</span></td></tr>
+    </table>
+    <h3>Instrukce a instrukční sada (ISA)</h3>
+    <div class="accent-blue">
+      <p><span class="kw">Instrukce</span> = základní příkaz, který CPU umí přímo vykonat.<br>Skládá se z: <span class="kw">operační kód (opcode)</span> + <span class="kw">operandy</span> (adresa nebo data)</p>
+    </div>
+    <p style="margin-top:0.5rem;margin-bottom:0.5rem">Příklady: <span class="mono">MOV</span> (přesun dat) &nbsp;·&nbsp; <span class="mono">ADD / SUB / MUL / DIV</span> &nbsp;·&nbsp; <span class="mono">JMP</span> (skok) &nbsp;·&nbsp; <span class="mono">CMP</span> (porovnání) &nbsp;·&nbsp; <span class="mono">PUSH / POP</span></p>
+    <div class="grid2">
+      <div class="cc-blue"><strong>CISC – Complex Instruction Set</strong><p>Velké množství složitých instrukcí, proměnná délka instrukce</p><p style="margin-top:4px;font-size:13px">Příklady: <span class="kw">x86, x86-64</span> (Intel, AMD)</p></div>
+      <div class="cc-teal"><strong>RISC – Reduced Instruction Set</strong><p>Malá sada jednoduchých instrukcí, pevná délka, rychlejší dekódování</p><p style="margin-top:4px;font-size:13px">Příklady: <span class="kw">ARM, RISC-V, Apple M-series</span></p></div>
+    </div>
+    <h3>Cyklus CPU – Fetch → Decode → Execute → Writeback</h3>
+    <ol class="steps">
+      <li><strong>Fetch</strong> – načtení instrukce z paměti na adrese uložené v PC (Program Counter)</li>
+      <li><strong>Decode</strong> – dekodér zjistí, o jakou instrukci jde a co potřebuje</li>
+      <li><strong>Execute</strong> – ALU nebo FPU instrukci provede</li>
+      <li><strong>Writeback</strong> – výsledek zapsán zpět do registru nebo paměti</li>
+    </ol>
+  </div>
+
+  <!-- 3 HIERARCHIE PAMĚTÍ -->
+  <div class="section" data-sec="3">
+    <h2><span class="num">3</span> Hierarchie pamětí<button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button></h2>
+    <p style="margin-bottom:0.75rem">Paměti jsou uspořádány v hierarchii: <span class="kw">čím rychlejší, tím menší a dražší</span>.</p>
+    <div class="mem-pyramid">
+      <div class="mem-row"><div class="mem-bar" style="width:100px;background:var(--coral-light);color:var(--coral-dark);border:0.5px solid #F5C4B3">Registry</div><div class="mem-info"><span>B</span><span>&lt;1 ns</span>přímo v CPU, nejrychlejší</div></div>
+      <div class="mem-row"><div class="mem-bar" style="width:150px;background:#FDE8D8;color:#7A2E10;border:0.5px solid #F5C4B3">Cache L1</div><div class="mem-info"><span>32–128 KB / jádro</span><span>~1 ns</span>na čipu, per-core</div></div>
+      <div class="mem-row"><div class="mem-bar" style="width:200px;background:var(--amber-light);color:var(--amber-dark);border:0.5px solid #FAC775">Cache L2</div><div class="mem-info"><span>256 KB – 2 MB / jádro</span><span>~5–10 ns</span>na čipu, per-core</div></div>
+      <div class="mem-row"><div class="mem-bar" style="width:260px;background:#FFF6D8;color:#7A5800;border:0.5px solid #FAC775">Cache L3</div><div class="mem-info"><span>4–64 MB sdílená</span><span>~20–50 ns</span>na čipu, sdílená všemi jádry</div></div>
+      <div class="mem-row"><div class="mem-bar" style="width:340px;background:var(--blue-light);color:var(--blue-dark);border:0.5px solid #B5D4F4">RAM (DRAM)</div><div class="mem-info"><span>8–256 GB</span><span>~60–100 ns</span>operační paměť</div></div>
+      <div class="mem-row"><div class="mem-bar" style="width:430px;background:var(--teal-light);color:var(--teal-dark);border:0.5px solid #9FE1CB">SSD (Flash)</div><div class="mem-info"><span>256 GB – 8 TB</span><span>~0,1 ms</span>rychlé úložiště</div></div>
+      <div class="mem-row"><div class="mem-bar" style="width:520px;background:var(--purple-light);color:var(--purple-dark);border:0.5px solid #CECBF6">HDD</div><div class="mem-info"><span>500 GB – 20 TB</span><span>~10 ms</span>magnetické úložiště</div></div>
+      <div class="mem-row"><div class="mem-bar" style="width:610px;background:var(--gray-bg);color:var(--text-muted);border:0.5px solid var(--gray-border)">Pásky / Cloud</div><div class="mem-info"><span>prakticky neomezeno</span><span>sekundy–minuty</span>archivace</div></div>
+    </div>
+    <hr>
+    <h3>Vnitřní paměti (primární)</h3>
+    <h4>RAM – Random Access Memory</h4>
+    <p style="margin-bottom:0.6rem"><span class="kw">Volatilní</span> – data se ztrácejí po vypnutí napájení. Slouží jako pracovní prostor CPU pro právě běžící programy a OS.</p>
+    <div class="grid2">
+      <div class="card"><strong>DRAM – Dynamic RAM</strong><ul><li>Každý bit uložen v <span class="kw">kondenzátoru</span> – drží náboj jen krátce</li><li>Nutný periodický <span class="kw">refresh</span> (obnova náboje) – stovky ms</li><li>Jednoduchá struktura → <span class="kw">levná a hustá</span>, vysoké kapacity</li><li>Pomalejší přístupová doba (~60–100 ns)</li><li>Použití: <span class="kw">operační paměť (RAM moduly)</span></li></ul></div>
+      <div class="card"><strong>SRAM – Static RAM</strong><ul><li>Každý bit uložen v <span class="kw">klopném obvodu</span> (bistabilní hradla)</li><li>Data drží dokud je napájení – <span class="kw">žádný refresh</span></li><li>Složitá struktura (6 tranzistorů/bit) → <span class="kw">drahá, malá kapacita</span></li><li>Extrémně rychlá přístupová doba (~1–5 ns)</li><li>Použití: <span class="kw">cache L1/L2/L3</span> v CPU</li></ul></div>
+    </div>
+    <h4 style="margin-top:0.9rem">Moduly RAM</h4>
+    <div class="grid2">
+      <div class="cc-blue"><strong>DIMM (Desktop)</strong><p>Dual Inline Memory Module · 288 pinů · 64-bit sběrnice · standardní pro stolní počítače</p></div>
+      <div class="cc-teal"><strong>SO-DIMM (Notebook)</strong><p>Small Outline DIMM · fyzicky kratší (67,6 mm) · 260 pinů · notebooky, NUC, mini-PC</p></div>
+    </div>
+    <h4 style="margin-top:0.9rem">Generace DDR</h4>
+    <table class="tbl">
+      <tr><th>Generace</th><th>Max. frekvence</th><th>Napětí</th><th>Status</th></tr>
+      <tr><td>DDR4</td><td>~3200–5333 MT/s</td><td>1,2 V</td><td>Stále rozšířená</td></tr>
+      <tr><td><strong>DDR5</strong></td><td>~4800–8400 MT/s</td><td>1,1 V</td><td><strong>Aktuální standard</strong></td></tr>
+    </table>
+    <hr>
+    <h3>ROM – Read Only Memory</h3>
+    <p style="margin-bottom:0.5rem">Nevolatilní – obsah přetrvává bez napájení.</p>
+    <div class="grid4">
+      <div class="card"><strong>ROM</strong>napevno při výrobě, nelze změnit</div>
+      <div class="card"><strong>PROM</strong>jednorázově programovatelná</div>
+      <div class="card"><strong>EPROM</strong>mazatelná UV zářením, znovu programovatelná</div>
+      <div class="card"><strong>EEPROM / Flash</strong>elektricky mazatelná → základ SSD, USB, SD karet</div>
+    </div>
+    <hr>
+    <h3>Vnější paměti (sekundární)</h3>
+    <p>Nevolatilní, trvalé uložení dat. Jsou pomalejší než RAM, ale kapacitně mnohem větší. Patří sem: HDD, SSD, optická média, magnetické pásky, USB flash disky, SD karty – viz sekce 4 a 6.</p>
+  </div>
+
+  <!-- 4 HDD vs SSD -->
+  <div class="section" data-sec="4">
+    <h2><span class="num">4</span> Pevný disk – princip funkce, HDD vs. SSD<button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button></h2>
+    <h3>HDD – Hard Disk Drive (magnetický pevný disk)</h3>
+    <div class="grid2">
+      <div class="card"><strong>Princip funkce</strong><ul><li>Data ukládána magneticky na rotující <span class="kw">plotny (platter)</span> pokryté ferromagnetickým materiálem</li><li>Čtecí/zapisovací <span class="kw">hlavičky</span> plovoucí těsně nad povrchem mění a čtou magnetizaci</li><li>Plotny rotují na vřetenu: <span class="kw">5 400 / 7 200 / 10 000 / 15 000 RPM</span></li><li>Přístup k datům = mechanický pohyb → latence (seek time ~5–10 ms)</li></ul></div>
+      <div class="card"><strong>Struktura dat na plotně</strong><ul><li><span class="kw">Stopa (track)</span> – soustředná kružnice na plotně</li><li><span class="kw">Sektor</span> – nejmenší adresovatelná jednotka (512 B nebo 4 096 B = 4K)</li><li><span class="kw">Cylindr</span> – souhrn stejných stop na všech plotnách</li><li><span class="kw">Cluster</span> – skupina sektorů, základní alokační jednotka souborového systému</li></ul></div>
+    </div>
+    <div class="accent-amber" style="margin-top:0.6rem">
+      <p><span class="kw">Nevýhody HDD:</span> Pomalý náhodný přístup · pohyblivé části = riziko poruchy při pádu · hlučný · vyšší spotřeba energie</p>
+    </div>
+    <hr>
+    <h3>SSD – Solid State Drive (flash úložiště)</h3>
+    <div class="grid2">
+      <div class="card"><strong>Princip funkce</strong><ul><li>Data ukládána v <span class="kw">NAND Flash</span> paměťových buňkách</li><li>Každá buňka ukládá elektrický náboj v <span class="kw">plovoucím hradlu tranzistoru</span></li><li>Žádné pohyblivé části → odolnost, ticho, nízká latence</li><li>Řídí <span class="kw">řadič (controller)</span> + <span class="kw">DRAM cache</span> (u kvalitnějších SSD)</li></ul></div>
+      <div class="card"><strong>Rozhraní SSD</strong><ul><li><span class="kw">SATA III</span> – starší, ~550 MB/s, fyzický konektor SATA</li><li><span class="kw">M.2 SATA</span> – fyzicky M.2 slot, ale rychlostí SATA</li><li><span class="kw">M.2 NVMe</span> – PCIe linka, až ~7 000 MB/s (PCIe 4.0), nízká latence</li></ul><p style="margin-top:0.5rem;font-size:13px"><span class="kw">Parametry:</span> sekv. čtení/zápis (MB/s) · TBW (životnost v TB zapsaných) · DRAM cache ano/ne</p></div>
+    </div>
+    <hr>
+    <h3>Porovnání HDD vs. SSD</h3>
+    <table class="tbl">
+      <tr><th>Vlastnost</th><th>HDD</th><th>SSD</th></tr>
+      <tr><td><strong>Princip</strong></td><td>Magnetický, mechanický</td><td>NAND Flash, elektronický</td></tr>
+      <tr><td><strong>Rychlost čtení/zápisu</strong></td><td>80–200 MB/s</td><td>500–7 000 MB/s</td></tr>
+      <tr><td><strong>Náhodný přístup</strong></td><td>~10 ms</td><td>~0,1 ms</td></tr>
+      <tr><td><strong>Odolnost</strong></td><td>Nízká (pohyblivé části)</td><td>Vysoká (žádné pohyblivé části)</td></tr>
+      <tr><td><strong>Hlučnost</strong></td><td>Ano</td><td>Ne</td></tr>
+      <tr><td><strong>Cena / TB</strong></td><td>Nízká</td><td>Vyšší (ale klesá)</td></tr>
+      <tr><td><strong>Životnost</strong></td><td>Mechanické opotřebení</td><td>Omezený počet zápisů (TBW)</td></tr>
+      <tr><td><strong>Max. kapacity</strong></td><td>Až ~20 TB</td><td>Až ~8 TB (spotřebitel)</td></tr>
+      <tr><td><strong>Typické použití</strong></td><td>Archivace, NAS, velká úložiště</td><td>OS, aplikace, rychlá data</td></tr>
+    </table>
+  </div>
+
+  <!-- 5 CACHE -->
+  <div class="section" data-sec="5">
+    <h2><span class="num">5</span> Vyrovnávací paměti (Cache)<button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button></h2>
+    <div class="accent-blue">
+      <p><span class="kw">Cache</span> = rychlá SRAM paměť mezi pomalejší pamětí a procesorem. Uchovává kopii naposledy / nejčastěji používaných dat → snižuje průměrnou dobu přístupu.</p>
+    </div>
+    <h3>Principy lokality</h3>
+    <div class="grid2" style="margin-top:0.4rem">
+      <div class="cc-teal"><strong>Prostorová lokalita</strong><p>Pokud přistoupíme k adrese X, brzy přistoupíme i k adresám blízkým X (pole, sekvenční instrukce)</p></div>
+      <div class="cc-blue"><strong>Časová lokalita</strong><p>Pokud přistoupíme k adrese X, brzy k ní přistoupíme znovu (cykly, opakované proměnné)</p></div>
+    </div>
+    <div class="grid2" style="margin-top:8px">
+      <div class="cc-teal"><strong>Cache HIT ✓</strong>Požadovaná data nalezena v cache → rychlý přístup bez čekání na RAM</div>
+      <div class="cc-coral"><strong>Cache MISS ✗</strong>Data nejsou v cache → nutno načíst z pomalejší paměti (penalizace latencí)</div>
+    </div>
+    <h3>Úrovně cache v CPU</h3>
+    <table class="tbl">
+      <tr><th>Úroveň</th><th>Velikost</th><th>Rychlost</th><th>Umístění</th><th>Sdílení</th></tr>
+      <tr><td><strong>L1</strong></td><td>32–128 KB</td><td>~1–4 cykly</td><td>Na čipu, uvnitř jádra</td><td>Per-core; oddělená pro data (L1d) a instrukce (L1i)</td></tr>
+      <tr><td><strong>L2</strong></td><td>256 KB – 2 MB</td><td>~10–20 cyklů</td><td>Na čipu, uvnitř jádra</td><td>Per-core</td></tr>
+      <tr><td><strong>L3</strong></td><td>4–64 MB</td><td>~30–50 cyklů</td><td>Na čipu, mimo jádra</td><td>Sdílená všemi jádry</td></tr>
+    </table>
+    <h3>Politiky zápisu</h3>
+    <div class="grid2" style="margin-top:0.4rem">
+      <div class="card"><strong>Write-through</strong>Data zapsána současně do cache i do RAM · konzistentní stav · pomalejší</div>
+      <div class="card"><strong>Write-back</strong>Data zapsána nejprve jen do cache, do RAM až při uvolnění bloku · rychlejší · riziko ztráty při výpadku</div>
+    </div>
+    <h3>Cache mimo CPU</h3>
+    <ul style="margin-top:0.4rem">
+      <li><span class="kw">Disk cache / Buffer</span> – RAM buffer pevného disku (8–256 MB); dočasně ukládá čtená/zapisovaná data</li>
+      <li><span class="kw">TLB (Translation Lookaside Buffer)</span> – speciální cache pro překlad virtuálních adres na fyzické</li>
+    </ul>
+  </div>
+
+  <!-- 6 PAMĚŤOVÁ MÉDIA -->
+  <div class="section" data-sec="6">
+    <h2><span class="num">6</span> Paměťová média – rozdělení, vlastnosti, příklady<button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button></h2>
+    <h3>Podle principu záznamu</h3>
+    <div class="grid2" style="margin-top:0.4rem">
+      <div class="cc-purple"><strong>Magnetická média</strong><p>Princip: magnetizace ferromagnetického povrchu</p><p style="margin-top:0.4rem"><span class="kw">Příklady:</span> HDD · magnetické pásky LTO · diskety (historicky)</p><p style="margin-top:0.3rem"><span class="kw">+</span> Vysoká kapacita, nízká cena/GB<br><span class="kw">−</span> Citlivá na magnetické pole, pohyblivé části</p></div>
+      <div class="cc-amber"><strong>Flash paměti (elektronická)</strong><p>Princip: NAND flash buňky, elektrický náboj</p><p style="margin-top:0.4rem"><span class="kw">Příklady:</span> SSD · USB flash disk · SD/microSD karta · eMMC · UFS</p><p style="margin-top:0.3rem"><span class="kw">+</span> Rychlá, tichá, odolná<br><span class="kw">−</span> Omezený počet zápisů</p></div>
+      <div class="cc-blue"><strong>Optická média</strong><p>Princip: laser čte/zapisuje do reflexní vrstvy (změna fáze nebo barviva)</p><p style="margin-top:0.4rem"><span class="kw">CD</span> 700 MB · <span class="kw">DVD</span> 4,7 GB (DL: 8,5 GB) · <span class="kw">Blu-ray</span> 25–100 GB</p><p style="margin-top:0.3rem">Typy: ROM (jen čtení) · -R (jednorázový zápis) · -RW (přepisovatelný)</p></div>
+      <div class="cc-teal"><strong>Polovodičová paměť (RAM – volatilní)</strong><p>Princip: DRAM kondenzátory nebo SRAM klopné obvody</p><p style="margin-top:0.4rem">Viz sekce 3 – slouží jako operační paměť, ne jako trvalé úložiště</p></div>
+    </div>
+    <h3>Podle přístupu k datům</h3>
+    <div class="grid2" style="margin-top:0.4rem">
+      <div class="card"><strong>Sekvenční přístup</strong>Data čtena v pořadí – nelze skočit přímo na libovolnou pozici<br><em style="font-size:12px">Příklad: magnetické pásky (LTO)</em></div>
+      <div class="card"><strong>Přímý (náhodný) přístup</strong>Přímý skok na libovolnou adresu bez průchodu předchozími daty<br><em style="font-size:12px">Příklady: RAM, SSD, HDD</em></div>
+    </div>
+    <h3>Podle volatility</h3>
+    <div class="grid2" style="margin-top:0.4rem">
+      <div class="cc-coral"><strong>Volatilní</strong>Data se ztrácejí po odpojení napájení → RAM (DRAM, SRAM)</div>
+      <div class="cc-teal"><strong>Nevolatilní</strong>Data přetrvávají bez napájení → Flash, HDD, optická média, ROM</div>
+    </div>
+    <h3>Přehledová tabulka médií</h3>
+    <table class="tbl">
+      <tr><th>Médium</th><th>Kapacita</th><th>Rychlost</th><th>Trvanlivost</th><th>Použití</th></tr>
+      <tr><td><strong>RAM (DDR5)</strong></td><td>8–256 GB</td><td>~50 GB/s</td><td>Volatilní</td><td>Operační paměť</td></tr>
+      <tr><td><strong>NVMe SSD</strong></td><td>256 GB – 8 TB</td><td>3–7 GB/s</td><td>5–10 let</td><td>OS, aplikace</td></tr>
+      <tr><td><strong>SATA SSD</strong></td><td>120 GB – 4 TB</td><td>~550 MB/s</td><td>5–10 let</td><td>Sekundární úložiště</td></tr>
+      <tr><td><strong>HDD</strong></td><td>500 GB – 20 TB</td><td>80–200 MB/s</td><td>3–5 let (mech.)</td><td>Archivace, NAS</td></tr>
+      <tr><td><strong>USB flash disk</strong></td><td>4 GB – 2 TB</td><td>20–400 MB/s</td><td>10+ let</td><td>Přenos dat</td></tr>
+      <tr><td><strong>SD karta</strong></td><td>2 GB – 1 TB</td><td>10–300 MB/s</td><td>10+ let</td><td>Fotoaparáty, IoT</td></tr>
+      <tr><td><strong>Blu-ray</strong></td><td>25–100 GB</td><td>4–72 MB/s</td><td>50–100 let</td><td>Archivace, distribuce</td></tr>
+      <tr><td><strong>LTO páska</strong></td><td>6–18 TB</td><td>300–750 MB/s</td><td>30 let</td><td>Enterprise zálohy</td></tr>
+    </table>
+  </div>
+
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:1.5rem;padding-bottom:1rem">
+    ITE 4.B &nbsp;·&nbsp; IT Maturita 2026 &nbsp;·&nbsp; Hardware počítače
+  </p>
+
+</div>
+<script>
+// ── Auto-derive ID from meta tags & self-register ────────────────────────
+const _subj  = (document.querySelector('meta[name="mat-subject"]') || {}).content || 'eko';
+const _num   = (document.querySelector('meta[name="mat-num"]')     || {}).content || '1';
+const _title = (document.querySelector('meta[name="mat-title"]')   || {}).content || document.title;
+const NOTE_ID = `${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`, JSON.stringify({ title:_title, subject:_subj, num:parseInt(_num) }));
+
+function applyDark() {
+  const on = localStorage.getItem('mat-dark') === '1';
+  document.body.classList.toggle('dark', on);
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = on ? '☀ Světlý' : '🌙 Tmavý';
+}
+function toggleDark() {
+  const on = document.body.classList.toggle('dark');
+  localStorage.setItem('mat-dark', on ? '1' : '0');
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = on ? '☀ Světlý' : '🌙 Tmavý';
+}
+window.addEventListener('storage', e => { if (e.key === 'mat-dark') applyDark(); });
+
+function secKey(n) { return `mat-sec::${NOTE_ID}::${n}`; }
+function toggleSec(btn) {
+  const section = btn.closest('.section');
+  const sec = section.dataset.sec;
+  if (localStorage.getItem(secKey(sec))) {
+    localStorage.removeItem(secKey(sec));
+    section.classList.remove('flagged');
+    btn.classList.remove('on'); btn.textContent = '⚑ Označit';
+  } else {
+    localStorage.setItem(secKey(sec), '1');
+    section.classList.add('flagged');
+    btn.classList.add('on'); btn.textContent = '⚑ Označeno';
+  }
+  updateSummary();
+}
+function loadFlags() {
+  document.querySelectorAll('.section[data-sec]').forEach(section => {
+    if (localStorage.getItem(secKey(section.dataset.sec))) {
+      section.classList.add('flagged');
+      const btn = section.querySelector('.sec-flag');
+      if (btn) { btn.classList.add('on'); btn.textContent = '⚑ Označeno'; }
+    }
+  });
+  updateSummary();
+}
+function updateSummary() {
+  const n = document.querySelectorAll('.section.flagged').length;
+  const el = document.getElementById('flagSummary');
+  if (el) { el.textContent = n > 0 ? `${n} problematické sekce` : ''; el.classList.toggle('visible', n > 0); }
+}
+
+applyDark();
+loadFlags();
+</script>
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maturita 2026 – Zápisky</title>
+<style>
+:root {
+  --teal-light:#E1F5EE; --teal-dark:#085041;
+  --blue-light:#E6F1FB; --blue-dark:#0C447C;
+  --amber-light:#FAEEDA; --amber-dark:#633806;
+  --coral-light:#FAECE7; --coral-dark:#4A1B0C;
+
+  --bg:#F8F7F5; --bg-panel:#ffffff; --bg-sidebar:#ffffff;
+  --border:#E0DED8; --border-strong:#C8C6C0;
+  --text:#1a1a18; --text-muted:#5a5955; --text-faint:#9a9895;
+
+  --eko-light:#E6F1FB; --eko-dark:#0C447C; --eko-border:#B5D4F4;
+  --it-light:#E1F5EE;  --it-dark:#085041;  --it-border:#9FE1CB;
+  --lit-light:#FAEEDA; --lit-dark:#633806; --lit-border:#FAC775;
+
+  --flag-bg:#FAEEDA; --flag-color:#633806; --flag-border:#FAC775;
+
+  --radius:10px; --radius-sm:5px;
+  --sidebar:280px;
+}
+
+body.dark {
+  --bg:#111110; --bg-panel:#1C1C1A; --bg-sidebar:#161614;
+  --border:#2E2D2A; --border-strong:#3E3D3A;
+  --text:#F0EFEB; --text-muted:#A8A49E; --text-faint:#6A6762;
+
+  --teal-light:#0D2E24; --teal-dark:#5ECBA8;
+  --blue-light:#0D1F33; --blue-dark:#7BB8F0;
+  --amber-light:#2A1E0A; --amber-dark:#F5C06A;
+  --coral-light:#2A1208; --coral-dark:#F5A08A;
+
+  --eko-light:#0D1F33; --eko-dark:#7BB8F0; --eko-border:#1E3A5A;
+  --it-light:#0D2E24;  --it-dark:#5ECBA8;  --it-border:#1A4535;
+  --lit-light:#2A1E0A; --lit-dark:#F5C06A; --lit-border:#3D2C0F;
+
+  --flag-bg:#2A1E0A; --flag-color:#F5C06A; --flag-border:#3D2C0F;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  font-size:14px; background:var(--bg); color:var(--text);
+  height:100vh; display:flex; flex-direction:column; overflow:hidden;
+}
+
+/* ── TOP BAR ─────────────────────────────────── */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 1.25rem; height:52px;
+  background:var(--bg-panel); border-bottom:0.5px solid var(--border);
+  flex-shrink:0; gap:1rem;
+}
+.topbar-brand{display:flex;align-items:center;gap:10px;}
+.topbar-title{font-size:15px;font-weight:700;color:var(--text);}
+.topbar-sub{font-size:12px;color:var(--text-muted);}
+.topbar-right{display:flex;align-items:center;gap:6px;}
+
+.search-wrap{position:relative;}
+.search-wrap input{
+  background:var(--bg); border:0.5px solid var(--border); border-radius:20px;
+  padding:6px 12px 6px 30px; font-size:13px; color:var(--text); width:200px;
+  outline:none; transition:border-color 0.15s;
+}
+.search-wrap input::placeholder{color:var(--text-faint);}
+.search-wrap input:focus{border-color:var(--border-strong);}
+.search-icon{
+  position:absolute; left:10px; top:50%; transform:translateY(-50%);
+  color:var(--text-faint); font-size:13px; pointer-events:none; line-height:1;
+}
+
+.btn{
+  background:var(--bg); border:0.5px solid var(--border); border-radius:var(--radius-sm);
+  padding:6px 11px; font-size:12px; font-weight:500; color:var(--text-muted);
+  cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:5px;
+  white-space:nowrap;
+}
+.btn:hover{background:var(--border);color:var(--text);}
+
+/* ── LAYOUT ──────────────────────────────────── */
+.main{display:flex;flex:1;overflow:hidden;}
+
+/* ── SIDEBAR ─────────────────────────────────── */
+.sidebar{
+  width:var(--sidebar); background:var(--bg-sidebar);
+  border-right:0.5px solid var(--border);
+  display:flex; flex-direction:column; flex-shrink:0; overflow:hidden;
+}
+
+.subject-tabs{
+  display:flex; border-bottom:0.5px solid var(--border); flex-shrink:0;
+}
+.s-tab{
+  flex:1; padding:11px 4px; text-align:center;
+  font-size:11px; font-weight:700; letter-spacing:0.05em;
+  cursor:pointer; color:var(--text-faint);
+  border-bottom:2px solid transparent; transition:color 0.15s; user-select:none;
+}
+.s-tab:hover{color:var(--text-muted);}
+.s-tab.on-eko{color:var(--eko-dark);border-bottom-color:var(--eko-dark);}
+.s-tab.on-it {color:var(--it-dark); border-bottom-color:var(--it-dark);}
+.s-tab.on-lit{color:var(--lit-dark);border-bottom-color:var(--lit-dark);}
+
+.prog-wrap{
+  padding:9px 12px 8px; border-bottom:0.5px solid var(--border); flex-shrink:0;
+}
+.prog-label{
+  display:flex; justify-content:space-between;
+  font-size:10px; color:var(--text-faint);
+  text-transform:uppercase; letter-spacing:0.05em; margin-bottom:5px;
+}
+.prog-bar{height:3px;background:var(--border);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:3px;transition:width 0.3s;}
+.fill-eko{background:var(--eko-dark);}
+.fill-it {background:var(--it-dark);}
+.fill-lit{background:var(--lit-dark);}
+
+.q-list{flex:1;overflow-y:auto;padding:6px;}
+.q-list::-webkit-scrollbar{width:3px;}
+.q-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+.q-item{
+  display:flex; align-items:center; gap:8px;
+  padding:8px 9px; border-radius:var(--radius-sm);
+  cursor:pointer; border:0.5px solid transparent;
+  transition:background 0.1s; margin-bottom:2px; user-select:none;
+}
+.q-item:hover{background:var(--bg);}
+.q-item.active{background:var(--bg);border-color:var(--border);}
+.q-item.active.s-eko{background:var(--eko-light);border-color:var(--eko-border);}
+.q-item.active.s-it {background:var(--it-light); border-color:var(--it-border);}
+.q-item.active.s-lit{background:var(--lit-light);border-color:var(--lit-border);}
+
+.q-num{
+  font-size:11px; font-weight:700; padding:2px 6px; border-radius:4px;
+  flex-shrink:0; background:var(--bg); border:0.5px solid var(--border);
+  color:var(--text-faint); min-width:28px; text-align:center;
+}
+.q-item.active.s-eko .q-num{background:var(--eko-light);border-color:var(--eko-border);color:var(--eko-dark);}
+.q-item.active.s-it  .q-num{background:var(--it-light); border-color:var(--it-border); color:var(--it-dark);}
+.q-item.active.s-lit .q-num{background:var(--lit-light);border-color:var(--lit-border);color:var(--lit-dark);}
+
+.q-title{font-size:12.5px;color:var(--text);flex:1;line-height:1.3;}
+.q-missing{color:var(--text-faint);font-style:italic;}
+
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.dot-flag{background:#EF9F27;}
+.dot-ok  {background:#52A84A;}
+.dot-none{background:var(--border);}
+
+.sidebar-footer{
+  padding:9px 12px; border-top:0.5px solid var(--border);
+  display:flex; gap:0; flex-shrink:0;
+}
+.stat{text-align:center;flex:1;}
+.stat-n{font-size:18px;font-weight:700;color:var(--text);}
+.stat-l{font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.05em;}
+
+/* ── CONTENT ─────────────────────────────────── */
+.content{flex:1;overflow:hidden;display:flex;flex-direction:column;}
+
+.c-header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:9px 1.25rem; background:var(--bg-panel);
+  border-bottom:0.5px solid var(--border); flex-shrink:0; gap:1rem;
+}
+.c-header-left{display:flex;align-items:center;gap:10px;}
+.c-header-right{display:flex;align-items:center;gap:6px;}
+.c-title{font-size:14px;font-weight:600;color:var(--text);}
+.c-meta{font-size:12px;color:var(--text-muted);margin-top:1px;}
+
+.badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:0.03em;}
+.b-eko{background:var(--eko-light);color:var(--eko-dark);}
+.b-it {background:var(--it-light); color:var(--it-dark);}
+.b-lit{background:var(--lit-light);color:var(--lit-dark);}
+
+.btn-flag{
+  display:flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:600;padding:5px 11px;border-radius:20px;
+  cursor:pointer;border:0.5px solid var(--border);
+  background:var(--bg);color:var(--text-muted);transition:all 0.15s;
+}
+.btn-flag:hover,.btn-flag.on{
+  background:var(--flag-bg);color:var(--flag-color);border-color:var(--flag-border);
+}
+.btn-flag.on:hover{opacity:0.7;}
+
+.note-frame{flex:1;border:none;width:100%;background:#F8F7F5;}
+
+.empty{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  color:var(--text-faint);gap:10px;padding:2rem;text-align:center;
+}
+.empty-icon{font-size:38px;}
+.empty h2{font-size:15px;color:var(--text-muted);font-weight:500;}
+.empty p{font-size:13px;}
+</style>
+<script src="./manifest.js"></script>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="topbar-title">Maturita 2026</div>
+    <div class="topbar-sub">ITE 4.B</div>
+  </div>
+  <div class="topbar-right">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Hledat otázku…" oninput="renderList(this.value)">
+    </div>
+    <a href="practice.html" class="btn" style="text-decoration:none">✏ Procvičování</a>
+    <button class="btn" onclick="toggleDark()" id="darkBtn">🌙 Tmavý</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="subject-tabs">
+      <div class="s-tab on-eko" id="tab-eko" onclick="switchSubject('eko')">EKO</div>
+      <div class="s-tab"       id="tab-it"  onclick="switchSubject('it')">IT</div>
+      <div class="s-tab"       id="tab-lit" onclick="switchSubject('lit')">LIT</div>
+    </div>
+    <div class="prog-wrap" id="progWrap"></div>
+    <div class="q-list" id="qList"></div>
+    <div class="sidebar-footer" id="footer"></div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <div class="c-header" id="cHeader" style="display:none">
+      <div class="c-header-left">
+        <span class="badge" id="cBadge"></span>
+        <div>
+          <div class="c-title" id="cTitle"></div>
+          <div class="c-meta"  id="cMeta"></div>
+        </div>
+      </div>
+      <div class="c-header-right">
+        <button class="btn-flag" id="flagBtn" onclick="toggleFlag()">⚑ Označit problematické</button>
+        <button class="btn" onclick="openTab()">↗ Otevřít</button>
+      </div>
+    </div>
+    <div class="empty" id="emptyState">
+      <div class="empty-icon">📖</div>
+      <h2>Vyber otázku</h2>
+      <p>Klikni na otázku v levém panelu.</p>
+    </div>
+    <iframe class="note-frame" id="noteFrame" style="display:none"></iframe>
+  </div>
+
+</div>
+
+<script>
+// ── SUBJECTS ──────────────────────────────────────────────────────────────
+const SUBJ = {
+  eko:{ label:'Ekonomika',              short:'EKO', total:20 },
+  it: { label:'Informační technologie', short:'IT',  total:20 },
+  lit:{ label:'Literatura',             short:'LIT', total:20 },
+};
+
+// ── NOTES (dynamic — driven by manifest.js in the Helper root) ────────────
+// To add a note: drop its HTML file into notes/EKO|IT|LIT/ and add the
+// filename to manifest.js. That's it — no server needed.
+let NOTES = [];
+
+function loadNotes() {
+  const manifest = window.MAT_MANIFEST || {};
+  const result   = [];
+  for (const s of Object.keys(SUBJ)) {
+    const files = manifest[s] || [];
+    files.forEach(file => {
+      const numMatch = file.match(/^(\d+)/);
+      const num  = numMatch ? parseInt(numMatch[1]) : 99;
+      const id   = `${s}-${String(num).padStart(2,'0')}`;
+      const path = `./notes/${s.toUpperCase()}/${file}`;
+
+      // Title: prefer cached self-registration, fall back to filename parsing
+      let title = null;
+      try {
+        const cached = localStorage.getItem(`mat-reg::${id}`);
+        if (cached) title = JSON.parse(cached).title;
+      } catch(e) {}
+      if (!title) title = file.replace(/^\d+_/, '').replace(/\.html$/, '').replace(/_/g,' ');
+
+      result.push({ id, s, n:num, title, path });
+    });
+  }
+  return result;
+}
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+let curSubj = 'eko';
+let curId   = null;
+let flagged = JSON.parse(localStorage.getItem('mat-flagged') || '{}');
+let dark    = localStorage.getItem('mat-dark') === '1';
+
+// ── BOOT ──────────────────────────────────────────────────────────────────
+if (dark) document.body.classList.add('dark');
+updateDarkBtn();
+NOTES = loadNotes();
+switchSubject('eko');
+
+// ── SUBJECT SWITCH ────────────────────────────────────────────────────────
+function switchSubject(s) {
+  curSubj = s;
+  ['eko','it','lit'].forEach(x => {
+    const t = document.getElementById('tab-'+x);
+    t.className = 's-tab' + (x === s ? ' on-'+x : '');
+  });
+  renderList('');
+  document.getElementById('searchInput').value = '';
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────
+function hasSectionFlags(noteId) {
+  for (let i = 0; i < localStorage.length; i++) {
+    if (localStorage.key(i).startsWith(`mat-sec::${noteId}::`)) return true;
+  }
+  return false;
+}
+
+function countSectionFlags(noteId) {
+  let n = 0;
+  for (let i = 0; i < localStorage.length; i++) {
+    if (localStorage.key(i).startsWith(`mat-sec::${noteId}::`)) n++;
+  }
+  return n;
+}
+
+// ── RENDER LIST ───────────────────────────────────────────────────────────
+function renderList(filter) {
+  const q    = (filter||'').toLowerCase();
+  const list = NOTES.filter(n => n.s === curSubj);
+  const subj = SUBJ[curSubj];
+
+  let html = '', flagCount = 0;
+
+  list.forEach(n => {
+    const flag = !!flagged[n.id];
+    if (flag) flagCount++;
+
+    if (q && !n.title.toLowerCase().includes(q)) return;
+
+    const secFlagged = hasSectionFlags(n.id);
+    const dot = (flag || secFlagged) ? 'dot-flag' : 'dot-ok';
+    const act = n.id === curId ? ` active s-${curSubj}` : '';
+
+    html += `<div class="q-item${act}" id="qi-${n.id}" onclick="openNote('${n.id}')">
+      <span class="q-num">${String(n.n).padStart(2,'0')}</span>
+      <span class="q-title">${n.title}</span>
+      <div class="dot ${dot}"></div>
+    </div>`;
+  });
+
+  document.getElementById('qList').innerHTML = html ||
+    '<div style="padding:1rem;font-size:12px;color:var(--text-faint)">Žádné výsledky</div>';
+
+  // Progress bar — avail = notes in this subject, total from SUBJ config
+  const avail = list.length;
+  const pct   = subj.total > 0 ? Math.round(avail / subj.total * 100) : 0;
+  document.getElementById('progWrap').innerHTML =
+    `<div class="prog-label"><span>${subj.label}</span><span>${avail} / ${subj.total}</span></div>
+     <div class="prog-bar"><div class="prog-fill fill-${curSubj}" style="width:${pct}%"></div></div>`;
+
+  // Footer stats
+  document.getElementById('footer').innerHTML =
+    `<div class="stat"><div class="stat-n">${avail}</div><div class="stat-l">Hotovo</div></div>
+     <div class="stat"><div class="stat-n">${subj.total - avail}</div><div class="stat-l">Chybí</div></div>
+     <div class="stat"><div class="stat-n">${flagCount}</div><div class="stat-l">Problém</div></div>`;
+}
+
+// ── OPEN NOTE ─────────────────────────────────────────────────────────────
+function openNote(id) {
+  const note = NOTES.find(n => n.id === id);
+  if (!note || !note.path) return;
+
+  curId = id;
+  const subj = SUBJ[note.s];
+
+  // Reactivate list item
+  document.querySelectorAll('.q-item').forEach(el =>
+    el.classList.remove('active','s-eko','s-it','s-lit'));
+  const el = document.getElementById('qi-'+id);
+  if (el) el.classList.add('active', 's-'+note.s);
+
+  // Header
+  document.getElementById('cHeader').style.display = 'flex';
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('cBadge').textContent  = subj.short;
+  document.getElementById('cBadge').className    = 'badge b-'+note.s;
+  document.getElementById('cTitle').textContent  = note.title;
+  const secCount = countSectionFlags(id);
+  const secNote  = secCount > 0 ? ` · ${secCount} sekce označeny` : '';
+  document.getElementById('cMeta').textContent = `Otázka ${note.n} · ${subj.label}${secNote}`;
+  updateFlagBtn(id);
+
+  // Iframe
+  const frame = document.getElementById('noteFrame');
+  frame.style.display = 'block';
+  frame.src = note.path;
+}
+
+// ── FLAG ──────────────────────────────────────────────────────────────────
+function toggleFlag() {
+  if (!curId) return;
+  if (flagged[curId]) delete flagged[curId];
+  else flagged[curId] = true;
+  localStorage.setItem('mat-flagged', JSON.stringify(flagged));
+  updateFlagBtn(curId);
+  renderList(document.getElementById('searchInput').value);
+}
+
+function updateFlagBtn(id) {
+  const btn = document.getElementById('flagBtn');
+  if (flagged[id]) {
+    btn.className = 'btn-flag on';
+    btn.innerHTML = '⚑ Problematické';
+  } else {
+    btn.className = 'btn-flag';
+    btn.innerHTML = '⚑ Označit problematické';
+  }
+}
+
+// ── OPEN IN TAB ───────────────────────────────────────────────────────────
+function openTab() {
+  const note = NOTES.find(n => n.id === curId);
+  if (note && note.path) window.open(note.path, '_blank');
+}
+
+// ── DARK MODE ─────────────────────────────────────────────────────────────
+function toggleDark() {
+  dark = !dark;
+  document.body.classList.toggle('dark', dark);
+  localStorage.setItem('mat-dark', dark ? '1' : '0');
+  updateDarkBtn();
+}
+
+function updateDarkBtn() {
+  document.getElementById('darkBtn').innerHTML = dark ? '☀ Světlý' : '🌙 Tmavý';
+}
+</script>
+</body>
+</html>

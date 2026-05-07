@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     REQUIRED META TAGS — catalogue auto-discovery depends on these
+     ══════════════════════════════════════════════════════════════════════
+     mat-subject : lowercase subject code  →  eko | it | lit
+     mat-num     : question number (integer, no leading zeros needed)
+     mat-title   : display title shown in the catalogue sidebar & header
+     ════════════════════════════════════════════════════════════════════ -->
+<!--  After saving this file, add its filename to manifest.js in Helper/  -->
+<meta name="mat-subject" content="eko">
+<meta name="mat-num"     content="1">
+<meta name="mat-title"   content="Název otázky">
+
+<title>Název otázky – Maturita 2026</title>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     CSS — copy this block verbatim into every note.
+     The only thing you may change is the accent colour used for the
+     header gradient (see --hdr-from / --hdr-to below).
+     ════════════════════════════════════════════════════════════════════ -->
+<style>
+  /* ── Design tokens ─────────────────────────────────────────────── */
+  :root {
+    --teal-light: #E1F5EE; --teal-dark: #085041;
+    --blue-light: #E6F1FB; --blue-dark: #0C447C;
+    --amber-light: #FAEEDA; --amber-dark: #633806;
+    --coral-light: #FAECE7; --coral-dark: #4A1B0C;
+    --green-light: #EAF3DE; --green-dark: #27500A;
+    --gray-bg: #F8F7F5; --gray-border: #E0DED8;
+    --text: #1a1a18; --text-muted: #5a5955; --text-faint: #9a9895;
+    --white: #ffffff;
+    --radius: 10px; --radius-sm: 5px;
+    --flag-accent: #EF9F27;
+    --flag-light: #FAEEDA; --flag-dark: #633806; --flag-border: #FAC775;
+
+    /* Header gradient — pick from the colour pairs above.
+       EKO → blue,  IT → teal,  LIT → amber  (just swap the vars) */
+    --hdr-from: var(--blue-light);
+    --hdr-to:   var(--teal-light);
+    --hdr-accent: var(--blue-dark);
+  }
+
+  /* ── Dark-mode overrides ─────────────────────────────────────────── */
+  body.dark {
+    --teal-light:#0D2E24; --teal-dark:#5ECBA8;
+    --blue-light:#0D1F33; --blue-dark:#7BB8F0;
+    --amber-light:#2A1E0A; --amber-dark:#F5C06A;
+    --coral-light:#2A1208; --coral-dark:#F5A08A;
+    --green-light:#132208; --green-dark:#8FD058;
+    --gray-bg:#111110; --gray-border:#2E2D2A;
+    --text:#F0EFEB; --text-muted:#A8A49E; --text-faint:#6A6762;
+    --white:#1C1C1A;
+    --flag-light:#2A1E0A; --flag-dark:#F5C06A; --flag-border:#3D2C0F;
+  }
+
+  /* ── Reset & base ────────────────────────────────────────────────── */
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    font-size:14px;background:var(--gray-bg);color:var(--text);line-height:1.6;
+    min-height:100vh;}
+
+  /* ── Header ──────────────────────────────────────────────────────── */
+  .note-header{
+    background:linear-gradient(135deg,var(--hdr-from) 0%,var(--hdr-to) 100%);
+    border-bottom:1px solid var(--gray-border);
+    padding:1rem 1.5rem;
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    flex-wrap:wrap;
+  }
+  .header-left{display:flex;align-items:center;gap:.75rem;flex:1;min-width:0;}
+  .header-right{display:flex;align-items:center;gap:.5rem;flex-shrink:0;}
+  .note-title{font-size:1.1rem;font-weight:700;color:var(--hdr-accent);}
+  .badge{
+    display:inline-flex;align-items:center;padding:2px 10px;border-radius:20px;
+    font-size:11px;font-weight:700;letter-spacing:.04em;
+    background:var(--blue-light);color:var(--blue-dark);border:1px solid #B5D4F4;
+  }
+  /* Badge colour variants (optional, use the one matching your subject) */
+  .badge.b-eko{background:var(--blue-light);color:var(--blue-dark);border-color:#B5D4F4;}
+  .badge.b-it {background:var(--teal-light);color:var(--teal-dark);border-color:#9FE1CB;}
+  .badge.b-lit{background:var(--amber-light);color:var(--amber-dark);border-color:#FAC775;}
+
+  .dark-btn{
+    background:none;border:1px solid var(--gray-border);border-radius:var(--radius-sm);
+    padding:4px 12px;font-size:12px;cursor:pointer;color:var(--text-muted);
+    transition:all .15s;
+  }
+  .dark-btn:hover{background:var(--white);color:var(--text);}
+
+  .flag-summary{
+    display:none;font-size:11px;font-weight:600;
+    color:var(--flag-dark);background:var(--flag-light);
+    border:1px solid var(--flag-border);border-radius:var(--radius-sm);
+    padding:2px 8px;
+  }
+  .flag-summary.visible{display:inline-block;}
+
+  /* ── Main content wrapper ─────────────────────────────────────────── */
+  .content{max-width:860px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
+
+  /* ── Section card ────────────────────────────────────────────────── */
+  .section{
+    background:var(--white);border:1px solid var(--gray-border);
+    border-radius:var(--radius);padding:1.25rem 1.5rem;margin-bottom:1rem;
+    position:relative;transition:border-color .2s,box-shadow .2s;
+  }
+  .section.flagged{
+    border-color:var(--flag-border);
+    box-shadow:inset 3px 0 0 var(--flag-accent);
+  }
+  .section h2{
+    font-size:.9rem;font-weight:700;color:var(--hdr-accent);
+    display:flex;align-items:center;gap:.5rem;
+    margin-bottom:.75rem;padding-bottom:.5rem;
+    border-bottom:1px solid var(--gray-border);
+  }
+  /* Section flag button — sits on the right of the h2 */
+  .sec-flag{
+    margin-left:auto;flex-shrink:0;background:none;
+    border:.5px solid var(--gray-border);border-radius:var(--radius-sm);
+    padding:2px 9px;font-size:11px;font-weight:600;
+    color:var(--text-muted);cursor:pointer;
+    transition:all .15s;display:flex;align-items:center;gap:4px;
+  }
+  .sec-flag:hover,.sec-flag.on{
+    background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);
+  }
+
+  /* ── Typography helpers ──────────────────────────────────────────── */
+  p{margin-bottom:.6rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.6rem;}
+  li{margin-bottom:.2rem;}
+  strong{font-weight:700;}
+  em{font-style:italic;}
+
+  /* Coloured callout boxes — use any of: box-teal, box-blue, box-amber, box-coral, box-green */
+  .box-teal  {background:var(--teal-light);border-left:3px solid var(--teal-dark);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+  .box-blue  {background:var(--blue-light); border-left:3px solid var(--blue-dark); border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+  .box-amber {background:var(--amber-light);border-left:3px solid var(--amber-dark);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+  .box-coral {background:var(--coral-light);border-left:3px solid var(--coral-dark);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+  .box-green {background:var(--green-light);border-left:3px solid var(--green-dark);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+
+  /* Pill / tag chips */
+  .chip{
+    display:inline-block;border-radius:20px;padding:1px 10px;
+    font-size:11px;font-weight:600;margin:1px 2px;
+  }
+  .chip-teal {background:var(--teal-light); color:var(--teal-dark);}
+  .chip-blue {background:var(--blue-light); color:var(--blue-dark);}
+  .chip-amber{background:var(--amber-light);color:var(--amber-dark);}
+  .chip-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .chip-green{background:var(--green-light);color:var(--green-dark);}
+
+  /* Inline code / monospace */
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:12px;background:var(--gray-bg);border:1px solid var(--gray-border);
+    border-radius:3px;padding:1px 5px;}
+
+  /* Simple table */
+  .tbl{width:100%;border-collapse:collapse;margin-bottom:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:700;padding:5px 8px;
+    border:1px solid var(--gray-border);text-align:left;}
+  .tbl td{padding:5px 8px;border:1px solid var(--gray-border);}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+
+  /* Page footer */
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);
+    margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     HEADER — adjust badge class (b-eko | b-it | b-lit) and question number
+     ════════════════════════════════════════════════════════════════════ -->
+<div class="note-header">
+  <div class="header-left">
+    <div>
+      <div class="note-title">Název otázky</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="badge b-eko">Otázka 1 / 20</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     CONTENT
+     Each section needs:
+       • class="section"
+       • data-sec="N"   ← unique integer per section, starting from 1
+     The h2 must contain the .sec-flag button as last child.
+     ════════════════════════════════════════════════════════════════════ -->
+<div class="content">
+
+  <!-- ── Section 1 ─────────────────────────────────────────────────── -->
+  <div class="section" data-sec="1">
+    <h2>Název sekce
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <p>Obsah sekce...</p>
+
+    <!-- Coloured callout box example -->
+    <div class="box-blue">
+      <strong>Klíčový pojem:</strong> popis pojmu.
+    </div>
+
+    <!-- Bullet list example -->
+    <ul>
+      <li>Bod 1</li>
+      <li>Bod 2</li>
+    </ul>
+
+  </div><!-- /.section -->
+
+  <!-- ── Section 2 ─────────────────────────────────────────────────── -->
+  <div class="section" data-sec="2">
+    <h2>Druhá sekce
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <p>Obsah sekce...</p>
+
+    <!-- Table example -->
+    <table class="tbl">
+      <tr><th>Sloupec A</th><th>Sloupec B</th></tr>
+      <tr><td>Hodnota 1</td><td>Hodnota 2</td></tr>
+      <tr><td>Hodnota 3</td><td>Hodnota 4</td></tr>
+    </table>
+
+  </div><!-- /.section -->
+
+  <!-- Add more sections following the same pattern above… -->
+
+  <div class="note-footer">ITE 4.B · Maturita 2026</div>
+
+</div><!-- /.content -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     JAVASCRIPT — copy this block verbatim. Do NOT touch it.
+     Everything is derived automatically from the meta tags above.
+     ════════════════════════════════════════════════════════════════════ -->
+<script>
+// ── Auto-derive ID from meta tags & self-register ────────────────────────
+const _subj  = (document.querySelector('meta[name="mat-subject"]') || {}).content || 'eko';
+const _num   = (document.querySelector('meta[name="mat-num"]')     || {}).content || '1';
+const _title = (document.querySelector('meta[name="mat-title"]')   || {}).content || document.title;
+const NOTE_ID = `${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`, JSON.stringify({ title:_title, subject:_subj, num:parseInt(_num) }));
+
+// ── Dark mode ─────────────────────────────────────────────────────────────
+function applyDark() {
+  const on = localStorage.getItem('mat-dark') === '1';
+  document.body.classList.toggle('dark', on);
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = on ? '☀ Světlý' : '🌙 Tmavý';
+}
+function toggleDark() {
+  const on = document.body.classList.toggle('dark');
+  localStorage.setItem('mat-dark', on ? '1' : '0');
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = on ? '☀ Světlý' : '🌙 Tmavý';
+}
+window.addEventListener('storage', e => { if (e.key === 'mat-dark') applyDark(); });
+
+// ── Section flagging ──────────────────────────────────────────────────────
+function secKey(n) { return `mat-sec::${NOTE_ID}::${n}`; }
+
+function toggleSec(btn) {
+  const section = btn.closest('.section');
+  const sec = section.dataset.sec;
+  if (localStorage.getItem(secKey(sec))) {
+    localStorage.removeItem(secKey(sec));
+    section.classList.remove('flagged');
+    btn.classList.remove('on');
+    btn.textContent = '⚑ Označit';
+  } else {
+    localStorage.setItem(secKey(sec), '1');
+    section.classList.add('flagged');
+    btn.classList.add('on');
+    btn.textContent = '⚑ Označeno';
+  }
+  updateSummary();
+}
+
+function loadFlags() {
+  document.querySelectorAll('.section[data-sec]').forEach(section => {
+    if (localStorage.getItem(secKey(section.dataset.sec))) {
+      section.classList.add('flagged');
+      const btn = section.querySelector('.sec-flag');
+      if (btn) { btn.classList.add('on'); btn.textContent = '⚑ Označeno'; }
+    }
+  });
+  updateSummary();
+}
+
+function updateSummary() {
+  const n = document.querySelectorAll('.section.flagged').length;
+  const el = document.getElementById('flagSummary');
+  if (el) {
+    el.textContent = n > 0 ? `${n} problematické sekce` : '';
+    el.classList.toggle('visible', n > 0);
+  }
+}
+
+applyDark();
+loadFlags();
+</script>
+</body>
+</html>

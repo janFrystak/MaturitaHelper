@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="mat-subject" content="eko">
+<meta name="mat-num"     content="3">
+<meta name="mat-title"   content="Podnik">
+
+<title>Podnik – Maturita 2026</title>
+
+<style>
+  :root {
+    --teal-light: #E1F5EE; --teal-dark: #085041;
+    --blue-light: #E6F1FB; --blue-dark: #0C447C;
+    --amber-light: #FAEEDA; --amber-dark: #633806;
+    --coral-light: #FAECE7; --coral-dark: #4A1B0C;
+    --green-light: #EAF3DE; --green-dark: #27500A;
+    --gray-bg: #F8F7F5; --gray-border: #E0DED8;
+    --text: #1a1a18; --text-muted: #5a5955; --text-faint: #9a9895;
+    --white: #ffffff;
+    --radius: 10px; --radius-sm: 5px;
+    --flag-accent: #EF9F27;
+    --flag-light: #FAEEDA; --flag-dark: #633806; --flag-border: #FAC775;
+
+    --hdr-from: var(--blue-light);
+    --hdr-to:   var(--teal-light);
+    --hdr-accent: var(--blue-dark);
+  }
+
+  body.dark {
+    --teal-light:#0D2E24; --teal-dark:#5ECBA8;
+    --blue-light:#0D1F33; --blue-dark:#7BB8F0;
+    --amber-light:#2A1E0A; --amber-dark:#F5C06A;
+    --coral-light:#2A1208; --coral-dark:#F5A08A;
+    --green-light:#132208; --green-dark:#8FD058;
+    --gray-bg:#111110; --gray-border:#2E2D2A;
+    --text:#F0EFEB; --text-muted:#A8A49E; --text-faint:#6A6762;
+    --white:#1C1C1A;
+    --flag-light:#2A1E0A; --flag-dark:#F5C06A; --flag-border:#3D2C0F;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    font-size:14px;background:var(--gray-bg);color:var(--text);line-height:1.65;
+    min-height:100vh;}
+
+  .note-header{
+    background:var(--white);
+    border:0.5px solid var(--gray-border);
+    border-radius:var(--radius);
+    padding:1.75rem 2rem;
+    margin-bottom:1.5rem;
+    display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+    flex-wrap:wrap;
+  }
+  .header-left{display:flex;align-items:flex-start;gap:.75rem;flex:1;min-width:0;}
+  .header-right{display:flex;align-items:center;gap:.5rem;flex-shrink:0;flex-wrap:wrap;}
+  .note-title{font-size:26px;font-weight:600;color:var(--text);margin-bottom:4px;}
+  .note-sub{font-size:13px;color:var(--text-muted);}
+  .badge{
+    display:inline-flex;align-items:center;padding:2px 10px;border-radius:20px;
+    font-size:11px;font-weight:700;letter-spacing:.04em;
+    background:var(--blue-light);color:var(--blue-dark);border:0.5px solid #B5D4F4;
+  }
+  .badge.b-eko{background:var(--blue-light);color:var(--blue-dark);border-color:#B5D4F4;}
+  .badge.b-it {background:var(--teal-light);color:var(--teal-dark);border-color:#9FE1CB;}
+  .badge.b-lit{background:var(--amber-light);color:var(--amber-dark);border-color:#FAC775;}
+
+  .dark-btn{
+    background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);
+    padding:4px 12px;font-size:12px;cursor:pointer;color:var(--text-muted);
+    transition:all .15s;
+  }
+  .dark-btn:hover{background:var(--white);color:var(--text);}
+
+  .flag-summary{
+    display:none;font-size:11px;font-weight:600;
+    color:var(--flag-dark);background:var(--flag-light);
+    border:0.5px solid var(--flag-border);border-radius:var(--radius-sm);
+    padding:2px 8px;
+  }
+  .flag-summary.visible{display:inline-block;}
+
+  .content{max-width:860px;margin:0 auto;padding:2.5rem 1.5rem 3rem;}
+
+  .section{
+    background:var(--white);border:0.5px solid var(--gray-border);
+    border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;
+    position:relative;transition:border-color .2s,box-shadow .2s;
+  }
+  .section.flagged{
+    border-color:var(--flag-border);
+    box-shadow:inset 3px 0 0 var(--flag-accent);
+  }
+  .section h2{
+    font-size:16px;font-weight:600;color:var(--text);
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:1rem;padding-bottom:0.6rem;
+    border-bottom:0.5px solid var(--gray-border);
+  }
+  .sec-flag{
+    margin-left:auto;flex-shrink:0;background:none;
+    border:.5px solid var(--gray-border);border-radius:var(--radius-sm);
+    padding:2px 9px;font-size:11px;font-weight:600;
+    color:var(--text-muted);cursor:pointer;
+    transition:all .15s;display:flex;align-items:center;gap:4px;
+  }
+  .sec-flag:hover,.sec-flag.on{
+    background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);
+  }
+
+  p{margin-bottom:.6rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.6rem;}
+  li{margin-bottom:4px;}
+  strong{font-weight:700;}
+  em{font-style:italic;}
+
+  .box-teal  {background:var(--teal-light);border-left:3px solid var(--teal-dark);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+  .box-blue  {background:var(--blue-light); border-left:3px solid var(--blue-dark); border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+  .box-amber {background:var(--amber-light);border-left:3px solid var(--amber-dark);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+  .box-coral {background:var(--coral-light);border-left:3px solid var(--coral-dark);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+  .box-green {background:var(--green-light);border-left:3px solid var(--green-dark);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+
+  .chip{display:inline-block;border-radius:20px;padding:1px 10px;font-size:11px;font-weight:600;margin:1px 2px;}
+  .chip-teal {background:var(--teal-light); color:var(--teal-dark);}
+  .chip-blue {background:var(--blue-light); color:var(--blue-dark);}
+  .chip-amber{background:var(--amber-light);color:var(--amber-dark);}
+  .chip-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .chip-green{background:var(--green-light);color:var(--green-dark);}
+
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:12px;background:var(--gray-bg);border:0.5px solid var(--gray-border);
+    border-radius:3px;padding:1px 5px;}
+
+  .tbl{width:100%;border-collapse:collapse;margin-bottom:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:700;padding:5px 8px;
+    border:0.5px solid var(--gray-border);text-align:left;}
+  .tbl td{padding:5px 8px;border:0.5px solid var(--gray-border);vertical-align:top;}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+
+  /* Extra layout helpers */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{display:block;font-size:13px;margin-bottom:4px;}
+  h3{font-size:13px;font-weight:700;color:var(--text);margin:1rem 0 .35rem;
+    text-transform:uppercase;letter-spacing:.03em;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.75rem 0;}
+
+  @media(max-width:600px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);
+    margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+
+<div class="content">
+
+  <div class="note-header">
+  <div class="header-left">
+    <div>
+      <div class="note-title">Podnik</div>
+      <div class="note-sub">Podnikání · Právní formy · Majetek · Sdružování · Zánik</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="badge b-eko">Otázka 3 / 20</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+  <!-- 1 PODNIKÁNÍ -->
+  <div class="section" data-sec="1">
+    <h2>1 · Podnikání – definice a právní rámec
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="box-blue">
+      <strong>Podnikání</strong> = soustavná činnost provozovaná <strong>samostatně</strong>, vlastním jménem, na vlastní zodpovědnost, na vlastní účet, <strong>za účelem dosažení zisku</strong>.
+    </div>
+
+    <p>Podstatou podnikání je samostatné rozhodování o tom:</p>
+    <ul>
+      <li>Jaké výrobky/služby, v jakém množství a kde vyrábět či poskytovat</li>
+      <li>Jakou technologii zvolit a s kým spolupracovat</li>
+      <li>Jak získat finanční zdroje a výrobní činitele</li>
+      <li>Jaká bude právní forma, náklady, výnosy a cílový zisk</li>
+    </ul>
+
+    <h3>Právní předpisy upravující podnikání v ČR</h3>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.6rem;">
+      <span class="chip chip-blue">Zákon o obchodních korporacích</span>
+      <span class="chip chip-blue">Živnostenský zákoník</span>
+      <span class="chip chip-blue">Občanský zákoník</span>
+    </div>
+  </div>
+
+  <!-- 2 PODNIK -->
+  <div class="section" data-sec="2">
+    <h2>2 · Podnik (obchodní závod) – definice a znaky
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="box-teal">
+      <strong>Podnik</strong> = organizovaný soubor jmění, který podnikatel vytvořil a který z jeho vůle slouží k provozování jeho činnosti. Je základním kamenem národního hospodářství.
+    </div>
+
+    <h3>Složky podniku</h3>
+    <div class="grid3">
+      <div class="card">
+        <strong>Hmotné složky</strong>
+        Budovy, stavby, stroje a zařízení, zásoby
+      </div>
+      <div class="card">
+        <strong>Osobní složky</strong>
+        Znalosti a zkušenosti podnikatele i zaměstnanců
+      </div>
+      <div class="card">
+        <strong>Nehmotné složky</strong>
+        Práva a závazky, patenty, obchodní jméno, licence
+      </div>
+    </div>
+
+    <h3>Znaky podniku</h3>
+    <div class="grid2">
+      <div class="card">
+        <strong>Ekonomická samostatnost</strong>
+        Podnik rozhoduje samostatně o nákupu, výrobě a odbytu. Stát stanovuje pouze obecná pravidla – nezasahuje přímo. Na konci období podnik vykazuje <strong>výsledek hospodaření</strong> (zisk nebo ztrátu).
+      </div>
+      <div class="card">
+        <strong>Právní subjektivita</strong>
+        Podnik má právo vlastním jménem uzavírat smlouvy. Je odpovědný za závazky plynoucí ze smluv a právních norem. Smlouvy podepisují k tomu oprávnění pracovníci.
+      </div>
+    </div>
+
+    <p style="margin-top:.4rem;font-size:13px;color:var(--text-muted);">
+      Závod může mít <strong>pobočku</strong> – část závodu s hospodářskou a funkční samostatností. Kodex upravuje také <strong>rodinný závod</strong> (manželé + příbuzní do 3. stupně) a <strong>zemědělský závod</strong>.
+    </p>
+  </div>
+
+  <!-- 3 ČLENĚNÍ -->
+  <div class="section" data-sec="3">
+    <h2>3 · Členění podniků
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <table class="tbl">
+      <tr>
+        <th>Hledisko</th><th>Kategorie</th>
+      </tr>
+      <tr>
+        <td><strong>Předmět činnosti</strong></td>
+        <td>Výrobní · Obchodní · Dopravní a spojové · Peněžní (banky, pojišťovny)</td>
+      </tr>
+      <tr>
+        <td><strong>Velikost</strong></td>
+        <td>Malé (&lt; 100 zam.) · Střední (100–500 zam.) · Velké (&gt; 500 zam.)</td>
+      </tr>
+      <tr>
+        <td><strong>Právní forma</strong></td>
+        <td>a.s. · s.r.o. · k.s. · v.o.s. · Družstvo · Státní podnik · OSVČ</td>
+      </tr>
+    </table>
+
+    <hr>
+    <h3>Ziskové vs. neziskové organizace</h3>
+    <div class="grid2">
+      <div class="box-teal" style="margin-bottom:0">
+        <strong>Ziskové podniky</strong>
+        <ul>
+          <li>Podstatou je tvorba hospodářského výsledku</li>
+          <li>Náklady hradí samostatně z výnosů</li>
+          <li>Ze zisku odvádějí daň; zbytek zůstává v organizaci</li>
+        </ul>
+      </div>
+      <div class="box-amber" style="margin-bottom:0">
+        <strong>Neziskové organizace</strong>
+        <ul>
+          <li>Hlavní cíl není zisk, ale výsledky se někdy vyjadřují v penězích</li>
+          <li>Musí přesto hospodárně nakládat s prostředky</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:.9rem;">Typy neziskových organizací</h3>
+    <table class="tbl">
+      <tr><th>Typ</th><th>Charakteristika</th><th>Příklady</th></tr>
+      <tr>
+        <td><strong>Rozpočtové org.</strong></td>
+        <td>Veškeré příjmy odvádějí do SR; výdaje hrazeny ze SR formou dotací; zajišťují státní správu, obranu, školství, zdravotnictví</td>
+        <td>Obecní úřady, policie, armáda</td>
+      </tr>
+      <tr>
+        <td><strong>Příspěvkové org.</strong></td>
+        <td>Výdaje &gt; příjmy; rozdíl čerpají ze SR jako příspěvek</td>
+        <td>Divadla, muzea, kina</td>
+      </tr>
+      <tr>
+        <td><strong>Politické strany</strong></td>
+        <td>Přispívají k rozvoji demokracie; hospodaří s vlastním majetkem + případný příspěvek od státu</td>
+        <td>ODS, ČSSD, ANO…</td>
+      </tr>
+      <tr>
+        <td><strong>Zájmové org.</strong></td>
+        <td>Členské příspěvky; ochrana zájmů skupin</td>
+        <td>ČMFS, Sokol, Skaut, odbory</td>
+      </tr>
+      <tr>
+        <td><strong>Církve &amp; sdružení</strong></td>
+        <td>Podnikají na základě OZ; oblast sociální, zdravotní</td>
+        <td>Římskokatolická církev, nadace Bariéry, Naše dítě</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 4 CÍLE A HOSPODAŘENÍ -->
+  <div class="section" data-sec="4">
+    <h2>4 · Cíle podniku a hospodaření
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="grid2">
+      <div class="card">
+        <strong>Cíle velkého podniku</strong>
+        Vlastníci = akcionáři; řídí manažeři. Cílem je <strong>maximalizace zisku</strong> → malý zisk = pokles ceny akcie → riziko převzetí. Manažeři dostávají akcie → osobní zájem na růstu zisku.
+      </div>
+      <div class="card">
+        <strong>Cíle malého podniku</strong>
+        Převládají osobní priority: „být svým pánem", mít trvalou práci, realizovat sny, udržet rodinnou tradici. Čistá maximalizace zisku není vždy prioritou.
+      </div>
+    </div>
+
+    <h3>Hospodaření podniku – klíčové pojmy</h3>
+    <table class="tbl">
+      <tr><th>Pojem</th><th>Definice</th></tr>
+      <tr><td><strong>Náklady (N)</strong></td><td>Spotřeba výrobních činitelů v peněžním vyjádření, vztažená k určitým výkonům (práce, materiál, opotřebení strojů)</td></tr>
+      <tr><td><strong>Výdaje</strong></td><td>Úbytek hospodářských prostředků; nemusí být vázán k výkonu (např. nákup materiálu do zásoby)</td></tr>
+      <tr><td><strong>Výnosy (V)</strong></td><td>Dosahují se prodejem výrobků a služeb; vyjádřeny v peněžních jednotkách</td></tr>
+      <tr><td><strong>Tržby</strong></td><td>Výnosy vracející se v podobě peněz – klíčový ukazatel pro podnik</td></tr>
+      <tr><td><strong>Hospodářský výsledek</strong></td><td>Rozdíl V − N za určité období → <strong>Zisk</strong> (V &gt; N) nebo <strong>Ztráta</strong> (V &lt; N)</td></tr>
+    </table>
+
+    <div class="grid2">
+      <div class="box-teal" style="margin-bottom:0"><strong>Zisk</strong> – rozhodující část vlastního financování; základ pro investice a rozvoj</div>
+      <div class="box-coral" style="margin-bottom:0"><strong>Ztráta</strong> – neumožňuje obnovu činnosti, snižuje finanční zdroje a objem majetku</div>
+    </div>
+  </div>
+
+  <!-- 5 MAJETEK -->
+  <div class="section" data-sec="5">
+    <h2>5 · Majetek podniku – aktiva a pasiva
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="box-blue">
+      Majetek se sleduje ze dvou pohledů na stejnou věc: <strong>AKTIVA = PASIVA</strong>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <strong>AKTIVA – co máme (podle druhů)</strong>
+        <ul>
+          <li>Dlouhodobý majetek (budovy, stroje, software)</li>
+          <li>Oběžný majetek (zásoby, pohledávky, peníze)</li>
+          <li>Přechodný majetek (časové rozlišení)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>PASIVA – kde jsme na to vzali (zdroje krytí)</strong>
+        <ul>
+          <li>Vlastní kapitál (základní kapitál, zisk)</li>
+          <li>Cizí zdroje (úvěry, závazky, rezervy)</li>
+          <li>Přechodná pasiva (časové rozlišení)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 PODNIKATEL -->
+  <div class="section" data-sec="6">
+    <h2>6 · Podnikatel
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="box-blue">
+      <strong>Podnikatel</strong> (dle OZ) = fyzická nebo právnická osoba, která samostatně vykonává na vlastní účet a odpovědnost výdělečnou činnost živnostenským nebo obdobným způsobem se záměrem činit tak soustavně za účelem dosažení zisku.
+    </div>
+
+    <ul>
+      <li>Nezáleží na objemu aktiv – zahrnuje velkou a.s. i malého živnostníka</li>
+      <li>Je-li podnikatelem FO, jde o <strong>OSVČ</strong> (osoba samostatně výdělečně činná)</li>
+      <li>Za podnikatele se považuje osoba <strong>zapsaná v obchodním rejstříku</strong> nebo osoba s živnostenským / jiným oprávněním</li>
+    </ul>
+
+    <hr>
+    <h3>Obchodní jméno – firma</h3>
+    <ul>
+      <li><strong>FO</strong> – podnikají pod vlastním jménem a příjmením; možný osobní dodatek (Jan Novák ml.) nebo věcný dodatek (J. Novák – opravy TV)</li>
+      <li><strong>PO</strong> – podnikají pod smyšleným obchodním jménem obsahujícím právní formu (věcné obchodní jméno)</li>
+      <li>Firma se zapisuje do OR, uzavírá smlouvy, vystupuje před státními orgány</li>
+    </ul>
+  </div>
+
+  <!-- 7 ZALOŽENÍ -->
+  <div class="section" data-sec="7">
+    <h2>7 · Založení podniku
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <p>Před zahájením musí podnikatel odpovědět na klíčové otázky:</p>
+    <ul>
+      <li><strong>Co a pro koho</strong> vyrábět/prodávat → průzkum trhu (marketing)</li>
+      <li><strong>Cenová strategie a distribuce</strong> → marketing + daňová oblast</li>
+      <li><strong>Výrobní faktory</strong> – práce (personalistika), přírodní zdroje (logistika), kapitál (financování)</li>
+      <li><strong>Velikost trhu</strong> – regionální / národní / mezinárodní</li>
+      <li><strong>Vnější rizika</strong> – legislativa, konkurence, makroekonomické vlivy</li>
+    </ul>
+
+    <div class="box-amber">
+      <strong>Zakladatelský rozpočet</strong> – nejdůležitější ekonomický dokument při startu podnikání. Skládá se ze dvou částí:
+      <ul>
+        <li><strong>Rozpočet N a V</strong> – základní představa o ročním hospodaření a výnosnosti</li>
+        <li><strong>Rozpočet investičního a provozního kapitálu</strong> – potřebný majetek a zdroje krytí (vlastní / cizí)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 8 SDRUŽOVÁNÍ -->
+  <div class="section" data-sec="8">
+    <h2>8 · Sdružování podniků
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <p><strong>Koncentrace</strong> = sdružování (slučování) podniků ve větší celky.</p>
+    <div class="grid2" style="margin-bottom:.6rem;">
+      <div class="card">
+        <strong>Horizontální koncentrace</strong>
+        Spojení podniků vyrábějících stejné nebo podobné výrobky (rozšíření tržního podílu)
+      </div>
+      <div class="card">
+        <strong>Vertikální koncentrace</strong>
+        Spojování podniků různých odvětví na sebe navazujících (výroba → zpracování → distribuce)
+      </div>
+    </div>
+
+    <table class="tbl">
+      <tr><th>Forma</th><th>Charakteristika</th></tr>
+      <tr>
+        <td><strong>Trust</strong></td>
+        <td>Sloučené podniky ztrácejí hospodářskou i právní samostatnost; jednotné vedení; cíl = ovládnutí trhu; může být v rozporu s principy volné soutěže</td>
+      </tr>
+      <tr>
+        <td><strong>Kartel</strong></td>
+        <td>Smluvní spojení; podniky si zachovávají právní i hospodářskou samostatnost; cíl = ovlivňování cen, výroby, prodeje; v řadě zemí <strong>zakázán</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Koncern</strong></td>
+        <td>Nejběžnější forma v tržních ekonomikách; právně samostatné podniky pod jednotným řízením; vznik na základě kapitálové účasti nebo smlouvy</td>
+      </tr>
+      <tr>
+        <td><strong>Holding</strong></td>
+        <td>Druh koncernu; spravuje cenné papíry ovládaných a.s.; sama se nezabývá výrobou; ovládané podniky si zachovávají právní subjektivitu, ale omezená hospodářská samostatnost</td>
+      </tr>
+      <tr>
+        <td><strong>Fúze</strong></td>
+        <td>Dohoda o splynutí podniků v jediný; buď všechny zanikají a vzniká nový, nebo jeden existuje dál a ostatní do něj splývají</td>
+      </tr>
+      <tr>
+        <td><strong>Konsorcium</strong></td>
+        <td>Dočasné sdružení za účelem finančně náročného projektu (tunel, stadion); po dokončení projektu zaniká</td>
+      </tr>
+      <tr>
+        <td><strong>Joint venture</strong></td>
+        <td>Podnik se zahraniční majetkovou účastí; PO se sídlem v ČR s účastí zahraničního subjektu; může být founded bez povolení českých orgánů</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 9 JEDNÁNÍ JMÉNEM PODNIKU -->
+  <div class="section" data-sec="9">
+    <h2>9 · Jednání jménem podniku – plná moc a prokura
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <p><strong>FO</strong> jedná za svou živnost samostatně. U společností a družstev jedná <strong>statutární orgán</strong> zapsaný v OR.</p>
+    <div class="grid2">
+      <div class="card">
+        <strong>Statutární orgán – jednotlivec</strong>
+        Ředitel, jednatel společnosti
+      </div>
+      <div class="card">
+        <strong>Statutární orgán – kolektiv</strong>
+        Představenstvo, jednatelé, správní rada; rozhoduje hlasováním; za kolektiv jedná zpravidla předseda
+      </div>
+    </div>
+
+    <hr>
+    <h3>Plná moc</h3>
+    <div class="box-blue">
+      Projev vůle, jímž podnikatel prohlašuje určitou osobu za svého <strong>zmocněnce</strong>. Musí být <strong>písemná</strong> a obsahovat rozsah zmocnění.
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <strong>Zvláštní plná moc</strong>
+        Udělena pro určitý právní úkon nebo druh činnosti
+      </div>
+      <div class="card">
+        <strong>Generální plná moc</strong>
+        Udělena pro všechny právní úkony nebo druhy činnosti
+      </div>
+    </div>
+    <p style="margin-top:.5rem;">Uděluje ji podnikatel / statutární orgán jedné osobě (jednotlivá p.m.) nebo více osobám (kolektivní p.m.).</p>
+    <p><strong>Zánik plné moci:</strong> provedením úkonu · uplynutím času · odvoláním · výpovědí · smrtí zmocněnce · zánikem podniku</p>
+
+    <hr>
+    <h3>Prokura</h3>
+    <div class="box-amber">
+      <strong>Prokura</strong> = nejširší plná moc. Prokurista je oprávněn ke všem úkonům při provozu podniku, i těm, k nimž by jinak bylo třeba zvláštní plné moci. Uděluje ji <strong>výhradně podnikatel</strong>, platí dnem <strong>zápisu do OR</strong>.
+    </div>
+    <p><strong>Omezení prokuristy:</strong> nesmí zcizovat majetek podniku ani zatěžovat nemovitosti (např. dát do zástavy).</p>
+  </div>
+
+  <!-- 10 OKOLÍ PODNIKU -->
+  <div class="section" data-sec="10">
+    <h2>10 · Okolí podniku a vztahy
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <h3>Tři stránky vztahů podniku k okolí</h3>
+    <div class="grid3">
+      <div class="card">
+        <strong>Hmotná</strong>
+        Podnik nakupuje materiál, zaměstnanci pracují, vyrábí výrobky
+      </div>
+      <div class="card">
+        <strong>Finanční</strong>
+        Platba za materiál, vyplácení mezd, inkasování tržeb
+      </div>
+      <div class="card">
+        <strong>Informační</strong>
+        Smlouvy, dodací listy, faktury, právní předpisy
+      </div>
+    </div>
+
+    <h3>Klíčové vztahy podniku</h3>
+    <table class="tbl">
+      <tr><th>Vztah</th><th>Podstata</th></tr>
+      <tr>
+        <td><strong>Odběratelé a dodavatelé</strong></td>
+        <td>Podnik buduje trvalé obchodní spojení; při nasyceném trhu je nutný průzkum; dodavatel zpravidla hledá odběratele</td>
+      </tr>
+      <tr>
+        <td><strong>Banky</strong></td>
+        <td>Důležitý partner; smlouva o BÚ, smlouva o úvěru, příkaz k úhradě, výpis z účtu; zprostředkování platebního styku</td>
+      </tr>
+      <tr>
+        <td><strong>Konkurenti</strong></td>
+        <td>Sledování cen, produktů, tržního podílu; ochrana <strong>obchodního tajemství</strong>; vyhýbání se <strong>nekalé soutěži</strong> (podplácení, klamavá reklama, parazitování na pověsti)</td>
+      </tr>
+      <tr>
+        <td><strong>Zaměstnanci</strong></td>
+        <td>Největší bohatství podniku; <strong>kolektivní smlouva</strong> (mzdy, pracovní podmínky) – uzavírá ji vedení s odbory na 1 rok; nedohoda → stávka nebo výluka</td>
+      </tr>
+      <tr>
+        <td><strong>Zákazníci (občané)</strong></td>
+        <td>Velký počet, individuální přání, zpravidla bez smlouvy; upravuje OZ</td>
+      </tr>
+      <tr>
+        <td><strong>Stát a obec</strong></td>
+        <td>Informační stránka (zákony), finanční (daně, poplatky, sankce), hmotná (dodávky energií, vybavení)</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 11 ZÁNIK -->
+  <div class="section" data-sec="11">
+    <h2>11 · Zrušení a zánik podniku
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <h3>Příznaky krizového vývoje</h3>
+    <ul>
+      <li>Trvalý pokles tržeb, rostoucí náklady</li>
+      <li>Rostoucí úvěrové zatížení</li>
+      <li>Závazky nejsou uhrazovány ve lhůtě</li>
+      <li>Tržby tak nízké, že podnik vykazuje trvalou ztrátu</li>
+    </ul>
+
+    <div class="box-amber" style="margin-top:.6rem;">
+      <strong>Zánik podniku</strong> = zrušení právní subjektivity výmazem z OR nebo ŽR. Zániku předchází <strong>zrušení</strong>.
+    </div>
+
+    <h3>Důvody zrušení podniku</h3>
+    <ul>
+      <li>Uplynutí doby, na kterou byl podnik založen</li>
+      <li>Splnění cíle, pro který byl founded</li>
+      <li>Rozhodnutí podnikatele o dobrovolném zrušení</li>
+      <li>Úmrtí podnikatele, soudní rozhodnutí, fúze, rozdělení</li>
+      <li>Změna právní formy podnikání</li>
+      <li>Bankrot – úpadek</li>
+    </ul>
+
+    <h3>Způsob zrušení</h3>
+    <div class="grid2">
+      <div class="card">
+        <strong>Bez likvidace</strong>
+        Majetek přechází na jiný podnik (fúze, přeměna); hospodářská činnost pokračuje dál
+      </div>
+      <div class="card">
+        <strong>S likvidací</strong>
+        Faktické zrušení; vypořádání majetkových poměrů; jmenován <strong>likvidátor</strong> zapsaný do OR spolu s údajem o likvidaci
+      </div>
+    </div>
+
+    <h3 style="margin-top:.75rem;">Úpadek – formy řešení</h3>
+    <div class="grid2">
+      <div class="box-coral" style="margin-bottom:0">
+        <strong>Konkurs</strong>
+        Návrh podává věřitel nebo sám podnik u konkurzního soudu. Majetek tvoří <em>konkurzní podstatu</em>, která se rozprodá a výtěžek se rozdělí věřitelům.
+      </div>
+      <div class="box-amber" style="margin-bottom:0">
+        <strong>Vyrovnání</strong>
+        Návrh podává sám podnik v úpadku; zároveň nabídne způsob vyrovnání závazků (např. splátkový kalendář, částečné odpuštění dluhu).
+      </div>
+    </div>
+  </div>
+
+  <div class="note-footer">ITE 4.B · Maturita 2026 · Ekonomika – Otázka 3</div>
+
+</div>
+
+<script>
+const _subj  = (document.querySelector('meta[name="mat-subject"]') || {}).content || 'eko';
+const _num   = (document.querySelector('meta[name="mat-num"]')     || {}).content || '1';
+const _title = (document.querySelector('meta[name="mat-title"]')   || {}).content || document.title;
+const NOTE_ID = `${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`, JSON.stringify({ title:_title, subject:_subj, num:parseInt(_num) }));
+
+function applyDark() {
+  const on = localStorage.getItem('mat-dark') === '1';
+  document.body.classList.toggle('dark', on);
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = on ? '☀ Světlý' : '🌙 Tmavý';
+}
+function toggleDark() {
+  const on = document.body.classList.toggle('dark');
+  localStorage.setItem('mat-dark', on ? '1' : '0');
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = on ? '☀ Světlý' : '🌙 Tmavý';
+}
+window.addEventListener('storage', e => { if (e.key === 'mat-dark') applyDark(); });
+
+function secKey(n) { return `mat-sec::${NOTE_ID}::${n}`; }
+
+function toggleSec(btn) {
+  const section = btn.closest('.section');
+  const sec = section.dataset.sec;
+  if (localStorage.getItem(secKey(sec))) {
+    localStorage.removeItem(secKey(sec));
+    section.classList.remove('flagged');
+    btn.classList.remove('on');
+    btn.textContent = '⚑ Označit';
+  } else {
+    localStorage.setItem(secKey(sec), '1');
+    section.classList.add('flagged');
+    btn.classList.add('on');
+    btn.textContent = '⚑ Označeno';
+  }
+  updateSummary();
+}
+
+function loadFlags() {
+  document.querySelectorAll('.section[data-sec]').forEach(section => {
+    if (localStorage.getItem(secKey(section.dataset.sec))) {
+      section.classList.add('flagged');
+      const btn = section.querySelector('.sec-flag');
+      if (btn) { btn.classList.add('on'); btn.textContent = '⚑ Označeno'; }
+    }
+  });
+  updateSummary();
+}
+
+function updateSummary() {
+  const n = document.querySelectorAll('.section.flagged').length;
+  const el = document.getElementById('flagSummary');
+  if (el) {
+    el.textContent = n > 0 ? `${n} problematické sekce` : '';
+    el.classList.toggle('visible', n > 0);
+  }
+}
+
+applyDark();
+loadFlags();
+</script>
+</body>
+</html>

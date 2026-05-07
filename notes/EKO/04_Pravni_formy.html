@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="mat-subject" content="eko">
+<meta name="mat-num"     content="4">
+<meta name="mat-title"   content="Právní formy podnikání">
+
+<title>Právní formy podnikání – Maturita 2026</title>
+
+<style>
+  :root {
+    --teal-light: #E1F5EE; --teal-dark: #085041;
+    --blue-light: #E6F1FB; --blue-dark: #0C447C;
+    --amber-light: #FAEEDA; --amber-dark: #633806;
+    --coral-light: #FAECE7; --coral-dark: #4A1B0C;
+    --green-light: #EAF3DE; --green-dark: #27500A;
+    --gray-bg: #F8F7F5; --gray-border: #E0DED8;
+    --text: #1a1a18; --text-muted: #5a5955; --text-faint: #9a9895;
+    --white: #ffffff;
+    --radius: 10px; --radius-sm: 5px;
+    --flag-accent: #EF9F27;
+    --flag-light: #FAEEDA; --flag-dark: #633806; --flag-border: #FAC775;
+    --hdr-from: var(--blue-light);
+    --hdr-to:   var(--teal-light);
+    --hdr-accent: var(--blue-dark);
+  }
+  body.dark {
+    --teal-light:#0D2E24; --teal-dark:#5ECBA8;
+    --blue-light:#0D1F33; --blue-dark:#7BB8F0;
+    --amber-light:#2A1E0A; --amber-dark:#F5C06A;
+    --coral-light:#2A1208; --coral-dark:#F5A08A;
+    --green-light:#132208; --green-dark:#8FD058;
+    --gray-bg:#111110; --gray-border:#2E2D2A;
+    --text:#F0EFEB; --text-muted:#A8A49E; --text-faint:#6A6762;
+    --white:#1C1C1A;
+    --flag-light:#2A1E0A; --flag-dark:#F5C06A; --flag-border:#3D2C0F;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    font-size:14px;background:var(--gray-bg);color:var(--text);line-height:1.65;min-height:100vh;}
+
+  .note-header{
+    background:var(--white);
+    border:0.5px solid var(--gray-border);
+    border-radius:var(--radius);
+    padding:1.75rem 2rem;
+    margin-bottom:1.5rem;
+    display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+    flex-wrap:wrap;
+  }
+  .header-left{display:flex;align-items:flex-start;gap:.75rem;flex:1;min-width:0;}
+  .header-right{display:flex;align-items:center;gap:.5rem;flex-shrink:0;flex-wrap:wrap;}
+  .note-title{font-size:26px;font-weight:600;color:var(--text);margin-bottom:4px;}
+  .note-sub{font-size:13px;color:var(--text-muted);}
+  .badge{display:inline-flex;align-items:center;padding:2px 10px;border-radius:20px;
+    font-size:11px;font-weight:700;letter-spacing:.04em;}
+  .badge.b-eko{background:var(--blue-light);color:var(--blue-dark);border:0.5px solid #B5D4F4;}
+  .dark-btn{background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);
+    padding:4px 12px;font-size:12px;cursor:pointer;color:var(--text-muted);transition:all .15s;}
+  .dark-btn:hover{background:var(--white);color:var(--text);}
+  .flag-summary{display:none;font-size:11px;font-weight:600;color:var(--flag-dark);
+    background:var(--flag-light);border:0.5px solid var(--flag-border);
+    border-radius:var(--radius-sm);padding:2px 8px;}
+  .flag-summary.visible{display:inline-block;}
+
+  .content{max-width:860px;margin:0 auto;padding:2.5rem 1.5rem 3rem;}
+
+  .section{background:var(--white);border:0.5px solid var(--gray-border);
+    border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;
+    position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  .section h2{font-size:16px;font-weight:600;color:var(--text);
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;
+    border:.5px solid var(--gray-border);border-radius:var(--radius-sm);
+    padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;
+    transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+
+  p{margin-bottom:.6rem;}
+  ul,ol{padding-left:1.4rem;margin-bottom:.6rem;}
+  li{margin-bottom:4px;}
+  strong{font-weight:700;}
+  em{font-style:italic;}
+
+  .box-teal {background:var(--teal-light);border-left:3px solid var(--teal-dark);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+  .box-blue {background:var(--blue-light);border-left:3px solid var(--blue-dark);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+  .box-amber{background:var(--amber-light);border-left:3px solid var(--amber-dark);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+  .box-coral{background:var(--coral-light);border-left:3px solid var(--coral-dark);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+  .box-green{background:var(--green-light);border-left:3px solid var(--green-dark);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.6rem 1rem;margin-bottom:.6rem;}
+
+  .chip{display:inline-block;border-radius:20px;padding:1px 10px;font-size:11px;font-weight:600;margin:1px 2px;}
+  .chip-teal {background:var(--teal-light);color:var(--teal-dark);}
+  .chip-blue {background:var(--blue-light);color:var(--blue-dark);}
+  .chip-amber{background:var(--amber-light);color:var(--amber-dark);}
+  .chip-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .chip-green{background:var(--green-light);color:var(--green-dark);}
+
+  .tbl{width:100%;border-collapse:collapse;margin-bottom:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:700;padding:6px 8px;
+    border:0.5px solid var(--gray-border);text-align:left;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+
+  /* extras */
+  h3{font-size:13px;font-weight:700;color:var(--text);margin:.9rem 0 .35rem;
+    text-transform:uppercase;letter-spacing:.03em;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.75rem 0;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);
+    border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{display:block;font-size:13px;margin-bottom:4px;}
+
+  /* Pro/con two-col inside a section */
+  .procon{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:.5rem;}
+  .pro{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.7rem 1rem;}
+  .pro strong{color:var(--teal-dark);display:block;margin-bottom:4px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;}
+  .con{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.7rem 1rem;}
+  .con strong{color:var(--coral-dark);display:block;margin-bottom:4px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;}
+  .pro ul,.con ul{margin-bottom:0;font-size:13px;}
+
+  /* Entity header strip */
+  .entity-head{
+    display:flex;align-items:baseline;gap:10px;
+    background:var(--gray-bg);border:0.5px solid var(--gray-border);
+    border-radius:var(--radius-sm);padding:.6rem 1rem;margin-bottom:.75rem;
+  }
+  .entity-abbr{font-size:18px;font-weight:800;color:var(--blue-dark);}
+  .entity-name{font-size:14px;font-weight:600;color:var(--text);}
+
+  .flag-inline{display:inline-flex;align-items:center;gap:4px;
+    background:var(--flag-light);color:var(--flag-dark);
+    border:0.5px solid var(--flag-border);border-radius:4px;
+    font-size:12px;font-weight:600;padding:2px 9px;}
+  .flag-inline::before{content:"⚑ ";}
+
+  @media(max-width:620px){.grid2,.procon{grid-template-columns:1fr;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+
+<div class="content">
+
+  <div class="note-header">
+  <div class="header-left">
+    <div>
+      <div class="note-title">Právní formy podnikání</div>
+      <div class="note-sub">Živnosti · Obchodní korporace · Rejstříky · Soutěž · Komory</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="badge b-eko">Otázka 4 / 20</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+  <!-- 1 ZÁKLADNÍ POJMY -->
+  <div class="section" data-sec="1">
+    <h2>1 · Základní pojmy
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <table class="tbl">
+      <tr><th>Pojem</th><th>Definice</th></tr>
+      <tr>
+        <td><strong>Podnikání</strong></td>
+        <td>Soustavná činnost prováděná <strong>samostatně</strong>, vlastním jménem, na vlastní odpovědnost, <strong>za účelem dosažení zisku</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Podnikatel</strong></td>
+        <td>FO nebo PO zapsaná v OR; osoba s živnostenským či jiným oprávněním; osoba provozující zemědělskou výrobu zapsaná v evidenci</td>
+      </tr>
+      <tr>
+        <td><strong>Fyzická osoba (FO)</strong></td>
+        <td>Konkrétní člověk; podniká na základě živnostenského oprávnění jako OSVČ</td>
+      </tr>
+      <tr>
+        <td><strong>Právnická osoba (PO)</strong></td>
+        <td>Uměle vytvořený subjekt zapsaný do OR – s.r.o., a.s., v.o.s., k.s., družstvo</td>
+      </tr>
+      <tr>
+        <td><strong>Podnik (obchodní závod)</strong></td>
+        <td>Soubor hmotných, osobních a nehmotných složek podnikání sloužících k jeho provozování</td>
+      </tr>
+      <tr>
+        <td><strong>Obchodní firma</strong></td>
+        <td>Název, pod kterým je podnikatel zapsán v OR (FO = jméno + příjmení)</td>
+      </tr>
+      <tr>
+        <td><strong>Provozovna</strong></td>
+        <td>Prostor, v němž je uskutečňována podnikatelská činnost</td>
+      </tr>
+      <tr>
+        <td><strong>Neoprávněné podnikání</strong></td>
+        <td>Provozování činnosti vyžadující ohlášení nebo povolení – bez tohoto ohlášení/povolení</td>
+      </tr>
+    </table>
+
+    <h3>Právní předpisy</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      <span class="chip chip-blue">Zákon o obchodních korporacích</span>
+      <span class="chip chip-blue">Živnostenský zákon</span>
+      <span class="chip chip-blue">Občanský zákoník</span>
+      <span class="chip chip-teal">Zákoník práce</span>
+    </div>
+    <p style="margin-top:.5rem;font-size:13px;color:var(--text-muted);">Zákoník práce: uzákoňuje právo na práci, svobodnou volbu zaměstnání, spravedlivé pracovní podmínky; řeší pracovněprávní vztahy mezi zaměstnancem a zaměstnavatelem.</p>
+  </div>
+
+  <!-- 2 ŽIVNOSTI -->
+  <div class="section" data-sec="2">
+    <h2>2 · Živnosti – druhy a podmínky
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="box-blue">
+      <strong>Živnost</strong> = soustavná činnost provozovaná samostatně, vlastním jménem, na vlastní odpovědnost, za účelem zisku a za podmínek stanovených živnostenským zákonem.
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <strong>Výhody živnosti (FO)</strong>
+        <ul>
+          <li>Jednoduchost a malé náklady na organizaci</li>
+          <li>Flexibilita a rychlé rozhodování</li>
+          <li>Zisk zdaněn jako příjem FO</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>Nevýhody živnosti (FO)</strong>
+        <ul>
+          <li><strong>Neomezené ručení</strong> – celým osobním majetkem</li>
+          <li>Omezený přístup ke kapitálu</li>
+          <li>Vše stojí na jedné osobě</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Druhy živností</h3>
+    <table class="tbl">
+      <tr><th>Druh</th><th>Podmínky</th><th>Vznik oprávnění</th></tr>
+      <tr>
+        <td><strong>Volné</strong> <span class="chip chip-teal">ohlašovací</span></td>
+        <td>Pouze všeobecné podmínky – odborná způsobilost se nevyžaduje</td>
+        <td>Dnem ohlášení</td>
+      </tr>
+      <tr>
+        <td><strong>Řemeslné</strong> <span class="chip chip-teal">ohlašovací</span></td>
+        <td>Všeobecné + odborná způsobilost (výuční list, maturita, diplom, praxe)</td>
+        <td>Dnem ohlášení</td>
+      </tr>
+      <tr>
+        <td><strong>Vázané</strong> <span class="chip chip-teal">ohlašovací</span></td>
+        <td>Všeobecné + zvláštní způsobilost jinak než běžným vzděláním (průkazy dle vyhlášek)</td>
+        <td>Dnem ohlášení</td>
+      </tr>
+      <tr>
+        <td><strong>Koncesované</strong> <span class="chip chip-amber">státní povolení</span></td>
+        <td>Obory s vysokým rizikem ohrožení života, zdraví, majetku nebo veřejného zájmu</td>
+        <td>Dnem doručení <strong>koncesní listiny</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Průmyslové</strong> <span class="chip chip-blue">zvláštní druh</span></td>
+        <td>Průmyslové podniky s více dílčími činnostmi; oprávnění pouze na konečný výrobek</td>
+        <td>Dle druhu</td>
+      </tr>
+    </table>
+
+    <h3>Podmínky provozování živností</h3>
+    <div class="grid2">
+      <div class="card">
+        <strong>Všeobecné podmínky</strong>
+        <ul>
+          <li>Věk min. 18 let</li>
+          <li>Způsobilost k právním úkonům</li>
+          <li>Bezúhonnost</li>
+          <li>Bez daňových nedoplatků vůči státu</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>Zvláštní podmínky</strong>
+        <ul>
+          <li>Odborná způsobilost (výuční list, maturita, diplom, kurz…)</li>
+          <li>Jiná než odborná způsobilost (spolehlivost, hygienické předpisy…)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Zánik živnostenského oprávnění</h3>
+    <ul>
+      <li>Smrtí podnikatele (nepokračuje-li dědic)</li>
+      <li>Uplynutím doby (bylo-li vydáno na dobu určitou)</li>
+      <li>Rozhodnutím soudu nebo živnostenského úřadu</li>
+      <li>Zánikem právnické osoby</li>
+      <li>Nezahájení provozování do 5 let od vydání oprávnění</li>
+    </ul>
+    <p style="font-size:13px;">Průkaz oprávnění: <strong>živnostenský list</strong> (ohlašovací živnosti) nebo <strong>koncesní listina</strong> (koncesované živnosti).</p>
+  </div>
+
+  <!-- 3 REJSTŘÍKY -->
+  <div class="section" data-sec="3">
+    <h2>3 · Obchodní a živnostenský rejstřík
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="grid2">
+      <div class="card">
+        <strong>Obchodní rejstřík (OR)</strong>
+        <ul>
+          <li>Veřejný seznam vedený rejstříkovým soudem v elektronické podobě</li>
+          <li>Přístupný všem – kdokoliv může nahlížet, pořizovat kopie a výpisy</li>
+          <li>Zapisují se: <em>obchodní společnosti a družstva, zahraniční osoby, FO – podnikatelé (pokud o zápis požádají)</em></li>
+          <li>Má <strong>konstitutivní</strong> charakter – zápis zakládá právní subjektivitu</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>Živnostenský rejstřík (ŽR)</strong>
+        <ul>
+          <li>Veřejný seznam; lze vydat úřední opis nebo výpis</li>
+          <li>Přehled všech živností v daném územním obvodě</li>
+          <li>Obsahuje: jméno, RČ, IČ, obchodní jméno, předmět a druh živnosti, odpovědný zástupce, provozovny, podmínky provozu</li>
+          <li>Má <strong>evidenční (deklarativní)</strong> charakter – nezakládá právní subjektivitu (ta vznikla ohlášením / vydáním koncesní listiny)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 HOSPODÁŘSKÁ SOUTĚŽ -->
+  <div class="section" data-sec="4">
+    <h2>4 · Hospodářská soutěž a nekalá soutěž
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="box-teal">
+      <strong>Hospodářská soutěž</strong> = soutěžení podnikatelů s cílem předstihnout ostatní na trhu a dosáhnout hospodářského prospěchu. FO a PO se mohou svobodně účastnit, ale musí dodržovat závazná pravidla a nesmí soutěž zneužívat.
+    </div>
+
+    <h3>Formy nekalé soutěže (§ 248 ZoOK)</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:.6rem;">
+      <span class="chip chip-coral">Klamavá reklama</span>
+      <span class="chip chip-coral">Klamavé označení zboží/služeb</span>
+      <span class="chip chip-coral">Vyvolávání nebezpečí záměny</span>
+      <span class="chip chip-coral">Parazitování na pověsti</span>
+      <span class="chip chip-coral">Podplácení</span>
+      <span class="chip chip-coral">Zlehčování</span>
+      <span class="chip chip-coral">Srovnávací reklama</span>
+      <span class="chip chip-coral">Porušení obchodního tajemství</span>
+      <span class="chip chip-coral">Ohrožení zdraví / životního prostředí</span>
+    </div>
+  </div>
+
+  <!-- 5 S.R.O. -->
+  <div class="section" data-sec="5">
+    <h2>5 · Společnost s ručením omezeným (s. r. o.)
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="entity-head">
+      <span class="entity-abbr">s. r. o.</span>
+      <span class="entity-name">Společnost s ručením omezeným</span>
+    </div>
+
+    <table class="tbl" style="margin-bottom:.75rem;">
+      <tr><th>Parametr</th><th>Hodnota</th></tr>
+      <tr><td><strong>Zakladatelé</strong></td><td>FO nebo PO; minimálně 1, maximálně 50 společníků</td></tr>
+      <tr><td><strong>Základní kapitál</strong></td><td>Min. <strong>1 Kč</strong> (součet vkladů všech společníků)</td></tr>
+      <tr><td><strong>Ručení</strong></td><td>Společnost ručí <strong>veškerým svým majetkem</strong>; společník ručí jen do výše <strong>nesplaceného vkladu</strong></td></tr>
+      <tr><td><strong>Orgány</strong></td><td>Valná hromada (nejvyšší) · Jednatel/é (statutární orgán) · Dozorčí rada</td></tr>
+    </table>
+
+    <div class="procon">
+      <div class="pro">
+        <strong>✓ Výhody</strong>
+        <ul>
+          <li>Omezené ručení společníků</li>
+          <li>Zákaz konkurence pro jednatele</li>
+          <li>Rozhodování většinou (ne souhlas všech)</li>
+          <li>Podíly na zisku FO nepodléhají soc. pojištění</li>
+          <li>Polovina sražené daně z podílů = sleva na dani společnosti</li>
+        </ul>
+      </div>
+      <div class="con">
+        <strong>✗ Nevýhody</strong>
+        <ul>
+          <li>Nutný počáteční vklad</li>
+          <li>Dvojí zdanění: daň z příjmu PO + srážková daň z podílů</li>
+          <li>Administrativně náročnější (VH, zápisy, účetnictví)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 A.S. -->
+  <div class="section" data-sec="6">
+    <h2>6 · Akciová společnost (a. s.)
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="entity-head">
+      <span class="entity-abbr">a. s.</span>
+      <span class="entity-name">Akciová společnost</span>
+    </div>
+
+    <table class="tbl" style="margin-bottom:.75rem;">
+      <tr><th>Parametr</th><th>Hodnota</th></tr>
+      <tr><td><strong>Zakladatelé</strong></td><td>1 zakladatel (pouze PO) nebo 2+ zakladatelů (FO)</td></tr>
+      <tr><td><strong>Základní kapitál</strong></td><td>S veřejnou nabídkou akcií: min. <strong>20 000 000 Kč</strong> · Bez veřejné nabídky: min. <strong>2 000 000 Kč</strong></td></tr>
+      <tr><td><strong>Ručení</strong></td><td>Společnost ručí celým majetkem; <strong>akcionáři za závazky neručí</strong></td></tr>
+      <tr><td><strong>Orgány</strong></td><td>Valná hromada · Představenstvo (statutární) · Dozorčí rada</td></tr>
+    </table>
+
+    <h3>Orgány a.s.</h3>
+    <div class="grid2" style="margin-bottom:.75rem;">
+      <div class="card">
+        <strong>Valná hromada</strong>
+        Nejvyšší orgán; zakládá společnost, schvaluje stanovy, volí a odvolává členy představenstva
+      </div>
+      <div class="card">
+        <strong>Představenstvo</strong>
+        Statutární orgán; řídí a jedná jménem společnosti; vede účetnictví; předkládá VH závěrku a návrh na rozdělení zisku
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:.75rem;">
+      <strong>Dozorčí rada</strong>
+      Kontrolní orgán; dohlíží na výkon představenstva a podnikatelskou činnost
+    </div>
+
+    <div class="procon">
+      <div class="pro">
+        <strong>✓ Výhody</strong>
+        <ul>
+          <li>Akcionář neručí za závazky</li>
+          <li>Dobrý přístup ke kapitálu (emise akcií)</li>
+          <li>Důvěryhodnost u obchodních partnerů</li>
+          <li>Dividendy nepodléhají soc. pojištění</li>
+          <li>Zákaz konkurence pro představenstvo</li>
+        </ul>
+      </div>
+      <div class="con">
+        <strong>✗ Nevýhody</strong>
+        <ul>
+          <li>Vysoký základní kapitál</li>
+          <li>Nelze founded 1 FO</li>
+          <li>Velmi náročná právní úprava</li>
+          <li>Povinný audit účetní závěrky + zveřejnění</li>
+          <li>Povinná výroční zpráva</li>
+          <li>Dvojí zdanění: daň PO + srážková daň z dividend</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 V.O.S. + K.S. -->
+  <div class="section" data-sec="7">
+    <h2>7 · Osobní společnosti – v. o. s. a k. s.
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <!-- VOS -->
+    <div class="entity-head">
+      <span class="entity-abbr">v. o. s.</span>
+      <span class="entity-name">Veřejná obchodní společnost</span>
+    </div>
+
+    <table class="tbl" style="margin-bottom:.6rem;">
+      <tr><th>Parametr</th><th>Hodnota</th></tr>
+      <tr><td><strong>Zakladatelé</strong></td><td>Min. <strong>2 osoby</strong></td></tr>
+      <tr><td><strong>Základní kapitál</strong></td><td>Není stanoven</td></tr>
+      <tr><td><strong>Ručení</strong></td><td>Všichni společníci <strong>celým osobním majetkem</strong> – společně a nerozdílně</td></tr>
+      <tr><td><strong>Vznik</strong></td><td>Zápisem do obchodního rejstříku</td></tr>
+    </table>
+
+    <div class="procon" style="margin-bottom:.9rem;">
+      <div class="pro">
+        <strong>✓ Výhody</strong>
+        <ul>
+          <li>Není nutný počáteční kapitál</li>
+          <li>Jednoduché vystoupení společníka</li>
+          <li>Neomezené ručení = lepší image a přístup k cizímu kapitálu</li>
+          <li>Zisk zdaněn daní z příjmu FO (nižší než PO)</li>
+        </ul>
+      </div>
+      <div class="con">
+        <strong>✗ Nevýhody</strong>
+        <ul>
+          <li>Neomezené osobní ručení = velké riziko</li>
+          <li>Min. 2 společníci – problém při zániku jednoho</li>
+          <li>Možné konflikty při řízení</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- KS -->
+    <div class="entity-head" style="margin-top:.5rem;">
+      <span class="entity-abbr">k. s.</span>
+      <span class="entity-name">Komanditní společnost</span>
+    </div>
+
+    <table class="tbl" style="margin-bottom:.6rem;">
+      <tr><th>Parametr</th><th>Hodnota</th></tr>
+      <tr><td><strong>Zakladatelé</strong></td><td>Min. <strong>2 osoby</strong> (alespoň 1 komandista + 1 komplementář)</td></tr>
+      <tr><td><strong>Základní kapitál</strong></td><td>Vkládá komandista – min. <strong>5 000 Kč</strong></td></tr>
+      <tr><td><strong>Ručení</strong></td><td><strong>Komandista</strong> – do výše vkladu (omezené) · <strong>Komplementář</strong> – celým majetkem (neomezené)</td></tr>
+      <tr><td><strong>Vedení</strong></td><td>Vedou komplementáři</td></tr>
+    </table>
+
+    <div class="procon">
+      <div class="pro">
+        <strong>✓ Výhody</strong>
+        <ul>
+          <li>Malý povinný kapitál (jen komanditisté, min. 5 tis. Kč)</li>
+          <li>Zisk se dělí dle smlouvy; zisk komplementářů = daň FO</li>
+          <li>Komanditista může kontrolovat účetnictví</li>
+          <li>Komanditistům neplatí zákaz konkurence</li>
+        </ul>
+      </div>
+      <div class="con">
+        <strong>✗ Nevýhody</strong>
+        <ul>
+          <li>Neomezené ručení komplementářů</li>
+          <li>Zisk komanditistů: daň PO + srážková daň</li>
+          <li>Různé ručení může způsobovat spory</li>
+          <li>Změna smlouvy vyžaduje souhlas všech</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8 DRUŽSTVO -->
+  <div class="section" data-sec="8">
+    <h2>8 · Družstvo
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="entity-head">
+      <span class="entity-abbr">Drž.</span>
+      <span class="entity-name">Družstvo – společenství neuzavřeného počtu osob</span>
+    </div>
+
+    <table class="tbl" style="margin-bottom:.75rem;">
+      <tr><th>Parametr</th><th>Hodnota</th></tr>
+      <tr><td><strong>Zakladatelé</strong></td><td>Min. <strong>5 FO</strong> nebo min. <strong>2 PO</strong></td></tr>
+      <tr><td><strong>Základní kapitál</strong></td><td>Min. <strong>50 000 Kč</strong> (před zápisem do OR splacena min. polovina)</td></tr>
+      <tr><td><strong>Ručení</strong></td><td>Družstvo ručí celým majetkem; <strong>členové za závazky neručí</strong></td></tr>
+      <tr><td><strong>Účel</strong></td><td>Podnikání nebo zajišťování hospodářských, sociálních nebo jiných potřeb členů</td></tr>
+      <tr><td><strong>Orgány</strong></td><td>Členská schůze (nejvyšší) · Představenstvo (statutární) · Kontrolní komise</td></tr>
+    </table>
+
+    <h3>Orgány</h3>
+    <div class="grid2" style="margin-bottom:.75rem;">
+      <div class="card">
+        <strong>Členská schůze</strong>
+        Min. 1× ročně; mění stanovy, volí/odvolává orgány, schvaluje závěrku, rozhoduje o zisku
+      </div>
+      <div class="card">
+        <strong>Představenstvo</strong>
+        Řídí družstvo, plní usnesení členské schůze; zodpovídá za svou činnost
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:.75rem;">
+      <strong>Kontrolní komise</strong>
+      Min. 3 členové; schází se min. 1× za 3 měsíce; nezávislá na ostatních orgánech; kontroluje činnost, projednává stížnosti; zodpovídá se členské schůzi
+    </div>
+
+    <div class="procon">
+      <div class="pro">
+        <strong>✓ Výhody</strong>
+        <ul>
+          <li>Členové neručí za závazky</li>
+          <li>Relativně nízký ZK (50 000 Kč), možný nepeněžitý vklad</li>
+          <li>Přijetí i vystoupení člena je administrativně jednoduché</li>
+          <li>Rovné postavení členů (1 člen = 1 hlas)</li>
+          <li>Podíly na zisku nepodléhají soc. pojištění</li>
+        </ul>
+      </div>
+      <div class="con">
+        <strong>✗ Nevýhody</strong>
+        <ul>
+          <li>Povinné členské vklady</li>
+          <li>Povinnost zřídit nedělitelný fond</li>
+          <li>Zákaz konkurence pro představenstvo a kont. komisi</li>
+          <li>Dvojí zdanění: daň PO + srážková daň z podílů</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9 SROVNÁVACÍ TABULKA -->
+  <div class="section" data-sec="9">
+    <h2>9 · Přehledové srovnání právních forem
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <table class="tbl">
+      <tr>
+        <th>Forma</th>
+        <th>Min. zakladatelé</th>
+        <th>Min. ZK</th>
+        <th>Ručení společníků</th>
+        <th>Zdanění zisku</th>
+      </tr>
+      <tr>
+        <td><strong>OSVČ / Živnost</strong></td>
+        <td>1 FO</td>
+        <td>—</td>
+        <td>Celý osobní majetek</td>
+        <td>Daň z příjmu FO</td>
+      </tr>
+      <tr>
+        <td><strong>v. o. s.</strong></td>
+        <td>2</td>
+        <td>—</td>
+        <td>Celý osobní majetek (spol. a nerozdílně)</td>
+        <td>Daň z příjmu FO</td>
+      </tr>
+      <tr>
+        <td><strong>k. s.</strong></td>
+        <td>2 (1 kom. + 1 komp.)</td>
+        <td>5 000 Kč (komandista)</td>
+        <td>Komandista: do výše vkladu · Komplementář: celý majetek</td>
+        <td>Smíšené (FO/PO dle role)</td>
+      </tr>
+      <tr>
+        <td><strong>s. r. o.</strong></td>
+        <td>1</td>
+        <td>1 Kč</td>
+        <td>Do výše nesplaceného vkladu</td>
+        <td>Daň PO + srážková daň z podílů</td>
+      </tr>
+      <tr>
+        <td><strong>a. s.</strong></td>
+        <td>1 PO nebo 2 FO</td>
+        <td>2 mil. / 20 mil. Kč</td>
+        <td>Akcionář neručí</td>
+        <td>Daň PO + srážková daň z dividend</td>
+      </tr>
+      <tr>
+        <td><strong>Družstvo</strong></td>
+        <td>5 FO nebo 2 PO</td>
+        <td>50 000 Kč</td>
+        <td>Člen neručí</td>
+        <td>Daň PO + srážková daň z podílů</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 10 FÚZE A AKVIZICE -->
+  <div class="section" data-sec="10">
+    <h2>10 · Fúze a akvizice
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="grid2">
+      <div class="box-blue" style="margin-bottom:0">
+        <strong>Fúze</strong>
+        Dohoda podnikatelů o splynutí podniků v jediný. Buď všechny zanikají a vzniká nový, nebo jeden existuje dál a ostatní do něj splývají.
+      </div>
+      <div class="box-amber" style="margin-bottom:0">
+        <strong>Akvizice</strong>
+        Převzetí podniku na základě koupě a prodeje. Může mít charakter <em>přátelského</em> nebo <em>nepřátelského</em> převzetí.
+      </div>
+    </div>
+    <p style="margin-top:.6rem;font-size:13px;">Podmínkou pro fúzi i akvizici je, aby před jejich provedením existovaly <strong>samostatné podniky</strong>.</p>
+  </div>
+
+  <!-- 11 KOMORY -->
+  <div class="section" data-sec="11">
+    <h2>11 · Hospodářská komora ČR a Svaz průmyslu
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="grid2">
+      <div class="card">
+        <strong>Hospodářská komora ČR (HK ČR)</strong>
+        <ul>
+          <li>Samosprávná organizace zastupující podnikatelskou veřejnost (mimo zemědělství, potravinářství a lesnictví)</li>
+          <li>Zal. 1993, zákon č. 301/1992 Sb.</li>
+          <li>Od 2004 povinné připomínkové místo při přípravě podnikatelské legislativy</li>
+          <li>14 krajských + 46 okresních komor; 91 živnostenských společenstev</li>
+          <li>Sídlo: Praha · Prezident: <span class="flag-inline">ověřit aktuálně</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>Svaz průmyslu a dopravy ČR (SP ČR)</strong>
+        <ul>
+          <li>Největší zaměstnavatelský svaz v ČR, zal. 1990</li>
+          <li>Nestátní, nezávislý na vládě, stranách i odborech</li>
+          <li>Hájí zájmy zaměstnavatelů v EU a světě (člen Confederation of European Business)</li>
+          <li>Sdružuje 31 svazů, 126 individuálních firem; zastupuje ~11 000 firem s 1,3 mil. zaměstnanci</li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--text-muted);">Doplnit: <strong>Agrární komora</strong> – hájí zájmy zemědělců (oblast, kterou HK ČR nepokrývá).</p>
+  </div>
+
+  <div class="note-footer">ITE 4.B · Maturita 2026 · Ekonomika – Otázka 4</div>
+
+</div>
+
+<script>
+const _subj  = (document.querySelector('meta[name="mat-subject"]') || {}).content || 'eko';
+const _num   = (document.querySelector('meta[name="mat-num"]')     || {}).content || '1';
+const _title = (document.querySelector('meta[name="mat-title"]')   || {}).content || document.title;
+const NOTE_ID = `${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`, JSON.stringify({ title:_title, subject:_subj, num:parseInt(_num) }));
+
+function applyDark() {
+  const on = localStorage.getItem('mat-dark') === '1';
+  document.body.classList.toggle('dark', on);
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = on ? '☀ Světlý' : '🌙 Tmavý';
+}
+function toggleDark() {
+  const on = document.body.classList.toggle('dark');
+  localStorage.setItem('mat-dark', on ? '1' : '0');
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = on ? '☀ Světlý' : '🌙 Tmavý';
+}
+window.addEventListener('storage', e => { if (e.key === 'mat-dark') applyDark(); });
+
+function secKey(n) { return `mat-sec::${NOTE_ID}::${n}`; }
+function toggleSec(btn) {
+  const section = btn.closest('.section');
+  const sec = section.dataset.sec;
+  if (localStorage.getItem(secKey(sec))) {
+    localStorage.removeItem(secKey(sec));
+    section.classList.remove('flagged');
+    btn.classList.remove('on');
+    btn.textContent = '⚑ Označit';
+  } else {
+    localStorage.setItem(secKey(sec), '1');
+    section.classList.add('flagged');
+    btn.classList.add('on');
+    btn.textContent = '⚑ Označeno';
+  }
+  updateSummary();
+}
+function loadFlags() {
+  document.querySelectorAll('.section[data-sec]').forEach(section => {
+    if (localStorage.getItem(secKey(section.dataset.sec))) {
+      section.classList.add('flagged');
+      const btn = section.querySelector('.sec-flag');
+      if (btn) { btn.classList.add('on'); btn.textContent = '⚑ Označeno'; }
+    }
+  });
+  updateSummary();
+}
+function updateSummary() {
+  const n = document.querySelectorAll('.section.flagged').length;
+  const el = document.getElementById('flagSummary');
+  if (el) {
+    el.textContent = n > 0 ? `${n} problematické sekce` : '';
+    el.classList.toggle('visible', n > 0);
+  }
+}
+applyDark();
+loadFlags();
+</script>
+</body>
+</html>
