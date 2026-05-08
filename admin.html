@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin – Maturita 2026</title>
+<script src="./manifest.js"></script>
+<style>
+:root {
+  --teal-light:#E1F5EE;--teal-dark:#085041;
+  --blue-light:#E6F1FB;--blue-dark:#0C447C;
+  --amber-light:#FAEEDA;--amber-dark:#633806;
+  --coral-light:#FAECE7;--coral-dark:#4A1B0C;
+  --green-light:#EAF3DE;--green-dark:#27500A;
+  --bg:#F8F7F5;--bg-panel:#fff;--bg-sidebar:#fff;
+  --border:#E0DED8;--border-strong:#C8C6C0;
+  --text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;
+  --radius:10px;--radius-sm:5px;
+  --eko-light:#E6F1FB;--eko-dark:#0C447C;
+  --it-light:#E1F5EE;--it-dark:#085041;
+  --lit-light:#FAEEDA;--lit-dark:#633806;
+}
+body.dark {
+  --bg:#111110;--bg-panel:#1C1C1A;--bg-sidebar:#1C1C1A;
+  --border:#2E2D2A;--border-strong:#3E3D3A;
+  --text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;
+  --teal-light:#0D2E24;--teal-dark:#5ECBA8;
+  --blue-light:#0D1F33;--blue-dark:#7BB8F0;
+  --amber-light:#2A1E0A;--amber-dark:#F5C06A;
+  --coral-light:#2A1208;--coral-dark:#F5A08A;
+  --green-light:#132208;--green-dark:#8FD058;
+  --eko-light:#0D1F33;--eko-dark:#7BB8F0;
+  --it-light:#0D2E24;--it-dark:#5ECBA8;
+  --lit-light:#2A1E0A;--lit-dark:#F5C06A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  font-size:14px;background:var(--bg);color:var(--text);height:100vh;
+  display:flex;flex-direction:column;overflow:hidden;}
+
+/* ── TOPBAR ── */
+.topbar{display:flex;align-items:center;gap:.6rem;padding:.6rem 1.25rem;
+  background:var(--bg-panel);border-bottom:1px solid var(--border);flex-shrink:0;}
+.topbar-title{font-weight:700;font-size:15px;flex:1;}
+.folder-name{font-size:12px;color:var(--text-faint);max-width:200px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.btn{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:5px 12px;font-size:12px;cursor:pointer;color:var(--text-muted);
+  transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
+.btn:hover{background:var(--bg-panel);color:var(--text);border-color:var(--border-strong);}
+.btn-open{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark);}
+.btn-open:hover{opacity:.9;color:#fff;}
+.btn-save{background:var(--teal-dark);color:#fff;border-color:var(--teal-dark);
+  transition:all .15s;}
+.btn-save:hover{opacity:.9;color:#fff;}
+.btn-save:disabled{opacity:.45;cursor:not-allowed;}
+
+/* ── MAIN ── */
+.main{display:flex;flex:1;overflow:hidden;}
+
+/* ── SIDEBAR ── */
+.sidebar{width:240px;flex-shrink:0;background:var(--bg-sidebar);
+  border-right:1px solid var(--border);overflow-y:auto;padding:.75rem 0;}
+.sb-empty{padding:1.5rem 1rem;font-size:13px;color:var(--text-faint);
+  display:flex;flex-direction:column;align-items:center;gap:.75rem;text-align:center;}
+.sb-empty .icon{font-size:2.5rem;}
+.subj-hdr{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--text-faint);
+  text-transform:uppercase;padding:.6rem 1rem .25rem;}
+.note-item{display:flex;align-items:center;gap:.5rem;padding:.4rem 1rem;
+  cursor:pointer;font-size:13px;color:var(--text-muted);
+  transition:background .1s;border-left:2px solid transparent;}
+.note-item:hover{background:var(--bg);color:var(--text);}
+.note-item.active{font-weight:600;border-left-color:currentColor;}
+.note-item.active.s-eko{background:var(--eko-light);color:var(--eko-dark);}
+.note-item.active.s-it {background:var(--it-light); color:var(--it-dark);}
+.note-item.active.s-lit{background:var(--lit-light);color:var(--lit-dark);}
+.note-num{font-size:11px;font-weight:700;color:var(--text-faint);min-width:20px;}
+
+/* ── EDITOR PANEL ── */
+.editor{flex:1;overflow-y:auto;padding:1.25rem 1.5rem;}
+.editor-placeholder{display:flex;flex-direction:column;align-items:center;
+  justify-content:center;height:100%;gap:.75rem;color:var(--text-faint);}
+.editor-placeholder .icon{font-size:3rem;}
+
+/* Note header */
+.note-hdr{display:flex;align-items:center;gap:.75rem;
+  background:var(--bg-panel);border:1px solid var(--border);
+  border-radius:var(--radius);padding:.875rem 1.25rem;margin-bottom:1rem;}
+.note-hdr-title{flex:1;font-size:17px;font-weight:700;}
+.dirty-badge{font-size:11px;padding:2px 8px;border-radius:20px;
+  background:var(--amber-light);color:var(--amber-dark);border:1px solid #FAC775;
+  display:none;white-space:nowrap;}
+.dirty-badge.on{display:inline-block;}
+
+/* ── TOOLBAR ── */
+.toolbar{display:flex;align-items:center;gap:3px;flex-wrap:wrap;
+  background:var(--bg-panel);border:1px solid var(--border);
+  border-radius:var(--radius);padding:.45rem .75rem;
+  margin-bottom:.875rem;position:sticky;top:0;z-index:20;}
+.tb-sep{width:1px;height:16px;background:var(--border);margin:0 3px;flex-shrink:0;}
+.tb-btn{background:none;border:1px solid transparent;border-radius:var(--radius-sm);
+  padding:3px 8px;font-size:12px;cursor:pointer;color:var(--text-muted);
+  transition:all .1s;min-width:26px;text-align:center;line-height:1.4;}
+.tb-btn:hover{background:var(--bg);border-color:var(--border);color:var(--text);}
+.dropdown{position:relative;}
+.dd-menu{position:absolute;top:calc(100% + 4px);left:0;
+  background:var(--bg-panel);border:1px solid var(--border);
+  border-radius:var(--radius);padding:.25rem;display:none;
+  z-index:100;min-width:140px;box-shadow:0 4px 20px rgba(0,0,0,.12);}
+.dd-menu.open{display:block;}
+.dd-item{display:flex;align-items:center;gap:.5rem;padding:.35rem .6rem;
+  border-radius:var(--radius-sm);cursor:pointer;font-size:12px;transition:background .1s;}
+.dd-item:hover{background:var(--bg);}
+.dd-swatch{width:11px;height:11px;border-radius:2px;flex-shrink:0;}
+
+/* ── SECTION CARDS ── */
+.sec-card{background:var(--bg-panel);border:1px solid var(--border);
+  border-radius:var(--radius);margin-bottom:.75rem;overflow:hidden;}
+.sec-card-hdr{display:flex;align-items:center;gap:.5rem;
+  padding:.5rem .75rem;background:var(--bg);border-bottom:1px solid var(--border);}
+.sec-move{display:flex;gap:2px;}
+.sec-move button{background:none;border:1px solid var(--border);border-radius:3px;
+  width:22px;height:22px;font-size:9px;cursor:pointer;color:var(--text-faint);
+  transition:all .1s;display:flex;align-items:center;justify-content:center;}
+.sec-move button:hover{background:var(--bg-panel);color:var(--text);}
+.sec-title-input{flex:1;background:none;border:none;outline:none;
+  font-size:14px;font-weight:600;color:var(--text);padding:2px 6px;
+  border-radius:3px;min-width:0;}
+.sec-title-input:focus{background:var(--bg);outline:1px solid var(--border-strong);}
+.sec-del{background:none;border:1px solid transparent;border-radius:var(--radius-sm);
+  padding:2px 8px;font-size:11px;cursor:pointer;color:var(--text-faint);transition:all .1s;}
+.sec-del:hover{background:var(--coral-light);color:var(--coral-dark);border-color:#F5C4B3;}
+.sec-body{padding:.75rem 1rem;min-height:60px;outline:none;line-height:1.65;}
+.sec-body:focus{background:var(--bg);}
+
+/* Content styling inside sec-body */
+.sec-body p{margin-bottom:.5rem;}
+.sec-body ul,.sec-body ol{padding-left:1.4rem;margin-bottom:.5rem;}
+.sec-body li{margin-bottom:2px;}
+.sec-body h3{font-size:14px;font-weight:700;margin:.6rem 0 .4rem;}
+.sec-body strong{font-weight:700;}
+.sec-body em{font-style:italic;}
+.sec-body .box-teal{background:var(--teal-light);border-left:3px solid var(--teal-dark);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.55rem .9rem;margin-bottom:.5rem;}
+.sec-body .box-blue{background:var(--blue-light);border-left:3px solid var(--blue-dark);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.55rem .9rem;margin-bottom:.5rem;}
+.sec-body .box-amber{background:var(--amber-light);border-left:3px solid var(--amber-dark);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.55rem .9rem;margin-bottom:.5rem;}
+.sec-body .box-coral{background:var(--coral-light);border-left:3px solid var(--coral-dark);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.55rem .9rem;margin-bottom:.5rem;}
+.sec-body .box-green{background:var(--green-light);border-left:3px solid var(--green-dark);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.55rem .9rem;margin-bottom:.5rem;}
+.sec-body .chip{display:inline-block;border-radius:20px;padding:1px 10px;
+  font-size:11px;font-weight:600;margin:1px 2px;}
+.sec-body .chip-teal {background:var(--teal-light); color:var(--teal-dark);}
+.sec-body .chip-blue {background:var(--blue-light); color:var(--blue-dark);}
+.sec-body .chip-amber{background:var(--amber-light);color:var(--amber-dark);}
+.sec-body .chip-coral{background:var(--coral-light);color:var(--coral-dark);}
+.sec-body .chip-green{background:var(--green-light);color:var(--green-dark);}
+.sec-body .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;
+  background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:1px 5px;}
+.sec-body table{width:100%;border-collapse:collapse;margin-bottom:.5rem;font-size:13px;}
+.sec-body table th{background:var(--bg);font-weight:700;padding:4px 8px;border:1px solid var(--border);}
+.sec-body table td{padding:4px 8px;border:1px solid var(--border);}
+.sec-body table tr:nth-child(even) td{background:var(--bg);}
+
+/* Add section */
+.add-sec-btn{width:100%;padding:.65rem;border:1.5px dashed var(--border);
+  border-radius:var(--radius);background:none;cursor:pointer;
+  color:var(--text-faint);font-size:13px;transition:all .15s;margin-bottom:1.5rem;}
+.add-sec-btn:hover{border-color:var(--border-strong);color:var(--text-muted);}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="./index.html" class="btn" style="text-decoration:none">← Katalog</a>
+  <span class="topbar-title">Úprava zápisů</span>
+  <span class="folder-name" id="folderName"></span>
+  <button class="btn btn-open" id="openFolderBtn" onclick="openFolder()">📁 Otevřít složku</button>
+  <button class="btn" onclick="toggleDark()" id="darkBtn">🌙 Tmavý</button>
+</div>
+
+<div class="main">
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sb-empty">
+      <div class="icon">📁</div>
+      <p>Klikni na „Otevřít složku" a vyber složku <strong>Helper</strong>.</p>
+    </div>
+  </div>
+
+  <!-- EDITOR -->
+  <div class="editor" id="editor">
+    <div class="editor-placeholder">
+      <div class="icon">📝</div>
+      <p>Vyber zápis z levého panelu.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── STATE ─────────────────────────────────────────────────────────────────
+let dirHandle   = null;
+let currentNote = null;   // { id, s, filename, fileHandle, originalHTML }
+let dark        = localStorage.getItem('mat-dark') === '1';
+let dirty       = false;
+
+// ── DARK MODE ─────────────────────────────────────────────────────────────
+function applyDark() {
+  document.body.classList.toggle('dark', dark);
+  document.getElementById('darkBtn').textContent = dark ? '☀ Světlý' : '🌙 Tmavý';
+}
+function toggleDark() {
+  dark = !dark;
+  localStorage.setItem('mat-dark', dark ? '1' : '0');
+  applyDark();
+}
+applyDark();
+
+// ── OPEN FOLDER ───────────────────────────────────────────────────────────
+async function openFolder() {
+  try {
+    dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
+    document.getElementById('folderName').textContent = '📂 ' + dirHandle.name;
+    renderSidebar();
+  } catch(e) {
+    if (e.name !== 'AbortError') alert('Nepodařilo se otevřít složku:\n' + e.message);
+  }
+}
+
+// ── SIDEBAR ───────────────────────────────────────────────────────────────
+const SUBJ_LABELS = { eko:'Ekonomika', it:'Informační technologie', lit:'Literatura' };
+
+function renderSidebar() {
+  const manifest = window.MAT_MANIFEST || {};
+  const sb = document.getElementById('sidebar');
+  let html = '';
+  for (const s of ['eko','it','lit']) {
+    const files = manifest[s] || [];
+    if (!files.length) continue;
+    html += `<div class="subj-hdr">${SUBJ_LABELS[s]}</div>`;
+    files.forEach(file => {
+      const numMatch = file.match(/^(\d+)/);
+      const num = numMatch ? parseInt(numMatch[1]) : 99;
+      const id  = `${s}-${String(num).padStart(2,'0')}`;
+      let title = null;
+      try { const c = localStorage.getItem(`mat-reg::${id}`); if (c) title = JSON.parse(c).title; } catch(e) {}
+      if (!title) title = file.replace(/^\d+_/,'').replace(/\.html$/,'').replace(/_/g,' ');
+      const active = currentNote && currentNote.id === id ? ` active s-${s}` : '';
+      html += `<div class="note-item${active}" id="ni-${id}" onclick="selectNote('${s}','${file}','${id}')">
+        <span class="note-num">${String(num).padStart(2,'0')}</span>
+        <span>${title}</span>
+      </div>`;
+    });
+  }
+  sb.innerHTML = html || '<div class="sb-empty"><p>Žádné zápisky v manifest.js</p></div>';
+}
+
+// ── LOAD NOTE ─────────────────────────────────────────────────────────────
+async function selectNote(s, filename, id) {
+  if (dirty && !confirm('Máš neuložené změny. Přejít bez uložení?')) return;
+  try {
+    const notesDir = await dirHandle.getDirectoryHandle('notes');
+    const subjDir  = await notesDir.getDirectoryHandle(s.toUpperCase());
+    const fileHandle = await subjDir.getFileHandle(filename);
+    const file = await fileHandle.getFile();
+    const html = await file.text();
+
+    currentNote = { id, s, filename, fileHandle, originalHTML: html };
+    dirty = false;
+
+    document.querySelectorAll('.note-item').forEach(el =>
+      el.classList.remove('active','s-eko','s-it','s-lit'));
+    const ni = document.getElementById('ni-' + id);
+    if (ni) ni.classList.add('active', 's-' + s);
+
+    renderEditor(html);
+  } catch(e) {
+    alert('Chyba při načítání:\n' + e.message);
+  }
+}
+
+// ── RENDER EDITOR ─────────────────────────────────────────────────────────
+function renderEditor(html) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const sections = Array.from(doc.querySelectorAll('.section[data-sec]'));
+
+  const titleMeta = doc.querySelector('meta[name="mat-title"]');
+  const noteTitle = titleMeta ? titleMeta.content : (doc.title.split('–')[0].trim());
+
+  const editor = document.getElementById('editor');
+  editor.innerHTML = '';
+
+  // Note header
+  const hdr = document.createElement('div');
+  hdr.className = 'note-hdr';
+  hdr.innerHTML = `
+    <div class="note-hdr-title">${esc(noteTitle)}</div>
+    <a class="btn" href="./notes/${currentNote.s.toUpperCase()}/${currentNote.filename}"
+       target="_blank" title="Otevřít v prohlížeči">↗ Náhled</a>
+    <span class="dirty-badge" id="dirtyBadge">● Neuloženo</span>
+    <button class="btn btn-save" id="saveBtn" onclick="saveNote()" disabled>💾 Uložit</button>
+  `;
+  editor.appendChild(hdr);
+
+  // Toolbar
+  editor.insertAdjacentHTML('beforeend', buildToolbarHTML());
+
+  // Sections list
+  const secList = document.createElement('div');
+  secList.id = 'secList';
+  sections.forEach((sec, i) => secList.appendChild(buildSectionCard(sec, i)));
+  editor.appendChild(secList);
+
+  // Add section button
+  const addBtn = document.createElement('button');
+  addBtn.className = 'add-sec-btn';
+  addBtn.textContent = '+ Přidat sekci';
+  addBtn.onclick = addSection;
+  editor.appendChild(addBtn);
+
+  // Ctrl+S to save
+  editor.onkeydown = null;
+}
+
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    if (!document.getElementById('saveBtn')?.disabled) saveNote();
+  }
+});
+
+// ── TOOLBAR ───────────────────────────────────────────────────────────────
+const COLORS = ['teal','blue','amber','coral','green'];
+
+function buildToolbarHTML() {
+  const boxItems  = COLORS.map(c => `<div class="dd-item" onclick="insertBox('${c}')">
+    <span class="dd-swatch" style="background:var(--${c}-light);border:1px solid var(--${c}-dark)"></span>
+    ${c[0].toUpperCase()+c.slice(1)}</div>`).join('');
+  const chipItems = COLORS.map(c => `<div class="dd-item" onclick="insertChip('${c}')">
+    <span class="dd-swatch" style="background:var(--${c}-light);border:1px solid var(--${c}-dark)"></span>
+    ${c[0].toUpperCase()+c.slice(1)}</div>`).join('');
+
+  return `<div class="toolbar" id="toolbar" onmousedown="event.preventDefault()">
+    <button class="tb-btn" onclick="fmt('bold')"   title="Tučně (Ctrl+B)"><b>B</b></button>
+    <button class="tb-btn" onclick="fmt('italic')" title="Kurzíva (Ctrl+I)"><i>I</i></button>
+    <button class="tb-btn" onclick="fmt('underline')" title="Podtržení (Ctrl+U)"><u>U</u></button>
+    <button class="tb-btn" onclick="fmtBlock('h3')" title="Nadpis H3">H3</button>
+    <div class="tb-sep"></div>
+    <button class="tb-btn" onclick="fmt('insertUnorderedList')" title="Odrážkový seznam">•—</button>
+    <button class="tb-btn" onclick="fmt('insertOrderedList')"  title="Číslovaný seznam">1.</button>
+    <div class="tb-sep"></div>
+    <div class="dropdown">
+      <button class="tb-btn" onclick="toggleDD(this)">Box ▾</button>
+      <div class="dd-menu">${boxItems}</div>
+    </div>
+    <div class="dropdown">
+      <button class="tb-btn" onclick="toggleDD(this)">Chip ▾</button>
+      <div class="dd-menu">${chipItems}</div>
+    </div>
+    <button class="tb-btn" onclick="insertMono()" title="Kód / monospace">&lt;/&gt;</button>
+    <div class="tb-sep"></div>
+    <button class="tb-btn" onclick="fmt('removeFormat')" title="Zrušit formátování">✕</button>
+  </div>`;
+}
+
+function fmt(cmd) { document.execCommand(cmd, false, null); }
+
+function fmtBlock(tag) {
+  // toggle: if already that tag, convert to p
+  const sel = window.getSelection();
+  if (sel && sel.anchorNode) {
+    const block = sel.anchorNode.nodeType === 1
+      ? sel.anchorNode : sel.anchorNode.parentElement;
+    const cur = block.closest('h3,h2,h1');
+    if (cur && cur.tagName.toLowerCase() === tag) {
+      document.execCommand('formatBlock', false, 'p');
+      return;
+    }
+  }
+  document.execCommand('formatBlock', false, tag);
+}
+
+function insertAtCursor(html) {
+  document.execCommand('insertHTML', false, html);
+}
+
+function insertBox(color) {
+  closeDropdowns();
+  insertAtCursor(`<div class="box-${color}"><p>Text...</p></div><p></p>`);
+}
+
+function insertChip(color) {
+  closeDropdowns();
+  const sel = window.getSelection();
+  const text = sel && sel.toString().trim() ? sel.toString().trim() : 'text';
+  insertAtCursor(`<span class="chip chip-${color}">${text}</span> `);
+}
+
+function insertMono() {
+  const sel = window.getSelection();
+  const text = sel && sel.toString().trim() ? sel.toString().trim() : 'code';
+  insertAtCursor(`<span class="mono">${text}</span>`);
+}
+
+function toggleDD(btn) {
+  const menu = btn.nextElementSibling;
+  const wasOpen = menu.classList.contains('open');
+  closeDropdowns();
+  if (!wasOpen) menu.classList.add('open');
+}
+
+function closeDropdowns() {
+  document.querySelectorAll('.dd-menu.open').forEach(m => m.classList.remove('open'));
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.dropdown')) closeDropdowns();
+});
+
+// ── SECTION CARD ──────────────────────────────────────────────────────────
+function buildSectionCard(secEl, idx) {
+  const h2 = secEl.querySelector('h2');
+  const title = h2
+    ? Array.from(h2.childNodes)
+        .filter(n => n.nodeType === Node.TEXT_NODE)
+        .map(n => n.textContent.trim()).join(' ').trim()
+    : '';
+  const clone = secEl.cloneNode(true);
+  clone.querySelector('h2')?.remove();
+  const body = clone.innerHTML.trim();
+
+  const card = document.createElement('div');
+  card.className = 'sec-card';
+  card.innerHTML = `
+    <div class="sec-card-hdr">
+      <div class="sec-move">
+        <button onclick="moveSection(this,-1)" title="Přesunout nahoru">▲</button>
+        <button onclick="moveSection(this,1)"  title="Přesunout dolů">▼</button>
+      </div>
+      <input class="sec-title-input" value="${esc(title)}" placeholder="Název sekce" oninput="markDirty()">
+      <button class="sec-del" onclick="deleteSection(this)">🗑 Smazat</button>
+    </div>
+    <div class="sec-body" contenteditable="true" oninput="markDirty()">${body}</div>
+  `;
+  return card;
+}
+
+// ── SECTION OPERATIONS ────────────────────────────────────────────────────
+function addSection() {
+  const list = document.getElementById('secList');
+  const card = document.createElement('div');
+  card.className = 'sec-card';
+  card.innerHTML = `
+    <div class="sec-card-hdr">
+      <div class="sec-move">
+        <button onclick="moveSection(this,-1)">▲</button>
+        <button onclick="moveSection(this,1)">▼</button>
+      </div>
+      <input class="sec-title-input" value="" placeholder="Název sekce" oninput="markDirty()">
+      <button class="sec-del" onclick="deleteSection(this)">🗑 Smazat</button>
+    </div>
+    <div class="sec-body" contenteditable="true" oninput="markDirty()"><p></p></div>
+  `;
+  list.appendChild(card);
+  card.querySelector('.sec-title-input').focus();
+  markDirty();
+}
+
+function deleteSection(btn) {
+  if (!confirm('Smazat tuto sekci?')) return;
+  btn.closest('.sec-card').remove();
+  markDirty();
+}
+
+function moveSection(btn, dir) {
+  const card  = btn.closest('.sec-card');
+  const list  = card.parentElement;
+  const cards = Array.from(list.children);
+  const idx   = cards.indexOf(card);
+  const swap  = idx + dir;
+  if (swap < 0 || swap >= cards.length) return;
+  dir === -1 ? list.insertBefore(card, cards[swap])
+             : list.insertBefore(cards[swap], card);
+  markDirty();
+}
+
+// ── DIRTY ─────────────────────────────────────────────────────────────────
+function markDirty() {
+  dirty = true;
+  document.getElementById('dirtyBadge')?.classList.add('on');
+  const btn = document.getElementById('saveBtn');
+  if (btn) btn.disabled = false;
+}
+
+// ── SAVE ──────────────────────────────────────────────────────────────────
+async function saveNote() {
+  if (!currentNote) return;
+
+  const cards = Array.from(document.querySelectorAll('#secList .sec-card'));
+  const sections = cards.map((card, i) => ({
+    num:   i + 1,
+    title: card.querySelector('.sec-title-input').value,
+    body:  card.querySelector('.sec-body').innerHTML,
+  }));
+
+  const newHTML = rebuildNote(currentNote.originalHTML, sections);
+
+  try {
+    const writable = await currentNote.fileHandle.createWritable();
+    await writable.write(newHTML);
+    await writable.close();
+
+    currentNote.originalHTML = newHTML;
+    dirty = false;
+    document.getElementById('dirtyBadge')?.classList.remove('on');
+    const btn = document.getElementById('saveBtn');
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = '✓ Uloženo';
+      setTimeout(() => { btn.textContent = '💾 Uložit'; }, 2000);
+    }
+  } catch(e) {
+    alert('Chyba při ukládání:\n' + e.message);
+  }
+}
+
+// ── REBUILD NOTE HTML ─────────────────────────────────────────────────────
+function rebuildNote(originalHTML, editedSections) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(originalHTML, 'text/html');
+
+  // Find insertion point: put a placeholder before the first section
+  const firstSec = doc.querySelector('.section[data-sec]');
+  const container = firstSec
+    ? firstSec.parentNode
+    : (doc.querySelector('.content') || doc.body);
+
+  const placeholder = doc.createElement('div');
+  placeholder.id = '__insert__';
+  if (firstSec) container.insertBefore(placeholder, firstSec);
+  else container.appendChild(placeholder);
+
+  // Remove all existing sections
+  doc.querySelectorAll('.section[data-sec]').forEach(s => s.remove());
+
+  // Insert rebuilt sections before placeholder
+  const insertPoint = doc.getElementById('__insert__');
+  editedSections.forEach(sec => {
+    const div = doc.createElement('div');
+    div.className = 'section';
+    div.setAttribute('data-sec', String(sec.num));
+    div.innerHTML = `\n    <h2>${sec.title}\n      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>\n    </h2>\n    ${sec.body}\n  `;
+    container.insertBefore(div, insertPoint);
+  });
+  insertPoint.remove();
+
+  return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────────────
+function esc(s) {
+  return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                  .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
