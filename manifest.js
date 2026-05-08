@@ -16,7 +16,7 @@ window.MAT_MANIFEST = {
   it: [
     "01_Hardware.html",
     "02_Periferie.html",
-    "03_Kancelárský_software.html",
+    "03_Kancelársky_software.html",
   ],
 
   lit: [

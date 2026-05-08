@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="it">
+<meta name="mat-num" content="3">
+<meta name="mat-title" content="Kancelářský software">
+<title>Kancelářský software – IT Maturita 2026</title>
+<style>
+  :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
+  body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;--flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto;}
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px;}
+  .header p{font-size:13px;color:var(--text-muted);}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .badge{background:var(--teal-light);color:var(--teal-dark);border:0.5px solid #9FE1CB;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .dark-btn{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;}
+  .dark-btn:hover{color:var(--text);}
+  .flag-summary{display:none;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .flag-summary.visible{display:inline-block;}
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em;}
+  p,li{font-size:14px;color:var(--text-muted);}
+  ul{padding-left:1.2rem;}
+  li{margin-bottom:4px;}
+  .kw{font-weight:600;color:var(--text);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-green{background:var(--green-light);border:0.5px solid #B5DCA0;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-teal strong{color:var(--teal-dark);}.cc-blue strong{color:var(--blue-dark);}.cc-amber strong{color:var(--amber-dark);}.cc-coral strong{color:var(--coral-dark);}.cc-green strong{color:var(--green-dark);}
+  .accent-blue{border-left:3px solid #378ADD;padding-left:12px;margin:.5rem 0;}
+  .accent-teal{border-left:3px solid #1D9E75;padding-left:12px;margin:.5rem 0;}
+  .accent-amber{border-left:3px solid #EF9F27;padding-left:12px;margin:.5rem 0;}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:5px;}
+  .t-teal{background:var(--teal-light);color:var(--teal-dark);}.t-blue{background:var(--blue-light);color:var(--blue-dark);}.t-amber{background:var(--amber-light);color:var(--amber-dark);}.t-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .tbl{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:600;padding:6px 8px;border:0.5px solid var(--gray-border);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;color:var(--text-muted);}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+  .mono{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:3px;padding:1px 5px;color:var(--text);}
+  .code-block{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12.5px;background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.6rem 1rem;margin:.4rem 0;color:var(--text);}
+  .app-row{display:flex;gap:10px;padding:.6rem 0;border-bottom:0.5px solid var(--gray-border);align-items:flex-start;}
+  .app-row:last-child{border-bottom:none;padding-bottom:0;}
+  .app-label{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;align-self:flex-start;margin-top:2px;min-width:120px;text-align:center;}
+  .al-blue{background:var(--blue-light);color:var(--blue-dark);}.al-teal{background:var(--teal-light);color:var(--teal-dark);}.al-amber{background:var(--amber-light);color:var(--amber-dark);}.al-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .app-text{font-size:13.5px;color:var(--text-muted);flex:1;}
+  .app-text strong{color:var(--text);font-weight:600;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.8rem 0;}
+  @media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.header{flex-direction:column;}}
+  @media print{body{background:white;padding:1rem;}.sec-flag,.dark-btn{display:none;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Kancelářský software</h1>
+    <p>IT Maturita &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+    <p style="margin-top:5px;">Balíky · Tabulkový kalkulátor · Datové typy · Datum a čas · Kontingenční tabulky · Funkce · Textový editor</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">IT · Kancelářský SW</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- 1 BALÍKY -->
+<div class="section" data-sec="1">
+  <h2><span class="num">1</span> Příklady balíků kancelářského SW
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p><span class="kw">Kancelářský software</span> = soubor aplikací pro administrativní práci — tvorba dokumentů, tabulkové výpočty, prezentace, organizace a sdílení dat. Používá se ve firmách, školách i domácnostech.</p>
+  </div>
+  <div style="margin-top:.75rem;">
+    <div class="app-row">
+      <span class="app-label al-blue">Microsoft 365</span>
+      <div class="app-text"><strong>Word · Excel · PowerPoint · Outlook · Access</strong><br>
+      Nejpoužívanější komerční balík. Předplatné (cloud) nebo offline licence. Nativní formáty: <span class="mono">.docx .xlsx .pptx</span><br>
+      <span class="tag t-teal">+ Rozšíření</span><span class="tag t-teal">+ Pokročilé funkce</span><span class="tag t-teal">+ Kompatibilita</span><span class="tag t-coral">− Placený</span></div>
+    </div>
+    <div class="app-row">
+      <span class="app-label al-teal">LibreOffice</span>
+      <div class="app-text"><strong>Writer · Calc · Impress · Base</strong><br>
+      Bezplatný open-source. Multiplatformní (Windows, macOS, Linux). Nativní ODF (<span class="mono">.odt .ods .odp</span>).<br>
+      <span class="tag t-teal">+ Zdarma</span><span class="tag t-teal">+ Offline</span><span class="tag t-coral">− Horší kompatibilita s MS</span><span class="tag t-coral">− Méně funkcí</span></div>
+    </div>
+    <div class="app-row">
+      <span class="app-label al-amber">Google Workspace</span>
+      <div class="app-text"><strong>Docs · Sheets · Slides · Gmail · Drive</strong><br>
+      Online v prohlížeči, soubory v Google Drive.<br>
+      <span class="tag t-teal">+ Spolupráce v reálném čase</span><span class="tag t-teal">+ Automatické ukládání</span><span class="tag t-coral">− Závislost na internetu</span></div>
+    </div>
+    <div class="app-row">
+      <span class="app-label al-coral">Apple iWork</span>
+      <div class="app-text"><strong>Pages · Numbers · Keynote</strong><br>
+      Zdarma pro macOS/iOS. Silný důraz na design. Export do PDF a MS Office formátů.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2 PRINCIP A POJMY -->
+<div class="section" data-sec="2">
+  <h2><span class="num">2</span> Princip práce v tabulkovém kalkulátoru – pojmy
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-teal">
+    <p><span class="kw">Tabulkový kalkulátor</span> (Excel, Calc, Sheets) = aplikace pro práci s daty v tabulkách a jejich výpočty. Klíčová výhoda: <span class="kw">automatický přepočet</span> při každé změně hodnoty.</p>
+  </div>
+  <h3>Struktura</h3>
+  <div class="grid4" style="margin-top:.5rem;">
+    <div class="card"><strong>Sloupec</strong>Označen písmeny: A, B, C … AA, AB…</div>
+    <div class="card"><strong>Řádek</strong>Označen čísly: 1, 2, 3 …</div>
+    <div class="card"><strong>Buňka</strong>Průsečík sloupce a řádku: <span class="mono">A1</span>, <span class="mono">B4</span></div>
+    <div class="card"><strong>List (Sheet)</strong>Jedna záložka v sešitu.</div>
+  </div>
+  <h3>Obsah buňky</h3>
+  <div class="grid4" style="margin-top:.5rem;">
+    <div class="cc-blue"><strong>Číslo</strong>Pro výpočty. Vpravo.</div>
+    <div class="cc-teal"><strong>Text</strong>Popisky. Vlevo.</div>
+    <div class="cc-amber"><strong>Datum / čas</strong>Interně jako číslo.</div>
+    <div class="cc-coral"><strong>Vzorec</strong>Začíná <span class="mono">=</span>.</div>
+  </div>
+  <h3>Vzorce</h3>
+  <div class="grid3" style="margin-top:.4rem;">
+    <div class="card"><strong>Příklady</strong>
+      <div class="code-block">=A1+B1</div>
+      <div class="code-block">=C3*D3</div>
+      <div class="code-block">=SUMA(A1:A10)</div>
+    </div>
+    <div class="card"><strong>Operátory</strong><ul style="margin-top:.3rem;"><li><span class="mono">+ − * /</span> základní</li><li><span class="mono">^</span> mocnina</li><li><span class="mono">&amp;</span> spojení textu</li></ul></div>
+    <div class="card"><strong>Výhoda</strong>Při změně hodnoty v odkazované buňce se výsledek <span class="kw">okamžitě přepočítá</span>.</div>
+  </div>
+  <hr>
+  <h3>Relativní, absolutní a smíšené odkazy</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Relativní &nbsp;<span class="mono">A1</span></strong>
+      <p>Při kopírování se <span class="kw">posune</span> relativně.</p>
+      <p style="margin-top:.4rem;font-size:13px;"><span class="mono">=A1*B1</span> dolů → <span class="mono">=A2*B2</span></p>
+      <p style="font-size:13px;">Výpočty přes celý sloupec/řádek.</p>
+    </div>
+    <div class="cc-teal">
+      <strong>Absolutní &nbsp;<span class="mono">$A$1</span></strong>
+      <p>Při kopírování se <span class="kw">nemění</span>.</p>
+      <p style="margin-top:.4rem;font-size:13px;">DPH 21 % v <span class="mono">$B$1</span> — všechny vzorce odkazují na stejnou konstantu.</p>
+      <p style="font-size:13px;">Klávesa: <span class="mono">F4</span></p>
+    </div>
+    <div class="cc-amber">
+      <strong>Smíšený &nbsp;<span class="mono">$A1</span> / <span class="mono">A$1</span></strong>
+      <p>Fixuje jen <span class="kw">sloupec</span> nebo jen <span class="kw">řádek</span>.</p>
+      <p style="margin-top:.4rem;font-size:13px;">Cenová tabulka — jeden rozměr fixní, druhý se posouvá.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 3 DATOVÉ TYPY -->
+<div class="section" data-sec="3">
+  <h2><span class="num">3</span> Datové typy v tabulkovém kalkulátoru
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <p style="margin-bottom:.6rem;">Typ dat ovlivňuje výpočty i formát zobrazení. Špatný typ → chyby ve vzorcích.</p>
+  <table class="tbl">
+    <tr><th>Typ</th><th>Popis</th><th>Příklady</th><th>Zarovnání</th></tr>
+    <tr><td><strong>Číslo</strong></td><td>Celá i desetinná čísla. Formát: měna, %, zlomky.</td><td><span class="mono">42</span> &nbsp;<span class="mono">3,14</span> &nbsp;<span class="mono">21%</span></td><td>Vpravo</td></tr>
+    <tr><td><strong>Text</strong></td><td>Řetězec znaků. Nelze počítat. Číslo jako text = zelený trojúhelník.</td><td><span class="mono">Praha</span> &nbsp;<span class="mono">Jan Novák</span></td><td>Vlevo</td></tr>
+    <tr><td><strong>Datum a čas</strong></td><td>Interně číslo (dny od 1. 1. 1900). Čas = desetinná část dne.</td><td><span class="mono">1. 1. 2026</span> &nbsp;<span class="mono">14:30</span></td><td>Vpravo</td></tr>
+    <tr><td><strong>Logická hodnota</strong></td><td>Pouze TRUE nebo FALSE. Výsledek porovnání.</td><td><span class="mono">TRUE</span> &nbsp;<span class="mono">=A1&gt;10</span></td><td>Na střed</td></tr>
+    <tr><td><strong>Chyba</strong></td><td>Chyba ve vzorci.</td><td><span class="mono">#DIV/0!</span> &nbsp;<span class="mono">#N/A</span> &nbsp;<span class="mono">#REF!</span></td><td>—</td></tr>
+  </table>
+  <div class="accent-amber" style="margin-top:.75rem;">
+    <p><span class="kw">Pozor:</span> Číslo jako text se <strong>nepočítá</strong> — SUMA ho přeskočí. Oprava: formát buňky nebo funkce <span class="mono">HODNOTA()</span>.</p>
+  </div>
+</div>
+
+<!-- 4 DATUM A ČAS -->
+<div class="section" data-sec="4">
+  <h2><span class="num">4</span> Práce s datem a časem
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p>Datum = <span class="kw">počet dní od 1. 1. 1900</span>. Čas = <span class="kw">desetinná část dne</span> (0,5 = 12:00). Lze přímo počítat — odečtení dvou dat = počet dní mezi nimi.</p>
+  </div>
+  <div class="grid2" style="margin-top:.75rem;">
+    <div class="card">
+      <strong>V praxi</strong>
+      <ul style="margin-top:.4rem;">
+        <li><span class="mono">44927</span> = 1. 1. 2023</li>
+        <li>Přičtení čísla = posunutí o N dní</li>
+        <li>Odečtení dat = počet dní</li>
+        <li>Špatný formát → chybné výsledky</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Pozor</strong>
+      <ul style="margin-top:.4rem;">
+        <li>Datum jako text (<span class="mono">"1.1.2026"</span>) nelze odečítat</li>
+        <li>Stejné číslo jako datum nebo číslo — záleží jen na formátu buňky</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Klíčové datumové funkce</h3>
+  <table class="tbl">
+    <tr><th>Funkce</th><th>Co vrací</th><th>Využití</th></tr>
+    <tr><td><span class="mono">DNES()</span></td><td>Aktuální datum</td><td>Automatická aktualizace v reportu</td></tr>
+    <tr><td><span class="mono">NYNÍ()</span></td><td>Datum a čas</td><td>Časové razítko přepočtu</td></tr>
+    <tr><td><span class="mono">ROK() / MĚSÍC() / DEN()</span></td><td>Část data jako číslo</td><td><span class="mono">=ROK(A1)</span> → <span class="mono">2026</span></td></tr>
+    <tr><td><span class="mono">NETWORKDAYS()</span></td><td>Počet pracovních dní</td><td>Dodací lhůta bez víkendů</td></tr>
+    <tr><td><span class="mono">DATUM(rok;měs;den)</span></td><td>Sestaví datum z čísel</td><td><span class="mono">=DATUM(2026;6;1)</span></td></tr>
+    <tr><td><span class="mono">DATEDIF()</span></td><td>Rozdíl v letech/měsících/dnech</td><td>Věk: <span class="mono">=DATEDIF(B2;DNES();"Y")</span></td></tr>
+  </table>
+  <h3>Typická využití</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Výpočet věku</strong><span class="mono">=DATEDIF(B2;DNES();"Y")</span></div>
+    <div class="card"><strong>Splatnost faktury</strong><span class="mono">=A2+30</span></div>
+    <div class="card"><strong>Odpracované dny</strong><span class="mono">=NETWORKDAYS(A2;B2)</span></div>
+  </div>
+</div>
+
+<!-- 5 KONTINGENČNÍ TABULKY -->
+<div class="section" data-sec="5">
+  <h2><span class="num">5</span> Analýza dat – kontingenční tabulky
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-teal">
+    <p><span class="kw">Kontingenční tabulka (Pivot Table)</span> = nástroj pro rychlou sumarizaci a analýzu velkého množství dat bez vzorců. Data lze přeskupovat přetahováním polí.</p>
+  </div>
+  <h3>Funkce</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Seskupování</strong>Zobrazení hodnot podle kategorií — produkt, region, měsíc</div>
+    <div class="card"><strong>Filtrování</strong>Zobrazení jen části dat — rok, prodejce, středisko</div>
+    <div class="card"><strong>Výpočty</strong>Součet, průměr, počet, min, max — pro každou skupinu</div>
+  </div>
+  <h3>Příklady použití</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Tabulka prodejů → Pivot</strong>
+      <p style="font-size:13px;margin-top:.3rem;">10 000 řádků (datum, produkt, region, prodejce, částka)</p>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Součet tržeb <strong>podle produktu</strong></li>
+        <li>Průměrná cena <strong>podle regionu</strong></li>
+        <li>Počet objednávek <strong>podle měsíce</strong></li>
+      </ul>
+    </div>
+    <div class="cc-teal">
+      <strong>Evidence zaměstnanců → Pivot</strong>
+      <p style="font-size:13px;margin-top:.3rem;">Seznam s oddělením, platem, pozicí</p>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Průměrný plat <strong>podle oddělení</strong></li>
+        <li>Počet zaměstnanců <strong>podle pozice</strong></li>
+        <li>Mzdové náklady <strong>podle střediska</strong></li>
+      </ul>
+    </div>
+  </div>
+  <h3>Výhody</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Rychlost</strong>Tisíce řádků za sekundy — bez vzorců, bez programování</div>
+    <div class="card"><strong>Interaktivita</strong>Přesunutím pole změníš pohled — bez úpravy vzorců</div>
+    <div class="card"><strong>Kontingenční graf</strong>Jedním klikem vznikne interaktivní Pivot Chart</div>
+  </div>
+</div>
+
+<!-- 6 FUNKCE -->
+<div class="section" data-sec="6">
+  <h2><span class="num">6</span> Funkce v tabulkovém kalkulátoru
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p><span class="kw">Funkce</span> = předdefinované vzorce. Syntaxe: <span class="mono">=NÁZEV(argument1; argument2; …)</span></p>
+  </div>
+  <h3>Matematické</h3>
+  <table class="tbl">
+    <tr><th>Funkce</th><th>Co dělá</th><th>Příklad</th></tr>
+    <tr><td><span class="mono">SUMA()</span></td><td>Součet hodnot v rozsahu</td><td><span class="mono">=SUMA(A1:A10)</span></td></tr>
+    <tr><td><span class="mono">ZAOKROUHLIT()</span></td><td>Zaokrouhlení na N des. míst</td><td><span class="mono">=ZAOKROUHLIT(A1;2)</span></td></tr>
+    <tr><td><span class="mono">ABS()</span></td><td>Absolutní hodnota</td><td><span class="mono">=ABS(-15)</span> → <span class="mono">15</span></td></tr>
+    <tr><td><span class="mono">MOD()</span></td><td>Zbytek po dělení</td><td><span class="mono">=MOD(10;3)</span> → <span class="mono">1</span></td></tr>
+  </table>
+  <h3>Statistické</h3>
+  <table class="tbl">
+    <tr><th>Funkce</th><th>Co dělá</th><th>Příklad</th></tr>
+    <tr><td><span class="mono">PRŮMĚR()</span></td><td>Aritmetický průměr</td><td><span class="mono">=PRŮMĚR(B2:B20)</span></td></tr>
+    <tr><td><span class="mono">MEDIAN()</span></td><td>Střední hodnota</td><td><span class="mono">=MEDIAN(C1:C100)</span></td></tr>
+    <tr><td><span class="mono">MIN() / MAX()</span></td><td>Nejmenší / největší hodnota</td><td><span class="mono">=MIN(A:A)</span></td></tr>
+    <tr><td><span class="mono">POČET()</span></td><td>Počet buněk s číslem</td><td><span class="mono">=POČET(B2:B50)</span></td></tr>
+    <tr><td><span class="mono">COUNTIF()</span></td><td>Počet buněk splňujících podmínku</td><td><span class="mono">=COUNTIF(C2:C50;"Praha")</span></td></tr>
+    <tr><td><span class="mono">SUMIF()</span></td><td>Součet buněk splňujících podmínku</td><td><span class="mono">=SUMIF(B2:B50;"Leden";C2:C50)</span></td></tr>
+  </table>
+  <h3>Logické</h3>
+  <table class="tbl">
+    <tr><th>Funkce</th><th>Co dělá</th><th>Příklad</th></tr>
+    <tr><td><span class="mono">KDYŽ()</span></td><td>Podmíněný výsledek</td><td><span class="mono">=KDYŽ(A1&gt;10;"ANO";"NE")</span></td></tr>
+    <tr><td><span class="mono">A()</span></td><td>TRUE pokud VŠECHNY podmínky splněny</td><td><span class="mono">=A(A1&gt;0;A1&lt;100)</span></td></tr>
+    <tr><td><span class="mono">NEBO()</span></td><td>TRUE pokud ALESPOŇ JEDNA splněna</td><td><span class="mono">=NEBO(A1="CZ";A1="SK")</span></td></tr>
+    <tr><td><span class="mono">IFERROR()</span></td><td>Zachytí chybu, vrátí náhradní hodnotu</td><td><span class="mono">=IFERROR(SVYHLEDAT(...);"Nenalezeno")</span></td></tr>
+  </table>
+  <h3>Vyhledávací</h3>
+  <table class="tbl">
+    <tr><th>Funkce</th><th>Co dělá</th><th>Příklad</th></tr>
+    <tr><td><span class="mono">SVYHLEDAT()</span><br><em style="font-size:11px;">VLOOKUP</em></td><td>Hledá v prvním sloupci, vrátí hodnotu ze zadaného sloupce. Hledá dolů (svisle).</td><td>IČO → název firmy z číselníku.<br><span class="mono">=SVYHLEDAT(A2;Číselník!A:C;2;0)</span></td></tr>
+    <tr><td><span class="mono">XLOOKUP()</span></td><td>Modernější náhrada — hledá v libovolném sloupci, umí defaultní hodnotu.</td><td><span class="mono">=XLOOKUP(A2;B:B;C:C;"Nenalezeno")</span></td></tr>
+    <tr><td><span class="mono">INDEX() + POZVYHLEDAT()</span></td><td>Flexibilní kombinace — nezávislá na pořadí sloupců.</td><td>Hledání z matice</td></tr>
+  </table>
+  <h3>Textové</h3>
+  <table class="tbl">
+    <tr><th>Funkce</th><th>Co dělá</th><th>Příklad</th></tr>
+    <tr><td><span class="mono">CONCAT() / &amp;</span></td><td>Spojení textů</td><td><span class="mono">=A1&amp;" "&amp;B1</span> → „Jan Novák"</td></tr>
+    <tr><td><span class="mono">DÉLKA()</span></td><td>Počet znaků</td><td><span class="mono">=DÉLKA("Praha")</span> → <span class="mono">5</span></td></tr>
+    <tr><td><span class="mono">ČÁST()</span></td><td>Výřez části textu</td><td><span class="mono">=ČÁST(A1;1;3)</span> → první 3 znaky</td></tr>
+    <tr><td><span class="mono">TRIM()</span></td><td>Oříznutí přebytečných mezer</td><td>Čištění importovaných dat</td></tr>
+    <tr><td><span class="mono">VELKÁ() / MALÁ()</span></td><td>Změna velikosti písmen</td><td><span class="mono">=VELKÁ("praha")</span> → <span class="mono">PRAHA</span></td></tr>
+  </table>
+</div>
+
+<!-- 7 TEXTOVÝ EDITOR -->
+<div class="section" data-sec="7">
+  <h2><span class="num">7</span> Textový editor – styly, písmo, odstavce
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-teal">
+    <p><span class="kw">Textový editor</span> (Word, Writer, Docs) = program pro tvorbu a úpravu dokumentů. Příklady: dopisy, smlouvy, seminární práce, zprávy.</p>
+  </div>
+  <h3>Styly – klíčový nástroj</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Co je styl</strong>
+      <p>Pojmenovaná sada formátovacích vlastností. Přiřadíš ho celému odstavci jedním klikem.</p>
+      <p style="margin-top:.5rem;font-size:13px;">Předdefinované: <strong>Normální · Nadpis 1 · Nadpis 2 · Nadpis 3</strong> · Citace…</p>
+    </div>
+    <div class="cc-teal">
+      <strong>Proč styly</strong>
+      <ul>
+        <li><span class="kw">Jednotný vzhled</span> celého dokumentu</li>
+        <li><span class="kw">Automatický obsah</span> — generuje se ze stylů Nadpisů</li>
+        <li><span class="kw">Snadná změna</span> — upravíš styl = celý dokument najednou</li>
+        <li>Klíčové u delších dokumentů (DP, zprávy, smlouvy)</li>
+      </ul>
+    </div>
+  </div>
+  <hr>
+  <h3>Vlastnosti písma (znakové formátování)</h3>
+  <p style="margin-bottom:.5rem;">Vztahuje se na vybraný text.</p>
+  <div class="grid4" style="margin-top:.4rem;">
+    <div class="card"><strong>Typ (Font)</strong>Arial, Times New Roman, Calibri. Patkové (serif) = tisk; bezpatkové = obrazovka.</div>
+    <div class="card"><strong>Velikost (pt)</strong>Text: 11–12 pt · Nadpisy: 14–24 pt · Titulek: 28+ pt</div>
+    <div class="card"><strong>Řez písma</strong><strong>Tučné</strong> (Ctrl+B) · <em>Kurzíva</em> (Ctrl+I) · <u>Podtržení</u> (Ctrl+U) · Přeškrtnuté</div>
+    <div class="card"><strong>Barva</strong>Barva textu · barva pozadí (zvýraznění). Střídmě.</div>
+  </div>
+  <hr>
+  <h3>Formátování odstavce</h3>
+  <p style="margin-bottom:.5rem;">Vztahuje se na celý odstavec — stačí mít kurzor uvnitř.</p>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card">
+      <strong>Zarovnání</strong>
+      <ul>
+        <li><span class="kw">Vlevo</span> — základní pro texty</li>
+        <li><span class="kw">Na střed</span> — nadpisy, titulky, pozvánky</li>
+        <li><span class="kw">Vpravo</span> — datum, záhlaví dopisů</li>
+        <li><span class="kw">Do bloku</span> — rovné okraje z obou stran; knihy, formální dokumenty</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Odsazení a mezery</strong>
+      <ul>
+        <li>Odsazení vlevo/vpravo od okraje</li>
+        <li>Odsazení první řádky — „zarážka"</li>
+        <li>Mezera před/za odstavcem — vzduch kolem nadpisů</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Řádkování</strong>
+      <ul>
+        <li>Jednoduché (1,0) — kompaktní</li>
+        <li>1,5 — diplomové práce (norma)</li>
+        <li>Dvojité (2,0) — prostor pro korekce</li>
+      </ul>
+    </div>
+    <div class="cc-green">
+      <strong>Automatický obsah (TOC)</strong>
+      Generuje se z odstavců se styly Nadpis 1/2/3. Obsahuje nadpisy + čísla stran. Aktualizuje se jedním klikem.
+    </div>
+  </div>
+</div>
+
+<div class="note-footer">ITE 4.B &nbsp;·&nbsp; IT Maturita 2026 &nbsp;·&nbsp; Kancelářský software</div>
+</div>
+
+<script>
+const _subj=(document.querySelector('meta[name="mat-subject"]')||{}).content||'it';
+const _num=(document.querySelector('meta[name="mat-num"]')||{}).content||'3';
+const _title=(document.querySelector('meta[name="mat-title"]')||{}).content||document.title;
+const NOTE_ID=`${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`,JSON.stringify({title:_title,subject:_subj,num:parseInt(_num)}));
+function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+function toggleDark(){const on=document.body.classList.toggle('dark');localStorage.setItem('mat-dark',on?'1':'0');const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});
+function secKey(n){return `mat-sec::${NOTE_ID}::${n}`;}
+function toggleSec(btn){const sec=btn.closest('.section');const id=sec.dataset.sec;if(localStorage.getItem(secKey(id))){localStorage.removeItem(secKey(id));sec.classList.remove('flagged');btn.classList.remove('on');btn.textContent='⚑ Označit';}else{localStorage.setItem(secKey(id),'1');sec.classList.add('flagged');btn.classList.add('on');btn.textContent='⚑ Označeno';}updateSummary();}
+function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec=>{if(localStorage.getItem(secKey(sec.dataset.sec))){sec.classList.add('flagged');const btn=sec.querySelector('.sec-flag');if(btn){btn.classList.add('on');btn.textContent='⚑ Označeno';}}});updateSummary();}
+function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
+applyDark();loadFlags();
+</script>
+</body>
+</html>
