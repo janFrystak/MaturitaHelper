@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="mat-subject" content="eko">
+<meta name="mat-num"     content="6">
+<meta name="mat-title"   content="Dlouhodobý majetek, investiční činnost">
+
+<title>Dlouhodobý majetek – Maturita 2026</title>
+
+<style>
+  :root {
+    --teal-light: #E1F5EE; --teal-dark: #085041;
+    --blue-light: #E6F1FB; --blue-dark: #0C447C;
+    --amber-light: #FAEEDA; --amber-dark: #633806;
+    --coral-light: #FAECE7; --coral-dark: #4A1B0C;
+    --green-light: #EAF3DE; --green-dark: #27500A;
+    --gray-bg: #F8F7F5; --gray-border: #E0DED8;
+    --text: #1a1a18; --text-muted: #5a5955; --text-faint: #9a9895;
+    --white: #ffffff;
+    --radius: 10px; --radius-sm: 5px;
+    --flag-accent: #EF9F27;
+    --flag-light: #FAEEDA; --flag-dark: #633806; --flag-border: #FAC775;
+  }
+  body.dark {
+    --teal-light:#0D2E24; --teal-dark:#5ECBA8;
+    --blue-light:#0D1F33; --blue-dark:#7BB8F0;
+    --amber-light:#2A1E0A; --amber-dark:#F5C06A;
+    --coral-light:#2A1208; --coral-dark:#F5A08A;
+    --green-light:#132208; --green-dark:#8FD058;
+    --gray-bg:#111110; --gray-border:#2E2D2A;
+    --text:#F0EFEB; --text-muted:#A8A49E; --text-faint:#6A6762;
+    --white:#1C1C1A;
+    --flag-light:#2A1E0A; --flag-dark:#F5C06A; --flag-border:#3D2C0F;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px; line-height: 1.65; color: var(--text);
+    background: var(--gray-bg); padding: 2.5rem 1.5rem;
+  }
+  .page { max-width: 860px; margin: 0 auto; }
+
+  .header {
+    background: var(--white); border: 0.5px solid var(--gray-border);
+    border-radius: var(--radius); padding: 1.75rem 2rem; margin-bottom: 1.5rem;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+  }
+  .header h1 { font-size: 26px; font-weight: 600; margin-bottom: 4px; }
+  .header p  { font-size: 13px; color: var(--text-muted); }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .badge { background: var(--blue-light); color: var(--blue-dark); border: 0.5px solid #B5D4F4; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+  .dark-btn { background: var(--gray-bg); border: 0.5px solid var(--gray-border); border-radius: var(--radius-sm); padding: 3px 9px; font-size: 11px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.15s; }
+  .dark-btn:hover { color: var(--text); }
+  .flag-summary { display: none; background: var(--flag-light); color: var(--flag-dark); border: 0.5px solid var(--flag-border); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  .flag-summary.visible { display: inline-block; }
+
+  .section { background: var(--white); border: 0.5px solid var(--gray-border); border-radius: var(--radius); padding: 1.5rem 1.75rem; margin-bottom: 1rem; position: relative; transition: border-color 0.2s, box-shadow 0.2s; }
+  .section.flagged { border-color: var(--flag-border); box-shadow: inset 3px 0 0 var(--flag-accent); }
+
+  h2 { font-size: 16px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 0.5px solid var(--gray-border); }
+  .num { background: var(--gray-bg); border: 0.5px solid var(--gray-border); border-radius: 4px; font-size: 11px; font-weight: 600; padding: 2px 7px; color: var(--text-muted); flex-shrink: 0; }
+  .sec-flag { margin-left: auto; flex-shrink: 0; background: none; border: 0.5px solid var(--gray-border); border-radius: var(--radius-sm); padding: 2px 9px; font-size: 11px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 4px; }
+  .sec-flag:hover, .sec-flag.on { background: var(--flag-light); color: var(--flag-dark); border-color: var(--flag-border); }
+
+  h3 { font-size: 13px; font-weight: 600; color: var(--text); margin: 1rem 0 0.4rem; text-transform: uppercase; letter-spacing: 0.03em; }
+  p, li { font-size: 14px; color: var(--text-muted); }
+  ul { padding-left: 1.2rem; }
+  li { margin-bottom: 4px; }
+  .kw { font-weight: 600; color: var(--text); }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 0.6rem; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 0.6rem; }
+  .grid4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; margin-top: 0.6rem; }
+
+  .card { background: var(--gray-bg); border: 0.5px solid var(--gray-border); border-radius: var(--radius-sm); padding: 0.85rem 1rem; }
+  .card strong { font-size: 13px; font-weight: 600; color: var(--text); display: block; margin-bottom: 4px; }
+
+  .cc-teal  { background: var(--teal-light);  border: 0.5px solid #9FE1CB; border-radius: var(--radius-sm); padding: 0.85rem 1rem; }
+  .cc-blue  { background: var(--blue-light);  border: 0.5px solid #B5D4F4; border-radius: var(--radius-sm); padding: 0.85rem 1rem; }
+  .cc-amber { background: var(--amber-light); border: 0.5px solid #FAC775; border-radius: var(--radius-sm); padding: 0.85rem 1rem; }
+  .cc-coral { background: var(--coral-light); border: 0.5px solid #F5C4B3; border-radius: var(--radius-sm); padding: 0.85rem 1rem; }
+  .cc-green { background: var(--green-light); border: 0.5px solid #B5DCA0; border-radius: var(--radius-sm); padding: 0.85rem 1rem; }
+  .cc-teal  strong { color: var(--teal-dark); }
+  .cc-blue  strong { color: var(--blue-dark); }
+  .cc-amber strong { color: var(--amber-dark); }
+  .cc-coral strong { color: var(--coral-dark); }
+  .cc-green strong { color: var(--green-dark); }
+
+  .accent-blue  { border-left: 3px solid #378ADD; padding-left: 12px; margin: 0.5rem 0; }
+  .accent-teal  { border-left: 3px solid #1D9E75; padding-left: 12px; margin: 0.5rem 0; }
+  .accent-amber { border-left: 3px solid #EF9F27; padding-left: 12px; margin: 0.5rem 0; }
+
+  .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; margin-right: 4px; margin-bottom: 5px; }
+  .t-teal  { background: var(--teal-light);  color: var(--teal-dark); }
+  .t-blue  { background: var(--blue-light);  color: var(--blue-dark); }
+  .t-amber { background: var(--amber-light); color: var(--amber-dark); }
+  .t-coral { background: var(--coral-light); color: var(--coral-dark); }
+  .t-green { background: var(--green-light); color: var(--green-dark); }
+
+  .tbl { width: 100%; border-collapse: collapse; margin-top: 0.6rem; font-size: 13px; }
+  .tbl th { background: var(--gray-bg); font-weight: 600; padding: 6px 8px; border: 0.5px solid var(--gray-border); text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .tbl td { padding: 6px 8px; border: 0.5px solid var(--gray-border); vertical-align: top; color: var(--text-muted); }
+  .tbl tr:nth-child(even) td { background: var(--gray-bg); }
+  body.dark .tbl tr:nth-child(even) td { background: #161614; }
+
+  /* Formula boxes */
+  .formula { background: var(--gray-bg); border: 0.5px solid var(--gray-border); border-radius: var(--radius-sm); padding: 0.65rem 1rem; font-size: 13.5px; font-weight: 600; color: var(--text); margin: 0.5rem 0; font-family: ui-monospace, monospace; }
+  .formula em { font-weight: 400; font-style: normal; color: var(--text-muted); font-size: 12px; margin-left: 0.75rem; font-family: inherit; }
+
+  /* Leasing pojmy row */
+  .def-row { display: flex; gap: 10px; padding: 0.5rem 0; border-bottom: 0.5px solid var(--gray-border); align-items: baseline; }
+  .def-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .def-term { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; min-width: 200px; flex-shrink: 0; }
+  .def-desc { font-size: 13.5px; color: var(--text-muted); }
+
+  /* Odpisy visual */
+  .odpis-bar { height: 28px; border-radius: 4px; display: flex; align-items: center; padding: 0 10px; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+
+  hr { border: none; border-top: 0.5px solid var(--gray-border); margin: 0.8rem 0; }
+
+  /* Steps */
+  .steps { counter-reset: step; list-style: none; padding-left: 0; }
+  .steps li { counter-increment: step; display: flex; gap: 10px; padding: 0.45rem 0; border-bottom: 0.5px solid var(--gray-border); font-size: 14px; color: var(--text-muted); }
+  .steps li:last-child { border-bottom: none; }
+  .steps li::before { content: counter(step); min-width: 22px; height: 22px; background: var(--blue-light); color: var(--blue-dark); border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+  @media (max-width: 620px) { .grid2, .grid3, .grid4 { grid-template-columns: 1fr; } .header { flex-direction: column; } }
+  @media print { body { background: white; padding: 1rem; } .sec-flag, .dark-btn { display: none; } }
+  .note-footer { text-align: center; font-size: 11px; color: var(--text-faint); margin-top: 1.5rem; padding-bottom: 1rem; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div>
+      <h1>Dlouhodobý majetek, investiční činnost</h1>
+      <p>Maturitní otázka č. 6 &nbsp;·&nbsp; Ekonomika &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+      <p style="margin-top:5px;">Členění DM · Pořízení · Leasing · Oceňování · Odpisy · Investice</p>
+    </div>
+    <div class="header-right">
+      <span class="badge">Otázka 6 / 20</span>
+      <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+      <span class="flag-summary" id="flagSummary"></span>
+    </div>
+  </div>
+
+  <!-- 1. DEFINICE A ČLENĚNÍ -->
+  <div class="section" data-sec="1">
+    <h2><span class="num">1</span> Definice a členění dlouhodobého majetku
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="accent-blue">
+      <p><span class="kw">Dlouhodobý majetek (DM)</span> = aktiva podniku určená k dlouhodobému používání (déle než 1 rok). <strong>Nespotřebovává</strong> se najednou — postupně se <strong>opotřebovává</strong>, což se zachycuje pomocí <span class="kw">odpisů</span>.</p>
+    </div>
+
+    <h3>Dlouhodobý hmotný majetek (DHM)</h3>
+    <div class="grid2" style="margin-top:0.5rem;">
+      <div class="card">
+        <strong>Movitý</strong>
+        <ul>
+          <li>Samostatné movité věci a jejich soubory</li>
+          <li>Stroje, výrobní zařízení, dopravní prostředky</li>
+          <li>Základní stáda a tažná zvířata</li>
+          <li>Umělecká díla a sbírky</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>Nemovitý</strong>
+        <ul>
+          <li>Budovy, stavby, haly</li>
+          <li>Pěstitelské celky trvalých porostů (sady, vinice, chmelnice)</li>
+          <li>Otvírky lomů, hlinišť a pískoven</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Dlouhodobý nehmotný majetek (DNM)</h3>
+    <div class="accent-teal">
+      <p>Výsledky tvůrčí lidské činnosti — <span class="kw">pořizovací cena vyšší než 60 000 Kč</span>.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:0.5rem;">
+      <span class="tag t-blue">Software</span>
+      <span class="tag t-blue">Licence</span>
+      <span class="tag t-blue">Patenty</span>
+      <span class="tag t-blue">Know-how</span>
+      <span class="tag t-blue">Goodwill</span>
+      <span class="tag t-blue">Ocenitelná práva</span>
+      <span class="tag t-blue">Zřizovací výdaje</span>
+    </div>
+
+    <h3>Dlouhodobý finanční majetek (DFM)</h3>
+    <div class="card" style="margin-top:0.5rem;">
+      <strong>Finanční investice s dobou držení delší než 1 rok</strong>
+      <ul style="margin-top:0.4rem;">
+        <li>Akcie a podíly s <span class="kw">podstatným nebo rozhodujícím vlivem</span> (min. 20 % resp. 50 % podíl)</li>
+        <li>Neobchodovatelné cenné papíry</li>
+        <li>Dlouhodobé půjčky a úvěry poskytnuté jiným subjektům</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. POŘÍZENÍ DM -->
+  <div class="section" data-sec="2">
+    <h2><span class="num">2</span> Způsoby pořízení DM
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <table class="tbl">
+      <tr><th>Způsob</th><th>Popis a příklad</th></tr>
+      <tr>
+        <td><strong>Nákup</strong></td>
+        <td>Koupě nového nebo použitého majetku od dodavatele — nejběžnější způsob</td>
+      </tr>
+      <tr>
+        <td><strong>Vlastní výroba</strong></td>
+        <td>Stavební firma si postaví výrobní halu; strojírenský podnik si vyrobí nový stroj. Oceňuje se vlastními náklady.</td>
+      </tr>
+      <tr>
+        <td><strong>Darování</strong></td>
+        <td>Stát daruje firmě ekologické zařízení; mateřská firma daruje dceřiné budovy a vybavení</td>
+      </tr>
+      <tr>
+        <td><strong>Převod z osobního majetku</strong></td>
+        <td>Truhlář vloží garáž do firmy jako dílnu; podnikatel vloží majetek nabytý restitucí</td>
+      </tr>
+      <tr>
+        <td><strong>Vklad společníků</strong></td>
+        <td>Dvě a.s. zřídí dceřinou společnost a vloží do ní sklady a dopravní prostředky</td>
+      </tr>
+      <tr>
+        <td><strong>Nové zjištění (inventarizace)</strong></td>
+        <td>Majetek, který dosud nebyl zachycen v účetnictví — zjistí se při inventarizaci</td>
+      </tr>
+      <tr>
+        <td><strong>Leasing</strong></td>
+        <td>Pronájem — viz sekce 3</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 3. LEASING -->
+  <div class="section" data-sec="3">
+    <h2><span class="num">3</span> Leasing
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="grid2">
+      <div class="cc-amber">
+        <strong>Provozní (operativní) leasing</strong>
+        <ul>
+          <li>Krátkodobý pronájem</li>
+          <li>Po skončení se předmět <span class="kw">vrací</span> pronajímateli</li>
+          <li>Údržbu zajišťuje pronajímatel</li>
+          <li>Typicky: pronájem aut, kopírek, IT vybavení</li>
+        </ul>
+      </div>
+      <div class="cc-teal">
+        <strong>Finanční (kapitálový) leasing</strong>
+        <ul>
+          <li>Dlouhodobý — zpravidla <span class="kw">déle než 3 roky</span></li>
+          <li>Po splacení přechází předmět do <span class="kw">vlastnictví nájemce</span></li>
+          <li>Nájemce pečuje o majetek sám</li>
+          <li>Splátky jsou daňově uznatelným nákladem</li>
+          <li>Výhoda: lze pořídit DM bez jednorázové velké platby</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Klíčové pojmy leasingu</h3>
+    <div class="card" style="margin-top:0.5rem;">
+      <div class="def-row">
+        <span class="def-term">Pronajímatel</span>
+        <span class="def-desc">Majitel předmětu — zpravidla leasingová společnost</span>
+      </div>
+      <div class="def-row">
+        <span class="def-term">Nájemce</span>
+        <span class="def-desc">Uživatel předmětu — hradí splátky, ale není vlastníkem</span>
+      </div>
+      <div class="def-row">
+        <span class="def-term">Leasingová splátka</span>
+        <span class="def-desc">Pravidelný poplatek nájemce (měsíční/čtvrtletní)</span>
+      </div>
+      <div class="def-row">
+        <span class="def-term">Akontace</span>
+        <span class="def-desc">První mimořádná splátka — záloha placená předem při uzavření smlouvy</span>
+      </div>
+      <div class="def-row">
+        <span class="def-term">Zůstatková hodnota</span>
+        <span class="def-desc">Předem dohodnutá cena, po jejíž úhradě se předmět stává vlastnictvím nájemce</span>
+      </div>
+      <div class="def-row">
+        <span class="def-term">Leasingový koeficient</span>
+        <span class="def-desc">Poměr celkových úhrad k pořizovací ceně — vyjadřuje navýšení oproti hotovostnímu nákupu</span>
+      </div>
+      <div class="def-row">
+        <span class="def-term">Leasingový faktor</span>
+        <span class="def-desc">Hodnota jedné splátky vyjádřená v % z pořizovací ceny</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. OCEŇOVÁNÍ DM -->
+  <div class="section" data-sec="4">
+    <h2><span class="num">4</span> Oceňování DM při pořízení
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="grid3">
+      <div class="cc-blue">
+        <strong>Pořizovací cena</strong>
+        Cena, za kterou byl majetek <span class="kw">nakoupen</span>, <strong>včetně</strong> vedlejších nákladů pořízení — doprava, instalace, montáž, provize, clo.
+        <p style="margin-top:0.5rem;font-size:12px;">≠ <em>Cena pořízení</em> = pouze hodnota zboží bez vedlejších nákladů</p>
+      </div>
+      <div class="cc-amber">
+        <strong>Reprodukční pořizovací cena</strong>
+        Používá se, když skutečná cena <span class="kw">není k dispozici</span> — majetek darovaný nebo bezúplatně nabytý. Cenu stanoví <strong>soudní znalec</strong> úředním odhadem.
+      </div>
+      <div class="cc-teal">
+        <strong>Vlastní náklady</strong>
+        Majetek pořízený <span class="kw">vlastní výrobou</span> — oceňuje se ve výši skutečně vynaložených nákladů na jeho výrobu (materiál, mzdy, energie, režie).
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. EVIDENCE DM -->
+  <div class="section" data-sec="5">
+    <h2><span class="num">5</span> Evidence DM
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <p style="margin-bottom:0.75rem;">DM představuje velké finanční hodnoty a slouží firmě po mnoho let — důsledná evidence je nezbytná.</p>
+
+    <h3>Účel evidence</h3>
+    <div class="grid3" style="margin-top:0.5rem;">
+      <div class="card"><strong>Kontrola majetku</strong>Inventarizace — fyzická kontrola existence a stavu majetku</div>
+      <div class="card"><strong>Odepisování</strong>Podklad pro výpočet účetních a daňových odpisů</div>
+      <div class="card"><strong>Pojistné náhrady</strong>Dobrá evidence usnadňuje vyčíslení škod pro pojišťovnu</div>
+      <div class="card"><strong>Přehled o hodnotě firmy</strong>Důležité při žádosti o úvěr nebo prodeji firmy</div>
+      <div class="card"><strong>Financování z cizích zdrojů</strong>Banka vyžaduje přehled o majetku jako zajištění</div>
+      <div class="card"><strong>Prodej firmy</strong>Vyjádření tržní hodnoty firmy při prodeji vlastníkovi</div>
+    </div>
+
+    <h3>Inventární karta</h3>
+    <div class="accent-blue">
+      <p>Základní evidenční dokument pro každý kus DM. Povinně obsahuje:</p>
+    </div>
+    <div class="grid2" style="margin-top:0.5rem;">
+      <ul>
+        <li><span class="kw">Inventární číslo</span> přidělené DM</li>
+        <li>Zvolená <span class="kw">metoda odepisování</span></li>
+        <li><span class="kw">Vstupní cena</span></li>
+        <li>Jednotlivé roční <span class="kw">daňové odpisy</span> (příp. i účetní)</li>
+      </ul>
+      <ul>
+        <li>Způsob <span class="kw">vyřazení</span> (po ukončení odepisování)</li>
+        <li>Záznam při <span class="kw">odcizení, zničení, prodeji</span> před koncem odepisování</li>
+        <li>Údaje o <span class="kw">technickém zhodnocení</span> (hodnota nad 40 000 Kč/rok)</li>
+      </ul>
+    </div>
+    <p style="margin-top:0.6rem;font-size:13.5px;">Při pořízení se vypisuje <span class="kw">zápis o pořízení DM</span>, při vyřazení <span class="kw">zápis o vyřazení DM</span>.</p>
+  </div>
+
+  <!-- 6. ODPISY -->
+  <div class="section" data-sec="6">
+    <h2><span class="num">6</span> Opotřebení a odpisy
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <h3>Druhy opotřebení</h3>
+    <div class="grid2">
+      <div class="cc-coral">
+        <strong>Fyzické opotřebení</strong>
+        Majetek ztrácí užitné vlastnosti — zvyšuje se poruchovost, snižuje výkon. Způsobeno <span class="kw">používáním</span> a působením přírodních vlivů (koroze, stárnutí materiálu).
+      </div>
+      <div class="cc-amber">
+        <strong>Morální opotřebení</strong>
+        Majetek je fyzicky v pořádku, ale <span class="kw">technologicky zastaral</span> — existují výkonnější nebo levnější alternativy. Způsobeno technologickým pokrokem.
+      </div>
+    </div>
+
+    <h3>Klíčové pojmy odpisování</h3>
+    <div class="card" style="margin-top:0.5rem;">
+      <div class="def-row">
+        <span class="def-term">Odpis</span>
+        <span class="def-desc">Část pořizovací ceny přenášená do nákladů za jedno období (rok) — vyjadřuje roční opotřebení</span>
+      </div>
+      <div class="def-row">
+        <span class="def-term">Odepisování</span>
+        <span class="def-desc">Postupné přenášení vstupní ceny DM do nákladů firmy po dobu životnosti</span>
+      </div>
+      <div class="def-row">
+        <span class="def-term">Oprávky</span>
+        <span class="def-desc">Součet všech dosud uplatněných odpisů = celkové opotřebení v Kč</span>
+      </div>
+      <div class="def-row">
+        <span class="def-term">Zůstatková cena</span>
+        <span class="def-desc">Vstupní cena − oprávky = dosud neodepsaná část hodnoty majetku</span>
+      </div>
+    </div>
+
+    <div class="cc-green" style="margin-top:0.75rem;">
+      <strong>Daňový efekt odpisů</strong>
+      Odpisy jsou <span class="kw">daňově uznatelným nákladem</span> → snižují základ daně z příjmu → podnik platí nižší daň z příjmu. Zároveň odpisy představují <span class="kw">interní zdroj financování</span> (firma za ně nic nevydává — peníze zůstávají v podniku jako rezerva na obnovu majetku).
+    </div>
+
+    <hr>
+    <h3>Účetní odpisy</h3>
+    <p style="margin-bottom:0.6rem;">Zachycují <span class="kw">skutečný stav opotřebení</span>. Metodu a dobu odpisování si podnik volí sám pro každý DM zvlášť.</p>
+
+    <div class="grid2">
+      <div class="card">
+        <strong>Časové odpisování</strong>
+        Hodnota klesá v závislosti na délce používání.
+        <ul style="margin-top:0.4rem;">
+          <li><span class="kw">Rovnoměrné</span> — každý rok stejný odpis</li>
+          <li><span class="kw">Zrychlené (progresivní)</span> — odpisy v čase rostou</li>
+          <li><span class="kw">Zpomalené (degresivní)</span> — odpisy v čase klesají</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>Výkonové odpisování</strong>
+        Hodnota klesá s mírou skutečného využívání — ne s časem.
+        <p style="margin-top:0.4rem;">Odpis = odpisový koeficient × skutečný výkon v daném roce</p>
+        <p style="font-size:12px;margin-top:0.4rem;">Vhodné pro: stroje s měřitelným výkonem (km, ks, mth)</p>
+      </div>
+    </div>
+
+    <hr>
+    <h3>Daňové odpisy</h3>
+    <div class="accent-amber">
+      <p>Výpočet podle <span class="kw">Zákona o daních z příjmů (ZDP)</span>. Neuplatňují se přímo do nákladů — zohledňují se při výpočtu základu daně. <strong>Nelze změnit metodu v průběhu odpisování.</strong></p>
+    </div>
+
+    <div class="grid2" style="margin-top:0.5rem;">
+      <div class="cc-blue">
+        <strong>Rovnoměrné daňové odpisy</strong>
+        Každý rok stejné procento ze vstupní ceny. V 1. roce nižší sazba, od 2. roku vyšší.
+        <div class="formula" style="margin-top:0.5rem;">Odpis = Vstupní cena × sazba / 100</div>
+      </div>
+      <div class="cc-teal">
+        <strong>Zrychlené daňové odpisy</strong>
+        V prvních letech vyšší odpisy — majetek se odepíše rychleji. Výhodné pro snížení daňové zátěže na začátku.
+        <div class="formula" style="margin-top:0.5rem;">1. rok: VC / koeficient k₁<br>Dal. roky: 2 × ZC / (koef. k₂ − n)</div>
+      </div>
+    </div>
+
+    <h3>Odpisové skupiny (daňové)</h3>
+    <table class="tbl">
+      <tr><th>Skupina</th><th>Doba odpisování</th><th>Příklady</th></tr>
+      <tr><td><strong>1</strong></td><td>3 roky</td><td>Počítače, telefony, drobné nářadí</td></tr>
+      <tr><td><strong>2</strong></td><td>5 let</td><td>Automobily, stroje, nábytek</td></tr>
+      <tr><td><strong>3</strong></td><td>10 let</td><td>Lodě, letadla, trezory</td></tr>
+      <tr><td><strong>4</strong></td><td>20 let</td><td>Budovy ze dřeva a plastů</td></tr>
+      <tr><td><strong>5</strong></td><td>30 let</td><td>Budovy, haly, mosty</td></tr>
+      <tr><td><strong>6</strong></td><td>50 let</td><td>Administrativní budovy, hotely, obchodní domy</td></tr>
+    </table>
+  </div>
+
+  <!-- 7. VYŘAZENÍ DM -->
+  <div class="section" data-sec="7">
+    <h2><span class="num">7</span> Vyřazení DM
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="grid4">
+      <div class="cc-coral">
+        <strong>Likvidace</strong>
+        Fyzická nebo morální zastaralost, neopravitelná porucha — majetek se zlikviduje (sešrotuje, zdemoluje)
+      </div>
+      <div class="cc-blue">
+        <strong>Prodej</strong>
+        Majetek je nepotřebný, ale ještě funkční — prodá se třetí straně. Tržní cena může být vyšší nebo nižší než ZC.
+      </div>
+      <div class="cc-teal">
+        <strong>Darování</strong>
+        Sponzorský dar neziskovým organizacím nebo jiným subjektům
+      </div>
+      <div class="cc-amber">
+        <strong>Přeřazení do osobního užívání</strong>
+        Podnikatel majetek nepotřebuje pro podnikání → přesune ho do osobního majetku (auto, notebook)
+      </div>
+    </div>
+
+    <div class="accent-blue" style="margin-top:0.75rem;">
+      <p><span class="kw">Technické zhodnocení</span> ≠ vyřazení — generální oprava, přidání nového modulu, dostavba nebo přestavba s hodnotou vyšší než <strong>40 000 Kč/rok</strong> zvyšuje vstupní cenu majetku a prodlužuje odepisování.</p>
+    </div>
+  </div>
+
+  <!-- 8. PLÁNOVÁNÍ A HODNOCENÍ INVESTIC -->
+  <div class="section" data-sec="8">
+    <h2><span class="num">8</span> Plánování a hodnocení investic
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+
+    <div class="accent-teal">
+      <p><span class="kw">Investice</span> = celkové náklady vynaložené na pořízení majetku, jeho modernizaci nebo rekonstrukci. DM představuje velké finanční hodnoty — musí se plánovat s <span class="kw">dlouhodobým předstihem</span>.</p>
+    </div>
+
+    <h3>Základní pojmy</h3>
+    <table class="tbl">
+      <tr><th>Pojem</th><th>Definice</th></tr>
+      <tr><td><strong>Investiční výstavba</strong></td><td>Způsob pořízení majetku, jeho modernizace nebo rekonstrukce</td></tr>
+      <tr><td><strong>Modernizace</strong></td><td>Rozšíření vybavenosti nebo použitelnosti majetku (přidání funkce)</td></tr>
+      <tr><td><strong>Rekonstrukce</strong></td><td>Zásahy měnící účel nebo technické parametry majetku</td></tr>
+      <tr><td><strong>Projekt</strong></td><td>Souhrnné řešení stavby/zařízení po stránce ekonomické (cena), technické (materiál) a architektonické</td></tr>
+      <tr><td><strong>Věcná investice</strong></td><td>Nákup hmotného majetku — stroje, budovy, zařízení</td></tr>
+      <tr><td><strong>Finanční investice</strong></td><td>Nákup cenných papírů, podílů, poskytnutí úvěru</td></tr>
+    </table>
+
+    <hr>
+    <h3>Zdroje financování DM</h3>
+    <div class="grid2">
+      <div class="cc-teal">
+        <strong>Vlastní zdroje</strong>
+        <ul>
+          <li><span class="kw">Zisk</span> — po zdanění reinvestovaný zpět do firmy</li>
+          <li><span class="kw">Odpisy</span> — interní zdroj; peníze se postupně hromadí</li>
+        </ul>
+        <p style="margin-top:0.5rem;font-size:13px;">Výhoda: bez nákladů. Nevýhoda: trvá déle, než si podnik vydělá potřebnou částku.</p>
+      </div>
+      <div class="cc-amber">
+        <strong>Cizí zdroje</strong>
+        <ul>
+          <li><span class="kw">Bankovní úvěry</span> — nutno platit úroky</li>
+          <li><span class="kw">Emise obligací</span> — dluhopisy vydané podnikem</li>
+          <li><span class="kw">Koupě na splátky</span> — dodavatelský úvěr</li>
+          <li><span class="kw">Leasing</span> — viz sekce 3</li>
+        </ul>
+        <p style="margin-top:0.5rem;font-size:13px;">Výhoda: rychlé získání prostředků. Nevýhoda: nákladnější (úroky).</p>
+      </div>
+    </div>
+
+    <hr>
+    <h3>Ukazatele hodnocení investic</h3>
+    <div class="grid2">
+      <div class="cc-teal">
+        <strong>Efektivnost investice</strong>
+        <div class="formula" style="margin-top:0.5rem;">Efektivnost = Zisk / Investované náklady</div>
+        <p style="font-size:13px;">Vyjadřuje, jaký zisk přinese 1 Kč investovaných nákladů. <span class="kw">Čím vyšší, tím lepší.</span></p>
+      </div>
+      <div class="cc-blue">
+        <strong>Návratnost investice</strong>
+        <div class="formula" style="margin-top:0.5rem;">Návratnost = Investované náklady / Zisk</div>
+        <p style="font-size:13px;">Vyjadřuje, za kolik let se investice vrátí. <span class="kw">Čím kratší, tím lepší.</span></p>
+      </div>
+    </div>
+
+    <hr>
+    <h3>Účastníci investiční výstavby</h3>
+    <div class="grid3">
+      <div class="card"><strong>Investor</strong>Ten, kdo investuje peníze — zadává projekt a nese finanční riziko</div>
+      <div class="card"><strong>Dodavatel</strong>Realizuje výstavbu — stavební firma nebo výrobce zařízení</div>
+      <div class="card"><strong>Projektant</strong>Vypracuje projektovou dokumentaci + rozpočet — podklad pro výběr dodavatele</div>
+    </div>
+
+    <hr>
+    <h3>Postup při investiční výstavbě</h3>
+    <ol class="steps" style="margin-top:0.5rem;">
+      <li><strong>Investiční záměr</strong> — co chceme pořídit, za jakou cenu, v jakém termínu; dodavatel zváží, zda je schopen termín dodržet</li>
+      <li><strong>Volba dodavatele</strong> — výběrové řízení na základě projektové dokumentace; hodnotí se cena, termín, reference</li>
+      <li><strong>Prováděcí projekt</strong> — z nabídek se vybere nejvýhodnější na základě posouzení ceny, termínu a technického řešení; uzavře se smlouva</li>
+    </ol>
+  </div>
+
+  <div class="note-footer">ITE 4.B &nbsp;·&nbsp; Maturita 2026 &nbsp;·&nbsp; Ekonomika – Otázka 6</div>
+
+</div>
+
+<script>
+const _subj  = (document.querySelector('meta[name="mat-subject"]') || {}).content || 'eko';
+const _num   = (document.querySelector('meta[name="mat-num"]')     || {}).content || '6';
+const _title = (document.querySelector('meta[name="mat-title"]')   || {}).content || document.title;
+const NOTE_ID = `${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`, JSON.stringify({ title:_title, subject:_subj, num:parseInt(_num) }));
+
+function applyDark() {
+  const on = localStorage.getItem('mat-dark') === '1';
+  document.body.classList.toggle('dark', on);
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = on ? '☀ Světlý' : '🌙 Tmavý';
+}
+function toggleDark() {
+  const on = document.body.classList.toggle('dark');
+  localStorage.setItem('mat-dark', on ? '1' : '0');
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = on ? '☀ Světlý' : '🌙 Tmavý';
+}
+window.addEventListener('storage', e => { if (e.key === 'mat-dark') applyDark(); });
+
+function secKey(n) { return `mat-sec::${NOTE_ID}::${n}`; }
+function toggleSec(btn) {
+  const sec = btn.closest('.section');
+  const id = sec.dataset.sec;
+  if (localStorage.getItem(secKey(id))) {
+    localStorage.removeItem(secKey(id));
+    sec.classList.remove('flagged');
+    btn.classList.remove('on');
+    btn.textContent = '⚑ Označit';
+  } else {
+    localStorage.setItem(secKey(id), '1');
+    sec.classList.add('flagged');
+    btn.classList.add('on');
+    btn.textContent = '⚑ Označeno';
+  }
+  updateSummary();
+}
+function loadFlags() {
+  document.querySelectorAll('.section[data-sec]').forEach(sec => {
+    if (localStorage.getItem(secKey(sec.dataset.sec))) {
+      sec.classList.add('flagged');
+      const btn = sec.querySelector('.sec-flag');
+      if (btn) { btn.classList.add('on'); btn.textContent = '⚑ Označeno'; }
+    }
+  });
+  updateSummary();
+}
+function updateSummary() {
+  const n = document.querySelectorAll('.section.flagged').length;
+  const el = document.getElementById('flagSummary');
+  if (el) {
+    el.textContent = n > 0 ? `${n} problematické sekce` : '';
+    el.classList.toggle('visible', n > 0);
+  }
+}
+applyDark();
+loadFlags();
+</script>
+</body>
+</html>

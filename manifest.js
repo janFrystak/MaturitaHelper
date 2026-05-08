@@ -9,10 +9,14 @@ window.MAT_MANIFEST = {
     "02_Management.html",
     "03_Podnik.html",
     "04_Pravni_formy.html",
+    "05_Personalni_cinnost.html",
+    "06_Dlouhodoby_majetek.html",
   ],
 
   it: [
     "01_Hardware.html",
+    "02_Periferie.html",
+    "03_Kancelárský_software.html",
   ],
 
   lit: [
