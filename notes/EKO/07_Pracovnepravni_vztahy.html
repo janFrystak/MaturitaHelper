@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="eko">
+<meta name="mat-num"     content="7">
+<meta name="mat-title"   content="Pracovněprávní vztahy">
+<title>Pracovněprávní vztahy – Maturita 2026</title>
+<style>
+  :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
+  body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;--flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto;}
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px;}
+  .header p{font-size:13px;color:var(--text-muted);}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .badge{background:var(--blue-light);color:var(--blue-dark);border:0.5px solid #B5D4F4;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .dark-btn{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;}
+  .dark-btn:hover{color:var(--text);}
+  .flag-summary{display:none;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .flag-summary.visible{display:inline-block;}
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em;}
+  p,li{font-size:14px;color:var(--text-muted);}
+  ul{padding-left:1.2rem;}
+  li{margin-bottom:4px;}
+  .kw{font-weight:600;color:var(--text);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-green{background:var(--green-light);border:0.5px solid #B5DCA0;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-teal strong{color:var(--teal-dark);}.cc-blue strong{color:var(--blue-dark);}.cc-amber strong{color:var(--amber-dark);}.cc-coral strong{color:var(--coral-dark);}.cc-green strong{color:var(--green-dark);}
+  .accent-blue{border-left:3px solid #378ADD;padding-left:12px;margin:.5rem 0;}
+  .accent-teal{border-left:3px solid #1D9E75;padding-left:12px;margin:.5rem 0;}
+  .accent-amber{border-left:3px solid #EF9F27;padding-left:12px;margin:.5rem 0;}
+  .accent-coral{border-left:3px solid #D95F3B;padding-left:12px;margin:.5rem 0;}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:5px;}
+  .t-teal{background:var(--teal-light);color:var(--teal-dark);}.t-blue{background:var(--blue-light);color:var(--blue-dark);}.t-amber{background:var(--amber-light);color:var(--amber-dark);}.t-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .tbl{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:600;padding:6px 8px;border:0.5px solid var(--gray-border);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;color:var(--text-muted);}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+  /* Zánik flow */
+  .end-row{display:flex;gap:10px;padding:.6rem 0;border-bottom:0.5px solid var(--gray-border);align-items:flex-start;}
+  .end-row:last-child{border-bottom:none;padding-bottom:0;}
+  .end-label{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;align-self:flex-start;margin-top:2px;min-width:110px;text-align:center;}
+  .el-teal{background:var(--teal-light);color:var(--teal-dark);}
+  .el-blue{background:var(--blue-light);color:var(--blue-dark);}
+  .el-amber{background:var(--amber-light);color:var(--amber-dark);}
+  .el-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .end-text{font-size:13.5px;color:var(--text-muted);flex:1;}
+  .end-text strong{color:var(--text);font-weight:600;}
+  /* Odpisy box */
+  .odsup-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem .75rem;border-bottom:0.5px solid var(--gray-border);font-size:13.5px;}
+  .odsup-row:last-child{border-bottom:none;}
+  .odsup-box{border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);overflow:hidden;margin-top:.5rem;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.8rem 0;}
+  @media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.header{flex-direction:column;}}
+  @media print{body{background:white;padding:1rem;}.sec-flag,.dark-btn{display:none;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Pracovněprávní vztahy</h1>
+    <p>Maturitní otázka č. 7 &nbsp;·&nbsp; Ekonomika &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+    <p style="margin-top:5px;">Pracovní poměr · Smlouva · Zánik · Pracovní doba · Odbory · Odpovědnost za škodu</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">Otázka 7 / 20</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- 1. ZÁKLADNÍ POJMY -->
+<div class="section" data-sec="1">
+  <h2><span class="num">1</span> Pracovněprávní vztah – definice a předpisy
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-blue">
+    <p><span class="kw">Pracovněprávní vztah</span> = právními předpisy upravený vztah mezi zaměstnavatelem a zaměstnancem, kdy zaměstnanec vykonává <span class="kw">závislou činnost</span> pro zaměstnavatele a za tento výkon mu náleží odměna — <span class="kw">mzda</span> nebo <span class="kw">plat</span>.</p>
+  </div>
+
+  <div class="grid2" style="margin-top:.75rem;">
+    <div class="cc-blue">
+      <strong>Mzda</strong>
+      Peněžité plnění poskytované <span class="kw">soukromým zaměstnavatelem</span> za práci
+    </div>
+    <div class="cc-teal">
+      <strong>Plat</strong>
+      Peněžité plnění poskytované <span class="kw">státem, státním fondem, příspěvkovou organizací nebo školou</span>
+    </div>
+  </div>
+
+  <h3>Základní právní předpisy</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card"><strong>Zákoník práce</strong>Hlavní předpis upravující pracovněprávní vztahy — práva a povinnosti zaměstnanců i zaměstnavatelů</div>
+    <div class="card"><strong>Zákon o kolektivním vyjednávání</strong>Upravuje vztahy mezi odbory a zaměstnavateli, uzavírání kolektivních smluv</div>
+    <div class="card"><strong>Zákon o zaměstnanosti</strong>Politika zaměstnanosti, podpora v nezaměstnanosti, ÚP</div>
+    <div class="card"><strong>Zákon o inspekci práce</strong>Působnost oblastních inspektorátů práce — kontrola dodržování předpisů</div>
+  </div>
+  <p style="margin-top:.6rem;font-size:13px;">+ další předpisy nižší právní síly (vyhlášky, nařízení vlády — např. nařízení o koeficientu pro výpočet minimální mzdy)</p>
+</div>
+
+<!-- 2. VZNIK PRACOVNÍHO POMĚRU -->
+<div class="section" data-sec="2">
+  <h2><span class="num">2</span> Vznik pracovního poměru
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="grid3">
+    <div class="cc-blue">
+      <strong>Pracovní smlouvou</strong>
+      Nejběžnější způsob. Musí být uzavřena <span class="kw">písemně</span>. Povinné náležitosti: druh práce · místo výkonu · den nástupu.
+    </div>
+    <div class="cc-teal">
+      <strong>Jmenováním</strong>
+      Nemůže vzniknout proti vůli zaměstnance — ten jej potvrdí souhlasem. Používá se pro vedoucí místa (ředitel, vedoucí odboru).
+    </div>
+    <div class="cc-amber">
+      <strong>Volbou</strong>
+      Např. starosta, poslanci. Nepatří mezi základní formy — následně by mělo dojít k uzavření pracovní smlouvy.
+    </div>
+  </div>
+</div>
+
+<!-- 3. PRACOVNÍ SMLOUVA -->
+<div class="section" data-sec="3">
+  <h2><span class="num">3</span> Pracovní smlouva
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-teal">
+    <p><span class="kw">Pracovní smlouva</span> = zakládá pracovní poměr mezi zaměstnavatelem a zaměstnancem. Uzavírá se vždy <strong>písemně</strong>, min. ve <strong>dvou vyhotoveních</strong> (pro zaměstnavatele + pro zaměstnance).</p>
+  </div>
+
+  <h3>Povinné náležitosti (bez nich je smlouva neplatná)</h3>
+  <div class="grid3" style="margin-top:.4rem;">
+    <div class="cc-blue"><strong>Druh práce</strong>Co nejpřesněji specifikovaná pracovní náplň</div>
+    <div class="cc-blue"><strong>Místo výkonu práce</strong>Konkrétní adresa pracoviště</div>
+    <div class="cc-blue"><strong>Den nástupu do práce</strong>Přesné datum zahájení pracovního poměru</div>
+  </div>
+
+  <h3>Pracovník musí být dále informován o</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:.4rem;">
+    <span class="tag t-teal">Délce dovolené</span>
+    <span class="tag t-teal">Podrobném popisu práce</span>
+    <span class="tag t-teal">Pracovní době (začátek/konec)</span>
+    <span class="tag t-teal">Termínu výplaty mzdy</span>
+    <span class="tag t-teal">Výši mzdy / platu</span>
+  </div>
+
+  <h3>Dohody mimo pracovní poměr</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card"><strong>Dohoda o pracovní činnosti (DPČ)</strong>Lze vykonávat práci rozsahu max. <strong>20 hod. týdně</strong> v průměru. Opakující se, pravidelná práce.</div>
+    <div class="card"><strong>Dohoda o provedení práce (DPP)</strong>Max. <strong>300 hod. ročně</strong> u jednoho zaměstnavatele. Pro jednorázové nebo nepravidelné úkoly.</div>
+  </div>
+
+  <hr>
+  <h3>Zvláštní ujednání</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-amber">
+      <strong>Pracovní poměr na dobu určitou</strong>
+      Max. <span class="kw">3 roky</span>, opakovaně prodloužen nejvýše <span class="kw">2×</span>. Po skončení max. doby přechází automaticky na <strong>dobu neurčitou</strong>.
+    </div>
+    <div class="cc-teal">
+      <strong>Zkušební doba</strong>
+      Obě strany si ověří, zda vše odpovídá jejich představám. Lze zrušit bez udání důvodu.<br>
+      <span class="kw">Běžní zaměstnanci:</span> max. <strong>4 měsíce</strong><br>
+      <span class="kw">Vedoucí pracovníci:</span> max. <strong>8 měsíců</strong>
+    </div>
+  </div>
+</div>
+
+<!-- 4. ZMĚNA PRACOVNÍHO POMĚRU -->
+<div class="section" data-sec="4">
+  <h2><span class="num">4</span> Změna pracovního poměru
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <table class="tbl">
+    <tr><th>Typ změny</th><th>Co se mění</th><th>Podmínka</th></tr>
+    <tr>
+      <td><strong>Převedení na jinou práci</strong></td>
+      <td>Druh práce</td>
+      <td>Nutno předem projednat se zaměstnancem. Bez souhlasu jen při živelné katastrofě nebo odvrácení havárie. Povinné při zdravotní neschopnosti, těhotenství nebo trestním řízení.</td>
+    </tr>
+    <tr>
+      <td><strong>Pracovní cesta</strong></td>
+      <td>Místo výkonu dočasně</td>
+      <td>Jen po dohodě se zaměstnancem</td>
+    </tr>
+    <tr>
+      <td><strong>Přeložení</strong></td>
+      <td>Místo výkonu trvale (jiná pobočka)</td>
+      <td>Jen se souhlasem zaměstnance</td>
+    </tr>
+    <tr>
+      <td><strong>Dočasné přidělení</strong></td>
+      <td>Práce u jiného zaměstnavatele</td>
+      <td>Mzdu/plat platí stále původní zaměstnavatel. Ohodnocení nesmí být nižší než dosavadní.</td>
+    </tr>
+    <tr>
+      <td><strong>Návrat do práce</strong></td>
+      <td>Znovuzařazení</td>
+      <td>Po rodičovské dovolené nebo výkonu veřejné funkce musí zaměstnavatel zařadit na původní pozici. Pokud zanikla, pak na ekvivalentní.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- 5. ZÁNIK PRACOVNÍHO POMĚRU -->
+<div class="section" data-sec="5">
+  <h2><span class="num">5</span> Zánik pracovního poměru
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="end-row">
+    <span class="end-label el-teal">Uplynutím doby</span>
+    <div class="end-text">Automaticky po skončení sjednané doby u pracovního poměru na dobu určitou</div>
+  </div>
+  <div class="end-row">
+    <span class="end-label el-blue">Dohoda</span>
+    <div class="end-text"><strong>Dohoda o rozvázání</strong> — obě strany se shodnou na sjednaném dni. Musí být <span class="kw">písemná</span> a podepsaná oběma. Důvod není nutný — ale pokud je uveden <em>organizační důvod zaměstnavatele</em>, vzniká nárok na <span class="kw">odstupné</span>.</div>
+  </div>
+  <div class="end-row">
+    <span class="end-label el-amber">Výpověď</span>
+    <div class="end-text">Viz sekce níže — <span class="kw">výpovědní doba min. 2 měsíce</span>, počíná od doručení výpovědi (dle flexinovely zákoníku práce).</div>
+  </div>
+  <div class="end-row">
+    <span class="end-label el-coral">Okamžité zrušení</span>
+    <div class="end-text">Pracovní poměr končí dnem doručení oznámení druhé straně — bez výpovědní doby. Jen ve striktně zákonem vymezených případech.</div>
+  </div>
+  <div class="end-row">
+    <span class="end-label el-teal">Zkušební doba</span>
+    <div class="end-text">Obě strany mohou zrušit bez udání důvodu</div>
+  </div>
+  <div class="end-row">
+    <span class="end-label el-teal">Smrt zaměstnance</span>
+    <div class="end-text">Zaměstnanec je v rámci PP nenahraditelný. <strong>POZOR:</strong> smrtí zaměstnavatele pracovní poměr <strong>nezaniká</strong>.</div>
+  </div>
+
+  <hr>
+  <h3>Výpověď ze strany zaměstnavatele</h3>
+  <p style="margin-bottom:.5rem;">Musí být <span class="kw">písemná</span>. Zaměstnavatel může dát výpověď <strong>pouze z důvodů</strong> stanovených zákonem:</p>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card">
+      <strong>Organizační důvody</strong>
+      <ul style="margin-top:.4rem;">
+        <li>Podnik nebo jeho část se <span class="kw">ruší nebo přemisťuje</span></li>
+        <li>Zaměstnanec se stal <span class="kw">nadbytečným</span> kvůli organizačním změnám</li>
+        <li>Zaměstnanec ztratil <span class="kw">zdravotní způsobilost</span> nutnou k výkonu práce</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Výkonnostní / kárné důvody</strong>
+      <ul style="margin-top:.4rem;">
+        <li>Soustavně špatné pracovní výsledky + písemná výzva k nápravě v posl. <strong>roce</strong></li>
+        <li>Soustavné porušování pracovních povinností + písemná výzva v posl. <strong>půl roce</strong></li>
+        <li>Porušení léčebného režimu v prvních 21 dnech nemocenské</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Výpověď ze strany zaměstnance</h3>
+  <div class="cc-teal" style="margin-top:.4rem;">
+    <p>Zaměstnanec může dát výpověď <span class="kw">z jakéhokoli důvodu nebo bez udání důvodu</span>. Musí být písemná. Pracovní poměr skončí uplynutím výpovědní doby (min. 2 měsíce).</p>
+  </div>
+
+  <h3>Okamžité zrušení ze strany zaměstnance</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card"><strong>Ze zdravotních důvodů</strong>Práci již nemůže vykonávat a zaměstnavatel mu nenabídl jiné vhodné místo</div>
+    <div class="card"><strong>Nevyplacená mzda</strong>Zaměstnavatel nevyplatil mzdu ani do <span class="kw">15 dnů</span> po uplynutí splatnosti</div>
+  </div>
+
+  <h3>Okamžité zrušení ze strany zaměstnavatele</h3>
+  <p style="margin-bottom:.4rem;">Zaměstnavatel může okamžitě zrušit PP nejpozději <span class="kw">do 2 měsíců od zjištění důvodu</span>, a to jen pokud:</p>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-coral"><strong>Trestný čin</strong>Pracovník byl odsouzen k nepodmíněnému odnětí svobody</div>
+    <div class="cc-coral"><strong>Hrubé porušení povinností</strong>Např. opakovaná krádež, fyzické napadení kolegů, dlouhodobá neomluvená absence</div>
+  </div>
+
+  <hr>
+  <h3>Odstupné</h3>
+  <div class="accent-amber">
+    <p>Nárok na odstupné vzniká, pokud k ukončení PP vedl <span class="kw">důvod na straně zaměstnavatele</span> (organizační změny, nadbytečnost, zdravotní nezpůsobilost z pracovního úrazu / nemoci z povolání). Platí při výpovědi i při dohodě.</p>
+  </div>
+  <div class="odsup-box" style="margin-top:.5rem;">
+    <div class="odsup-row"><span>Pracovní poměr <strong>méně než 1 rok</strong></span><span style="font-weight:600;color:var(--teal-dark);">1× průměrný měsíční výdělek</span></div>
+    <div class="odsup-row"><span>Pracovní poměr <strong>1–2 roky</strong></span><span style="font-weight:600;color:var(--teal-dark);">2× průměrný měsíční výdělek</span></div>
+    <div class="odsup-row"><span>Pracovní poměr <strong>déle než 2 roky</strong></span><span style="font-weight:600;color:var(--teal-dark);">3× průměrný měsíční výdělek</span></div>
+  </div>
+</div>
+
+<!-- 6. PRACOVNÍ DOBA -->
+<div class="section" data-sec="6">
+  <h2><span class="num">6</span> Pracovní doba
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-blue">
+    <p><span class="kw">Základní délka pracovní doby</span> = <strong>40 hodin týdně</strong>, zpravidla rozloženo do 5denního týdne. Doba odpočinku <strong>není</strong> součástí pracovní doby a neproplácí se.</p>
+  </div>
+
+  <h3>Přestávka</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card"><strong>Dospělí zaměstnanci</strong>Max. po <span class="kw">6 hod.</span> nepřetržité práce → přestávka min. <span class="kw">30 min.</span></div>
+    <div class="card"><strong>Mladiství</strong>Max. po <span class="kw">4,5 hod.</span> práce → přestávka min. 30 min.</div>
+  </div>
+
+  <h3>Délka pracovní doby</h3>
+  <table class="tbl">
+    <tr><th>Typ</th><th>Délka</th><th>Poznámka</th></tr>
+    <tr><td><strong>Základní délka</strong></td><td>40 hod./týden</td><td>Dána zákoníkem práce — nemůže být větší</td></tr>
+    <tr><td><strong>Stanovená týdenní PD</strong></td><td>≤ 40 hod./týden</td><td>Dána kolektivní smlouvou nebo vnitřním předpisem. Může být kratší bez snížení mzdy.</td></tr>
+    <tr><td><strong>Kratší pracovní doba</strong></td><td>Individuálně dohodnuta</td><td>Dohodnuta s konkrétním pracovníkem — se snížením mzdy</td></tr>
+    <tr><td><strong>Zvláštní práce</strong></td><td>37,5 nebo 38,75 hod./týden</td><td>Zákonem stanoveno pro specifické druhy práce (práce v noci, zdravotnictví…)</td></tr>
+  </table>
+
+  <h3>Formy rozvržení pracovní doby</h3>
+  <div class="grid3" style="margin-top:.4rem;">
+    <div class="cc-teal">
+      <strong>Rovnoměrné rozvržení</strong>
+      Pracovní doba v jednotlivých týdnech je stejně dlouhá
+    </div>
+    <div class="cc-amber">
+      <strong>Nerovnoměrné rozvržení</strong>
+      Týdny se liší o více než 3 hod. Za delší období musí průměr odpovídat stanovené PD. Typicky směnný provoz / turnusy.
+    </div>
+    <div class="cc-blue">
+      <strong>Pružná pracovní doba</strong>
+      Zaměstnanec si sám volí začátek (a příp. konec) práce v rámci tzv. <span class="kw">volitelné pracovní doby</span> stanovené zaměstnavatelem. Musí být splněn základní (pevný) úsek přítomnosti.
+    </div>
+  </div>
+</div>
+
+<!-- 7. ODBORY A KOLEKTIVNÍ SMLOUVA -->
+<div class="section" data-sec="7">
+  <h2><span class="num">7</span> Odbory, kolektivní smlouva a tripartita
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <h3>Odbory (odborové organizace)</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card">
+      <strong>Proč vznikají</strong>
+      <ul>
+        <li>Nespokojenost zaměstnanců</li>
+        <li>Nedodržování pracovněprávních předpisů</li>
+        <li>Porušování práv zaměstnanců</li>
+        <li>Nevyplácení mezd</li>
+      </ul>
+      <p style="margin-top:.5rem;font-size:13px;">Zaměstnavatel nemůže vzniku odborové organizace bránit. Odbory zastupují ze zákona <strong>všechny zaměstnance</strong> firmy.</p>
+    </div>
+    <div class="card">
+      <strong>Výhody i pro zaměstnavatele</strong>
+      <ul>
+        <li>Odbory přebírají informační povinnost vůči zaměstnancům</li>
+        <li>Zaměstnavatel nemusí informovat každého zaměstnance individuálně</li>
+        <li>Šetří čas a administrativní náklady</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:.6rem;font-size:13px;color:var(--text-muted);">Zaměstnavatel musí odbory informovat o: ekonomické situaci firmy · pracovních podmínkách · bezpečnosti práce · volných místech na dobu neurčitou (pro zaměstnance na dobu určitou) · změnách ve firmě.</p>
+
+  <hr>
+  <h3>Kolektivní smlouva</h3>
+  <div class="accent-teal">
+    <p><span class="kw">Kolektivní smlouva</span> = smlouva upravující vztahy, práva a povinnosti mezi zaměstnanci zastoupenými odborovou organizací a zaměstnavatelem. Uzavírá se typicky na 1 rok. Pokud nedojde k dohodě → <span class="kw">stávka</span> nebo <span class="kw">výluka</span>.</p>
+  </div>
+
+  <hr>
+  <h3>Tripartita</h3>
+  <div class="cc-blue" style="margin-top:.4rem;">
+    <strong>Rada hospodářské a sociální dohody ČR</strong>
+    <p>Tripartitní jednání = zástupci <span class="kw">zaměstnavatelů</span> + zástupci <span class="kw">zaměstnanců (odbory)</span> + <span class="kw">stát (vláda)</span> jako reprezentant celospolečenského zájmu.</p>
+    <p style="margin-top:.5rem;">Projednává nejdůležitější předpisy ovlivňující podnikání a zaměstnanost — minimální mzda, zákoník práce, sociální politika.</p>
+  </div>
+</div>
+
+<!-- 8. POLITIKA ZAMĚSTNANOSTI -->
+<div class="section" data-sec="8">
+  <h2><span class="num">8</span> Politika zaměstnanosti v ČR
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-blue">
+    <p><span class="kw">Politika zaměstnanosti</span> = nedílná součást sociální a hospodářské politiky. Cíl: zabránit nezaměstnanosti a eliminovat tvrdost tržního trhu práce. Tvoří ji stát, zaměstnavatelé i odbory (tripartita).</p>
+  </div>
+
+  <h3>Nástroje</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-teal">
+      <strong>Aktivní politika</strong>
+      Rekvalifikace · příspěvky zaměstnavatelům · veřejně prospěšné práce · informovanost o volných místech · podpora OSVČ
+    </div>
+    <div class="cc-amber">
+      <strong>Pasivní politika</strong>
+      Vyplácení podpor v nezaměstnanosti · hmotné zabezpečení uchazečů o zaměstnání
+    </div>
+    <div class="cc-blue">
+      <strong>Organizace a kontrola</strong>
+      Zákaz diskriminace na trhu práce · koordinace zaměstnanosti přes ÚP · dohlížení na pracovněprávní předpisy
+    </div>
+  </div>
+</div>
+
+<!-- 9. ODPOVĚDNOST ZA ŠKODU -->
+<div class="section" data-sec="9">
+  <h2><span class="num">9</span> Odpovědnost za škodu a hmotná odpovědnost
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <h3>Odpovědnost zaměstnance</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-blue">
+      <strong>Obecná odpovědnost</strong>
+      <ul>
+        <li>Zaměstnanec odpovídá <span class="kw">pouze za své zavinění</span> — zaměstnavatel mu ho musí prokázat</li>
+        <li>Odpovídá za škodu způsobenou <em>při plnění pracovních úkolů nebo v přímé souvislosti s ním</em></li>
+        <li>Při <span class="kw">nedbalosti</span>: hradí skutečnou škodu, max. <strong>4,5× průměrný měsíční výdělek</strong></li>
+        <li>Při <span class="kw">úmyslu</span>: zaměstnavatel může požadovat i ušlý příjem</li>
+        <li>Výjimka: škoda způsobená v opilosti / pod vlivem návykových látek — limit neplatí</li>
+      </ul>
+    </div>
+    <div class="cc-amber">
+      <strong>Zvláštní odpovědnost (hmotná odpovědnost)</strong>
+      <ul>
+        <li>Zaměstnanec přebral svěřené hodnoty na základě <span class="kw">dohody o odpovědnosti za svěřené hodnoty</span></li>
+        <li>Odpovídá za <span class="kw">vzniklý schodek vždy</span> — musí hradit v plném rozsahu, pokud neprokáže, že ho nezavinil</li>
+        <li>Dohoda musí být <span class="kw">písemná</span>, uzavřena nejdříve v <span class="kw">18 letech</span></li>
+        <li>Před uzavřením musí být provedena <span class="kw">inventarizace</span></li>
+        <li>Zaniká skončením PP nebo odstoupením od dohody</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Odpovědnost zaměstnavatele</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card">
+      <strong>Za škodu zaměstnanci</strong>
+      <ul>
+        <li>Odpovídá za škodu vzniklou zaměstnanci při plnění pracovních úkolů nebo v přímé souvislosti</li>
+        <li>Způsob: porušení právních povinností nebo úmyslné jednání</li>
+        <li>Hradí <span class="kw">skutečnou škodu</span>. Při úmyslu může zaměstnanec požadovat i jiné škody.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Za věci zaměstnance</strong>
+      <ul>
+        <li>Odpovídá za věci, které se <em>obvykle nosí do práce</em> a zaměstnanec si je odložil při výkonu práce</li>
+        <li>Za věci, které se do práce obvykle <em>nenosí</em> a nebyly dány do úschovy: odpovídá do výše <span class="kw">10 000 Kč</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="note-footer">ITE 4.B &nbsp;·&nbsp; Maturita 2026 &nbsp;·&nbsp; Ekonomika – Otázka 7</div>
+</div>
+
+<script>
+const _subj=(document.querySelector('meta[name="mat-subject"]')||{}).content||'eko';
+const _num=(document.querySelector('meta[name="mat-num"]')||{}).content||'7';
+const _title=(document.querySelector('meta[name="mat-title"]')||{}).content||document.title;
+const NOTE_ID=`${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`,JSON.stringify({title:_title,subject:_subj,num:parseInt(_num)}));
+function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+function toggleDark(){const on=document.body.classList.toggle('dark');localStorage.setItem('mat-dark',on?'1':'0');const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});
+function secKey(n){return `mat-sec::${NOTE_ID}::${n}`;}
+function toggleSec(btn){const sec=btn.closest('.section');const id=sec.dataset.sec;if(localStorage.getItem(secKey(id))){localStorage.removeItem(secKey(id));sec.classList.remove('flagged');btn.classList.remove('on');btn.textContent='⚑ Označit';}else{localStorage.setItem(secKey(id),'1');sec.classList.add('flagged');btn.classList.add('on');btn.textContent='⚑ Označeno';}updateSummary();}
+function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec=>{if(localStorage.getItem(secKey(sec.dataset.sec))){sec.classList.add('flagged');const btn=sec.querySelector('.sec-flag');if(btn){btn.classList.add('on');btn.textContent='⚑ Označeno';}}});updateSummary();}
+function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
+applyDark();loadFlags();
+</script>
+</body>
+</html>

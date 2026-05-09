@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="it">
+<meta name="mat-num" content="4">
+<meta name="mat-title" content="Algoritmizace, programovací jazyky">
+<title>Algoritmizace, programovací jazyky – IT Maturita 2026</title>
+<style>
+  :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
+  body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;--flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto;}
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px;}
+  .header p{font-size:13px;color:var(--text-muted);}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .badge{background:var(--teal-light);color:var(--teal-dark);border:0.5px solid #9FE1CB;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .dark-btn{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;}
+  .dark-btn:hover{color:var(--text);}
+  .flag-summary{display:none;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .flag-summary.visible{display:inline-block;}
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em;}
+  p,li{font-size:14px;color:var(--text-muted);}
+  ul,ol{padding-left:1.2rem;}
+  li{margin-bottom:4px;}
+  .kw{font-weight:600;color:var(--text);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-green{background:var(--green-light);border:0.5px solid #B5DCA0;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-teal strong{color:var(--teal-dark);}.cc-blue strong{color:var(--blue-dark);}.cc-amber strong{color:var(--amber-dark);}.cc-coral strong{color:var(--coral-dark);}.cc-green strong{color:var(--green-dark);}
+  .accent-blue{border-left:3px solid #378ADD;padding-left:12px;margin:.5rem 0;}
+  .accent-teal{border-left:3px solid #1D9E75;padding-left:12px;margin:.5rem 0;}
+  .accent-amber{border-left:3px solid #EF9F27;padding-left:12px;margin:.5rem 0;}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:5px;}
+  .t-teal{background:var(--teal-light);color:var(--teal-dark);}.t-blue{background:var(--blue-light);color:var(--blue-dark);}.t-amber{background:var(--amber-light);color:var(--amber-dark);}.t-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .tbl{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:600;padding:6px 8px;border:0.5px solid var(--gray-border);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;color:var(--text-muted);}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+  /* code */
+  .mono{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:3px;padding:1px 5px;color:var(--text);}
+  pre{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12.5px;background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.75rem 1rem;margin:.5rem 0;color:var(--text);overflow-x:auto;line-height:1.55;}
+  /* complexity badge */
+  .o-badge{display:inline-block;font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;font-weight:700;padding:3px 10px;border-radius:4px;margin-right:4px;}
+  .o-green{background:var(--teal-light);color:var(--teal-dark);}
+  .o-blue{background:var(--blue-light);color:var(--blue-dark);}
+  .o-amber{background:var(--amber-light);color:var(--amber-dark);}
+  .o-coral{background:var(--coral-light);color:var(--coral-dark);}
+  /* flowchart symbols */
+  .sym-row{display:flex;align-items:center;gap:10px;padding:.4rem 0;border-bottom:0.5px solid var(--gray-border);}
+  .sym-row:last-child{border-bottom:none;}
+  .sym-shape{width:60px;flex-shrink:0;text-align:center;}
+  .sym-oval{display:inline-block;background:var(--coral-light);border:1.5px solid var(--coral-dark);border-radius:50px;padding:3px 10px;font-size:11px;font-weight:700;color:var(--coral-dark);}
+  .sym-rect{display:inline-block;background:var(--blue-light);border:1.5px solid var(--blue-dark);border-radius:3px;padding:3px 8px;font-size:11px;font-weight:700;color:var(--blue-dark);}
+  .sym-diamond{display:inline-block;background:var(--amber-light);border:1.5px solid var(--amber-dark);padding:3px 6px;font-size:11px;font-weight:700;color:var(--amber-dark);transform:rotate(0deg);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);width:36px;height:32px;line-height:26px;}
+  .sym-para{display:inline-block;background:var(--teal-light);border:1.5px solid var(--teal-dark);padding:3px 8px;font-size:11px;font-weight:700;color:var(--teal-dark);transform:skewX(-10deg);}
+  .sym-name{font-size:13.5px;font-weight:600;color:var(--text);}
+  .sym-desc{font-size:13px;color:var(--text-muted);}
+  /* steps */
+  .steps{counter-reset:step;list-style:none;padding-left:0;}
+  .steps li{counter-increment:step;display:flex;gap:10px;padding:.45rem 0;border-bottom:0.5px solid var(--gray-border);font-size:14px;color:var(--text-muted);}
+  .steps li:last-child{border-bottom:none;}
+  .steps li::before{content:counter(step);min-width:22px;height:22px;background:var(--blue-light);color:var(--blue-dark);border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.8rem 0;}
+  @media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.header{flex-direction:column;}}
+  @media print{body{background:white;padding:1rem;}.sec-flag,.dark-btn{display:none;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Algoritmizace, programovací jazyky</h1>
+    <p>IT Maturita &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+    <p style="margin-top:5px;">Definice algoritmu · Zápis · Složitost · Jazyky · Praktické úlohy</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">IT · Otázka 4</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- 1. ALGORITMUS -->
+<div class="section" data-sec="1">
+  <h2><span class="num">1</span> Definice a vlastnosti algoritmu
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-blue">
+    <p><span class="kw">Algoritmus</span> = schematický postup řešení určitého problému, který je <strong>konečný, určitý, korektní a obecný</strong>.</p>
+  </div>
+
+  <h3>Povinné vlastnosti</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-teal">
+      <strong>Konečnost</strong>
+      Algoritmus skončí pro libovolná vstupní data v konečném množství kroků. <em>Nekonečná smyčka = není algoritmus.</em>
+    </div>
+    <div class="cc-blue">
+      <strong>Určitost (determinovanost)</strong>
+      Každý krok je přesně a jednoznačně definován — stejné vstupy vždy vedou ke stejnému postupu.
+    </div>
+    <div class="cc-amber">
+      <strong>Korektnost</strong>
+      Algoritmus skončí pro libovolná vstupní data <strong>správným výsledkem</strong>.
+    </div>
+    <div class="cc-coral">
+      <strong>Obecnost</strong>
+      Řeší <strong>všechny úlohy daného typu</strong>, ne jen konkrétní případ. Třídící algoritmus musí třídit libovolný seznam, ne jen jeden konkrétní.
+    </div>
+  </div>
+
+  <h3>Doplňkové vlastnosti (někdy uváděny)</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card"><strong>Resultativnost</strong>Konečnost + korektnost dohromady — algoritmus vždy vrátí smysluplný výsledek</div>
+    <div class="card"><strong>Elementárnost</strong>Kroky jsou jednoduché a proveditelné — bez skrytých složitých operací</div>
+  </div>
+
+  <div class="accent-amber" style="margin-top:.75rem;">
+    <p><strong>Typická zkušební otázka:</strong> „Proč tohle není algoritmus?" → Obvykle chybí <span class="kw">konečnost</span> (nekonečná smyčka) nebo <span class="kw">určitost</span> (neurčitý krok jako „udělej to přiměřeně").</p>
+  </div>
+</div>
+
+<!-- 2. ZPŮSOBY ZÁPISU -->
+<div class="section" data-sec="2">
+  <h2><span class="num">2</span> Způsoby zápisu algoritmu
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="grid2">
+    <div class="card">
+      <strong>1. Přirozený jazyk</strong>
+      <ul style="margin-top:.4rem;">
+        <li>Běžný mluvený/psaný jazyk</li>
+        <li>Srozumitelný každému</li>
+        <li>Nevhodný pro složitější algoritmy — nepřesný, víceznačný</li>
+        <li>Příklad: „Najdi největší číslo v seznamu. Projdi všechna čísla a pamatuj si dosud největší."</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>2. Pseudokód</strong>
+      <ul style="margin-top:.4rem;">
+        <li>Podobný programovacím jazykům, ale zjednodušený</li>
+        <li>Nezávislý na konkrétním jazyce</li>
+        <li>Nemusí jít spustit na počítači</li>
+        <li>Vhodný pro návrh před implementací</li>
+      </ul>
+<pre>vysledek := seznam[1]
+for i := 2 to seznam.size():
+  if vysledek &gt; seznam[i]:
+    vysledek := seznam[i]
+return vysledek</pre>
+    </div>
+  </div>
+
+  <div style="margin-top:8px;" class="card">
+    <strong>3. Vývojový diagram</strong>
+    <p style="margin-bottom:.75rem;">Grafické znázornění pomocí standardizovaných symbolů. Přehledný pro vizualizaci větvení a cyklů.</p>
+    <div class="sym-row">
+      <div class="sym-shape"><span class="sym-oval">ovál</span></div>
+      <span class="sym-name">Ovál (elipsa)</span>
+      <span class="sym-desc">— Start / Konec algoritmu</span>
+    </div>
+    <div class="sym-row">
+      <div class="sym-shape"><span class="sym-rect">rect</span></div>
+      <span class="sym-name">Obdélník</span>
+      <span class="sym-desc">— Operace / zpracování (přiřazení, výpočet)</span>
+    </div>
+    <div class="sym-row">
+      <div class="sym-shape" style="display:flex;align-items:center;justify-content:center;">
+        <span style="display:inline-block;width:32px;height:32px;background:var(--amber-light);border:1.5px solid var(--amber-dark);transform:rotate(45deg);flex-shrink:0;"></span>
+      </div>
+      <span class="sym-name">Kosočtverec (diamant)</span>
+      <span class="sym-desc">— Podmínka / větvení (ANO/NE)</span>
+    </div>
+    <div class="sym-row">
+      <div class="sym-shape"><span class="sym-para">para</span></div>
+      <span class="sym-name">Rovnoběžník (kosodélník)</span>
+      <span class="sym-desc">— Vstup / výstup dat</span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px;">
+    <strong>4. Programovací jazyk</strong>
+    <p>Zápis přímo v konkrétním jazyce (Java, Python, C…) — lze rovnou spustit na počítači. Nejpřesnější forma, ale vázaná na konkrétní jazyk.</p>
+  </div>
+</div>
+
+<!-- 3. ŽIVOTNÍ CYKLUS -->
+<div class="section" data-sec="3">
+  <h2><span class="num">3</span> Životní cyklus programu
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <ol class="steps">
+    <li><strong>Analýza problému</strong> — pochopení zadání, definice vstupů a požadovaných výstupů</li>
+    <li><strong>Návrh algoritmu</strong> — pseudokód nebo vývojový diagram; výběr vhodného přístupu</li>
+    <li><strong>Implementace (kódování)</strong> — přepis algoritmu do konkrétního programovacího jazyka</li>
+    <li><strong>Testování</strong> — ověření správnosti na různých vstupech, hledání chyb (debugging)</li>
+    <li><strong>Nasazení</strong> — spuštění programu v produkčním prostředí pro reálné uživatele</li>
+    <li><strong>Údržba</strong> — opravy chyb, aktualizace, přizpůsobení novým požadavkům</li>
+  </ol>
+</div>
+
+<!-- 4. SLOŽITOST -->
+<div class="section" data-sec="4">
+  <h2><span class="num">4</span> Složitost algoritmů
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-blue">
+    <p>Zajímá nás, který ze dvou algoritmů vrátí výsledek dříve. Čas je ale závislý na HW, jazyku, implementaci — proto <span class="kw">neměříme čas, ale počet operací</span>.</p>
+  </div>
+
+  <h3>Proč ne čas?</h3>
+  <p style="margin-bottom:.5rem;">Čas výpočtu je ovlivněn: výkonem HW · dalšími běžícími procesy · volbou jazyka · kvalitou implementace · použitými knihovnami. Tyto faktory nemají se samotným algoritmem nic společného.</p>
+
+  <h3>Jak měřit správně</h3>
+  <div class="grid3" style="margin-top:.4rem;">
+    <div class="card"><strong>Počet operací</strong>Počítáme pouze <em>významné</em> operace (porovnání, přístupy na disk) — eliminujeme vliv HW</div>
+    <div class="card"><strong>Velká data</strong>Zajímají nás velké vstupy a řádový růst — malé instance jsou vždy rychlé</div>
+    <div class="card"><strong>Max/průměr</strong>Maximální nebo průměrná složitost eliminuje vliv konkrétního zadání</div>
+  </div>
+
+  <h3>Asymptotická složitost – O(f(n))</h3>
+  <div class="accent-teal">
+    <p>Popisuje, jak se mění počet operací v závislosti na velikosti vstupních dat <span class="kw">n</span>. Zapisujeme <span class="mono">O(f(n))</span> — velké O notace.</p>
+  </div>
+
+  <table class="tbl">
+    <tr><th>Notace</th><th>Název</th><th>Popis</th><th>Příklady algoritmů</th></tr>
+    <tr>
+      <td><span class="o-green">O(1)</span></td>
+      <td>Konstantní</td>
+      <td>Nezávisí na velikosti vstupu — vždy stejný počet operací</td>
+      <td>Přístup k prvku pole přes index</td>
+    </tr>
+    <tr>
+      <td><span class="o-green">O(log n)</span></td>
+      <td>Logaritmická</td>
+      <td>Počet operací roste velmi pomalu — zdvojnásobení vstupu přidá jen 1 krok</td>
+      <td>Binární vyhledávání</td>
+    </tr>
+    <tr>
+      <td><span class="o-blue">O(n)</span></td>
+      <td>Lineární</td>
+      <td>Počet operací roste přímo úměrně vstupu</td>
+      <td>Lineární vyhledávání, hledání maxima</td>
+    </tr>
+    <tr>
+      <td><span class="o-blue">O(n · log n)</span></td>
+      <td>Linearitmická</td>
+      <td>Efektivní třídicí algoritmy — lepší než kvadratická</td>
+      <td>Merge Sort, Quick Sort (průměr)</td>
+    </tr>
+    <tr>
+      <td><span class="o-amber">O(n²)</span></td>
+      <td>Kvadratická</td>
+      <td>Dva vnořené cykly — zdvojnásobení vstupu = 4× více operací</td>
+      <td>Bubble Sort, Selection Sort</td>
+    </tr>
+    <tr>
+      <td><span class="o-amber">O(n³)</span></td>
+      <td>Kubická</td>
+      <td>Tři vnořené cykly</td>
+      <td>Násobení matic (naivní)</td>
+    </tr>
+    <tr>
+      <td><span class="o-coral">O(2ⁿ)</span></td>
+      <td>Exponenciální</td>
+      <td>Přidání jednoho prvku = dvojnásobek operací — rychle nepoužitelné</td>
+      <td>Hanojská věž, brute-force TSP</td>
+    </tr>
+  </table>
+
+  <div class="cc-teal" style="margin-top:.75rem;">
+    <strong>Polynomiální složitost</strong>
+    <p>Roste jako libovolný polynom: <span class="mono">O(nᵏ)</span> kde k je konstanta. Patří sem O(n), O(n²), O(n³)… Polynomiální algoritmy jsou obecně považovány za „zvládnutelné".</p>
+  </div>
+</div>
+
+<!-- 5. PROGRAMOVACÍ JAZYKY -->
+<div class="section" data-sec="5">
+  <h2><span class="num">5</span> Programovací jazyky – dělení
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-blue">
+    <p>Programátor píše <span class="kw">zdrojový kód</span>, kterému člověk rozumí, ale procesor ne. Nutný překlad: <strong>zdrojový kód → instrukce procesoru</strong>.</p>
+  </div>
+
+  <h3>Kompilované vs. interpretované</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Kompilované jazyky</strong>
+      <p>Zdrojový kód se <span class="kw">přeloží celý předem</span> (kompilace) → vznikne spustitelný soubor (.exe, .out). Překlad proběhne jednou u vývojáře.</p>
+      <div style="margin-top:.5rem;">
+        <span class="tag t-blue">C / C++</span><span class="tag t-blue">Pascal</span><span class="tag t-blue">Go</span><span class="tag t-blue">Rust</span>
+      </div>
+      <ul style="margin-top:.5rem;font-size:13px;">
+        <li>+ Rychlý běh programu</li>
+        <li>+ Menší nároky na paměť</li>
+        <li>+ Není nutné distribuovat zdrojový kód</li>
+        <li>− Nutnost kompilace před spuštěním</li>
+        <li>− Horší přenositelnost (exe pro konkrétní OS)</li>
+        <li>− Složitější ladění</li>
+      </ul>
+    </div>
+    <div class="cc-teal">
+      <strong>Interpretované jazyky</strong>
+      <p>Zdrojový kód se <span class="kw">nepřekládá předem</span>. Spouští se pomocí <span class="kw">interpretu</span>, který kód čte, překládá a okamžitě vykonává řádek po řádku.</p>
+      <div style="margin-top:.5rem;">
+        <span class="tag t-teal">Python</span><span class="tag t-teal">JavaScript</span><span class="tag t-teal">PHP</span><span class="tag t-teal">Ruby</span>
+      </div>
+      <ul style="margin-top:.5rem;font-size:13px;">
+        <li>+ Přenositelnost (stačí mít interpret)</li>
+        <li>+ Snadné ladění (debugging)</li>
+        <li>+ Lze upravovat program za běhu</li>
+        <li>− Pomalejší běh (překládá se za chodu)</li>
+        <li>− Vyšší nároky na paměť</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+  <h3>Nižší vs. vyšší programovací jazyky</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-coral">
+      <strong>Strojový kód</strong>
+      <p>Přímo instrukce procesoru zapsané jako <span class="kw">binární čísla</span>. Nepotřebuje překlad — procesor čte čísla z paměti a vykonává instrukce. Nepřenositelný, extrémně obtížný pro psaní.</p>
+      <p style="margin-top:.4rem;font-size:12px;font-family:ui-monospace,monospace;">1001 0011 0000 0001…</p>
+    </div>
+    <div class="cc-amber">
+      <strong>Nižší jazyky (Assembler)</strong>
+      <p>Místo binárních čísel <span class="kw">několikapísmenné názvy instrukcí</span>. Umožňuje pojmenování paměťových adres. Stále blízko HW, pro každou architekturu procesoru jiný.</p>
+      <p style="margin-top:.4rem;font-size:12px;font-family:ui-monospace,monospace;">MOV AX, 1<br>ADD AX, BX</p>
+    </div>
+    <div class="cc-teal">
+      <strong>Vyšší jazyky</strong>
+      <p>Nezávislé na typu procesoru, blízké přirozenému jazyku. Jeden příkaz = posloupnost více instrukcí procesoru. První vyšší jazyk: <span class="kw">FORTRAN (1953–1957)</span>.</p>
+      <div style="margin-top:.5rem;"><span class="tag t-teal">Java</span><span class="tag t-teal">C</span><span class="tag t-teal">Python</span><span class="tag t-blue">blíže hardware → C</span></div>
+    </div>
+  </div>
+
+  <hr>
+  <h3>Skriptovací vs. ostatní vyšší jazyky</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-amber">
+      <strong>Skriptovací jazyky</strong>
+      <p style="font-size:13px;margin-bottom:.5rem;">Původně pro kratší programy (skripty), automatizaci úloh, práci se soubory a webem.</p>
+      <ul style="font-size:13px;">
+        <li><span class="kw">Dynamické typování</span> — proměnná nemá pevný typ, vzniká při prvním použití</li>
+        <li>Není nutná deklarace proměnných</li>
+        <li>Jednoduchá syntaxe, rychlý vývoj</li>
+        <li>Vhodné pro menší a jednodušší programy</li>
+      </ul>
+      <div style="margin-top:.5rem;"><span class="tag t-amber">JavaScript</span><span class="tag t-amber">PHP</span><span class="tag t-amber">Python</span><span class="tag t-amber">Bash</span></div>
+    </div>
+    <div class="cc-blue">
+      <strong>Ostatní (neskriptovací) jazyky</strong>
+      <p style="font-size:13px;margin-bottom:.5rem;">Navrženy pro větší a složitější aplikace, týmový vývoj.</p>
+      <ul style="font-size:13px;">
+        <li><span class="kw">Statické typování</span> — datový typ je pevně daný, deklarovaný předem</li>
+        <li>Silná typová kontrola → méně chyb za běhu</li>
+        <li>Přísnější syntaxe → větší bezpečnost kódu</li>
+        <li>Lepší čitelnost a udržovatelnost ve velkých projektech</li>
+      </ul>
+      <div style="margin-top:.5rem;"><span class="tag t-blue">Java</span><span class="tag t-blue">C#</span><span class="tag t-blue">C++</span><span class="tag t-blue">Kotlin</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. PŘEHLED JAZYKŮ -->
+<div class="section" data-sec="6">
+  <h2><span class="num">6</span> Přehled konkrétních jazyků
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <table class="tbl">
+    <tr><th>Jazyk</th><th>Paradigma</th><th>Překlad</th><th>Typování</th><th>Využití</th></tr>
+    <tr>
+      <td><strong>Python</strong></td>
+      <td>Objektový, funkcionální, imperativní</td>
+      <td>Interpretovaný</td>
+      <td>Dynamické</td>
+      <td>Data science, ML, skripty, web backend, výuka</td>
+    </tr>
+    <tr>
+      <td><strong>JavaScript</strong></td>
+      <td>Objektový, funkcionální</td>
+      <td>Interpretovaný (JIT)</td>
+      <td>Dynamické</td>
+      <td>Web frontend, web backend (Node.js), mobilní aplikace</td>
+    </tr>
+    <tr>
+      <td><strong>Java</strong></td>
+      <td>Objektový</td>
+      <td>Kompilovaný (do bytecode → JVM)</td>
+      <td>Statické</td>
+      <td>Enterprise aplikace, Android, backend</td>
+    </tr>
+    <tr>
+      <td><strong>C / C++</strong></td>
+      <td>Procedurální / OOP</td>
+      <td>Kompilovaný (strojový kód)</td>
+      <td>Statické</td>
+      <td>OS, embedded, hry, výkonné aplikace</td>
+    </tr>
+    <tr>
+      <td><strong>C#</strong></td>
+      <td>Objektový</td>
+      <td>Kompilovaný (.NET runtime)</td>
+      <td>Statické</td>
+      <td>Windows aplikace, hry (Unity), enterprise</td>
+    </tr>
+    <tr>
+      <td><strong>PHP</strong></td>
+      <td>Skriptovací, OOP</td>
+      <td>Interpretovaný</td>
+      <td>Dynamické</td>
+      <td>Web backend (WordPress, Laravel)</td>
+    </tr>
+    <tr>
+      <td><strong>SQL</strong></td>
+      <td>Deklarativní</td>
+      <td>Interpretovaný (DB engine)</td>
+      <td>Statické</td>
+      <td>Dotazování a správa databází</td>
+    </tr>
+  </table>
+
+  <div class="cc-green" style="margin-top:.75rem;">
+    <strong>Poznámka – Java a JVM</strong>
+    <p>Java je zajímavý případ: kompiluje se do <span class="kw">bytecode</span> (ne přímo do strojového kódu), který pak spouští <span class="kw">JVM (Java Virtual Machine)</span>. Tím dosahuje přenositelnosti jako interpretovaný jazyk, ale rychlosti blízké kompilovaným jazykům. „Write once, run anywhere."</p>
+  </div>
+</div>
+
+<!-- 7. PRAKTICKÉ ÚLOHY -->
+<div class="section" data-sec="7">
+  <h2><span class="num">7</span> Praktické úlohy – pseudokód a složitost
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <!-- Lineární vyhledávání -->
+  <h3>1. Lineární vyhledávání — hledání prvku v seznamu</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card">
+      <strong>Princip</strong>
+      Procházíme seznam od začátku do konce. U každého prvku porovnáme, zda je to hledaný. Pokud ano, vrátíme jeho index. Pokud projdeme celý seznam bez nálezu, vrátíme −1.
+    </div>
+    <div class="card">
+      <strong>Složitost: <span class="o-blue">O(n)</span></strong>
+      V nejhorším případě projdeme všechny n prvků (hledaný prvek je poslední nebo vůbec není). Průměr je n/2 průchodů, ale stále O(n).
+    </div>
+  </div>
+<pre>Pro i od 0 do délka(Seznam) - 1:
+  Pokud Seznam[i] == Cíl:
+    Vrať i
+Vrať -1   ← nenalezeno</pre>
+
+  <hr>
+
+  <!-- Binární vyhledávání -->
+  <h3>2. Binární vyhledávání — hledání v seřazeném seznamu</h3>
+  <div class="cc-teal" style="margin-bottom:.5rem;">
+    <strong>Podmínka: seznam musí být seřazený!</strong>
+    <p>Porovnáme hledaný prvek se středem → pokud je menší, hledáme v levé půlce, jinak v pravé. Každým krokem vyloučíme polovinu zbývajících prvků.</p>
+  </div>
+  <div class="grid2" style="margin-bottom:.5rem;">
+    <div class="card"><strong>Složitost: <span class="o-green">O(log n)</span></strong>1 000 prvků → max 10 kroků · 1 000 000 prvků → max 20 kroků. Dramaticky lepší než lineární!</div>
+    <div class="card"><strong>Srovnání s lineárním</strong>1 miliarda prvků: lineární = až 1 000 000 000 porovnání · binární = max 30 porovnání</div>
+  </div>
+<pre>leva = 0, prava = délka(Seznam) - 1
+
+Dokud leva &lt;= prava:
+  stred = (leva + prava) / 2
+  Pokud Seznam[stred] == Cíl:
+    Vrať stred
+  Jinak pokud Seznam[stred] &lt; Cíl:
+    leva = stred + 1        ← hledáme v pravé půlce
+  Jinak:
+    prava = stred - 1       ← hledáme v levé půlce
+
+Vrať -1</pre>
+
+  <hr>
+
+  <!-- Hledání maxima -->
+  <h3>3. Hledání největší hodnoty (maxima)</h3>
+  <div class="grid2" style="margin-top:.4rem;margin-bottom:.5rem;">
+    <div class="card"><strong>Princip</strong>Pamatujeme si dosud největší nalezený prvek. Procházíme seznam a vždy aktualizujeme maximum, pokud najdeme větší prvek.</div>
+    <div class="card"><strong>Složitost: <span class="o-blue">O(n)</span></strong>Musíme projít každý prvek minimálně jednou — nelze jinak, seznam nemusí být seřazený.</div>
+  </div>
+<pre>max = Seznam[0]
+Pro i od 1 do délka(Seznam) - 1:
+  Pokud Seznam[i] &gt; max:
+    max = Seznam[i]
+Vrať max</pre>
+
+  <hr>
+
+  <!-- Bubble Sort -->
+  <h3>4. Bubble Sort — řazení probubláváním</h3>
+  <div class="cc-amber" style="margin-bottom:.5rem;">
+    <strong>Princip</strong>
+    <p>Opakovaně procházíme seznam a porovnáváme sousední prvky. Pokud jsou ve špatném pořadí, prohodíme je. Největší prvek „probublá" na konec. Po n průchodech je seznam seřazen.</p>
+  </div>
+  <div class="grid2" style="margin-bottom:.5rem;">
+    <div class="card"><strong>Složitost: <span class="o-amber">O(n²)</span></strong>Dva vnořené cykly. Velmi neefektivní pro velké vstupy — existují lepší algoritmy (Merge Sort O(n·log n)).</div>
+    <div class="card"><strong>Příklad jednoho průchodu</strong>[5, 3, 8, 1] → [3, 5, 8, 1] → [3, 5, 8, 1] → [3, 5, 1, 8]<br>Osmička „probublala" na konec.</div>
+  </div>
+<pre>Pro i od 0 do n - 1:
+  Pro j od 0 do n - i - 2:
+    Pokud Seznam[j] &gt; Seznam[j+1]:
+      Prohoď Seznam[j] a Seznam[j+1]</pre>
+
+  <hr>
+
+  <!-- Srovnání složitostí -->
+  <h3>Srovnání složitostí úloh</h3>
+  <table class="tbl">
+    <tr><th>Algoritmus</th><th>Složitost</th><th>Pro n = 1 000</th><th>Pro n = 1 000 000</th></tr>
+    <tr><td>Přístup přes index</td><td><span class="o-green">O(1)</span></td><td>1 op.</td><td>1 op.</td></tr>
+    <tr><td>Binární vyhledávání</td><td><span class="o-green">O(log n)</span></td><td>~10 op.</td><td>~20 op.</td></tr>
+    <tr><td>Lineární vyhledávání, max</td><td><span class="o-blue">O(n)</span></td><td>1 000 op.</td><td>1 000 000 op.</td></tr>
+    <tr><td>Merge Sort, Quick Sort</td><td><span class="o-blue">O(n·log n)</span></td><td>~10 000 op.</td><td>~20 000 000 op.</td></tr>
+    <tr><td>Bubble Sort</td><td><span class="o-amber">O(n²)</span></td><td>1 000 000 op.</td><td>10¹² op.</td></tr>
+    <tr><td>Hanojská věž</td><td><span class="o-coral">O(2ⁿ)</span></td><td>10³⁰⁰ op.</td><td>nevyčíslitelné</td></tr>
+  </table>
+</div>
+
+<div class="note-footer">ITE 4.B &nbsp;·&nbsp; IT Maturita 2026 &nbsp;·&nbsp; Algoritmizace, programovací jazyky</div>
+</div>
+
+<script>
+const _subj=(document.querySelector('meta[name="mat-subject"]')||{}).content||'it';
+const _num=(document.querySelector('meta[name="mat-num"]')||{}).content||'4';
+const _title=(document.querySelector('meta[name="mat-title"]')||{}).content||document.title;
+const NOTE_ID=`${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`,JSON.stringify({title:_title,subject:_subj,num:parseInt(_num)}));
+function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+function toggleDark(){const on=document.body.classList.toggle('dark');localStorage.setItem('mat-dark',on?'1':'0');const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});
+function secKey(n){return `mat-sec::${NOTE_ID}::${n}`;}
+function toggleSec(btn){const sec=btn.closest('.section');const id=sec.dataset.sec;if(localStorage.getItem(secKey(id))){localStorage.removeItem(secKey(id));sec.classList.remove('flagged');btn.classList.remove('on');btn.textContent='⚑ Označit';}else{localStorage.setItem(secKey(id),'1');sec.classList.add('flagged');btn.classList.add('on');btn.textContent='⚑ Označeno';}updateSummary();}
+function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec=>{if(localStorage.getItem(secKey(sec.dataset.sec))){sec.classList.add('flagged');const btn=sec.querySelector('.sec-flag');if(btn){btn.classList.add('on');btn.textContent='⚑ Označeno';}}});updateSummary();}
+function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
+applyDark();loadFlags();
+</script>
+</body>
+</html>
