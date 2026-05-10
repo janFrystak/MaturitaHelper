@@ -43,15 +43,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,san
   display:flex;flex-direction:column;overflow:hidden;}
 
 /* ── TOPBAR ── */
-.topbar{display:flex;align-items:center;gap:.6rem;padding:.6rem 1.25rem;
-  background:var(--bg-panel);border-bottom:1px solid var(--border);flex-shrink:0;}
+.topbar{display:flex;align-items:center;gap:.6rem;padding:0 1.25rem;height:52px;
+  background:var(--bg-panel);border-bottom:0.5px solid var(--border);flex-shrink:0;}
 .topbar-title{font-weight:700;font-size:15px;flex:1;}
-.folder-name{font-size:12px;color:var(--text-faint);max-width:200px;
+.folder-name{font-size:12px;color:var(--text-faint);max-width:220px;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.btn{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);
-  padding:5px 12px;font-size:12px;cursor:pointer;color:var(--text-muted);
-  transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
-.btn:hover{background:var(--bg-panel);color:var(--text);border-color:var(--border-strong);}
+.btn{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:6px 11px;font-size:12px;font-weight:500;cursor:pointer;color:var(--text-muted);
+  transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;
+  white-space:nowrap;}
+.btn:hover{background:var(--border);color:var(--text);}
 .btn-open{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark);}
 .btn-open:hover{opacity:.9;color:#fff;}
 .btn-save{background:var(--teal-dark);color:#fff;border-color:var(--teal-dark);
@@ -63,8 +64,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,san
 .main{display:flex;flex:1;overflow:hidden;}
 
 /* ── SIDEBAR ── */
-.sidebar{width:240px;flex-shrink:0;background:var(--bg-sidebar);
-  border-right:1px solid var(--border);overflow-y:auto;padding:.75rem 0;}
+.sidebar{width:280px;flex-shrink:0;background:var(--bg-sidebar);
+  border-right:0.5px solid var(--border);overflow-y:auto;padding:.75rem 0;}
 .sb-empty{padding:1.5rem 1rem;font-size:13px;color:var(--text-faint);
   display:flex;flex-direction:column;align-items:center;gap:.75rem;text-align:center;}
 .sb-empty .icon{font-size:2.5rem;}
@@ -88,7 +89,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,san
 
 /* Note header */
 .note-hdr{display:flex;align-items:center;gap:.75rem;
-  background:var(--bg-panel);border:1px solid var(--border);
+  background:var(--bg-panel);border:0.5px solid var(--border);
   border-radius:var(--radius);padding:.875rem 1.25rem;margin-bottom:1rem;}
 .note-hdr-title{flex:1;font-size:17px;font-weight:700;}
 .dirty-badge{font-size:11px;padding:2px 8px;border-radius:20px;
@@ -98,17 +99,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,san
 
 /* ── TOOLBAR ── */
 .toolbar{display:flex;align-items:center;gap:3px;flex-wrap:wrap;
-  background:var(--bg-panel);border:1px solid var(--border);
+  background:var(--bg-panel);border:0.5px solid var(--border);
   border-radius:var(--radius);padding:.45rem .75rem;
   margin-bottom:.875rem;position:sticky;top:0;z-index:20;}
 .tb-sep{width:1px;height:16px;background:var(--border);margin:0 3px;flex-shrink:0;}
-.tb-btn{background:none;border:1px solid transparent;border-radius:var(--radius-sm);
+.tb-btn{background:none;border:0.5px solid transparent;border-radius:var(--radius-sm);
   padding:3px 8px;font-size:12px;cursor:pointer;color:var(--text-muted);
   transition:all .1s;min-width:26px;text-align:center;line-height:1.4;}
 .tb-btn:hover{background:var(--bg);border-color:var(--border);color:var(--text);}
 .dropdown{position:relative;}
 .dd-menu{position:absolute;top:calc(100% + 4px);left:0;
-  background:var(--bg-panel);border:1px solid var(--border);
+  background:var(--bg-panel);border:0.5px solid var(--border);
   border-radius:var(--radius);padding:.25rem;display:none;
   z-index:100;min-width:140px;box-shadow:0 4px 20px rgba(0,0,0,.12);}
 .dd-menu.open{display:block;}
@@ -118,12 +119,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,san
 .dd-swatch{width:11px;height:11px;border-radius:2px;flex-shrink:0;}
 
 /* ── SECTION CARDS ── */
-.sec-card{background:var(--bg-panel);border:1px solid var(--border);
+.sec-card{background:var(--bg-panel);border:0.5px solid var(--border);
   border-radius:var(--radius);margin-bottom:.75rem;overflow:hidden;}
 .sec-card-hdr{display:flex;align-items:center;gap:.5rem;
-  padding:.5rem .75rem;background:var(--bg);border-bottom:1px solid var(--border);}
+  padding:.5rem .75rem;background:var(--bg);border-bottom:0.5px solid var(--border);}
 .sec-move{display:flex;gap:2px;}
-.sec-move button{background:none;border:1px solid var(--border);border-radius:3px;
+.sec-move button{background:none;border:0.5px solid var(--border);border-radius:3px;
   width:22px;height:22px;font-size:9px;cursor:pointer;color:var(--text-faint);
   transition:all .1s;display:flex;align-items:center;justify-content:center;}
 .sec-move button:hover{background:var(--bg-panel);color:var(--text);}
@@ -168,6 +169,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,san
 .sec-body table td{padding:4px 8px;border:1px solid var(--border);}
 .sec-body table tr:nth-child(even) td{background:var(--bg);}
 
+/* ── FOLDER HINT MODAL ── */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);
+  display:flex;align-items:center;justify-content:center;z-index:200;
+  opacity:0;pointer-events:none;transition:opacity .15s;}
+.modal-backdrop.open{opacity:1;pointer-events:all;}
+.modal{background:var(--bg-panel);border:0.5px solid var(--border);
+  border-radius:var(--radius);padding:1.5rem 1.75rem;max-width:400px;width:90%;
+  box-shadow:0 8px 40px rgba(0,0,0,.18);}
+.modal h3{font-size:15px;font-weight:700;margin-bottom:.6rem;}
+.modal p{font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:.5rem;}
+.modal .path-hint{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:12px;background:var(--bg);border:0.5px solid var(--border);
+  border-radius:var(--radius-sm);padding:.4rem .7rem;margin:.5rem 0 1rem;
+  color:var(--text);word-break:break-all;}
+.modal-btns{display:flex;justify-content:flex-end;gap:.5rem;}
+
 /* Add section */
 .add-sec-btn{width:100%;padding:.65rem;border:1.5px dashed var(--border);
   border-radius:var(--radius);background:none;cursor:pointer;
@@ -182,18 +199,27 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,san
   <a href="./index.html" class="btn" style="text-decoration:none">← Katalog</a>
   <span class="topbar-title">Úprava zápisů</span>
   <span class="folder-name" id="folderName"></span>
-  <button class="btn btn-open" id="openFolderBtn" onclick="openFolder()">📁 Otevřít složku</button>
+  <button class="btn" id="resetFolderBtn" onclick="resetFolder()" title="Změnit složku" style="display:none;font-size:11px;padding:3px 8px;">↺</button>
   <button class="btn" onclick="toggleDark()" id="darkBtn">🌙 Tmavý</button>
+</div>
+
+<!-- FOLDER HINT MODAL -->
+<div class="modal-backdrop" id="folderModal">
+  <div class="modal">
+    <h3>📂 Vyber složku projektu</h3>
+    <p>V dialogu, který se otevře, naviguj do složky <strong>Helper</strong> a vyber ji. Je to kořenová složka celého projektu:</p>
+    <div class="path-hint">…/Maturita/<strong>Helper</strong></div>
+    <p style="font-size:12px;color:var(--text-faint);">Výběr se zapamatuje – příště se zeptá jen o potvrzení přístupu.</p>
+    <div class="modal-btns">
+      <button class="btn" onclick="closeFolderModal(false)">Zrušit</button>
+      <button class="btn btn-open" onclick="closeFolderModal(true)">Vybrat složku →</button>
+    </div>
+  </div>
 </div>
 
 <div class="main">
   <!-- SIDEBAR -->
-  <div class="sidebar" id="sidebar">
-    <div class="sb-empty">
-      <div class="icon">📁</div>
-      <p>Klikni na „Otevřít složku" a vyber složku <strong>Helper</strong>.</p>
-    </div>
-  </div>
+  <div class="sidebar" id="sidebar"></div>
 
   <!-- EDITOR -->
   <div class="editor" id="editor">
@@ -223,16 +249,51 @@ function toggleDark() {
 }
 applyDark();
 
-// ── OPEN FOLDER ───────────────────────────────────────────────────────────
-async function openFolder() {
+// ── INDEXEDDB — persist directory handle across sessions ──────────────────
+const _DB = (() => {
+  const open = () => new Promise((res, rej) => {
+    const r = indexedDB.open('mat-admin', 1);
+    r.onupgradeneeded = e => e.target.result.createObjectStore('handles');
+    r.onsuccess = e => res(e.target.result);
+    r.onerror   = e => rej(e.target.error);
+  });
+  return {
+    async save(handle) {
+      const db = await open();
+      return new Promise((res, rej) => {
+        const tx = db.transaction('handles', 'readwrite');
+        tx.objectStore('handles').put(handle, 'dir');
+        tx.oncomplete = res; tx.onerror = e => rej(e.target.error);
+      });
+    },
+    async load() {
+      const db = await open();
+      return new Promise((res, rej) => {
+        const tx = db.transaction('handles', 'readonly');
+        const r  = tx.objectStore('handles').get('dir');
+        r.onsuccess = e => res(e.target.result || null);
+        r.onerror   = e => rej(e.target.error);
+      });
+    },
+  };
+})();
+
+// On load: silently restore handle if Chrome still has permission
+(async () => {
   try {
-    dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
-    document.getElementById('folderName').textContent = '📂 ' + dirHandle.name;
-    renderSidebar();
-  } catch(e) {
-    if (e.name !== 'AbortError') alert('Nepodařilo se otevřít složku:\n' + e.message);
-  }
-}
+    const saved = await _DB.load();
+    if (!saved) return;
+    const perm = await saved.queryPermission({ mode: 'readwrite' });
+    if (perm === 'granted') {
+      dirHandle = saved;
+      showFolderConnected(dirHandle.name);
+    } else {
+      // Permission needs one click to re-confirm — store handle ready for selectNote()
+      dirHandle = saved;
+      document.getElementById('folderName').textContent = '🔒 Klikni na zápis pro obnovení přístupu';
+    }
+  } catch(e) {}
+})();
 
 // ── SIDEBAR ───────────────────────────────────────────────────────────────
 const SUBJ_LABELS = { eko:'Ekonomika', it:'Informační technologie', lit:'Literatura' };
@@ -265,6 +326,29 @@ function renderSidebar() {
 // ── LOAD NOTE ─────────────────────────────────────────────────────────────
 async function selectNote(s, filename, id) {
   if (dirty && !confirm('Máš neuložené změny. Přejít bez uložení?')) return;
+
+  // Ensure we have a valid handle with write permission
+  if (dirHandle) {
+    // We have a handle (possibly restored from IDB) — confirm permission is active
+    const perm = await dirHandle.queryPermission({ mode: 'readwrite' });
+    if (perm !== 'granted') {
+      const req = await dirHandle.requestPermission({ mode: 'readwrite' });
+      if (req !== 'granted') return;
+    }
+  } else {
+    // First ever visit — show hint modal, then picker
+    const confirmed = await promptFolderModal();
+    if (!confirmed) return;
+    try {
+      dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', startIn: 'downloads' });
+      await _DB.save(dirHandle);
+    } catch(e) {
+      if (e.name !== 'AbortError') alert('Nepodařilo se otevřít složku:\n' + e.message);
+      return;
+    }
+  }
+  showFolderConnected(dirHandle.name);
+
   try {
     const notesDir = await dirHandle.getDirectoryHandle('notes');
     const subjDir  = await notesDir.getDirectoryHandle(s.toUpperCase());
@@ -565,10 +649,50 @@ function rebuildNote(originalHTML, editedSections) {
 }
 
 // ── UTILS ─────────────────────────────────────────────────────────────────
+// ── RESET FOLDER ──────────────────────────────────────────────────────────
+async function resetFolder() {
+  dirHandle = null;
+  try {
+    const db = await (async () => {
+      return new Promise((res, rej) => {
+        const r = indexedDB.open('mat-admin', 1);
+        r.onsuccess = e => res(e.target.result);
+        r.onerror   = e => rej(e.target.error);
+      });
+    })();
+    const tx = db.transaction('handles', 'readwrite');
+    tx.objectStore('handles').delete('dir');
+  } catch(e) {}
+  document.getElementById('folderName').textContent = '';
+  document.getElementById('resetFolderBtn').style.display = 'none';
+}
+
+function showFolderConnected(name) {
+  document.getElementById('folderName').textContent = '📂 ' + name;
+  document.getElementById('resetFolderBtn').style.display = '';
+}
+
+// ── FOLDER HINT MODAL ─────────────────────────────────────────────────────
+let _folderModalResolve = null;
+
+function promptFolderModal() {
+  return new Promise(resolve => {
+    _folderModalResolve = resolve;
+    document.getElementById('folderModal').classList.add('open');
+  });
+}
+
+function closeFolderModal(confirmed) {
+  document.getElementById('folderModal').classList.remove('open');
+  if (_folderModalResolve) { _folderModalResolve(confirmed); _folderModalResolve = null; }
+}
+
 function esc(s) {
   return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
                   .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+
+renderSidebar();
 </script>
 </body>
 </html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="eko">
+<meta name="mat-num"     content="10">
+<meta name="mat-title"   content="Bankovnictví">
+<title>Bankovnictví – Maturita 2026</title>
+<style>
+  :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
+  body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;--flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto;}
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px;}
+  .header p{font-size:13px;color:var(--text-muted);}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .badge{background:var(--blue-light);color:var(--blue-dark);border:0.5px solid #B5D4F4;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .dark-btn{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;}
+  .dark-btn:hover{color:var(--text);}
+  .flag-summary{display:none;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .flag-summary.visible{display:inline-block;}
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em;}
+  p,li{font-size:14px;color:var(--text-muted);}
+  ul{padding-left:1.2rem;}
+  li{margin-bottom:4px;}
+  .kw{font-weight:600;color:var(--text);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-green{background:var(--green-light);border:0.5px solid #B5DCA0;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-teal strong{color:var(--teal-dark);}.cc-blue strong{color:var(--blue-dark);}.cc-amber strong{color:var(--amber-dark);}.cc-coral strong{color:var(--coral-dark);}.cc-green strong{color:var(--green-dark);}
+  .accent-blue{border-left:3px solid #378ADD;padding-left:12px;margin:.5rem 0;}
+  .accent-teal{border-left:3px solid #1D9E75;padding-left:12px;margin:.5rem 0;}
+  .accent-amber{border-left:3px solid #EF9F27;padding-left:12px;margin:.5rem 0;}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:5px;}
+  .t-teal{background:var(--teal-light);color:var(--teal-dark);}.t-blue{background:var(--blue-light);color:var(--blue-dark);}.t-amber{background:var(--amber-light);color:var(--amber-dark);}.t-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .tbl{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:600;padding:6px 8px;border:0.5px solid var(--gray-border);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;color:var(--text-muted);}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+  .ob-row{display:flex;gap:10px;padding:.65rem 0;border-bottom:0.5px solid var(--gray-border);align-items:flex-start;}
+  .ob-row:last-child{border-bottom:none;padding-bottom:0;}
+  .ob-label{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;align-self:flex-start;margin-top:2px;min-width:115px;text-align:center;}
+  .ol-blue{background:var(--blue-light);color:var(--blue-dark);}
+  .ol-teal{background:var(--teal-light);color:var(--teal-dark);}
+  .ol-amber{background:var(--amber-light);color:var(--amber-dark);}
+  .ol-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .ob-text{flex:1;font-size:13.5px;color:var(--text-muted);}
+  .ob-text strong{color:var(--text);font-weight:600;}
+  .rate{display:inline-block;font-family:ui-monospace,monospace;font-size:11px;font-weight:700;background:var(--teal-light);color:var(--teal-dark);border:0.5px solid #9FE1CB;border-radius:4px;padding:1px 6px;margin-left:4px;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.8rem 0;}
+  /* bilance */
+  .bil-row{display:flex;gap:0;margin-top:.5rem;}
+  .bil-col{flex:1;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.75rem 1rem;}
+  .bil-col:first-child{border-right:none;border-radius:var(--radius-sm) 0 0 var(--radius-sm);}
+  .bil-col:last-child{border-radius:0 var(--radius-sm) var(--radius-sm) 0;}
+  .bil-head{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;}
+  .bil-item{font-size:13px;color:var(--text-muted);padding:.2rem 0;border-bottom:0.5px solid var(--gray-border);}
+  .bil-item:last-child{border-bottom:none;}
+  .bil-item span{color:var(--text-muted);font-size:11px;}
+  @media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.header{flex-direction:column;}.bil-row{flex-direction:column;}.bil-col:first-child{border-right:0.5px solid var(--gray-border);border-radius:var(--radius-sm) var(--radius-sm) 0 0;}.bil-col:last-child{border-radius:0 0 var(--radius-sm) var(--radius-sm);}}
+  @media print{body{background:white;padding:1rem;}.sec-flag,.dark-btn{display:none;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Bankovnictví</h1>
+    <p>Maturitní otázka č. 10 &nbsp;·&nbsp; Ekonomika &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+    <p style="margin-top:5px;">Bankovní soustava · ČNB · Nástroje MP · ESCB · Obchodní banky · Bilance · EURO · Bankovní obchody · Platební styk</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">Otázka 10 / 20</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- 1. BANKOVNÍ SOUSTAVA -->
+<div class="section" data-sec="1">
+  <h2><span class="num">1</span> Bankovní soustava ČR
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p><span class="kw">Bankovní soustava (systém)</span> = souhrn všech bank v daném státě. Hlavní úkol: přerozdělení finančních zdrojů mezi těmi, kdo nabízejí dočasně volné peníze, a těmi, kdo je potřebují.</p>
+  </div>
+  <div class="grid2" style="margin-top:.75rem;">
+    <div class="cc-coral">
+      <strong>1stupňová bankovní soustava</strong>
+      Neexistuje centrální banka — všechny banky jsou na stejné úrovni. Historická nebo autoritářská forma.
+    </div>
+    <div class="cc-teal">
+      <strong>2stupňová bankovní soustava</strong>
+      Centrální banka + komerční banky + další finanční instituce. <span class="kw">ČR od roku 1990.</span>
+    </div>
+  </div>
+  <p style="margin-top:.75rem;font-size:13.5px;"><span class="kw">Komerční banky</span> vydělávají na rozdílu úroků — přijímají vklady (platí nižší úrok) a půjčují je dál (účtují vyšší úrok). Zisk = přijaté úroky − vyplacené úroky + poplatky za služby.</p>
+</div>
+
+<!-- 2. CENTRÁLNÍ BANKA – ČNB -->
+<div class="section" data-sec="2">
+  <h2><span class="num">2</span> Centrální banka – ČNB
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card">
+      <strong>Základní fakta</strong>
+      <ul style="margin-top:.4rem;">
+        <li>Vznikla <span class="kw">1. 1. 1993</span> po rozdělení Československa</li>
+        <li>Sídlo: <span class="kw">Praha</span></li>
+        <li>Státní instituce, <span class="kw">nepodnikatelský subjekt</span></li>
+        <li>Nezávislé postavení — do činnosti lze zasahovat pouze zákonem</li>
+        <li>Min. <span class="kw">2× ročně</span> zpráva Parlamentu o měnovém vývoji</li>
+        <li>Min. <span class="kw">1× za 3 měsíce</span> informuje veřejnost</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Orgány ČNB – Bankovní rada</strong>
+      <ul style="margin-top:.4rem;">
+        <li><span class="kw">7 členů</span> jmenovaných prezidentem na <span class="kw">6 let</span></li>
+        <li>Složení: <strong>guvernér + 2 víceguvernéři + 4 vedoucí pracovníci</strong></li>
+        <li>Aktuální guvernér: <span class="kw">Aleš Michl</span> (od 2022)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 3. FUNKCE CENTRÁLNÍ BANKY -->
+<div class="section" data-sec="3">
+  <h2><span class="num">3</span> Funkce centrální banky
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-blue">
+      <strong>Emisní banka</strong>
+      <ul style="margin-top:.4rem;font-size:13px;">
+        <li>Emituje hotové peníze (bankovky a mince)</li>
+        <li>Emituje cenné papíry</li>
+        <li>Sleduje množství peněz v oběhu</li>
+      </ul>
+    </div>
+    <div class="cc-teal">
+      <strong>Banka bank</strong>
+      <ul style="margin-top:.4rem;font-size:13px;">
+        <li>Přijímá vklady od KB (povinné minimální rezervy)</li>
+        <li>Poskytuje KB úvěry — <span class="kw">věřitel poslední instance</span></li>
+        <li>Zásobuje banky oběživem</li>
+        <li>Zajišťuje mezibankovní platební styk</li>
+      </ul>
+    </div>
+    <div class="cc-amber">
+      <strong>Banka státu (vlády)</strong>
+      <ul style="margin-top:.4rem;font-size:13px;">
+        <li>Vede účty státního rozpočtu</li>
+        <li>Drží běžné účty vládních institucí</li>
+        <li>Spravuje devizové rezervy státu</li>
+        <li>Provádí devizovou regulaci</li>
+        <li>Stanoví oficiální kurzy měn</li>
+      </ul>
+    </div>
+    <div class="cc-coral">
+      <strong>Regulátor a dohled</strong>
+      <ul style="margin-top:.4rem;font-size:13px;">
+        <li>Uděluje a odebírá bankovní licence KB</li>
+        <li>Stanoví pravidla chránící stabilitu bankovního systému</li>
+        <li>Kontroluje a postihuje jejich nedodržení</li>
+        <li>Reprezentuje stát v měnové oblasti (MMF, ECB)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 4. NÁSTROJE CENTRÁLNÍ BANKY -->
+<div class="section" data-sec="4">
+  <h2><span class="num">4</span> Nástroje centrální banky – měnová politika
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p><span class="kw">Měnová (monetární) politika</span> = regulace množství peněz v ekonomice. ČNB ji provádí <span class="kw">nezávisle na exekutivě</span>. Expanzivní (více peněz) nebo restriktivní (méně peněz).</p>
+  </div>
+  <h3>Přímé nástroje (administrativní povahy)</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:.4rem;">
+    <span class="tag t-coral">Pravidla likvidity</span>
+    <span class="tag t-coral">Kapitálová přiměřenost</span>
+    <span class="tag t-coral">Úvěrové kontingenty (stropy)</span>
+    <span class="tag t-coral">Povinné vklady (celní správa, FÚ)</span>
+    <span class="tag t-coral">Doporučení a výzvy</span>
+  </div>
+  <h3>Nepřímé nástroje (ČNB používá primárně)</h3>
+  <div class="ob-row" style="margin-top:.5rem;">
+    <span class="ob-label ol-blue">Operace na volném trhu</span>
+    <div class="ob-text">
+      <strong>Nejběžnější nástroj.</strong> Nákup/prodej státních cenných papírů. Provádí se formou <span class="kw">repo operací</span>. Prodej CP = peníze z ekonomiky odejdou (restriktivní). Nákup CP = peníze přibudou (expanzivní).
+    </div>
+  </div>
+  <div class="ob-row">
+    <span class="ob-label ol-teal">Diskontní sazby</span>
+    <div class="ob-text">
+      <strong>Nejviditelnější nástroj.</strong> Určují podmínky půjčování KB od ČNB a ukládání u ČNB.
+      <ul style="margin-top:.4rem;font-size:13px;">
+        <li><span class="kw">Repo sazba (2T repo)</span> — hlavní sazba; za tuto sazbu si KB půjčují od ČNB</li>
+        <li><span class="kw">Diskontní sazba</span> — úročení depozit KB u ČNB (nižší než repo)</li>
+        <li><span class="kw">Lombardní sazba</span> — úvěry ČNB bankám kryté zástavou CP (vyšší než repo)</li>
+      </ul>
+      <p style="font-size:12px;margin-top:.3rem;">Zvýšení sazeb = restriktivní · Snížení = expanzivní</p>
+    </div>
+  </div>
+  <div class="ob-row">
+    <span class="ob-label ol-amber">Povinné minimální rezervy</span>
+    <div class="ob-text">
+      <strong>Nejrazantnější zásah.</strong> ČNB stanoví minimální % z přijatých vkladů, které musí KB uložit u ČNB — nesmí je půjčovat.
+      Zvýšení PMR → méně peněz na úvěry → <span class="kw">restriktivní</span>. Snížení PMR → více peněz → <span class="kw">expanzivní</span>.
+    </div>
+  </div>
+</div>
+
+<!-- 5. SPOLUPRÁCE S ECB -->
+<div class="section" data-sec="5">
+  <h2><span class="num">5</span> Spolupráce s Evropskou centrální bankou (ESCB)
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-teal">
+    <p>Od <span class="kw">1. 5. 2004</span> je ČNB součástí <span class="kw">Evropského systému centrálních bank (ESCB)</span>. Spolupráce probíhala již v období příprav na vstup ČR do EU.</p>
+  </div>
+  <ul style="margin-top:.6rem;">
+    <li>Guvernér se od června 2004 účastní jednání <span class="kw">Generální rady ECB</span> jako řádný člen; doprovázen viceguvernérem</li>
+    <li>Zástupci ČNB působí ve <span class="kw">13 výborech ESCB</span> — do každého jmenováni 2 zaměstnanci ČNB</li>
+    <li>Zástupci ČNB se dále účastní pracovních skupin jednotlivých výborů</li>
+    <li>ČR dosud <span class="kw">euro nepřijala</span> — ČNB stále provádí vlastní měnovou politiku</li>
+  </ul>
+</div>
+
+<!-- 6. OBCHODNÍ BANKY -->
+<div class="section" data-sec="6">
+  <h2><span class="num">6</span> Obchodní (komerční) banky
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-teal">
+    <p><span class="kw">Komerční banka</span> = podnikatelský subjekt nesoucí riziko podnikání, jehož cílem je zisk. Výnosy: přijaté úroky + poplatky. Náklady: vyplacené úroky + provozní náklady.</p>
+  </div>
+  <h3>Podmínky pro udělení bankovní licence (4 podmínky)</h3>
+  <div class="grid4" style="margin-top:.4rem;">
+    <div class="card">PO se sídlem v ČR</div>
+    <div class="card">Založena jako <span class="kw">akciová společnost</span></div>
+    <div class="card">Přijímá <span class="kw">vklady od veřejnosti</span></div>
+    <div class="card">Poskytuje <span class="kw">úvěry</span> + licence ČNB</div>
+  </div>
+
+  <h3>Orgány obchodní banky</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-blue">
+      <strong>Statutární orgán</strong>
+      Řídí banku, jedná jejím jménem navenek. Typicky <span class="kw">představenstvo</span> (u a.s.). Odpovídá za každodenní provoz, obchodní strategii a dodržování regulatorních požadavků.
+    </div>
+    <div class="cc-amber">
+      <strong>Dozorčí rada</strong>
+      Kontrolní orgán — dohlíží na výkon statutárního orgánu a hospodaření banky. Volena valnou hromadou. Schvaluje výroční zprávu a závěrku.
+    </div>
+  </div>
+
+  <h3>Činnost obchodní banky</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>1. Finanční zprostředkování</strong>Realizace finančních toků ve formě bankovních produktů mezi subjekty s různými finančními stavy — transformace finančních aktiv</div>
+    <div class="card"><strong>2. Emise bezhotovostních peněz</strong>Na základě přijatých vkladů a zápisů na bankovních účtech. Základ existence bank.</div>
+    <div class="card"><strong>3. Bezhotovostní platební styk</strong>Platby převodem bez hotovosti — národní (přes zúčtovací centrum ČNB) i mezinárodní (přes korespondenční systém)</div>
+    <div class="card"><strong>4. Bankovní služby</strong>Poradenství, správa investic, emise cenných papírů, poradenství na kapitálovém a devizovém trhu</div>
+    <div class="card"><strong>5. Ostatní činnosti</strong>Leasing · platební prostředky (karty, šeky, záruky) · obchodování s devizami a CP · směnárenství · promptní a termínované obchody</div>
+    <div class="card"><strong>6. Elektronické bankovnictví</strong>Internet banking · homebanking · phonebanking — viz sekce 11</div>
+  </div>
+</div>
+
+<!-- 7. BILANCE BANKY -->
+<div class="section" data-sec="7">
+  <h2><span class="num">7</span> Bilance banky
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p>Bilance banky (rozvaha) informuje o <span class="kw">struktuře majetku</span> (aktiva) a <span class="kw">zdrojích jeho financování</span> (pasiva). Platí: <strong>Aktiva = Pasiva</strong>.</p>
+  </div>
+  <div class="bil-row">
+    <div class="bil-col" style="background:var(--blue-light);border-color:#B5D4F4;">
+      <div class="bil-head" style="color:var(--blue-dark);">AKTIVA – majetek</div>
+      <div class="bil-item">Pokladní hodnoty <span>— hotovost vč. cizí měny; nejlikvidnější</span></div>
+      <div class="bil-item">Vklady a úvěry u ČNB <span>— povinné min. rezervy + dobrovolné; kdykoli splatné pohledávky</span></div>
+      <div class="bil-item">Vklady a úvěry u bank <span>— mezibankovní obchody, platební styk</span></div>
+      <div class="bil-item">Státní pokladniční poukázky <span>— vysoce likvidní a bezrizikové CP</span></div>
+      <div class="bil-item">Poskytnuté úvěry klientům <span>— hlavní aktivní obchody; nejméně likvidní</span></div>
+      <div class="bil-item">Cenné papíry k obchodování <span>— dluhopisy a akcie; zisk z cenových rozdílů</span></div>
+      <div class="bil-item">Dlouhodobé finanční investice <span>— CP držené do splatnosti</span></div>
+      <div class="bil-item">Hmotný a nehmotný majetek <span>— budovy, IT systémy, software</span></div>
+    </div>
+    <div class="bil-col" style="background:var(--amber-light);border-color:#FAC775;">
+      <div class="bil-head" style="color:var(--amber-dark);">PASIVA – zdroje</div>
+      <div class="bil-item" style="font-weight:600;color:var(--text-muted);">— CIZÍ ZDROJE —</div>
+      <div class="bil-item">Zdroje od ČNB <span>— úvěry od centrální banky</span></div>
+      <div class="bil-item">Vklady a úvěry od bank <span>— mezibankovní trh, platební styk</span></div>
+      <div class="bil-item">Přijaté vklady klientů <span>— vista, termínované, úsporné; hlavní cizí zdroj</span></div>
+      <div class="bil-item">Emise obligací <span>— bankovní dluhopisy emitované bankou</span></div>
+      <div class="bil-item">Rezervy <span>— zákonné (daňově uznatelné) + ostatní; krytí ztrát</span></div>
+      <div class="bil-item" style="font-weight:600;color:var(--text-muted);">— VLASTNÍ ZDROJE —</div>
+      <div class="bil-item">Rezervní fondy a fondy ze zisku <span>— zákonný rezervní fond</span></div>
+      <div class="bil-item">Kapitálové fondy / Ážiový fond <span>— vzniká nad emisním kurzem akcií</span></div>
+      <div class="bil-item">Základní kapitál <span>— suma nominálních hodnot emitovaných akcií</span></div>
+      <div class="bil-item">Nerozdělený zisk / Zisk z běžného roku</div>
+    </div>
+  </div>
+</div>
+
+<!-- 8. ZAVEDENÍ EURA -->
+<div class="section" data-sec="8">
+  <h2><span class="num">8</span> Zavedení jednotné měny EURO
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-teal">
+    <p>Podle <span class="kw">Maastrichtské smlouvy</span> měla být jednotná evropská měna zavedena ve třech etapách. Základem jsou <span class="kw">maastrichtská konvergenční kritéria</span>, bez jejichž splnění nelze euro přijmout.</p>
+  </div>
+  <h3>Maastrichtská konvergenční kritéria</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card"><strong>Cenová stabilita</strong>Míra inflace nesmí překračovat průměr 3 nejlepších zemí o více než 1,5 procentního bodu</div>
+    <div class="card"><strong>Úrokové sazby</strong>Dlouhodobé sazby nesmí překročit průměr 3 nejlepších zemí o více než 2 procentní body</div>
+    <div class="card"><strong>Schodek veřejných financí</strong>Deficit státního rozpočtu nesmí přesáhnout <span class="kw">3 % HDP</span></div>
+    <div class="card"><strong>Veřejný dluh</strong>Celkový veřejný dluh nesmí přesáhnout <span class="kw">60 % HDP</span></div>
+  </div>
+  <h3>ČR a euro</h3>
+  <p style="margin-top:.5rem;">ČR vstoupila do EU v roce 2004, ale euro dosud nepřijala. Datum přijetí eura není stanoveno — závisí na politickém rozhodnutí a splnění kritérií. ČNB zatím provádí vlastní měnovou politiku.</p>
+</div>
+
+<!-- 9. AKTIVNÍ BANKOVNÍ OBCHODY -->
+<div class="section" data-sec="9">
+  <h2><span class="num">9</span> Aktivní bankovní obchody (banka = věřitel)
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p>Banka vystupuje jako <span class="kw">věřitel</span> — poskytuje úvěry. Vznikají jí <span class="kw">pohledávky</span>. Jsou na straně <strong>aktiv</strong> bankovní bilance.</p>
+  </div>
+  <div class="ob-row" style="margin-top:.5rem;">
+    <span class="ob-label ol-coral">Kontokorentní úvěr</span>
+    <div class="ob-text">
+      Sloučený vkladový a úvěrový účet. Klient může platit „do mínusu" až do výše <span class="kw">úvěrového rámce</span>. Mínusový zůstatek = platí úrok. Plusový = dostává úrok. Výhoda: pružné čerpání. <span class="rate">~16–18 % p.a.</span>
+    </div>
+  </div>
+  <div class="ob-row">
+    <span class="ob-label ol-coral">Eskontní úvěr</span>
+    <div class="ob-text">
+      Odkup (eskont) směnky od majitele <em>před splatností</em>. Banka sráží úrok za dobu od odkupu do splatnosti. Odvozuje se od diskontní sazby ČNB. Podmínka: min. hodnota směnky (u KB min. 100 tis. Kč). <span class="rate">~2,5 %</span>
+    </div>
+  </div>
+  <div class="ob-row">
+    <span class="ob-label ol-blue">Hypoteční úvěr</span>
+    <div class="ob-text">
+      Úvěr na investice, výstavbu nebo nákup nemovitosti. Dlouhodobý — splatnost <span class="kw">5–20 let</span>. Banka financuje z hypotečních zástavních listů. Pevná, pohyblivá nebo kombinovaná sazba. <span class="rate">~4–4,5 %</span>
+    </div>
+  </div>
+  <div class="ob-row">
+    <span class="ob-label ol-teal">Spotřebitelský úvěr</span>
+    <div class="ob-text">
+      Půjčka fyzickým osobám na nepodnikatelské účely (spotřební zboží, dovolená, rekonstrukce). Účelový nebo neúčelový. Pro osoby starší 18 let s ČS. <span class="rate">do 10 % p.a.</span>
+    </div>
+  </div>
+
+  <h3>Úvěrový postup</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>1. Žádost</strong>Klient vyplní žádost + doloží dokumenty (příjmy, účel, zástavy)</div>
+    <div class="card"><strong>2. Analýza bonity</strong>Banka posoudí schopnost splácet. Při kladném výsledku úvěr poskytne, jinak zamítne.</div>
+    <div class="card"><strong>3. Čerpání a splácení</strong>Najednou v době splatnosti · po výpovědní lhůtě · v pravidelných splátkách · <span class="kw">konstantní anuity</span> (stejná splátka po celou dobu)</div>
+  </div>
+
+  <h3>Zajištění úvěrů</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card"><strong>Ručení</strong>Třetí osoba (ručitel) zaplatí dluh, pokud klient nesplatí</div>
+    <div class="card"><strong>Bankovní záruka</strong>Jiná banka ručí za klienta — klient platí záruční provizi</div>
+    <div class="card"><strong>Zástava / převod vlastnických práv</strong>Vinkulace vkladu · zástava CP · zástavní právo k nemovitosti (hypotéka)</div>
+    <div class="card"><strong>Cese pohledávek</strong>Klient postoupí bance svou pohledávku, banka ji zpeněží na splacení úvěru</div>
+  </div>
+</div>
+
+<!-- 10. PASIVNÍ BANKOVNÍ OBCHODY -->
+<div class="section" data-sec="10">
+  <h2><span class="num">10</span> Pasivní bankovní obchody (banka = dlužník)
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-teal">
+    <p>Banka získává <span class="kw">cizí zdroje</span> — přijímá vklady, emituje dluhopisy. Vznikají jí <span class="kw">závazky</span>. Jsou na straně <strong>pasiv</strong>. Banka platí vkladatelům úrok.</p>
+  </div>
+  <h3>Druhy vkladových produktů</h3>
+  <div class="ob-row" style="margin-top:.5rem;">
+    <span class="ob-label ol-teal">Vklady na viděnou</span>
+    <div class="ob-text">
+      <strong>Běžný / kontokorentní účet.</strong> Slouží k bezhotovostnímu platebnímu styku — peníze kdykoli k dispozici. Velmi nízký úrok. <span class="rate">~0,15 %</span>
+    </div>
+  </div>
+  <div class="ob-row">
+    <span class="ob-label ol-blue">Termínované vklady</span>
+    <div class="ob-text">
+      Vklad na pevnou lhůtu nebo s výpovědní lhůtou. Klient se vzdá přístupu → vyšší úrok. Využívají firmy pro zhodnocení peněz, která brzy nebudou potřebovat. <span class="rate">až 3 %</span>
+    </div>
+  </div>
+  <div class="ob-row">
+    <span class="ob-label ol-amber">Úsporné vklady</span>
+    <div class="ob-text">
+      Nejčastěji <span class="kw">vkladní knížka</span>. Nelze využívat k platebnímu styku. S nebo bez výpovědní lhůty. <span class="rate">2–2,5 %</span>
+    </div>
+  </div>
+  <h3>Speciální pasivní produkty</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Bankovní dluhopisy</strong>
+      Banka emituje vlastní dluhopisy — zdroje na pevně stanovenou dobu. Různá splatnost, převoditelnost, forma. Fixní nebo pohyblivý úrok.
+    </div>
+    <div class="cc-teal">
+      <strong>Stavební spoření</strong>
+      Klient spoří → zúročené úspory + státní podpora → stavební úvěr za pevnou nízkou sazbu. Každý max. <span class="kw">1 smlouva</span> se státní podporou. Pojištěno ze zákona. Při nečerpání úvěru lze peníze použít na cokoli.
+    </div>
+    <div class="cc-amber">
+      <strong>Hypoteční zástavní listy</strong>
+      Speciální dluhopisy kryté zástavním právem na nemovitost. Zdroje lze použít pouze na hypoteční úvěry. Výnos <span class="kw">nepodléhá dani z příjmů</span>. Bezpečné a obchodovatelné. Emitovat mohou jen banky s licencí ČNB.
+    </div>
+  </div>
+  <div class="cc-teal" style="margin-top:8px;">
+    <strong>Pojištění vkladů</strong>
+    <p>Ze zákona pojištěno prostřednictvím <span class="kw">Fondu pojištění vkladů</span>. Při krachu banky vyplaceno až <span class="kw">100 % vkladu, max. 100 000 EUR</span>.</p>
+  </div>
+</div>
+
+<!-- 11. NEUTRÁLNÍ BANKOVNÍ OBCHODY -->
+<div class="section" data-sec="11">
+  <h2><span class="num">11</span> Neutrální bankovní obchody
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-amber">
+    <p>Bilančně neutrální — banka není věřitel ani dlužník. Prodává <span class="kw">své dobré jméno a záruky</span>. Za tyto obchody inkasuje <span class="kw">provizi</span>, nikoli úrok.</p>
+  </div>
+  <div class="ob-row" style="margin-top:.5rem;">
+    <span class="ob-label ol-amber">Akceptační úvěr</span>
+    <div class="ob-text">
+      <strong>Banka akceptuje (přijme) cizí směnku</strong> vystavenou klientem. Stává se hlavním směnečným dlužníkem — v den splatnosti musí směnku proplatit. Krátkodobý. Slouží k financování oběhu zboží. Výnos: <span class="kw">provize</span>.
+    </div>
+  </div>
+  <div class="ob-row">
+    <span class="ob-label ol-amber">Avalový úvěr</span>
+    <div class="ob-text">
+      <strong>Banka ručí za klienta</strong> — závazek bude uhrazen i když na účtu nebude dost prostředků. Banka nepůjčuje peníze — prodává své dobré jméno. Výnos: <span class="kw">avalová provize</span>.
+    </div>
+  </div>
+  <div class="ob-row">
+    <span class="ob-label ol-amber">Bankovní záruky</span>
+    <div class="ob-text">
+      <strong>Písemný závazek banky zaplatit beneficientovi</strong> určitou částku dle záruční listiny. Zajišťovací nástroj pro platební i neplatební závazky, tuzemské i zahraniční.
+    </div>
+  </div>
+</div>
+
+<!-- 12. PLATEBNÍ STYK -->
+<div class="section" data-sec="12">
+  <h2><span class="num">12</span> Platební styk
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <h3>Hotovostní platební styk</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card">
+      <strong>Vklady</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li>Vkládat může <em>kdokoli</em></li>
+        <li>Při vkladu nad <span class="kw">100 000 Kč</span> banka ověří totožnost</li>
+        <li>Doklad: <span class="kw">složenka</span> (bankovní spojení, částka, var./konst. symbol, podpis)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Výběry</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li>Pouze <span class="kw">majitel účtu</span> nebo oprávněná osoba (dle podpisového vzoru)</li>
+        <li>Doklad: <span class="kw">výběrový lístek</span></li>
+        <li>Nejčastěji přes <span class="kw">bankomat + platební karta</span> (levnější než přepážka)</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Bezhotovostní platební styk — nástroje</h3>
+  <div class="ob-row" style="margin-top:.5rem;">
+    <span class="ob-label ol-blue">Příkaz k úhradě</span>
+    <div class="ob-text">Majitel dává bance příkaz zaplatit z jeho účtu. Druhy: <span class="kw">jednotlivý</span> (1 platba) · <span class="kw">hromadný</span> (více plateb v 1 dni) · <span class="kw">trvalý</span> (opakující se — nájemné, plyn, pojistné).</div>
+  </div>
+  <div class="ob-row">
+    <span class="ob-label ol-teal">Příkaz k inkasu</span>
+    <div class="ob-text">Majitel účtu <strong>písemně udělí právo jinému subjektu</strong> strhnout si z jeho účtu platbu. Příjemce si sám iniciuje stržení.</div>
+  </div>
+  <div class="ob-row">
+    <span class="ob-label ol-amber">Směnka</span>
+    <div class="ob-text">
+      Cenný papír — bezpodmínečný příkaz nebo závazek zaplatit v určitý den směnečnou částku.
+      <ul style="margin-top:.3rem;font-size:13px;">
+        <li><span class="kw">Cizí směnka</span> — trasant přikazuje směnečníkovi zaplatit remitentovi</li>
+        <li><span class="kw">Vlastní směnka</span> — výstavce se sám zavazuje zaplatit remitentovi</li>
+      </ul>
+      <p style="font-size:12px;margin-top:.2rem;">Náležitosti: slovo „směnka" · bezpodmínečný příkaz/slib · částka · datum a místo vystavení i splatnosti · podpis výstavce</p>
+    </div>
+  </div>
+  <div class="ob-row">
+    <span class="ob-label ol-teal">Šek</span>
+    <div class="ob-text">
+      Převoditelný CP — výstavce (majitel účtu) dává příkaz bance zaplatit uvedenou částku. Druhy: bankovní · soukromý · na řad · na jméno · na majitele · eurošek · cestovní šek.
+    </div>
+  </div>
+  <h3>Platební karty</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card">
+      <strong>Podle transakce</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li><span class="kw">Debetní</span> — okamžité stržení z účtu</li>
+        <li><span class="kw">Kreditní (úvěrová)</span> — čerpání do povoleného limitu nad zůstatek; splácení</li>
+        <li><span class="kw">Charge karta</span> — zaplatí se jednou měsíčně po vyúčtování</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Podle záznamu dat</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li><span class="kw">Embosovaná</span> — údaje mechanicky vyraženy</li>
+        <li><span class="kw">S magnetickým proužkem</span></li>
+        <li><span class="kw">Čipová</span> — nejbezpečnější; data v mikročipu</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:.5rem;font-size:13px;">Mezinárodní asociace: <span class="kw">VISA, MasterCard</span>.</p>
+</div>
+
+<!-- 13. E-BANKING, HOMEBANKING -->
+<div class="section" data-sec="13">
+  <h2><span class="num">13</span> E-banking, homebanking
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-blue">
+      <strong>Internet banking (E-banking)</strong>
+      <ul style="margin-top:.4rem;font-size:13px;">
+        <li>Přístup přes <span class="kw">webový prohlížeč</span></li>
+        <li>Nepřetržitý provoz, dostupný odkudkoli</li>
+        <li>Klient může: zjistit zůstatek · zadat příkaz k úhradě/inkasu · trvalé příkazy · výpisy</li>
+        <li>Nejrychlejší a nejlevnější komunikační kanál</li>
+        <li>Nutné: internetové připojení</li>
+      </ul>
+    </div>
+    <div class="cc-teal">
+      <strong>Homebanking</strong>
+      <ul style="margin-top:.4rem;font-size:13px;">
+        <li>Přístup přes <span class="kw">speciální software banky</span> instalovaný v PC klienta</li>
+        <li>Komunikace neprobíhá přes webový prohlížeč — přímé spojení s centrálním systémem banky</li>
+        <li>Vyšší bezpečnost než internet banking</li>
+        <li>Nutné: příslušný HW a SW, licence software</li>
+        <li>Využívají hlavně firmy — hromadné příkazy, export dat do účetnictví</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="note-footer">ITE 4.B &nbsp;·&nbsp; Maturita 2026 &nbsp;·&nbsp; Ekonomika – Otázka 10</div>
+</div>
+
+<script>
+const _subj=(document.querySelector('meta[name="mat-subject"]')||{}).content||'eko';
+const _num=(document.querySelector('meta[name="mat-num"]')||{}).content||'10';
+const _title=(document.querySelector('meta[name="mat-title"]')||{}).content||document.title;
+const NOTE_ID=`${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`,JSON.stringify({title:_title,subject:_subj,num:parseInt(_num)}));
+function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+function toggleDark(){const on=document.body.classList.toggle('dark');localStorage.setItem('mat-dark',on?'1':'0');const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});
+function secKey(n){return `mat-sec::${NOTE_ID}::${n}`;}
+function toggleSec(btn){const sec=btn.closest('.section');const id=sec.dataset.sec;if(localStorage.getItem(secKey(id))){localStorage.removeItem(secKey(id));sec.classList.remove('flagged');btn.classList.remove('on');btn.textContent='⚑ Označit';}else{localStorage.setItem(secKey(id),'1');sec.classList.add('flagged');btn.classList.add('on');btn.textContent='⚑ Označeno';}updateSummary();}
+function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec=>{if(localStorage.getItem(secKey(sec.dataset.sec))){sec.classList.add('flagged');const btn=sec.querySelector('.sec-flag');if(btn){btn.classList.add('on');btn.textContent='⚑ Označeno';}}});updateSummary();}
+function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
+applyDark();loadFlags();
+</script>
+</body>
+</html>

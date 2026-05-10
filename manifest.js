@@ -14,6 +14,7 @@ window.MAT_MANIFEST = {
     "07_Pracovnepravni_vztahy.html",
     "08_Financovani.html",
     "09_Hlavni_cinnost.html",
+    "10_Bankovnictvi.html",
   ],
 
   it: [

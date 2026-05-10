@@ -286,7 +286,6 @@ body.dark .question.answered{border-color:#1A4535;}
   <div class="progress-wrap">
     <div>
       <div class="progress-text" id="progressText">0 / 8 zodpovězeno</div>
-      <div class="progress-pts" id="progressPts">0 / 20 bodů</div>
     </div>
     <div class="progress-bar-outer">
       <div class="progress-bar-inner" id="progressBar" style="width:0%"></div>
@@ -294,7 +293,7 @@ body.dark .question.answered{border-color:#1A4535;}
   </div>
   <div class="bar-actions">
     <button class="btn-clear" onclick="clearAll()">🗑 Vymazat</button>
-    <button class="btn-copy" id="copyBtn" onclick="copyForClaude()">📋 Kopírovat pro Clauda</button>
+    <button class="btn-copy" id="copyBtn" onclick="copyForClaude()">📋 Copy</button>
   </div>
 </div>
 
@@ -368,7 +367,6 @@ function updateProgress() {
   const pct = total > 0 ? Math.round(answered / total * 100) : 0;
 
   document.getElementById('progressText').textContent = `${answered} / ${total} zodpovězeno`;
-  document.getElementById('progressPts').textContent  = `${pts} / ${TOTAL_PTS} bodů`;
   const bar = document.getElementById('progressBar');
   bar.style.width = pct + '%';
   bar.classList.toggle('done', answered === total);
@@ -433,7 +431,7 @@ function copyForClaude() {
     btn.textContent = '✓ Zkopírováno';
     setTimeout(() => {
       btn.classList.remove('success');
-      btn.innerHTML = '📋 Kopírovat pro Clauda';
+      btn.innerHTML = '📋 Copy';
     }, 2500);
   }).catch(() => showToast('Chyba — zkus znovu'));
 }
