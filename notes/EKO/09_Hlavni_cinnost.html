@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="eko">
+<meta name="mat-num"     content="9">
+<meta name="mat-title"   content="Hlavní činnost výrobního podniku">
+<title>Hlavní činnost výrobního podniku – Maturita 2026</title>
+<style>
+  :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
+  body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;--flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto;}
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px;}
+  .header p{font-size:13px;color:var(--text-muted);}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .badge{background:var(--blue-light);color:var(--blue-dark);border:0.5px solid #B5D4F4;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .dark-btn{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;}
+  .dark-btn:hover{color:var(--text);}
+  .flag-summary{display:none;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .flag-summary.visible{display:inline-block;}
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em;}
+  p,li{font-size:14px;color:var(--text-muted);}
+  ul,ol{padding-left:1.2rem;}
+  li{margin-bottom:4px;}
+  .kw{font-weight:600;color:var(--text);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-green{background:var(--green-light);border:0.5px solid #B5DCA0;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-teal strong{color:var(--teal-dark);}.cc-blue strong{color:var(--blue-dark);}.cc-amber strong{color:var(--amber-dark);}.cc-coral strong{color:var(--coral-dark);}.cc-green strong{color:var(--green-dark);}
+  .accent-blue{border-left:3px solid #378ADD;padding-left:12px;margin:.5rem 0;}
+  .accent-teal{border-left:3px solid #1D9E75;padding-left:12px;margin:.5rem 0;}
+  .accent-amber{border-left:3px solid #EF9F27;padding-left:12px;margin:.5rem 0;}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:5px;}
+  .t-teal{background:var(--teal-light);color:var(--teal-dark);}.t-blue{background:var(--blue-light);color:var(--blue-dark);}.t-amber{background:var(--amber-light);color:var(--amber-dark);}.t-coral{background:var(--coral-light);color:var(--coral-dark);}.t-green{background:var(--green-light);color:var(--green-dark);}
+  .tbl{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:600;padding:6px 8px;border:0.5px solid var(--gray-border);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;color:var(--text-muted);}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+  /* etapa flow */
+  .etapa-row{display:flex;gap:12px;padding:.6rem 0;border-bottom:0.5px solid var(--gray-border);align-items:flex-start;}
+  .etapa-row:last-child{border-bottom:none;padding-bottom:0;}
+  .etapa-num{font-size:14px;font-weight:700;color:var(--white);background:var(--blue-dark);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .etapa-label{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;align-self:flex-start;margin-top:2px;}
+  .el-blue{background:var(--blue-light);color:var(--blue-dark);}
+  .el-teal{background:var(--teal-light);color:var(--teal-dark);}
+  .el-amber{background:var(--amber-light);color:var(--amber-dark);}
+  .etapa-text{flex:1;font-size:13.5px;color:var(--text-muted);}
+  .etapa-text strong{color:var(--text);font-weight:600;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.8rem 0;}
+  @media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.header{flex-direction:column;}}
+  @media print{body{background:white;padding:1rem;}.sec-flag,.dark-btn{display:none;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Hlavní činnost výrobního podniku</h1>
+    <p>Maturitní otázka č. 9 &nbsp;·&nbsp; Ekonomika &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+    <p style="margin-top:5px;">Výroba · Typy výroby · Výrobní proces · Etapy · Kapacita · Kvalita · Ekologie · Ochrana spotřebitele</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">Otázka 9 / 20</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- 1. VÝROBA -->
+<div class="section" data-sec="1">
+  <h2><span class="num">1</span> Výroba – definice a typy
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-blue">
+    <p><span class="kw">Výroba</span> = lidská činnost přeměňující vstupy (práce, půda, kapitál) na výstupy (výrobky, služby). Je hlavní složkou hospodářského procesu — rozdělit lze pouze to, co se vyrobilo.</p>
+  </div>
+
+  <h3>Typy výroby podle příslušnosti k výrobnímu oboru</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card"><strong>Hlavní výroba</strong>Soubor operací přímo měnících složení, jakost surovin a materiálů. Výrobní proces v souladu s výrobním plánem podniku.</div>
+    <div class="card"><strong>Vedlejší výroba</strong>Zabezpečuje všechny druhy energií (např. výroba elektrické energie pro vlastní potřebu).</div>
+    <div class="card"><strong>Pomocná výroba</strong>Výroba výrobků a realizace procesů potřebných pro hlavní výrobu (údržbářské práce, náhradní díly).</div>
+    <div class="card"><strong>Přidružená výroba</strong>Realizace výroby <em>bezprostředně nesouvisející</em> s výrobním plánem podniku — využití volných kapacit.</div>
+  </div>
+
+  <h3>Typy výroby podle rozsahu sortimentu a objemu</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-teal">
+      <strong>Hromadná výroba</strong>
+      <ul style="margin-top:.4rem;font-size:13px;">
+        <li>Malý počet druhů, <span class="kw">velké množství</span></li>
+        <li>Výrobní linky, jednoúčelové stroje</li>
+        <li>Nízká kvalifikace pracovníků</li>
+        <li><span class="kw">Nejvyšší produktivita, nejnižší náklady</span></li>
+        <li>Krátký výrobní cyklus, vysoké využití zařízení</li>
+        <li><em>Příklady: šrouby, ložiska, žárovky</em></li>
+      </ul>
+    </div>
+    <div class="cc-amber">
+      <strong>Sériová výroba</strong>
+      <ul style="margin-top:.4rem;font-size:13px;">
+        <li>Méně druhů, větší počet kusů v sérii</li>
+        <li>Jednorázové náklady na přípravu výroby</li>
+        <li>Víceúčelové specializované stroje</li>
+        <li>Střední produktivita a náklady</li>
+        <li><em>Příklady: ledničky, nábytek, auta, textil</em></li>
+      </ul>
+    </div>
+    <div class="cc-coral">
+      <strong>Kusová výroba</strong>
+      <ul style="margin-top:.4rem;font-size:13px;">
+        <li><span class="kw">Velké množství druhů, malé množství kusů</span></li>
+        <li>Malá nebo žádná opakovanost</li>
+        <li>Univerzální stroje, vysoká kvalifikace</li>
+        <li>Nejvyšší náklady, nejnižší produktivita</li>
+        <li>Převažuje ruční vysoce kvalifikovaná práce</li>
+        <li><em>Příklady: šaty na míru, lodě, speciální stroje</em></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Srovnávací tabulka</h3>
+  <table class="tbl">
+    <tr><th>Kritérium</th><th>Hromadná</th><th>Sériová</th><th>Kusová</th></tr>
+    <tr><td>Počet druhů</td><td>Malý</td><td>Střední</td><td>Velký</td></tr>
+    <tr><td>Objem výroby</td><td>Velký</td><td>Střední</td><td>Malý</td></tr>
+    <tr><td>Stroje</td><td>Jednoúčelové</td><td>Specializované</td><td>Univerzální</td></tr>
+    <tr><td>Kvalifikace</td><td>Nízká</td><td>Střední</td><td>Vysoká</td></tr>
+    <tr><td>Náklady/ks</td><td>Nejnižší</td><td>Střední</td><td>Nejvyšší</td></tr>
+    <tr><td>Produktivita</td><td>Nejvyšší</td><td>Střední</td><td>Nejnižší</td></tr>
+  </table>
+</div>
+
+<!-- 2. VÝROBNÍ PROCES -->
+<div class="section" data-sec="2">
+  <h2><span class="num">2</span> Výrobní proces a jeho členění
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-teal">
+    <p><span class="kw">Výrobní proces</span> = soubor jednotlivých navazujících aktivit ve výrobě, při nichž dochází k přeměně výrobních faktorů na statky a služby. Řízením procesů se zabývá <span class="kw">procesní management</span>.</p>
+  </div>
+
+  <h3>Členění podle účasti pracovní síly</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Ruční</strong>Výhradně manuální práce — bez strojů</div>
+    <div class="card"><strong>Ručně-strojní</strong>Kombinace člověka a stroje (vrtání, frézování)</div>
+    <div class="card"><strong>Strojní</strong>Plně automatizovaná nebo robotizovaná výroba</div>
+  </div>
+
+  <h3>Členění podle výstupních prvků</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Hlavní výrobní proces</strong>
+      V rámci základní a doplňkové výroby — vytváří výstupy (výrobky) určené k prodeji
+    </div>
+    <div class="cc-amber">
+      <strong>Pomocný výrobní proces</strong>
+      Výsledkem jsou výrobky sloužící pro potřeby výrobce samotného (ne pro prodej)
+    </div>
+    <div class="cc-teal">
+      <strong>Obslužný výrobní proces</strong>
+      Podpůrné procesy jako skladování, doprava, údržba
+    </div>
+  </div>
+
+  <h3>Členění podle výrobního programu</h3>
+  <div class="grid4" style="margin-top:.5rem;">
+    <div class="card"><strong>Základní výroba</strong>Shoduje se s předmětem podnikání</div>
+    <div class="card"><strong>Vedlejší výroba</strong>Výroba součástek a příslušenství</div>
+    <div class="card"><strong>Doplňková výroba</strong>Využití výrobní kapacity — snaha o co nejvyšší efektivnost</div>
+    <div class="card"><strong>Přidružená výroba</strong>Nesouvisí se základní výrobou (předmětem podnikání)</div>
+  </div>
+</div>
+
+<!-- 3. ETAPY VÝROBY -->
+<div class="section" data-sec="3">
+  <h2><span class="num">3</span> Etapy výroby a příprava výroby
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <h3>Tři etapy výrobního procesu</h3>
+  <div style="margin-top:.5rem;">
+    <div class="etapa-row">
+      <div class="etapa-num">1</div>
+      <span class="etapa-label el-blue">Předvýrobní</span>
+      <div class="etapa-text"><strong>Příprava výroby a zásobování</strong> — technická příprava výroby, zajištění materiálu, surovin a komponent. Rozhoduje se o parametrech, postupech a nákladech.</div>
+    </div>
+    <div class="etapa-row">
+      <div class="etapa-num">2</div>
+      <span class="etapa-label el-teal">Výrobní</span>
+      <div class="etapa-text"><strong>Hlavní poslání podniku</strong> — stroje a pracovníci působí na materiál. Základní část výrobního procesu, při níž vzniká nová užitná hodnota.</div>
+    </div>
+    <div class="etapa-row">
+      <div class="etapa-num">3</div>
+      <span class="etapa-label el-amber">Odbytová</span>
+      <div class="etapa-text"><strong>Expedice</strong> — balení, skladování hotových výrobků, přeprava k zákazníkovi, evidence. Výrobní proces končí prodejem.</div>
+    </div>
+  </div>
+
+  <hr>
+  <h3>Příprava výroby</h3>
+  <p style="margin-bottom:.6rem;">Má-li být výrobek zařazen do výrobního programu, je nutné výrobu připravit po třech stránkách:</p>
+  <div class="grid3" style="margin-top:.4rem;">
+    <div class="cc-blue">
+      <strong>Technická příprava</strong>
+      Jaké parametry bude výrobek mít a jaký bude postup výroby (technologický postup, výkresy, normy)
+    </div>
+    <div class="cc-teal">
+      <strong>Ekonomická příprava</strong>
+      Vyčíslení nákladů a stanovení prodejní ceny → sestavují se <span class="kw">kalkulace</span>
+    </div>
+    <div class="cc-amber">
+      <strong>Organizační příprava</strong>
+      Které útvary a pracoviště budou výrobu zabezpečovat, jak se práce rozdělí
+    </div>
+  </div>
+</div>
+
+<!-- 4. VÝROBNÍ CYKLUS -->
+<div class="section" data-sec="4">
+  <h2><span class="num">4</span> Výrobní cyklus
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <p style="margin-bottom:.75rem;">Výrobní cyklus = doba od zahájení výroby první součástky po dokončení celého výrobku. Způsob organizace výroby ovlivňuje délku cyklu a potřebu kapitálu.</p>
+
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Postupný výrobní cyklus</strong>
+      <p>2. operace na 1. součástce začne až po dokončení 1. operace na <em>poslední</em> součástce. Součástky se zpracovávají postupně za sebou.</p>
+      <p style="margin-top:.5rem;font-size:13px;"><strong>Výhoda:</strong> jednoduchá organizace<br><strong>Nevýhoda:</strong> nejdelší cyklus, nejvyšší potřeba kapitálu</p>
+    </div>
+    <div class="cc-teal">
+      <strong>Souběžný výrobní cyklus</strong>
+      <p>Součástky se opracovávají na jednotlivých operacích <span class="kw">souběžně</span>. Jakmile je součástka hotová na 1. operaci, okamžitě postupuje na 2. operaci (i když ostatní ještě nejsou hotové).</p>
+      <p style="margin-top:.5rem;font-size:13px;"><strong>Výhoda:</strong> nejkratší cyklus<br><strong>Nevýhoda:</strong> složitá organizace, nutné seskupování do dávek</p>
+    </div>
+    <div class="cc-amber">
+      <strong>Kombinovaný výrobní cyklus</strong>
+      <p>Kombinace postupného a souběžného způsobu. Závislý na organizační struktuře podniku.</p>
+      <p style="margin-top:.5rem;font-size:13px;">Nejčastěji používaný v praxi — přizpůsobuje se konkrétním podmínkám výroby.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 5. VÝROBNÍ KAPACITA -->
+<div class="section" data-sec="5">
+  <h2><span class="num">5</span> Výrobní kapacita
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-blue">
+    <p><span class="kw">Výrobní kapacita</span> = maximální dosažitelný objem produkce, který může stroj nebo podnik vyrobit za <span class="kw">optimálních podmínek</span>. Vyjadřuje se v hmotných jednotkách (ks, kg, l).</p>
+  </div>
+
+  <div class="grid3" style="margin-top:.75rem;">
+    <div class="cc-blue">
+      <strong>Kapacitní norma času</strong>
+      Kolik času maximálně potřebuje stroj na výrobu <span class="kw">1 výrobku</span> za optimálních podmínek
+    </div>
+    <div class="cc-teal">
+      <strong>Kapacitní norma výkonnosti</strong>
+      Maximální množství výrobků vyrobených za <span class="kw">časovou jednotku</span> za optimálních podmínek na daném stroji
+    </div>
+    <div class="cc-amber">
+      <strong>Využitelný časový fond (VČF)</strong>
+      Maximální doba v hodinách, po kterou může být zařízení za rok v provozu (bez plánovaných odstávek)
+    </div>
+  </div>
+
+  <div class="accent-teal" style="margin-top:.75rem;">
+    <p><span class="kw">Cíl:</span> dosáhnout co nejvyššího <span class="kw">využití výrobní kapacity</span> — nevyužitá kapacita = zbytečné náklady (odpisy, nájemné, mzdy). Proto existuje doplňková a přidružená výroba.</p>
+  </div>
+</div>
+
+<!-- 6. KVALITA VE VÝROBĚ -->
+<div class="section" data-sec="6">
+  <h2><span class="num">6</span> Kvalita ve výrobě
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-teal">
+    <p><span class="kw">Kvalita (jakost)</span> = souhrn všech užitných vlastností výrobku — funkčnost, ovladatelnost, trvanlivost, hygieničnost, bezpečnost, estetické působení.</p>
+  </div>
+
+  <div class="grid2" style="margin-top:.75rem;">
+    <div class="cc-teal">
+      <strong>Cíl řízení kvality</strong>
+      <p>Odstranit chyby <span class="kw">dříve než se promění ve vady</span>. Čím dříve je chyba odhalena, tím nižší jsou náklady na nápravu.</p>
+      <ul style="margin-top:.5rem;font-size:13px;">
+        <li>Chyba při návrhu → nejlevnější oprava</li>
+        <li>Chyba ve výrobě → dražší</li>
+        <li>Vada u zákazníka → nejdražší (reklamace, ztráta pověsti)</li>
+      </ul>
+    </div>
+    <div class="cc-blue">
+      <strong>Kontrola jakosti</strong>
+      <p>Činnost zaměřená na zjišťování míry a stupně jakostních vlastností a jejich porovnávání s předem stanovenými požadavky (normami, specifikacemi).</p>
+      <p style="margin-top:.5rem;font-size:13px;">Formy: vstupní kontrola · mezioperační kontrola · výstupní kontrola</p>
+    </div>
+  </div>
+</div>
+
+<!-- 7. EKOLOGIE VE VÝROBĚ -->
+<div class="section" data-sec="7">
+  <h2><span class="num">7</span> Ekologie ve výrobě
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-green" style="border-left:3px solid #27500A;padding-left:12px;margin:.5rem 0;">
+    <p>Efektivnost výroby nelze chápat odděleně od ekologie. Moderní výroba musí respektovat podmínky <span class="kw">trvale udržitelného rozvoje (TUR)</span>.</p>
+  </div>
+
+  <h3>Požadavky na ekologickou výrobu</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-green">
+      <strong>Principy ekologické výroby</strong>
+      <ul style="margin-top:.4rem;">
+        <li>Maximální využití surovin (minimum odpadu)</li>
+        <li>Maximální efektivita využití energie</li>
+        <li>Omezení vzniku odpadů</li>
+        <li>Nepoužívat toxické materiály ve výrobě</li>
+      </ul>
+    </div>
+    <div class="cc-teal">
+      <strong>Ekologicky šetrný výrobek</strong>
+      <p>Takový výrobek, který <span class="kw">podstatně méně zatěžuje životní prostředí</span> ve srovnání s ostatními výrobky se stejnými užitnými vlastnostmi.</p>
+      <p style="margin-top:.5rem;font-size:13px;">Označení: ekoznačka (Ecolabel EU, Zelený bod…)</p>
+    </div>
+  </div>
+</div>
+
+<!-- 8. OCHRANA SPOTŘEBITELE -->
+<div class="section" data-sec="8">
+  <h2><span class="num">8</span> Ochrana spotřebitele
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-blue">
+    <p>Právní předpisy na ochranu spotřebitele vymezují jeho základní práva — spotřebitel je slabší stranou trhu a potřebuje právní ochranu vůči silnějším obchodníkům a výrobcům.</p>
+  </div>
+
+  <h3>Základní práva spotřebitele</h3>
+
+  <div class="card" style="margin-top:.5rem;">
+    <strong>1. Právo na bezpečnost</strong>
+    <ul style="margin-top:.4rem;">
+      <li>Nikdo nesmí prodávat ani nabízet <span class="kw">nebezpečné výrobky</span></li>
+      <li>Prodávající musí zajistit hygienické a jiné podmínky prodeje</li>
+      <li>Zdravotní nezávadnost výrobků musí být garantována</li>
+    </ul>
+  </div>
+
+  <div class="card" style="margin-top:8px;">
+    <strong>2. Právo na informovanost</strong>
+    <div class="grid3" style="margin-top:.5rem;">
+      <div class="cc-blue">
+        <strong>a) Informace o výrobku</strong>
+        <ul style="font-size:13px;margin-top:.3rem;">
+          <li>Vlastnosti výrobku nebo charakter služby</li>
+          <li>Jak výrobek používat a udržovat</li>
+          <li>Možná nebezpečí při použití</li>
+        </ul>
+      </div>
+      <div class="cc-teal">
+        <strong>b) Označení výrobku</strong>
+        <ul style="font-size:13px;margin-top:.3rem;">
+          <li>Materiálové složení, parametry, hmotnost, velikost</li>
+          <li>U potravin: datum spotřeby / minimální trvanlivosti</li>
+          <li><span class="kw">Cena</span> musí být viditelně uvedena vždy</li>
+        </ul>
+      </div>
+      <div class="cc-amber">
+        <strong>c) Podmínky reklamace</strong>
+        <ul style="font-size:13px;margin-top:.3rem;">
+          <li>Informace musí být přístupné v každé provozovně</li>
+          <li>Záruční doba, postup při reklamaci</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>Další práva spotřebitele</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:.4rem;">
+    <span class="tag t-teal">Právo na výběr</span>
+    <span class="tag t-teal">Právo být vyslyšen</span>
+    <span class="tag t-blue">Právo na náhradu škody</span>
+    <span class="tag t-blue">Právo na vzdělání (spotřebitelská gramotnost)</span>
+    <span class="tag t-amber">Právo na zdravé ŽP</span>
+  </div>
+</div>
+
+<div class="note-footer">ITE 4.B &nbsp;·&nbsp; Maturita 2026 &nbsp;·&nbsp; Ekonomika – Otázka 9</div>
+</div>
+
+<script>
+const _subj=(document.querySelector('meta[name="mat-subject"]')||{}).content||'eko';
+const _num=(document.querySelector('meta[name="mat-num"]')||{}).content||'9';
+const _title=(document.querySelector('meta[name="mat-title"]')||{}).content||document.title;
+const NOTE_ID=`${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`,JSON.stringify({title:_title,subject:_subj,num:parseInt(_num)}));
+function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+function toggleDark(){const on=document.body.classList.toggle('dark');localStorage.setItem('mat-dark',on?'1':'0');const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});
+function secKey(n){return `mat-sec::${NOTE_ID}::${n}`;}
+function toggleSec(btn){const sec=btn.closest('.section');const id=sec.dataset.sec;if(localStorage.getItem(secKey(id))){localStorage.removeItem(secKey(id));sec.classList.remove('flagged');btn.classList.remove('on');btn.textContent='⚑ Označit';}else{localStorage.setItem(secKey(id),'1');sec.classList.add('flagged');btn.classList.add('on');btn.textContent='⚑ Označeno';}updateSummary();}
+function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec=>{if(localStorage.getItem(secKey(sec.dataset.sec))){sec.classList.add('flagged');const btn=sec.querySelector('.sec-flag');if(btn){btn.classList.add('on');btn.textContent='⚑ Označeno';}}});updateSummary();}
+function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
+applyDark();loadFlags();
+</script>
+</body>
+</html>

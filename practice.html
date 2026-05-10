@@ -4,14 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Procvičování – Maturita 2026</title>
+<script src="./manifest.js"></script>
 <style>
 :root {
   --teal-light:#E1F5EE; --teal-dark:#085041;
-  --blue-light:#E6F1FB; --blue-dark:#0C447C;
+  --blue-light:#E6F1FB; --blue-dark:#0C447C; --blue-mid:#378ADD;
   --amber-light:#FAEEDA; --amber-dark:#633806;
   --coral-light:#FAECE7; --coral-dark:#4A1B0C;
+  --green-light:#EAF3DE; --green-dark:#27500A;
 
-  --bg:#F8F7F5; --bg-panel:#ffffff; --bg-card:#ffffff;
+  --bg:#F8F7F5; --bg-panel:#ffffff;
   --border:#E0DED8; --border-strong:#C8C6C0;
   --text:#1a1a18; --text-muted:#5a5955; --text-faint:#9a9895;
 
@@ -19,465 +21,309 @@
   --it-light:#E1F5EE;  --it-dark:#085041;  --it-border:#9FE1CB;
   --lit-light:#FAEEDA; --lit-dark:#633806; --lit-border:#FAC775;
 
-  --status-none-bg:#F8F7F5;   --status-none-c:#9a9895;
-  --status-wip-bg:#E6F1FB;    --status-wip-c:#0C447C;
-  --status-done-bg:#EAF3DE;   --status-done-c:#27500A;
-
   --radius:10px; --radius-sm:5px;
 }
 body.dark {
-  --bg:#111110; --bg-panel:#1C1C1A; --bg-card:#1C1C1A;
+  --bg:#111110; --bg-panel:#1C1C1A;
   --border:#2E2D2A; --border-strong:#3E3D3A;
   --text:#F0EFEB; --text-muted:#A8A49E; --text-faint:#6A6762;
-
   --teal-light:#0D2E24; --teal-dark:#5ECBA8;
-  --blue-light:#0D1F33; --blue-dark:#7BB8F0;
+  --blue-light:#0D1F33; --blue-dark:#7BB8F0; --blue-mid:#4A90D9;
   --amber-light:#2A1E0A; --amber-dark:#F5C06A;
-  --coral-light:#2A1208; --coral-dark:#F5A08A;
-
+  --green-light:#132208; --green-dark:#8FD058;
   --eko-light:#0D1F33; --eko-dark:#7BB8F0; --eko-border:#1E3A5A;
   --it-light:#0D2E24;  --it-dark:#5ECBA8;  --it-border:#1A4535;
   --lit-light:#2A1E0A; --lit-dark:#F5C06A; --lit-border:#3D2C0F;
-
-  --status-none-bg:#1C1C1A;  --status-none-c:#6A6762;
-  --status-wip-bg:#0D1F33;   --status-wip-c:#7BB8F0;
-  --status-done-bg:#132208;  --status-done-c:#8FD058;
 }
-
 *{box-sizing:border-box;margin:0;padding:0;}
 ::-webkit-scrollbar{width:10px;height:10px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:99px;border:2px solid var(--bg);}
 ::-webkit-scrollbar-thumb:hover{background:var(--text-faint);}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;background:var(--bg);color:var(--text);min-height:100vh;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  font-size:14px;background:var(--bg);color:var(--text);min-height:100vh;}
 
-/* ── TOP BAR ── */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;height:52px;background:var(--bg-panel);border-bottom:0.5px solid var(--border);gap:1rem;position:sticky;top:0;z-index:100;}
-.topbar-left{display:flex;align-items:center;gap:12px;}
-.back-btn{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--text-muted);text-decoration:none;padding:5px 9px;border:0.5px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);transition:all 0.15s;}
-.back-btn:hover{color:var(--text);background:var(--border);}
-.topbar-title{font-size:15px;font-weight:700;}
-.topbar-sub{font-size:12px;color:var(--text-muted);}
-.topbar-right{display:flex;align-items:center;gap:6px;}
-.btn{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:6px 11px;font-size:12px;font-weight:500;color:var(--text-muted);cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:5px;white-space:nowrap;}
-.btn:hover{background:var(--border);color:var(--text);}
+/* ── TOPBAR ── */
+.topbar{display:flex;align-items:center;gap:.75rem;padding:.625rem 1.25rem;
+  background:var(--bg-panel);border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:20;}
+.topbar-brand{font-weight:700;font-size:15px;flex:1;}
+.topbar-sub{font-size:11px;color:var(--text-faint);}
+.btn{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:5px 12px;font-size:12px;cursor:pointer;color:var(--text-muted);
+  transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
+.btn:hover{background:var(--bg-panel);color:var(--text);border-color:var(--border-strong);}
 
-/* ── SUBJECT TABS ── */
-.subj-bar{display:flex;align-items:center;gap:0;padding:0 1.25rem;background:var(--bg-panel);border-bottom:0.5px solid var(--border);}
-.s-tab{padding:10px 14px;font-size:12px;font-weight:600;letter-spacing:0.03em;cursor:pointer;color:var(--text-faint);border-bottom:2px solid transparent;transition:color 0.15s;user-select:none;}
-.s-tab:hover{color:var(--text-muted);}
-.s-tab.on-all{color:var(--text);border-bottom-color:var(--text);}
-.s-tab.on-eko{color:var(--eko-dark);border-bottom-color:var(--eko-dark);}
-.s-tab.on-it {color:var(--it-dark); border-bottom-color:var(--it-dark);}
-.s-tab.on-lit{color:var(--lit-dark);border-bottom-color:var(--lit-dark);}
-.subj-spacer{flex:1;}
-.stats-bar{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--text-faint);}
-.stat-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;}
-.dot-wip {background:#378ADD;}
-.dot-done{background:#52A84A;}
-.dot-none{background:var(--border);}
+/* ── TABS ── */
+.tabs{display:flex;align-items:center;gap:4px;padding:.75rem 1.25rem .25rem;
+  border-bottom:1px solid var(--border);background:var(--bg-panel);}
+.tab{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;
+  cursor:pointer;color:var(--text-muted);transition:all .15s;border:1px solid transparent;}
+.tab:hover{background:var(--bg);color:var(--text);}
+.tab.on-all {background:var(--bg);color:var(--text);border-color:var(--border);}
+.tab.on-eko {background:var(--eko-light);color:var(--eko-dark);border-color:var(--eko-border);}
+.tab.on-it  {background:var(--it-light); color:var(--it-dark); border-color:var(--it-border);}
+.tab.on-lit {background:var(--lit-light);color:var(--lit-dark);border-color:var(--lit-border);}
+
+/* ── STATS BAR ── */
+.stats-bar{display:flex;align-items:center;gap:1.5rem;
+  padding:.625rem 1.25rem;font-size:12px;color:var(--text-muted);
+  background:var(--bg-panel);border-bottom:1px solid var(--border);}
+.stat-item{display:flex;align-items:center;gap:.4rem;}
+.stat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sd-none{background:var(--border-strong);}
+.sd-wip {background:var(--blue-mid);}
+.sd-done{background:var(--green-dark);}
 
 /* ── MAIN ── */
-.main{max-width:1100px;margin:0 auto;padding:1.5rem 1.25rem;}
+.main{max-width:960px;margin:0 auto;padding:1.5rem 1.25rem;}
 
-/* ── GRID ── */
-.q-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:1.5rem;}
+/* ── SUBJECT GROUP ── */
+.subj-group{margin-bottom:2rem;}
+.subj-hdr{display:flex;align-items:center;gap:.75rem;margin-bottom:.875rem;}
+.subj-hdr h2{font-size:13px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--text-faint);}
+.subj-hdr hr{flex:1;border:none;border-top:1px solid var(--border);}
 
-/* ── QUESTION CARD ── */
-.q-card{background:var(--bg-card);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:border-color 0.15s;}
-.q-card:hover{border-color:var(--border-strong);}
-.q-card.open{border-color:var(--border-strong);}
-.q-card.missing{opacity:0.5;}
+/* ── CARD GRID ── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.875rem;}
 
-.card-top{padding:14px 16px;display:flex;align-items:flex-start;gap:10px;}
-.card-badges{display:flex;gap:5px;flex-shrink:0;align-items:center;}
-.badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;letter-spacing:0.04em;}
-.b-eko{background:var(--eko-light);color:var(--eko-dark);}
-.b-it {background:var(--it-light); color:var(--it-dark);}
-.b-lit{background:var(--lit-light);color:var(--lit-dark);}
-.b-num{background:var(--bg);border:0.5px solid var(--border);color:var(--text-faint);}
+/* ── NOTE CARD ── */
+.note-card{
+  background:var(--bg-panel);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1rem;
+  display:flex;flex-direction:column;gap:.75rem;
+  transition:border-color .2s,box-shadow .2s;
+}
+.note-card.has-test:hover{
+  border-color:var(--border-strong);
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
+}
+.note-card.no-test{opacity:.55;}
 
-.card-body{flex:1;}
-.card-title{font-size:13.5px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:5px;}
-.card-title.missing{color:var(--text-faint);font-weight:400;font-style:italic;}
-.status-pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;}
-.pill-none{background:var(--status-none-bg);color:var(--status-none-c);}
-.pill-wip {background:var(--status-wip-bg); color:var(--status-wip-c);}
-.pill-done{background:var(--status-done-bg);color:var(--status-done-c);}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;}
+.card-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;
+  white-space:nowrap;flex-shrink:0;}
+.b-eko{background:var(--eko-light);color:var(--eko-dark);border:1px solid var(--eko-border);}
+.b-it {background:var(--it-light); color:var(--it-dark); border:1px solid var(--it-border);}
+.b-lit{background:var(--lit-light);color:var(--lit-dark);border:1px solid var(--lit-border);}
+.b-num{background:var(--bg);color:var(--text-muted);border:1px solid var(--border);}
 
-.card-footer{padding:10px 16px;border-top:0.5px solid var(--border);display:flex;align-items:center;gap:6px;}
-.btn-practice{flex:1;padding:7px 10px;font-size:12px;font-weight:600;border-radius:var(--radius-sm);border:0.5px solid var(--border);background:var(--bg);color:var(--text-muted);cursor:pointer;transition:all 0.15s;text-align:center;}
-.btn-practice:hover{background:var(--border);color:var(--text);}
-.btn-practice.active{background:var(--text);color:var(--bg);}
-.btn-note{padding:7px 9px;font-size:12px;border-radius:var(--radius-sm);border:0.5px solid var(--border);background:var(--bg);color:var(--text-muted);cursor:pointer;transition:all 0.15s;text-decoration:none;display:flex;align-items:center;}
-.btn-note:hover{background:var(--border);color:var(--text);}
+.card-title{font-size:14px;font-weight:600;line-height:1.35;color:var(--text);}
+.card-num{font-size:11px;color:var(--text-faint);margin-top:1px;}
 
-/* ── ANSWER AREA (expands inside card) ── */
-.answer-area{padding:0 16px 14px;display:none;flex-direction:column;gap:8px;border-top:0.5px solid var(--border);}
-.answer-area.open{display:flex;}
-.answer-area textarea{width:100%;min-height:140px;padding:10px 12px;font-size:13px;line-height:1.6;font-family:inherit;color:var(--text);background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius-sm);resize:vertical;outline:none;transition:border-color 0.15s;}
-.answer-area textarea:focus{border-color:var(--border-strong);}
-.answer-area textarea::placeholder{color:var(--text-faint);}
-.answer-btns{display:flex;gap:6px;flex-wrap:wrap;}
-.ab{padding:6px 12px;font-size:12px;font-weight:600;border-radius:var(--radius-sm);border:0.5px solid var(--border);background:var(--bg);color:var(--text-muted);cursor:pointer;transition:all 0.15s;}
-.ab:hover{background:var(--border);color:var(--text);}
-.ab-wip {background:var(--status-wip-bg); color:var(--status-wip-c);  border-color:var(--eko-border);}
-.ab-done{background:var(--status-done-bg);color:var(--status-done-c); border-color:#B8DFA0;}
-.ab-clear{margin-left:auto;color:var(--text-faint);}
-.word-count{font-size:11px;color:var(--text-faint);align-self:flex-end;}
+/* Progress inside card */
+.card-prog{display:flex;flex-direction:column;gap:4px;}
+.prog-row{display:flex;align-items:center;justify-content:space-between;
+  font-size:11px;color:var(--text-muted);}
+.prog-bar-outer{height:5px;background:var(--bg);border:1px solid var(--border);
+  border-radius:99px;overflow:hidden;}
+.prog-bar-inner{height:100%;border-radius:99px;background:var(--blue-mid);transition:width .3s;}
+.prog-bar-inner.done{background:var(--green-dark);}
 
-/* ── CUSTOM QUESTION ── */
-.add-section{margin-bottom:1.5rem;}
-.add-section h2{font-size:13px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;}
-.add-form{display:flex;gap:8px;}
-.add-form input{flex:1;padding:8px 12px;font-size:13px;background:var(--bg-card);border:0.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text);outline:none;font-family:inherit;}
-.add-form input:focus{border-color:var(--border-strong);}
-.add-form input::placeholder{color:var(--text-faint);}
-.add-form button{padding:8px 14px;font-size:12px;font-weight:600;background:var(--bg-card);border:0.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text-muted);cursor:pointer;transition:all 0.15s;white-space:nowrap;}
-.add-form button:hover{background:var(--border);color:var(--text);}
+/* Card button */
+.card-btn{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:7px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;
+  text-decoration:none;cursor:pointer;transition:all .15s;border:none;
+  background:var(--blue-dark);color:#fff;
+}
+.card-btn:hover{opacity:.88;}
+.card-btn.done-btn{background:var(--green-dark);}
+.no-test .card-btn{background:var(--bg);color:var(--text-faint);
+  border:1px solid var(--border);cursor:default;}
+.no-test .card-btn:hover{opacity:1;}
 
-/* ── SECTION HEADER ── */
-.section-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px;margin-top:0.5rem;}
-.section-hdr h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-faint);}
-.section-hdr hr{flex:1;border:none;border-top:0.5px solid var(--border);}
-
-@media(max-width:600px){.q-grid{grid-template-columns:1fr;}}
+@media(max-width:600px){.card-grid{grid-template-columns:1fr 1fr;}}
 </style>
-<script src="./manifest.js"></script>
 </head>
 <body>
 
+<!-- TOPBAR -->
 <div class="topbar">
-  <div class="topbar-left">
-    <a href="index.html" class="back-btn">← Katalog</a>
-    <div class="topbar-title">Procvičování</div>
-    <div class="topbar-sub" id="topbarSub"></div>
+  <div>
+    <div class="topbar-brand">Procvičování</div>
   </div>
-  <div class="topbar-right">
-    <button class="btn" onclick="toggleDark()" id="darkBtn">🌙 Tmavý</button>
-  </div>
+  <a href="index.html" class="btn" style="text-decoration:none">← Katalog</a>
+  <button class="btn" onclick="toggleDark()" id="darkBtn">🌙 Tmavý</button>
 </div>
 
-<div class="subj-bar">
-  <div class="s-tab on-all" id="tab-all" onclick="switchTab('all')">Vše</div>
-  <div class="s-tab" id="tab-eko" onclick="switchTab('eko')">EKO</div>
-  <div class="s-tab" id="tab-it"  onclick="switchTab('it')">IT</div>
-  <div class="s-tab" id="tab-lit" onclick="switchTab('lit')">LIT</div>
-  <div class="subj-spacer"></div>
-  <div class="stats-bar" id="statsBar"></div>
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab on-all" id="tab-all" onclick="switchTab('all')">Vše</div>
+  <div class="tab"        id="tab-eko" onclick="switchTab('eko')">EKO</div>
+  <div class="tab"        id="tab-it"  onclick="switchTab('it')">IT</div>
+  <div class="tab"        id="tab-lit" onclick="switchTab('lit')">LIT</div>
 </div>
 
-<div class="main">
+<!-- STATS -->
+<div class="stats-bar" id="statsBar"></div>
 
-  <!-- Custom question form -->
-  <div class="add-section">
-    <h2>Přidat vlastní otázku</h2>
-    <div class="add-form">
-      <input type="text" id="customInput" placeholder="Napiš svoji otázku…" onkeydown="if(event.key==='Enter')addCustom()">
-      <button onclick="addCustom()">+ Přidat</button>
-    </div>
-  </div>
-
-  <!-- Question grid -->
-  <div id="qGrid" class="q-grid"></div>
-
-</div>
+<!-- MAIN -->
+<div class="main" id="main"></div>
 
 <script>
-// ── NOTES DATA (dynamic — driven by manifest.js in the Helper root) ───────
-const SUBJECTS   = ['eko','it','lit'];
-const SUBJ_LABEL = { eko:'EKO', it:'IT', lit:'LIT' };
+const SUBJECTS = ['eko','it','lit'];
+const SUBJ_LABEL = { eko:'Ekonomika', it:'Informační technologie', lit:'Literatura' };
 let NOTES = [];
+let curTab = 'all';
+let dark = localStorage.getItem('mat-dark') === '1';
 
+// ── Dark mode ─────────────────────────────────────────────────────────────
+function applyDark() {
+  document.body.classList.toggle('dark', dark);
+  document.getElementById('darkBtn').textContent = dark ? '☀ Světlý' : '🌙 Tmavý';
+}
+function toggleDark() {
+  dark = !dark;
+  localStorage.setItem('mat-dark', dark ? '1' : '0');
+  applyDark();
+}
+window.addEventListener('storage', e => { if (e.key === 'mat-dark') { dark = e.newValue === '1'; applyDark(); }});
+applyDark();
+
+// ── Load notes ────────────────────────────────────────────────────────────
 function loadNotes() {
   const manifest = window.MAT_MANIFEST || {};
+  const tests    = manifest.tests || {};
   const result   = [];
   for (const s of SUBJECTS) {
-    const files = manifest[s] || [];
-    files.forEach(file => {
+    (manifest[s] || []).forEach(file => {
       const numMatch = file.match(/^(\d+)/);
       const num  = numMatch ? parseInt(numMatch[1]) : 99;
       const id   = `${s}-${String(num).padStart(2,'0')}`;
-      const path = `./notes/${s.toUpperCase()}/${file}`;
-      let title = null;
-      try {
-        const cached = localStorage.getItem(`mat-reg::${id}`);
-        if (cached) title = JSON.parse(cached).title;
-      } catch(e) {}
-      if (!title) title = file.replace(/^\d+_/, '').replace(/\.html$/, '').replace(/_/g,' ');
-      result.push({ id, s, n:num, title, path });
+      let title  = null;
+      try { const c = localStorage.getItem(`mat-reg::${id}`); if (c) title = JSON.parse(c).title; } catch(e) {}
+      if (!title) title = file.replace(/^\d+_/,'').replace(/\.html$/,'').replace(/_/g,' ');
+      const testPath = tests[id] || null;
+      result.push({ id, s, n:num, title, testPath });
     });
   }
   return result;
 }
 
-// ── STATE ─────────────────────────────────────────────────────────────────
-let curTab = 'all';
-let dark = localStorage.getItem('mat-dark') === '1';
+// ── Progress from localStorage ────────────────────────────────────────────
+function getProgress(id) {
+  try {
+    const raw = localStorage.getItem(`mat-test::${id}::progress`);
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return null;
+}
 
-// localStorage keys
-const statusKey  = id => `mat-prac::${id}::status`;  // 'none'|'wip'|'done'
-const answerKey  = id => `mat-prac::${id}::answer`;
-const customKey  = () => 'mat-prac::custom';
-
-function getStatus(id) { return localStorage.getItem(statusKey(id)) || 'none'; }
-function setStatus(id, v) { localStorage.setItem(statusKey(id), v); }
-function getAnswer(id) { return localStorage.getItem(answerKey(id)) || ''; }
-function setAnswer(id, v) { localStorage.setItem(answerKey(id), v); }
-function getCustom() { return JSON.parse(localStorage.getItem(customKey()) || '[]'); }
-function setCustom(arr) { localStorage.setItem(customKey(), JSON.stringify(arr)); }
-
-// ── BOOT ──────────────────────────────────────────────────────────────────
-if (dark) document.body.classList.add('dark');
-updateDarkBtn();
-NOTES = loadNotes();
-render();
-
-// ── TAB SWITCH ────────────────────────────────────────────────────────────
+// ── Switch tab ────────────────────────────────────────────────────────────
 function switchTab(t) {
   curTab = t;
   ['all','eko','it','lit'].forEach(x => {
     const el = document.getElementById('tab-'+x);
-    el.className = 's-tab' + (x === t ? ` on-${t}` : '');
+    el.className = 'tab' + (x === t ? ` on-${t}` : '');
   });
   render();
 }
 
-// ── RENDER ────────────────────────────────────────────────────────────────
+// ── Render ────────────────────────────────────────────────────────────────
 function render() {
-  const customs = getCustom();
-  const allItems = [
-    ...NOTES,
-    ...customs.map(c => ({ id: c.id, s: 'custom', n: null, title: c.title, path: null }))
-  ];
-
-  const visible = curTab === 'all'
-    ? allItems
-    : allItems.filter(n => n.s === curTab);
+  const visible = curTab === 'all' ? NOTES : NOTES.filter(n => n.s === curTab);
+  const main    = document.getElementById('main');
+  main.innerHTML = '';
 
   // Stats
-  let wip = 0, done = 0;
-  visible.forEach(n => {
-    const st = getStatus(n.id);
-    if (st === 'wip')  wip++;
-    if (st === 'done') done++;
+  const withTest = NOTES.filter(n => n.testPath);
+  let started = 0, completed = 0;
+  withTest.forEach(n => {
+    const p = getProgress(n.id);
+    if (!p) return;
+    if (p.answered > 0 && p.answered < p.total) started++;
+    if (p.answered === p.total && p.total > 0)   completed++;
   });
   document.getElementById('statsBar').innerHTML =
-    `<span><span class="stat-dot dot-wip"></span>${wip} rozpracováno</span>` +
-    `<span><span class="stat-dot dot-done"></span>${done} hotovo</span>` +
-    `<span><span class="stat-dot dot-none"></span>${visible.length - wip - done} nezačato</span>`;
+    `<span class="stat-item"><span class="stat-dot sd-none"></span>${withTest.length} testů k dispozici</span>` +
+    `<span class="stat-item"><span class="stat-dot sd-wip"></span>${started} rozpracováno</span>` +
+    `<span class="stat-item"><span class="stat-dot sd-done"></span>${completed} dokončeno</span>`;
 
-  document.getElementById('topbarSub').textContent =
-    `${done} / ${visible.length} hotovo`;
+  const groups = curTab === 'all' ? SUBJECTS : [curTab];
 
-  // Group by subject for "all" view
-  const grid = document.getElementById('qGrid');
-  grid.innerHTML = '';
+  groups.forEach(s => {
+    const items = visible.filter(n => n.s === s);
+    if (!items.length) return;
 
-  if (curTab === 'all') {
-    ['eko','it','lit','custom'].forEach(subj => {
-      const items = visible.filter(n => n.s === subj);
-      if (!items.length) return;
-      const hdr = document.createElement('div');
-      hdr.className = 'section-hdr';
-      const labels = { eko:'Ekonomika', it:'Informační technologie', lit:'Literatura', custom:'Vlastní otázky' };
-      hdr.innerHTML = `<h2>${labels[subj]}</h2><hr>`;
-      hdr.style.gridColumn = '1 / -1';
-      grid.appendChild(hdr);
-      items.forEach(n => grid.appendChild(buildCard(n)));
-    });
-  } else {
-    visible.forEach(n => grid.appendChild(buildCard(n)));
-    // Custom questions always shown at bottom in filtered view
-    if (curTab !== 'all') {
-      const customs2 = getCustom();
-      if (customs2.length) {
-        const hdr = document.createElement('div');
-        hdr.className = 'section-hdr';
-        hdr.innerHTML = `<h2>Vlastní otázky</h2><hr>`;
-        hdr.style.gridColumn = '1 / -1';
-        grid.appendChild(hdr);
-        customs2.forEach(c => grid.appendChild(buildCard({ id: c.id, s:'custom', n:null, title:c.title, path:null })));
-      }
-    }
+    const group = document.createElement('div');
+    group.className = 'subj-group';
+    group.innerHTML = `<div class="subj-hdr"><h2>${SUBJ_LABEL[s]}</h2><hr></div>`;
+
+    const grid = document.createElement('div');
+    grid.className = 'card-grid';
+    items.forEach(n => grid.appendChild(buildCard(n)));
+    group.appendChild(grid);
+    main.appendChild(group);
+  });
+
+  if (!main.innerHTML) {
+    main.innerHTML = '<p style="color:var(--text-faint);font-size:13px;padding:1rem 0">Žádné zápisky.</p>';
   }
 }
 
+// ── Build card ────────────────────────────────────────────────────────────
 function buildCard(note) {
-  const status = getStatus(note.id);
-  const answer = getAnswer(note.id);
-  const isCustom = note.s === 'custom';
+  const prog    = getProgress(note.id);
+  const hasTest = !!note.testPath;
+  const total   = prog ? prog.total    : 0;
+  const answered= prog ? prog.answered : 0;
+  const isDone  = hasTest && prog && answered === total && total > 0;
+  const isWip   = hasTest && prog && answered > 0 && !isDone;
+  const pct     = total > 0 ? Math.round(answered / total * 100) : 0;
 
   const card = document.createElement('div');
-  card.className = 'q-card' + (answer ? ' open' : '');
-  card.id = 'card-' + note.id;
+  card.className = 'note-card' + (hasTest ? ' has-test' : ' no-test');
 
-  const pillClass = { none:'pill-none', wip:'pill-wip', done:'pill-done' }[status];
-  const pillText  = { none:'Nezačato', wip:'Rozpracováno', done:'Hotovo' }[status];
-  const pillDot   = { none:'●', wip:'◐', done:'✓' }[status];
+  // Badge row
+  const subjColor = note.s;
+  const badgeHTML = `<div style="display:flex;gap:4px;flex-wrap:wrap">
+    <span class="card-badge b-${subjColor}">${subjColor.toUpperCase()}</span>
+    <span class="card-badge b-num">${String(note.n).padStart(2,'0')}</span>
+  </div>`;
 
-  const badgeHtml = isCustom
-    ? `<span class="badge b-num">★</span>`
-    : `<span class="badge b-${note.s}">${SUBJ_LABEL[note.s]}</span><span class="badge b-num">${String(note.n).padStart(2,'0')}</span>`;
+  // Status label
+  let statusLabel = '';
+  if (!hasTest)  statusLabel = '<span style="font-size:11px;color:var(--text-faint)">Test připravujeme…</span>';
+  else if (isDone) statusLabel = '<span style="font-size:11px;color:var(--green-dark);font-weight:600">✓ Dokončeno</span>';
+  else if (isWip)  statusLabel = `<span style="font-size:11px;color:var(--blue-dark)">${answered}/${total} hotovo</span>`;
 
-  const noteBtn = note.path
-    ? `<a class="btn-note" href="${note.path}" target="_blank" title="Otevřít zápis">↗</a>`
-    : '';
+  // Progress bar
+  const progHTML = hasTest ? `<div class="card-prog">
+    <div class="prog-row">
+      <span>${answered} / ${total} otázek</span>
+      <span>${prog ? prog.pts : 0} / ${prog ? prog.totalPts : '?'} b</span>
+    </div>
+    <div class="prog-bar-outer">
+      <div class="prog-bar-inner${isDone?' done':''}" style="width:${pct}%"></div>
+    </div>
+  </div>` : '';
 
-  const deleteBtn = isCustom
-    ? `<button class="ab ab-clear" onclick="deleteCustom('${note.id}',event)" title="Smazat">✕</button>`
-    : '';
-
-  const words = answer.trim() ? answer.trim().split(/\s+/).length : 0;
+  // Button
+  const btnHTML = hasTest
+    ? `<a class="card-btn${isDone?' done-btn':''}" href="${note.testPath}">
+        ${isDone ? '↻ Zopakovat' : (isWip ? '▶ Pokračovat' : '▶ Spustit test')}
+       </a>`
+    : `<div class="card-btn">Brzy k dispozici</div>`;
 
   card.innerHTML = `
     <div class="card-top">
-      <div class="card-badges">${badgeHtml}</div>
-      <div class="card-body">
-        <div class="card-title">${note.title}</div>
-        <span class="status-pill ${pillClass}" id="pill-${note.id}">${pillDot} ${pillText}</span>
-      </div>
+      ${badgeHTML}
+      ${statusLabel}
     </div>
-    <div class="card-footer">
-      <button class="btn-practice ${answer ? 'active' : ''}" id="pbtn-${note.id}" onclick="toggleAnswer('${note.id}')">
-        ${answer ? '✏ Upravit odpověď' : '✏ Odpovědět'}
-      </button>
-      ${noteBtn}
+    <div>
+      <div class="card-title">${note.title}</div>
     </div>
-    <div class="answer-area ${answer ? 'open' : ''}" id="area-${note.id}">
-      <textarea id="ta-${note.id}" placeholder="Napiš svoji odpověď…" oninput="onType('${note.id}', this)">${answer}</textarea>
-      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-        <div class="answer-btns">
-          <button class="ab ab-wip"  onclick="markStatus('${note.id}','wip')">◐ Rozpracováno</button>
-          <button class="ab ab-done" onclick="markStatus('${note.id}','done')">✓ Hotovo</button>
-          <button class="ab"         onclick="markStatus('${note.id}','none')">↺ Reset</button>
-          ${deleteBtn}
-        </div>
-        <span class="word-count" id="wc-${note.id}">${words > 0 ? words + ' slov' : ''}</span>
-      </div>
-    </div>`;
-
+    ${progHTML}
+    ${btnHTML}
+  `;
   return card;
 }
 
-// ── CARD INTERACTIONS ─────────────────────────────────────────────────────
-function toggleAnswer(id) {
-  const area = document.getElementById('area-' + id);
-  const btn  = document.getElementById('pbtn-' + id);
-  const isOpen = area.classList.toggle('open');
-  btn.classList.toggle('active', isOpen);
-  btn.textContent = isOpen ? '✏ Upravit odpověď' : '✏ Odpovědět';
-  if (isOpen) document.getElementById('ta-' + id).focus();
-}
-
-function onType(id, ta) {
-  setAnswer(id, ta.value);
-  const words = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0;
-  const wc = document.getElementById('wc-' + id);
-  if (wc) wc.textContent = words > 0 ? words + ' slov' : '';
-  // Auto-set to wip if not yet set
-  if (ta.value.trim() && getStatus(id) === 'none') {
-    setStatus(id, 'wip');
-    updatePill(id, 'wip');
-  }
-  const pbtn = document.getElementById('pbtn-' + id);
-  if (pbtn) { pbtn.classList.add('active'); pbtn.textContent = '✏ Upravit odpověď'; }
-}
-
-function markStatus(id, status) {
-  setStatus(id, status);
-  updatePill(id, status);
-  // Also save current textarea content
-  const ta = document.getElementById('ta-' + id);
-  if (ta) setAnswer(id, ta.value);
-  updateTopbar();
-  updateStatsBar();
-}
-
-function updatePill(id, status) {
-  const pill = document.getElementById('pill-' + id);
-  if (!pill) return;
-  const pillClass = { none:'pill-none', wip:'pill-wip', done:'pill-done' }[status];
-  const pillText  = { none:'Nezačato', wip:'Rozpracováno', done:'Hotovo' }[status];
-  const pillDot   = { none:'●', wip:'◐', done:'✓' }[status];
-  pill.className = `status-pill ${pillClass}`;
-  pill.textContent = `${pillDot} ${pillText}`;
-}
-
-function updateTopbar() {
-  const customs = getCustom();
-  const allItems = [
-    ...NOTES.filter(n => n.title),
-    ...customs.map(c => ({ id: c.id }))
-  ];
-  const visible = curTab === 'all' ? allItems : allItems.filter(n => (n.s || 'custom') === curTab);
-  const done = visible.filter(n => getStatus(n.id) === 'done').length;
-  document.getElementById('topbarSub').textContent = `${done} / ${visible.length} hotovo`;
-}
-
-function updateStatsBar() {
-  const customs = getCustom();
-  const allItems = [
-    ...NOTES.filter(n => n.title),
-    ...customs.map(c => ({ id: c.id }))
-  ];
-  const visible = curTab === 'all' ? allItems : allItems.filter(n => (n.s || 'custom') === curTab);
-  let wip = 0, done = 0;
-  visible.forEach(n => {
-    const st = getStatus(n.id);
-    if (st === 'wip')  wip++;
-    if (st === 'done') done++;
-  });
-  document.getElementById('statsBar').innerHTML =
-    `<span><span class="stat-dot dot-wip"></span>${wip} rozpracováno</span>` +
-    `<span><span class="stat-dot dot-done"></span>${done} hotovo</span>` +
-    `<span><span class="stat-dot dot-none"></span>${visible.length - wip - done} nezačato</span>`;
-}
-
-// ── CUSTOM QUESTIONS ──────────────────────────────────────────────────────
-function addCustom() {
-  const input = document.getElementById('customInput');
-  const text = input.value.trim();
-  if (!text) return;
-  const customs = getCustom();
-  const id = 'custom-' + Date.now();
-  customs.push({ id, title: text });
-  setCustom(customs);
-  input.value = '';
-  render();
-  // Scroll to the new card
-  setTimeout(() => {
-    const card = document.getElementById('card-' + id);
-    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 50);
-}
-
-function deleteCustom(id, e) {
-  e.stopPropagation();
-  const customs = getCustom().filter(c => c.id !== id);
-  setCustom(customs);
-  localStorage.removeItem(statusKey(id));
-  localStorage.removeItem(answerKey(id));
-  render();
-}
-
-// ── DARK MODE ─────────────────────────────────────────────────────────────
-function applyDark() {
-  dark = localStorage.getItem('mat-dark') === '1';
-  document.body.classList.toggle('dark', dark);
-  updateDarkBtn();
-}
-function toggleDark() {
-  dark = !dark;
-  document.body.classList.toggle('dark', dark);
-  localStorage.setItem('mat-dark', dark ? '1' : '0');
-  updateDarkBtn();
-}
-function updateDarkBtn() {
-  const btn = document.getElementById('darkBtn');
-  if (btn) btn.innerHTML = dark ? '☀ Světlý' : '🌙 Tmavý';
-}
-window.addEventListener('storage', e => { if (e.key === 'mat-dark') applyDark(); });
+// ── Boot ──────────────────────────────────────────────────────────────────
+NOTES = loadNotes();
+render();
 </script>
 </body>
 </html>

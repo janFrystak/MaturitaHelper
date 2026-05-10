@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     REQUIRED META — practice.html reads these for the card display
+     mat-subject  : eko | it | lit
+     mat-num      : question number (integer)
+     mat-title    : display title
+     mat-test-id  : unique key used for localStorage  (subj-NN format)
+     mat-points   : total points (sum of all data-points attributes)
+     ════════════════════════════════════════════════════════════════════ -->
+<meta name="mat-subject"  content="eko">
+<meta name="mat-num"      content="1">
+<meta name="mat-title"    content="Národní hospodářství">
+<meta name="mat-test-id"  content="eko-01">
+<meta name="mat-points"   content="20">
+
+<title>Pracovní list: Národní hospodářství – Maturita 2026</title>
+<style>
+:root {
+  --blue-light:#E6F1FB; --blue-dark:#0C447C; --blue-mid:#378ADD;
+  --teal-light:#E1F5EE; --teal-dark:#085041;
+  --amber-light:#FAEEDA; --amber-dark:#633806;
+  --green-light:#EAF3DE; --green-dark:#27500A;
+  --coral-light:#FAECE7; --coral-dark:#4A1B0C;
+  --gray-bg:#F8F7F5; --gray-border:#E0DED8; --gray-border-strong:#C8C6C0;
+  --text:#1a1a18; --text-muted:#5a5955; --text-faint:#9a9895;
+  --white:#ffffff;
+  --radius:10px; --radius-sm:5px;
+  --bar-h:64px;
+}
+body.dark {
+  --blue-light:#0D1F33; --blue-dark:#7BB8F0; --blue-mid:#4A90D9;
+  --teal-light:#0D2E24; --teal-dark:#5ECBA8;
+  --amber-light:#2A1E0A; --amber-dark:#F5C06A;
+  --green-light:#132208; --green-dark:#8FD058;
+  --coral-light:#2A1208; --coral-dark:#F5A08A;
+  --gray-bg:#111110; --gray-border:#2E2D2A; --gray-border-strong:#3E3D3A;
+  --text:#F0EFEB; --text-muted:#A8A49E; --text-faint:#6A6762;
+  --white:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:var(--gray-bg);}
+::-webkit-scrollbar-thumb{background:var(--gray-border);border-radius:99px;border:2px solid var(--gray-bg);}
+::-webkit-scrollbar-thumb:hover{background:var(--text-muted);}
+
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  font-size:14px;background:var(--gray-bg);color:var(--text);
+  line-height:1.6;min-height:100vh;padding-bottom:calc(var(--bar-h) + 1.5rem);}
+
+/* ── HEADER ── */
+.test-header{
+  background:var(--white);border-bottom:1px solid var(--gray-border);
+  padding:.75rem 1.5rem;display:flex;align-items:center;
+  justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  position:sticky;top:0;z-index:20;
+}
+.hdr-left{display:flex;align-items:center;gap:.75rem;}
+.hdr-right{display:flex;align-items:center;gap:.5rem;}
+.back-btn{font-size:12px;color:var(--text-muted);text-decoration:none;
+  border:1px solid var(--gray-border);border-radius:var(--radius-sm);
+  padding:4px 10px;transition:all .15s;}
+.back-btn:hover{background:var(--gray-bg);color:var(--text);}
+.subj-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;
+  background:var(--blue-light);color:var(--blue-dark);border:1px solid #B5D4F4;
+  white-space:nowrap;}
+.hdr-title{font-size:15px;font-weight:700;}
+.hdr-sub{font-size:11px;color:var(--text-muted);}
+.note-link{font-size:12px;color:var(--text-muted);text-decoration:none;
+  border:1px solid var(--gray-border);border-radius:var(--radius-sm);
+  padding:4px 10px;transition:all .15s;display:flex;align-items:center;gap:4px;}
+.note-link:hover{background:var(--gray-bg);color:var(--text);}
+.dark-btn{background:none;border:1px solid var(--gray-border);border-radius:var(--radius-sm);
+  padding:4px 12px;font-size:12px;cursor:pointer;color:var(--text-muted);transition:all .15s;}
+.dark-btn:hover{background:var(--white);color:var(--text);}
+
+/* ── CONTENT ── */
+.content{max-width:760px;margin:0 auto;padding:1.5rem 1.5rem 0;}
+
+/* ── QUESTION CARD ── */
+.question{
+  background:var(--white);border:1px solid var(--gray-border);
+  border-radius:var(--radius);margin-bottom:.875rem;overflow:hidden;
+  transition:border-color .2s;
+}
+.question.answered{border-color:#9FE1CB;}
+body.dark .question.answered{border-color:#1A4535;}
+
+.q-header{
+  display:flex;align-items:flex-start;gap:.875rem;
+  padding:.875rem 1rem .875rem 1rem;
+  border-bottom:1px solid var(--gray-border);
+}
+.q-num{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  background:var(--blue-light);color:var(--blue-dark);
+  font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:1px;
+}
+.question.answered .q-num{background:var(--green-light);color:var(--green-dark);}
+.q-body{flex:1;}
+.q-text{font-size:14px;line-height:1.55;color:var(--text);}
+.q-text strong{font-weight:700;}
+.q-hint{font-size:12px;color:var(--text-faint);margin-top:.4rem;font-style:italic;}
+.q-points{
+  font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;
+  background:var(--gray-bg);color:var(--text-muted);
+  border:1px solid var(--gray-border);white-space:nowrap;flex-shrink:0;margin-top:2px;
+}
+
+.q-answer{
+  display:block;width:100%;min-height:90px;
+  padding:.875rem 1rem;border:none;outline:none;resize:vertical;
+  font-family:inherit;font-size:14px;line-height:1.6;
+  background:transparent;color:var(--text);
+}
+.q-answer::placeholder{color:var(--text-faint);}
+.q-answer:focus{background:var(--gray-bg);}
+
+/* ── BOTTOM BAR ── */
+.bottom-bar{
+  position:fixed;bottom:0;left:0;right:0;height:var(--bar-h);
+  background:var(--white);border-top:1px solid var(--gray-border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 1.5rem;gap:1rem;z-index:30;
+}
+.progress-wrap{display:flex;align-items:center;gap:.75rem;}
+.progress-text{font-size:13px;font-weight:600;}
+.progress-bar-outer{width:140px;height:6px;background:var(--gray-bg);
+  border-radius:99px;border:1px solid var(--gray-border);overflow:hidden;}
+.progress-bar-inner{height:100%;background:var(--blue-mid);border-radius:99px;
+  transition:width .3s;}
+.progress-bar-inner.done{background:var(--green-dark);}
+.progress-pts{font-size:12px;color:var(--text-faint);}
+.bar-actions{display:flex;align-items:center;gap:.5rem;}
+.btn-clear{background:none;border:1px solid var(--gray-border);border-radius:var(--radius-sm);
+  padding:6px 14px;font-size:12px;cursor:pointer;color:var(--text-muted);transition:all .15s;}
+.btn-clear:hover{background:var(--coral-light);color:var(--coral-dark);border-color:#F5C4B3;}
+.btn-copy{
+  background:var(--blue-dark);color:#fff;border:none;border-radius:var(--radius-sm);
+  padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;
+  transition:all .15s;display:flex;align-items:center;gap:6px;
+}
+.btn-copy:hover{opacity:.9;}
+.btn-copy.success{background:var(--green-dark);}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:calc(var(--bar-h) + 12px);left:50%;
+  transform:translateX(-50%) translateY(8px);
+  background:#1a1a18;color:#fff;font-size:12px;font-weight:600;
+  padding:8px 18px;border-radius:20px;pointer-events:none;
+  opacity:0;transition:opacity .2s,transform .2s;z-index:40;white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="test-header">
+  <div class="hdr-left">
+    <a href="../../practice.html" class="back-btn">← Zpět</a>
+    <span class="subj-badge">EKO · Otázka 01</span>
+    <div>
+      <div class="hdr-title">Národní hospodářství</div>
+      <div class="hdr-sub">Pracovní list · 8 otázek · 20 bodů</div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <a href="01_Narodni_hospodarstvi.html" target="_blank" class="note-link">📖 Zápis</a>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+  </div>
+</div>
+
+<!-- QUESTIONS -->
+<div class="content">
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       QUESTIONS — each .question needs:
+         data-q="N"       unique integer, starts at 1
+         data-points="N"  point value shown in badge
+
+       Inside:  .q-num (auto-filled by JS), .q-text, optional .q-hint
+       The .q-answer textarea is required and must stay outside .q-header
+       ════════════════════════════════════════════════════════════ -->
+
+  <div class="question" data-q="1" data-points="2">
+    <div class="q-header">
+      <div class="q-num">1</div>
+      <div class="q-body">
+        <div class="q-text">Definujte pojem <strong>národní hospodářství</strong>. Vyjmenujte a stručně popište jeho čtyři hlavní makroekonomické cíle.</div>
+      </div>
+      <span class="q-points">2 b</span>
+    </div>
+    <textarea class="q-answer" placeholder="Tvoje odpověď…"></textarea>
+  </div>
+
+  <div class="question" data-q="2" data-points="2">
+    <div class="q-header">
+      <div class="q-num">2</div>
+      <div class="q-body">
+        <div class="q-text">Co jsou <strong>odvětví</strong> a <strong>sektory</strong> národního hospodářství? Rozdělte hospodářství do tří sektorů a u každého uveďte alespoň dvě odvětví.</div>
+      </div>
+      <span class="q-points">2 b</span>
+    </div>
+    <textarea class="q-answer" placeholder="Tvoje odpověď…"></textarea>
+  </div>
+
+  <div class="question" data-q="3" data-points="3">
+    <div class="q-header">
+      <div class="q-num">3</div>
+      <div class="q-body">
+        <div class="q-text">Porovnejte <strong>příkazový, tržní a smíšený ekonomický systém</strong>. U každého uveďte hlavní principy a jednu výhodu a nevýhodu.</div>
+      </div>
+      <span class="q-points">3 b</span>
+    </div>
+    <textarea class="q-answer" placeholder="Tvoje odpověď…"></textarea>
+  </div>
+
+  <div class="question" data-q="4" data-points="3">
+    <div class="q-header">
+      <div class="q-num">4</div>
+      <div class="q-body">
+        <div class="q-text">Co je <strong>HDP</strong> a <strong>HNP</strong>? Jaký je mezi nimi rozdíl? Popište alespoň dvě metody výpočtu HDP.</div>
+        <div class="q-hint">Nápověda: výdajová, důchodová, produkční metoda</div>
+      </div>
+      <span class="q-points">3 b</span>
+    </div>
+    <textarea class="q-answer" placeholder="Tvoje odpověď…"></textarea>
+  </div>
+
+  <div class="question" data-q="5" data-points="3">
+    <div class="q-header">
+      <div class="q-num">5</div>
+      <div class="q-body">
+        <div class="q-text">Vysvětlete princip <strong>ekonomického koloběhu</strong>. Kdo jsou jeho hlavní aktéři? Co jsou <strong>úniky</strong> a <strong>injekce</strong> – uveďte příklady obou.</div>
+      </div>
+      <span class="q-points">3 b</span>
+    </div>
+    <textarea class="q-answer" placeholder="Tvoje odpověď…"></textarea>
+  </div>
+
+  <div class="question" data-q="6" data-points="3">
+    <div class="q-header">
+      <div class="q-num">6</div>
+      <div class="q-body">
+        <div class="q-text">Definujte <strong>inflaci</strong>. Popište její typy podle tempa (mírná, pádivá, hyperinflace) a uveďte alespoň dvě příčiny a dva dopady inflace na ekonomiku.</div>
+      </div>
+      <span class="q-points">3 b</span>
+    </div>
+    <textarea class="q-answer" placeholder="Tvoje odpověď…"></textarea>
+  </div>
+
+  <div class="question" data-q="7" data-points="2">
+    <div class="q-header">
+      <div class="q-num">7</div>
+      <div class="q-body">
+        <div class="q-text">Jaké existují <strong>typy nezaměstnanosti</strong>? (frikční, strukturální, cyklická, sezónní) Stručně vysvětlete každý typ a uveďte, která nezaměstnanost je pro ekonomiku přijatelná a proč.</div>
+      </div>
+      <span class="q-points">2 b</span>
+    </div>
+    <textarea class="q-answer" placeholder="Tvoje odpověď…"></textarea>
+  </div>
+
+  <div class="question" data-q="8" data-points="2">
+    <div class="q-header">
+      <div class="q-num">8</div>
+      <div class="q-body">
+        <div class="q-text">Vyjmenujte alespoň <strong>čtyři mezinárodní ekonomické organizace</strong> (WTO, MMF, Světová banka, EU, OECD, …) a u každé napište její hlavní funkci.</div>
+      </div>
+      <span class="q-points">2 b</span>
+    </div>
+    <textarea class="q-answer" placeholder="Tvoje odpověď…"></textarea>
+  </div>
+
+</div><!-- /.content -->
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <div class="progress-wrap">
+    <div>
+      <div class="progress-text" id="progressText">0 / 8 zodpovězeno</div>
+      <div class="progress-pts" id="progressPts">0 / 20 bodů</div>
+    </div>
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner" id="progressBar" style="width:0%"></div>
+    </div>
+  </div>
+  <div class="bar-actions">
+    <button class="btn-clear" onclick="clearAll()">🗑 Vymazat</button>
+    <button class="btn-copy" id="copyBtn" onclick="copyForClaude()">📋 Kopírovat pro Clauda</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     JAVASCRIPT — copy this block verbatim to every test file.
+     Only TEST_ID needs to change (matches mat-test-id meta tag).
+     ════════════════════════════════════════════════════════════════ -->
+<script>
+// ── Config — derived from meta tags (do NOT hardcode) ────────────────────
+const _testIdMeta = document.querySelector('meta[name="mat-test-id"]');
+const _titleMeta  = document.querySelector('meta[name="mat-title"]');
+const _numMeta    = document.querySelector('meta[name="mat-num"]');
+const _subjMeta   = document.querySelector('meta[name="mat-subject"]');
+const _ptsMeta    = document.querySelector('meta[name="mat-points"]');
+
+const TEST_ID     = _testIdMeta ? _testIdMeta.content : 'unknown';
+const NOTE_TITLE  = _titleMeta  ? _titleMeta.content  : document.title;
+const NOTE_NUM    = _numMeta    ? _numMeta.content     : '?';
+const NOTE_SUBJ   = _subjMeta   ? _subjMeta.content    : 'eko';
+const TOTAL_PTS   = _ptsMeta    ? parseInt(_ptsMeta.content) : 0;
+const SUBJ_LABEL  = { eko:'Ekonomika', it:'Informační technologie', lit:'Literatura' };
+
+// ── Dark mode ─────────────────────────────────────────────────────────────
+function applyDark() {
+  const on = localStorage.getItem('mat-dark') === '1';
+  document.body.classList.toggle('dark', on);
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = on ? '☀ Světlý' : '🌙 Tmavý';
+}
+function toggleDark() {
+  const on = document.body.classList.toggle('dark');
+  localStorage.setItem('mat-dark', on ? '1' : '0');
+  const btn = document.getElementById('darkBtn');
+  if (btn) btn.textContent = on ? '☀ Světlý' : '🌙 Tmavý';
+}
+window.addEventListener('storage', e => { if (e.key === 'mat-dark') applyDark(); });
+applyDark();
+
+// ── localStorage key ──────────────────────────────────────────────────────
+const ansKey = n => `mat-test::${TEST_ID}::q${n}`;
+
+// ── Load saved answers + wire up auto-save ────────────────────────────────
+document.querySelectorAll('.question').forEach(q => {
+  const n  = q.dataset.q;
+  const ta = q.querySelector('.q-answer');
+  if (!ta) return;
+  ta.value = localStorage.getItem(ansKey(n)) || '';
+  if (ta.value.trim()) q.classList.add('answered');
+  ta.addEventListener('input', () => {
+    localStorage.setItem(ansKey(n), ta.value);
+    q.classList.toggle('answered', ta.value.trim().length > 0);
+    updateProgress();
+  });
+});
+
+// ── Progress ──────────────────────────────────────────────────────────────
+function updateProgress() {
+  const questions = Array.from(document.querySelectorAll('.question'));
+  const total     = questions.length;
+  const answered  = questions.filter(q =>
+    (q.querySelector('.q-answer')?.value || '').trim().length > 0).length;
+
+  // Earned points
+  const pts = questions.reduce((sum, q) => {
+    const filled = (q.querySelector('.q-answer')?.value || '').trim().length > 0;
+    return sum + (filled ? parseInt(q.dataset.points || 0) : 0);
+  }, 0);
+
+  const pct = total > 0 ? Math.round(answered / total * 100) : 0;
+
+  document.getElementById('progressText').textContent = `${answered} / ${total} zodpovězeno`;
+  document.getElementById('progressPts').textContent  = `${pts} / ${TOTAL_PTS} bodů`;
+  const bar = document.getElementById('progressBar');
+  bar.style.width = pct + '%';
+  bar.classList.toggle('done', answered === total);
+
+  // Persist progress summary for practice.html cards
+  localStorage.setItem(`mat-test::${TEST_ID}::progress`,
+    JSON.stringify({ answered, total, pts, totalPts: TOTAL_PTS }));
+}
+updateProgress();
+
+// ── Clear all ─────────────────────────────────────────────────────────────
+function clearAll() {
+  if (!confirm('Vymazat všechny odpovědi?')) return;
+  document.querySelectorAll('.question').forEach(q => {
+    const n  = q.dataset.q;
+    const ta = q.querySelector('.q-answer');
+    if (ta) ta.value = '';
+    q.classList.remove('answered');
+    localStorage.removeItem(ansKey(n));
+  });
+  updateProgress();
+}
+
+// ── Copy for Claude ───────────────────────────────────────────────────────
+function copyForClaude() {
+  const questions = Array.from(document.querySelectorAll('.question'));
+  const answered  = questions.filter(q =>
+    (q.querySelector('.q-answer')?.value || '').trim().length > 0).length;
+  const date = new Date().toLocaleDateString('cs-CZ',
+    { day:'numeric', month:'long', year:'numeric' });
+
+  const divider = '═'.repeat(52);
+  const thin    = '─'.repeat(52);
+
+  let out = '';
+  out += `📚 Maturitní pracovní list\n`;
+  out += `Předmět: ${SUBJ_LABEL[NOTE_SUBJ] || NOTE_SUBJ} — Otázka ${NOTE_NUM}: ${NOTE_TITLE}\n`;
+  out += `Datum: ${date} | Zodpovězeno: ${answered} / ${questions.length} otázek\n`;
+  out += `${divider}\n\n`;
+  out += `Zkontroluj prosím moje odpovědi. U každé otázky mi řekni:\n`;
+  out += `  ✓ co mám správně\n`;
+  out += `  ✗ co mám špatně nebo nepřesně\n`;
+  out += `  + co mi chybí nebo by stálo za zmínku\n\n`;
+
+  questions.forEach((q, i) => {
+    const num     = q.dataset.q || (i + 1);
+    const pts     = q.dataset.points;
+    const text    = (q.querySelector('.q-text')?.innerText || '').trim();
+    const answer  = (q.querySelector('.q-answer')?.value  || '').trim();
+
+    out += `${thin}\n`;
+    out += `Otázka ${num}`;
+    if (pts) out += ` [${pts} b]`;
+    out += `: ${text}\n\n`;
+    out += `Moje odpověď:\n${answer || '(nevyplněno)'}\n\n`;
+  });
+
+  navigator.clipboard.writeText(out).then(() => {
+    showToast('✓ Zkopírováno do schránky');
+    const btn = document.getElementById('copyBtn');
+    btn.classList.add('success');
+    btn.textContent = '✓ Zkopírováno';
+    setTimeout(() => {
+      btn.classList.remove('success');
+      btn.innerHTML = '📋 Kopírovat pro Clauda';
+    }, 2500);
+  }).catch(() => showToast('Chyba — zkus znovu'));
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+</script>
+</body>
+</html>

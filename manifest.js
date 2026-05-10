@@ -13,6 +13,7 @@ window.MAT_MANIFEST = {
     "06_Dlouhodoby_majetek.html",
     "07_Pracovnepravni_vztahy.html",
     "08_Financovani.html",
+    "09_Hlavni_cinnost.html",
   ],
 
   it: [
@@ -24,5 +25,12 @@ window.MAT_MANIFEST = {
 
   lit: [
   ],
+
+  // ── Test files (pracovní listy) ────────────────────────────────────────
+  // key   : mat-test-id value embedded in the test file
+  // value : path relative to Helper/ root
+  tests: {
+    "eko-01": "notes/EKO/01_Narodni_hospodarstvi_test.html",
+  },
 
 };
