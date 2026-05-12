@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="cs">
-<head>
+<html lang="cs"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="mat-subject" content="eko">
-<meta name="mat-num"     content="9">
-<meta name="mat-title"   content="Hlavní činnost výrobního podniku">
+<meta name="mat-num" content="9">
+<meta name="mat-title" content="Hlavní činnost výrobního podniku">
 <title>Hlavní činnost výrobního podniku – Maturita 2026</title>
 <style>
   :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
@@ -81,18 +80,17 @@
   </div>
   <div class="header-right">
     <span class="badge">Otázka 9 / 20</span>
-    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+
     <span class="flag-summary" id="flagSummary"></span>
   </div>
 </div>
 
 <!-- 1. VÝROBA -->
 <div class="section" data-sec="1">
-  <h2><span class="num">1</span> Výroba – definice a typy
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-blue">
+    <h2>Výroba – definice a typy
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
     <p><span class="kw">Výroba</span> = lidská činnost přeměňující vstupy (práce, půda, kapitál) na výstupy (výrobky, služby). Je hlavní složkou hospodářského procesu — rozdělit lze pouze to, co se vyrobilo.</p>
   </div>
 
@@ -101,7 +99,7 @@
     <div class="card"><strong>Hlavní výroba</strong>Soubor operací přímo měnících složení, jakost surovin a materiálů. Výrobní proces v souladu s výrobním plánem podniku.</div>
     <div class="card"><strong>Vedlejší výroba</strong>Zabezpečuje všechny druhy energií (např. výroba elektrické energie pro vlastní potřebu).</div>
     <div class="card"><strong>Pomocná výroba</strong>Výroba výrobků a realizace procesů potřebných pro hlavní výrobu (údržbářské práce, náhradní díly).</div>
-    <div class="card"><strong>Přidružená výroba</strong>Realizace výroby <em>bezprostředně nesouvisející</em> s výrobním plánem podniku — využití volných kapacit.</div>
+    <div class="card"><strong>Přidružená výroba</strong>Realizace výroby <em>bezprostředně nesouvisející</em> s výrobním plánem podniku</div>
   </div>
 
   <h3>Typy výroby podle rozsahu sortimentu a objemu</h3>
@@ -142,24 +140,19 @@
 
   <h3>Srovnávací tabulka</h3>
   <table class="tbl">
-    <tr><th>Kritérium</th><th>Hromadná</th><th>Sériová</th><th>Kusová</th></tr>
+    <tbody><tr><th>Kritérium</th><th>Hromadná</th><th>Sériová</th><th>Kusová</th></tr>
     <tr><td>Počet druhů</td><td>Malý</td><td>Střední</td><td>Velký</td></tr>
     <tr><td>Objem výroby</td><td>Velký</td><td>Střední</td><td>Malý</td></tr>
     <tr><td>Stroje</td><td>Jednoúčelové</td><td>Specializované</td><td>Univerzální</td></tr>
     <tr><td>Kvalifikace</td><td>Nízká</td><td>Střední</td><td>Vysoká</td></tr>
     <tr><td>Náklady/ks</td><td>Nejnižší</td><td>Střední</td><td>Nejvyšší</td></tr>
     <tr><td>Produktivita</td><td>Nejvyšší</td><td>Střední</td><td>Nejnižší</td></tr>
-  </table>
-</div>
-
-<!-- 2. VÝROBNÍ PROCES -->
-<!-- 2. VÝROBNÍ ČINNOST -->
-<div class="section" data-sec="2">
-  <h2><span class="num">2</span> Výrobní činnost
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-teal">
+  </tbody></table>
+  </div><div class="section" data-sec="2">
+    <h2>Výrobní činnost
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
     <p><span class="kw">Výrobní činnost</span> = souhrn všech aktivit výrobního podniku směřujících k přeměně vstupů na výstupy. Zahrnuje přípravu výroby, samotný výrobní proces i odbyt hotových výrobků.</p>
   </div>
 
@@ -169,15 +162,11 @@
     <div class="card"><strong>Výrobní plán</strong>Konkrétní plán výroby na dané období — typy a množství výrobků, termíny, kapacity. Základ pro plánování materiálu, práce a investic.</div>
     <div class="card"><strong>Výrobní kapacita</strong>Maximální výkon, který může podnik dosáhnout za optimálních podmínek. Podrobněji viz sekce 5.</div>
   </div>
-</div>
-
-<!-- 3. VÝROBNÍ PROCES -->
-<div class="section" data-sec="3b">
-  <h2><span class="num">3</span> Výrobní proces a jeho členění
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-teal">
+  </div><div class="section" data-sec="3">
+    <h2>Výrobní proces a jeho členění
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
     <p><span class="kw">Výrobní proces</span> = soubor jednotlivých navazujících aktivit ve výrobě, při nichž dochází k přeměně výrobních faktorů na statky a služby. Řízením procesů se zabývá <span class="kw">procesní management</span>.</p>
   </div>
 
@@ -211,15 +200,11 @@
     <div class="card"><strong>Doplňková výroba</strong>Využití výrobní kapacity — snaha o co nejvyšší efektivnost</div>
     <div class="card"><strong>Přidružená výroba</strong>Nesouvisí se základní výrobou (předmětem podnikání)</div>
   </div>
-</div>
-
-<!-- 4. ETAPY VÝROBY -->
-<div class="section" data-sec="4">
-  <h2><span class="num">4</span> Etapy výroby a příprava výroby
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <h3>Tři etapy výrobního procesu</h3>
+  </div><div class="section" data-sec="4">
+    <h2>Etapy výroby a příprava výroby
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <h3>Tři etapy výrobního procesu</h3>
   <div style="margin-top:.5rem;">
     <div class="etapa-row">
       <div class="etapa-num">1</div>
@@ -255,15 +240,11 @@
       Které útvary a pracoviště budou výrobu zabezpečovat, jak se práce rozdělí
     </div>
   </div>
-</div>
-
-<!-- 4. VÝROBNÍ CYKLUS -->
-<div class="section" data-sec="5">
-  <h2><span class="num">4</span> Výrobní cyklus
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <p style="margin-bottom:.75rem;">Výrobní cyklus = doba od zahájení výroby první součástky po dokončení celého výrobku. Způsob organizace výroby ovlivňuje délku cyklu a potřebu kapitálu.</p>
+  </div><div class="section" data-sec="5">
+    <h2>Výrobní cyklus
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <p style="margin-bottom:.75rem;">Výrobní cyklus = doba od zahájení výroby první součástky po dokončení celého výrobku. Způsob organizace výroby ovlivňuje délku cyklu a potřebu kapitálu.</p>
 
   <div class="grid3" style="margin-top:.5rem;">
     <div class="cc-blue">
@@ -282,15 +263,11 @@
       <p style="margin-top:.5rem;font-size:13px;">Nejčastěji používaný v praxi — přizpůsobuje se konkrétním podmínkám výroby.</p>
     </div>
   </div>
-</div>
-
-<!-- 5. VÝROBNÍ KAPACITA -->
-<div class="section" data-sec="6">
-  <h2><span class="num">5</span> Výrobní kapacita
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-blue">
+  </div><div class="section" data-sec="6">
+    <h2>Výrobní kapacita
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
     <p><span class="kw">Výrobní kapacita</span> = maximální dosažitelný objem produkce, který může stroj nebo podnik vyrobit za <span class="kw">optimálních podmínek</span>. Vyjadřuje se v hmotných jednotkách (ks, kg, l).</p>
   </div>
 
@@ -312,15 +289,11 @@
   <div class="accent-teal" style="margin-top:.75rem;">
     <p><span class="kw">Cíl:</span> dosáhnout co nejvyššího <span class="kw">využití výrobní kapacity</span> — nevyužitá kapacita = zbytečné náklady (odpisy, nájemné, mzdy). Proto existuje doplňková a přidružená výroba.</p>
   </div>
-</div>
-
-<!-- 6. KVALITA VE VÝROBĚ -->
-<div class="section" data-sec="7">
-  <h2><span class="num">6</span> Kvalita ve výrobě
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-teal">
+  </div><div class="section" data-sec="7">
+    <h2>Kvalita ve výrobě
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
     <p><span class="kw">Kvalita (jakost)</span> = souhrn všech užitných vlastností výrobku — funkčnost, ovladatelnost, trvanlivost, hygieničnost, bezpečnost, estetické působení.</p>
   </div>
 
@@ -340,15 +313,11 @@
       <p style="margin-top:.5rem;font-size:13px;">Formy: vstupní kontrola · mezioperační kontrola · výstupní kontrola</p>
     </div>
   </div>
-</div>
-
-<!-- 7. EKOLOGIE VE VÝROBĚ -->
-<div class="section" data-sec="8">
-  <h2><span class="num">7</span> Ekologie ve výrobě
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-green" style="border-left:3px solid #27500A;padding-left:12px;margin:.5rem 0;">
+  </div><div class="section" data-sec="8">
+    <h2>Ekologie ve výrobě
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-green" style="border-left:3px solid #27500A;padding-left:12px;margin:.5rem 0;">
     <p>Efektivnost výroby nelze chápat odděleně od ekologie. Moderní výroba musí respektovat podmínky <span class="kw">trvale udržitelného rozvoje (TUR)</span>.</p>
   </div>
 
@@ -369,15 +338,11 @@
       <p style="margin-top:.5rem;font-size:13px;">Označení: ekoznačka (Ecolabel EU, Zelený bod…)</p>
     </div>
   </div>
-</div>
-
-<!-- 8. OCHRANA SPOTŘEBITELE -->
-<div class="section" data-sec="9">
-  <h2><span class="num">8</span> Ochrana spotřebitele
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-blue">
+  </div><div class="section" data-sec="9">
+    <h2>Ochrana spotřebitele
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
     <p>Právní předpisy na ochranu spotřebitele vymezují jeho základní práva — spotřebitel je slabší stranou trhu a potřebuje právní ochranu vůči silnějším obchodníkům a výrobcům.</p>
   </div>
 
@@ -429,7 +394,32 @@
     <span class="tag t-blue">Právo na vzdělání (spotřebitelská gramotnost)</span>
     <span class="tag t-amber">Právo na zdravé ŽP</span>
   </div>
-</div>
+  </div>
+
+<!-- 2. VÝROBNÍ PROCES -->
+<!-- 2. VÝROBNÍ ČINNOST -->
+
+
+<!-- 3. VÝROBNÍ PROCES -->
+
+
+<!-- 4. ETAPY VÝROBY -->
+
+
+<!-- 4. VÝROBNÍ CYKLUS -->
+
+
+<!-- 5. VÝROBNÍ KAPACITA -->
+
+
+<!-- 6. KVALITA VE VÝROBĚ -->
+
+
+<!-- 7. EKOLOGIE VE VÝROBĚ -->
+
+
+<!-- 8. OCHRANA SPOTŘEBITELE -->
+
 
 <div class="note-footer">ITE 4.B &nbsp;·&nbsp; Maturita 2026 &nbsp;·&nbsp; Ekonomika – Otázka 9</div>
 </div>
@@ -449,5 +439,6 @@ function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec
 function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
 applyDark();loadFlags();
 </script>
-</body>
-</html>
+
+
+</body></html>

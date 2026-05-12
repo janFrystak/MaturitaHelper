@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="cs"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="eko">
+<meta name="mat-num" content="11">
+<meta name="mat-title" content="Hospodářská politika státu">
+<title>Hospodářská politika státu – Maturita 2026</title>
+<style>
+  :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
+  body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;--flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto;}
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px;}
+  .header p{font-size:13px;color:var(--text-muted);}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .badge{background:var(--blue-light);color:var(--blue-dark);border:0.5px solid #B5D4F4;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .dark-btn{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;}
+  .dark-btn:hover{color:var(--text);}
+  .flag-summary{display:none;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .flag-summary.visible{display:inline-block;}
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em;}
+  p,li{font-size:14px;color:var(--text-muted);}
+  ul{padding-left:1.2rem;}
+  li{margin-bottom:4px;}
+  .kw{font-weight:600;color:var(--text);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-green{background:var(--green-light);border:0.5px solid #B5DCA0;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-teal strong{color:var(--teal-dark);}.cc-blue strong{color:var(--blue-dark);}.cc-amber strong{color:var(--amber-dark);}.cc-coral strong{color:var(--coral-dark);}.cc-green strong{color:var(--green-dark);}
+  .accent-blue{border-left:3px solid #378ADD;padding-left:12px;margin:.5rem 0;}
+  .accent-teal{border-left:3px solid #1D9E75;padding-left:12px;margin:.5rem 0;}
+  .accent-amber{border-left:3px solid #EF9F27;padding-left:12px;margin:.5rem 0;}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:5px;}
+  .t-teal{background:var(--teal-light);color:var(--teal-dark);}.t-blue{background:var(--blue-light);color:var(--blue-dark);}.t-amber{background:var(--amber-light);color:var(--amber-dark);}.t-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .tbl{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:600;padding:6px 8px;border:0.5px solid var(--gray-border);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;color:var(--text-muted);}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+  /* cycle */
+  .cycle-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.5rem;}
+  .cycle-arrow{text-align:center;font-size:22px;color:var(--text-faint);display:flex;align-items:center;justify-content:center;padding:.4rem 0;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.8rem 0;}
+  @media(max-width:620px){.grid2,.grid3,.grid4,.cycle-grid{grid-template-columns:1fr;}.header{flex-direction:column;}}
+  @media print{body{background:white;padding:1rem;}.sec-flag,.dark-btn{display:none;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Hospodářská politika státu</h1>
+    <p>Maturitní otázka č. 11 &nbsp;·&nbsp; Ekonomika &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+    <p style="margin-top:5px;">Definice · Cíle · Nositelé · Hospodářský cyklus · Monetární politika · Fiskální politika · Vnější měnová politika · Demokracie</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">Otázka 11 / 20</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- 1. DEFINICE A CÍLE -->
+<div class="section" data-sec="1">
+    <h2>Hospodářská politika – definice, funkce a cíle
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Hospodářská politika</span> = souhrn hospodářsko-politických zásad a nástrojů, pomocí kterých stát působí na národní hospodářství za účelem dosahování ekonomických a sociálních cílů.</p>
+  </div>
+
+  <h3>Funkce hospodářské politiky (činnosti státu)</h3>
+  <div class="grid4" style="margin-top:.5rem;">
+    <div class="card"><strong>Legislativní</strong>Vytváří právní rámec (zákony) pro účastníky trhu</div>
+    <div class="card"><strong>Regulační</strong>Vytváří fiskální politiku a ovlivňuje monetární politiku</div>
+    <div class="card"><strong>Redistribuční</strong>Ovlivňuje rozdělování důchodů, dávek a přesuny zdrojů</div>
+    <div class="card"><strong>Kupující</strong>Stát vystupuje jako nakupující (zakázky na silnice, nemocnice…)</div>
+  </div>
+
+  <h3>Cíle hospodářské politiky – magický čtyřúhelník</h3>
+  <div class="grid4" style="margin-top:.5rem;">
+    <div class="cc-teal"><strong>a) Ekonomický růst</strong>Růst reálného produktu (HDP)</div>
+    <div class="cc-blue"><strong>b) Nízká nezaměstnanost</strong>Co nejvyšší zaměstnanost</div>
+    <div class="cc-amber"><strong>c) Cenová stabilita</strong>Zabránění neočekávaným cenovým šokům, nízká inflace</div>
+    <div class="cc-coral"><strong>d) Vyrovnaná platební bilance</strong>Rovnováha vůči zahraničí</div>
+  </div>
+  <p style="margin-top:.6rem;font-size:13px;color:var(--text-muted);">Tyto čtyři cíle jsou <span class="kw">vzájemně v rozporu</span> — dosáhnout všech najednou je téměř nemožné (např. expanzivní politika snižuje nezaměstnanost, ale způsobuje inflaci). Proto se označují jako <span class="kw">magický čtyřúhelník</span>.</p>
+  </div><div class="section" data-sec="2">
+    <h2>Nositelé hospodářské politiky
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
+    <p><span class="kw">Nositelé HP</span> = subjekty podílející se na formulování, provádění a kontrole hospodářské politiky.</p>
+  </div>
+
+  <table class="tbl">
+    <tbody><tr><th>Fáze</th><th>Nositelé</th></tr>
+    <tr><td><strong>Formulování HP</strong></td><td>Politické strany · vláda · parlament · centrální banka · zájmové skupiny a komory</td></tr>
+    <tr><td><strong>Realizace HP</strong></td><td>Vláda · centrální banka · státní správa · soudy · zájmové skupiny</td></tr>
+    <tr><td><strong>Kontrola HP</strong></td><td>Nejvyšší kontrolní úřad (NKÚ) · parlament · veřejnost</td></tr>
+  </tbody></table>
+  </div><div class="section" data-sec="3">
+    <h2>Vývoj hospodářské politiky – hlavní ekonomické směry
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="grid3" style="margin-top:.4rem;">
+    <div class="cc-blue">
+      <strong>Klasická ekonomie</strong>
+      <p style="font-size:13px;margin-top:.3rem;">Představitel: <span class="kw">Adam Smith</span></p>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Zastánce <span class="kw">svobodného trhu</span></li>
+        <li>Odmítal centrální řízení</li>
+        <li><span class="kw">„Neviditelná ruka trhu"</span> — jedinec sledující vlastní zájem zároveň prospívá celé společnosti</li>
+        <li>Stát by neměl zasahovat do ekonomiky</li>
+      </ul>
+    </div>
+    <div class="cc-amber">
+      <strong>Keynesiánství</strong>
+      <p style="font-size:13px;margin-top:.3rem;">Představitel: <span class="kw">John Maynard Keynes</span></p>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Největší zlo = <span class="kw">nezaměstnanost</span></li>
+        <li>Stát má zasahovat do ekonomiky a omezovat výkyvy hospodářského cyklu</li>
+        <li>V krizi: stát zvýší výdaje (veřejné zakázky) → práce → HDP</li>
+        <li>Vzniklý schodek se vyrovná z daní v době růstu</li>
+      </ul>
+    </div>
+    <div class="cc-teal">
+      <strong>Liberalismus (Monetarismus)</strong>
+      <p style="font-size:13px;margin-top:.3rem;">Představitel: <span class="kw">Milton Friedman</span></p>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Volný trh — stát nemá zasahovat do ekonomiky</li>
+        <li>Jedinou rolí státu: <span class="kw">regulovat inflaci</span></li>
+        <li>Inflaci způsobuje nadměrný růst peněz v oběhu</li>
+        <li>CB má vydávat peníze <em>mírně a plynule</em> → téměř nulová inflace</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Typy hospodářské politiky</h3>
+  <table class="tbl">
+    <tbody><tr><th>Typ</th><th>Přístup</th><th>Hlavní cíl</th><th>Nástroj</th></tr>
+    <tr><td><strong>Konzervativní</strong></td><td>Volná ruka trhu, minimum státních zásahů</td><td>Cenová stabilita</td><td>Monetární politika</td></tr>
+    <tr><td><strong>Keynesiánský</strong></td><td>Stát aktivně ovlivňuje ekonomiku</td><td>Zaměstnanost</td><td>Státní rozpočet (fiskální politika)</td></tr>
+    <tr><td><strong>Neokeynesiánský</strong></td><td>Kombinace obou přístupů</td><td>Zaměstnanost + cenová stabilita</td><td>Kombinace monetární + fiskální</td></tr>
+  </tbody></table>
+  </div><div class="section" data-sec="4">
+    <h2>Monetární (měnová) politika
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Monetární politika</span> = činnost CB zaměřená na kontrolu množství peněz v ekonomice a regulaci úrokové míry. Cíl: ovlivnit zaměstnanost, cenovou stabilitu, ekonomický růst a platební bilanci.</p>
+  </div>
+
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-teal">
+      <strong>Expanzivní monetární politika</strong>
+      CB <span class="kw">zvyšuje nabídku peněz</span> → klesá úroková míra → levnější úvěry → více investic → roste HDP a zaměstnanost. Riziko: inflace.
+      <p style="font-size:13px;margin-top:.5rem;">Používá se při: recesi, vysoké nezaměstnanosti</p>
+    </div>
+    <div class="cc-coral">
+      <strong>Restriktivní monetární politika</strong>
+      CB <span class="kw">snižuje nabídku peněz</span> → roste úroková míra → dražší úvěry → méně investic → tlumí inflaci. Riziko: zpomalení ekonomiky.
+      <p style="font-size:13px;margin-top:.5rem;">Používá se při: přehřáté ekonomice, vysoké inflaci</p>
+    </div>
+  </div>
+
+  <h3>Nástroje monetární politiky</h3>
+  <table class="tbl">
+    <tbody><tr><th>Nástroj</th><th>Popis</th><th>Restriktivní</th><th>Expanzivní</th></tr>
+    <tr>
+      <td><strong>Povinné min. rezervy</strong></td>
+      <td>% z přijatých vkladů, které musí KB uložit u CB — nemohou je půjčovat</td>
+      <td>Zvýšení PMR</td>
+      <td>Snížení PMR</td>
+    </tr>
+    <tr>
+      <td><strong>Operace na volném trhu</strong></td>
+      <td>Nákup/prodej státních cenných papírů (repo operace)</td>
+      <td>Prodej CP (odčerpá peníze)</td>
+      <td>Nákup CP (vpustí peníze)</td>
+    </tr>
+    <tr>
+      <td><strong>Diskontní politika</strong></td>
+      <td>Diskontní sazba = úr. míra, za kterou CB půjčuje KB. Lombardní sazba = úvěry kryté zástavou. Diskontní sazba = úročení depozit KB u CB.</td>
+      <td>Zvýšení sazeb</td>
+      <td>Snížení sazeb</td>
+    </tr>
+  </tbody></table>
+
+  <div class="cc-green" style="margin-top:.75rem;">
+    <strong>Příklad použití:</strong>
+    <p style="font-size:13px;margin-top:.3rem;">Ekonomika v recesi → CB použije <strong>expanzivní opatření</strong> → sníží diskontní sazbu → KB si levněji půjčí od CB → KB levněji půjčí podnikům → rostou investice → roste produkce → klesá nezaměstnanost → ekonomika se zotavuje.</p>
+    <p style="font-size:13px;margin-top:.3rem;"><strong>Restriktivní opatření</strong> se naopak používají při vysoké inflaci — zdraží úvěry, firmy a domácnosti méně utrácejí, tlak na ceny klesá.</p>
+  </div>
+  </div><div class="section" data-sec="5">
+    <h2>Fiskální (rozpočtová) politika
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Fiskální politika</span> = cílené využívání příjmů a výdajů státního rozpočtu za účelem ovlivňování zaměstnanosti, cenové stability, ekonomického růstu a platební bilance.</p>
+  </div>
+
+  <h3>Státní rozpočet</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Příjmy státního rozpočtu</strong>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li><span class="kw">Daně</span> — většina příjmů (DPH, DPFO, DPPO, spotřební daně…)</li>
+        <li>Cla · poplatky · pokuty · penále</li>
+        <li>Příjmy z prodeje státního majetku</li>
+      </ul>
+      <p style="font-size:12px;margin-top:.5rem;"><strong>Typy daňových sazeb:</strong> progresivní (vyšší příjem = vyšší sazba, DPFO) · lineární/konstantní (stejná sazba, DPPO) · degresivní (s růstem příjmu podíl daně klesá)</p>
+    </div>
+    <div class="cc-amber">
+      <strong>Výdaje státního rozpočtu</strong>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li><span class="kw">Nákup výrobků a služeb</span> — budovy, policie, školství, zdravotnictví, obrana</li>
+        <li><span class="kw">Transferové platby</span> — výdaje, za něž stát nezíská protihodnotu; sociální povaha: důchody, podpory v nezaměstnanosti, sociální dávky, přídavky na děti</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Saldo státního rozpočtu</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-teal"><strong>Vyrovnaný</strong>Příjmy = Výdaje</div>
+    <div class="cc-blue"><strong>Přebytkový</strong>Příjmy &gt; Výdaje</div>
+    <div class="cc-coral"><strong>Deficitní</strong>Příjmy &lt; Výdaje → musí se krýt půjčkami → vzniká <span class="kw">veřejný dluh</span></div>
+  </div>
+
+  <div class="grid2" style="margin-top:8px;">
+    <div class="card"><strong>Cyklický deficit</strong>Důsledek kolísání HDP — vzniká v recesi (klesají daňové příjmy, rostou sociální výdaje). Přechod do expanze ho sám odstraní.</div>
+    <div class="card"><strong>Strukturální deficit</strong>Nebezpečnější — závisí na rozhodnutích vlády, ne na cyklu. Přetrvává i v době růstu. Hromadí se → veřejný dluh.</div>
+  </div>
+
+  <div class="accent-amber" style="margin-top:.75rem;">
+    <p><span class="kw">Veřejný dluh</span> = nahromaděné deficity minulých let. Vnitřní dluh = vůči domácím subjektům. Vnější dluh = vůči zahraničí. Příliš vysoký dluh → riziko <span class="kw">státního bankrotu</span> → mezinárodní dohled (MMF).</p>
+  </div>
+
+  <h3>Nástroje fiskální politiky</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card">
+      <strong>Vestavěné stabilizátory</strong>
+      Fungují automaticky a samočinně po zavedení — bez vědomého rozhodnutí vlády.
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Progresivní zdanění příjmů (v recesi klesají příjmy → automaticky klesají i daně)</li>
+        <li>Pojištění v nezaměstnanosti (v recesi automaticky roste)</li>
+        <li>Státní výkup zemědělských přebytků</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Záměrná (diskrétní) opatření</strong>
+      Vyžadují vědomé jednorázové rozhodnutí vlády.
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Stanovení minimální mzdy</li>
+        <li>Změna daňové sazby</li>
+        <li>Rozhodnutí o nových veřejných zakázkách</li>
+        <li>Změna výše sociálních dávek</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Expanzivní vs. restriktivní fiskální politika</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-teal">
+      <strong>Expanzivní fiskální politika</strong>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li><span class="kw">Zvýšení vládních výdajů</span> → více veřejných zakázek → roste poptávka → roste HDP</li>
+        <li><span class="kw">Snížení daní pro domácnosti</span> → vyšší kupní síla → více nákupů → roste HDP</li>
+        <li><span class="kw">Snížení daní pro podniky</span> → více prostředků na investice → roste výroba</li>
+        <li>Cíl: stimulovat ekonomiku, snížit nezaměstnanost</li>
+      </ul>
+    </div>
+    <div class="cc-coral">
+      <strong>Restriktivní fiskální politika</strong>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li><span class="kw">Snížení vládních výdajů</span> → méně veřejných zakázek → klesá poptávka</li>
+        <li><span class="kw">Zvýšení daní</span> → nižší kupní síla a investice → tlumení ekonomiky</li>
+        <li>Cíl: tlumení inflace, snižování schodku rozpočtu</li>
+        <li>Riziko: vysoké daně brzdí aktivitu podnikatelů, vyvolávají daňové úniky</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Rozpočtové zásady</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem;">
+    <span class="tag t-blue">Jednotnost — vše v 1 dokumentu</span>
+    <span class="tag t-blue">Úplnost — příjmy i výdaje v plném rozsahu</span>
+    <span class="tag t-teal">Každoroční sestavování a schvalování</span>
+    <span class="tag t-teal">Publicita — zveřejňování</span>
+    <span class="tag t-amber">Reálnost — zákaz zkreslování</span>
+    <span class="tag t-amber">Vyrovnanost — výdaje kryty příjmy bez půjček</span>
+  </div>
+
+  <h3>Rozpočtový proces</h3>
+  <div class="grid4" style="margin-top:.5rem;">
+    <div class="card"><strong>1. Sestavení</strong>Ministerstvo financí sestaví návrh a předloží vládě</div>
+    <div class="card"><strong>2. Schvalování</strong>Vláda předloží sněmovně max. 3 měs. před začátkem roku. 3 čtení. Pokud neschválen → <span class="kw">rozpočtové provizorium</span> (rozpočet z minulého roku)</div>
+    <div class="card"><strong>3. Realizace</strong>V pravomoci vlády. Po pololetí zpráva sněmovně o plnění.</div>
+    <div class="card"><strong>4. Kontrola</strong>Závěrečná zpráva sněmovně nejpozději do <span class="kw">30. 4.</span> následujícího roku</div>
+  </div>
+  </div><div class="section" data-sec="6">
+    <h2>Vnější měnová politika
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Vnější měnová politika</span> = zabezpečení stability měnového kurzu, který ovlivňuje ceny dováženého a vyváženého zboží.</p>
+  </div>
+
+  <table class="tbl">
+    <tbody><tr><th>Pohyb kurzu</th><th>Vliv na vývoz</th><th>Vliv na dovoz</th><th>Kdo vydělá / prodělá</th></tr>
+    <tr>
+      <td><strong>Znehodnocení (depreciace) Kč</strong></td>
+      <td>✓ Podporuje vývoz — naše zboží v cizí měně zlevní</td>
+      <td>✗ Omezuje dovoz — zahraniční zboží zdraží</td>
+      <td>Vývozcům kursovní zisky · dovozcům kursovní ztráty</td>
+    </tr>
+    <tr>
+      <td><strong>Zhodnocení (apreciace) Kč</strong></td>
+      <td>✗ Omezuje vývoz — naše zboží v cizí měně zdraží</td>
+      <td>✓ Podporuje dovoz — zahraniční zboží zlevní</td>
+      <td>Vývozcům kursovní ztráty · dovozcům kursovní zisky</td>
+    </tr>
+  </tbody></table>
+
+  <h3>Nástroje vnější měnové politiky</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Devizové intervence</strong>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Kurs nadměrně klesá → CB nakupuje Kč za EUR → zvyšuje poptávku po Kč → kurs roste</li>
+        <li>Kurs nadměrně stoupá → CB prodává Kč a nakupuje cizí měny do devizových rezerv</li>
+        <li>K nákupu využívá CB devizové rezervy nebo úvěry MMF</li>
+      </ul>
+    </div>
+    <div class="cc-amber">
+      <strong>Změny úrokových sazeb z vkladů</strong>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Zvýšení úr. sazeb → zájem zahraničních investorů ukládat v Kč roste → roste poptávka po Kč → kurs roste</li>
+        <li>Snížení úr. sazeb → opačný efekt → kurs klesá</li>
+      </ul>
+    </div>
+  </div>
+  </div><div class="section" data-sec="7">
+    <h2>Důchodová a sociální politika
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-blue">
+      <strong>Důchodová (cenová) politika</strong>
+      <p style="font-size:13px;margin-top:.3rem;"><span class="kw">Důchod</span> = příjem (mzda, renta, úroky…). Snaží se stabilizovat cenovou hladinu působením na vývoj nominálních mezd a cen.</p>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Kontrola mezd — dnes omezena jen na státní sféru</li>
+        <li>Regulované ceny — nájemné, energie</li>
+        <li>Hlavní otázka: stanovení <span class="kw">minimální mzdy</span></li>
+      </ul>
+    </div>
+    <div class="cc-amber">
+      <strong>Sociální politika</strong>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Sociální dávky: přídavky na děti, nemocenská, podpora v nezaměstnanosti, starobní důchody</li>
+        <li>Úzký vztah k politice zaměstnanosti</li>
+        <li>Riziko: příliš štědrá sociální politika → <span class="kw">neochota pracovat</span> (výhodnější pobírat dávky než pracovat)</li>
+      </ul>
+    </div>
+  </div>
+  </div><div class="section" data-sec="8">
+    <h2>Demokracie, politické strany a vláda
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
+    <p><span class="kw">Demokracie</span> = společenský systém založený na širokých hlasovacích pravidlech. Původní význam: <em>vláda lidu</em>. Dnes převládá <span class="kw">reprezentativní demokracie</span> — občané volí politiky, kteří rozhodují jejich jménem.</p>
+  </div>
+
+  <div class="grid2" style="margin-top:.75rem;">
+    <div class="card">
+      <strong>Přímá demokracie</strong>
+      O konkrétní věci hlasují <span class="kw">přímo občané</span> — referendum. V ČR výjimečně — např. referendum o vstupu do EU (2003).
+    </div>
+    <div class="card">
+      <strong>Reprezentativní demokracie</strong>
+      Právo občana na rozhodnutí je <span class="kw">zprostředkováno politiky</span>, které si zvolil ve volbách. Každodenní fungování parlamentní demokracie.
+    </div>
+  </div>
+
+  <h3>Politické strany</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Pravicové strany</strong>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Minimalizace státních zásahů do ekonomiky</li>
+        <li>Preference soukromého vlastnictví</li>
+        <li>Svoboda jednotlivce</li>
+        <li>Blíže konzervativnímu/liberálnímu přístupu</li>
+      </ul>
+    </div>
+    <div class="cc-amber">
+      <strong>Levicové strany</strong>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Uznávají dominantní roli trhu, ale s důrazem na <span class="kw">sociální spravedlnost</span></li>
+        <li>Větší podpora státních zásahů do ekonomiky</li>
+        <li>Různé formy vlastnictví</li>
+        <li>Blíže keynesiánskému přístupu</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Vláda a hospodářská politika</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card">
+      <strong>Volební cyklus a HP</strong>
+      Vláda realizuje HP v rámci <span class="kw">volebního období</span>. Nepopulární opatření bývají soustředěna do počátku volebního období. Ke konci volebního období politici provádějí <span class="kw">líbivou politiku</span> (sbírání hlasů) bez ohledu na ekonomické potřeby.
+    </div>
+    <div class="card">
+      <strong>Koaliční vláda</strong>
+      Pokud žádná strana nezíská parlamentní většinu, strany s podobnými programy vytvoří <span class="kw">koaliční vládu</span>. Funguje na základě <span class="kw">kompromisů</span> — každá strana ustoupí z části svého programu.
+    </div>
+  </div>
+  </div>
+
+<!-- 2. NOSITELÉ HP -->
+
+
+<!-- 3. VÝVOJ HP -->
+
+
+<!-- 4. HOSPODÁŘSKÝ CYKLUS -->
+
+
+<!-- 5. MONETÁRNÍ POLITIKA -->
+
+
+<!-- 6. FISKÁLNÍ POLITIKA -->
+
+
+<!-- 7. VNĚJŠÍ MĚNOVÁ POLITIKA -->
+
+
+<!-- 8. DŮCHODOVÁ A SOCIÁLNÍ POLITIKA -->
+
+
+<!-- 9. DEMOKRACIE, POLITICKÉ STRANY -->
+
+
+<div class="note-footer">ITE 4.B &nbsp;·&nbsp; Maturita 2026 &nbsp;·&nbsp; Ekonomika – Otázka 11</div>
+</div>
+
+<script>
+const _subj=(document.querySelector('meta[name="mat-subject"]')||{}).content||'eko';
+const _num=(document.querySelector('meta[name="mat-num"]')||{}).content||'11';
+const _title=(document.querySelector('meta[name="mat-title"]')||{}).content||document.title;
+const NOTE_ID=`${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`,JSON.stringify({title:_title,subject:_subj,num:parseInt(_num)}));
+function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+function toggleDark(){const on=document.body.classList.toggle('dark');localStorage.setItem('mat-dark',on?'1':'0');const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});
+function secKey(n){return `mat-sec::${NOTE_ID}::${n}`;}
+function toggleSec(btn){const sec=btn.closest('.section');const id=sec.dataset.sec;if(localStorage.getItem(secKey(id))){localStorage.removeItem(secKey(id));sec.classList.remove('flagged');btn.classList.remove('on');btn.textContent='⚑ Označit';}else{localStorage.setItem(secKey(id),'1');sec.classList.add('flagged');btn.classList.add('on');btn.textContent='⚑ Označeno';}updateSummary();}
+function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec=>{if(localStorage.getItem(secKey(sec.dataset.sec))){sec.classList.add('flagged');const btn=sec.querySelector('.sec-flag');if(btn){btn.classList.add('on');btn.textContent='⚑ Označeno';}}});updateSummary();}
+function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
+applyDark();loadFlags();
+</script>
+
+
+</body></html>

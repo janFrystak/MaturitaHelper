@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="it">
+<meta name="mat-num" content="6">
+<meta name="mat-title" content="Programovací jazyk Java">
+<title>Programovací jazyk Java – IT Maturita 2026</title>
+<style>
+  :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
+  body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;--flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto;}
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px;}
+  .header p{font-size:13px;color:var(--text-muted);}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .badge{background:var(--teal-light);color:var(--teal-dark);border:0.5px solid #9FE1CB;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .flag-summary{display:none;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .flag-summary.visible{display:inline-block;}
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em;}
+  p,li{font-size:14px;color:var(--text-muted);}
+  ul{padding-left:1.2rem;}
+  li{margin-bottom:4px;}
+  .kw{font-weight:600;color:var(--text);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-green{background:var(--green-light);border:0.5px solid #B5DCA0;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-teal strong{color:var(--teal-dark);}.cc-blue strong{color:var(--blue-dark);}.cc-amber strong{color:var(--amber-dark);}.cc-coral strong{color:var(--coral-dark);}.cc-green strong{color:var(--green-dark);}
+  .accent-blue{border-left:3px solid #378ADD;padding-left:12px;margin:.5rem 0;}
+  .accent-teal{border-left:3px solid #1D9E75;padding-left:12px;margin:.5rem 0;}
+  .accent-amber{border-left:3px solid #EF9F27;padding-left:12px;margin:.5rem 0;}
+  .tbl{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:600;padding:6px 8px;border:0.5px solid var(--gray-border);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;color:var(--text-muted);}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+  .mono{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:3px;padding:1px 5px;color:var(--text);}
+  pre{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12.5px;background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.75rem 1rem;margin:.5rem 0;color:var(--text);overflow-x:auto;line-height:1.55;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.8rem 0;}
+  /* JDK diagram */
+  .jdk-box{border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.75rem 1rem;margin-top:.4rem;position:relative;}
+  .jdk-label{font-size:11px;font-weight:700;position:absolute;top:-9px;left:12px;background:var(--white);padding:0 6px;color:var(--text-muted);}
+  @media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.header{flex-direction:column;}}
+  @media print{body{background:white;padding:1rem;}.sec-flag{display:none;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Programovací jazyk Java</h1>
+    <p>IT Maturita &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+    <p style="margin-top:5px;">Charakteristika · Kontejnery · Pole · Cykly · Větvení · Operátory · Výjimky · GUI · Soubory · JDK/JRE/JVM · Git</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">IT · Otázka 6</span>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- 1. CHARAKTERISTIKA -->
+<div class="section" data-sec="1">
+  <h2><span class="num">1</span> Základní charakteristika Javy a JDK/JRE/JVM
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p>Java je <span class="kw">objektově orientovaný, staticky typovaný</span> programovací jazyk. Zdrojový kód (<span class="mono">.java</span>) se kompiluje do <span class="kw">bytecode</span> (<span class="mono">.class</span>), který spouští <span class="kw">JVM</span>.</p>
+  </div>
+  <div class="grid3" style="margin-top:.6rem;">
+    <div class="cc-blue">
+      <strong>JDK — Java Development Kit</strong>
+      Nástroje pro <span class="kw">vývoj</span>: kompilátor <span class="mono">javac</span>, debugger, dokumentační nástroje. Obsahuje JRE.
+    </div>
+    <div class="cc-teal">
+      <strong>JRE — Java Runtime Environment</strong>
+      Prostředí pro <span class="kw">běh</span> programu. Obsahuje JVM + standardní knihovny. Stačí pro spuštění, ne pro vývoj.
+    </div>
+    <div class="cc-amber">
+      <strong>JVM — Java Virtual Machine</strong>
+      Spouští bytecode. Zajišťuje <span class="kw">přenositelnost</span> — stejný bytecode běží na Windows, Linux, macOS.
+    </div>
+  </div>
+  <div class="cc-green" style="margin-top:8px;">
+    <strong>Bytecode</strong>
+    <p style="font-size:13px;margin-top:.3rem;">Mezikód v <span class="mono">.class</span> souborech. Nezávislý na OS — JVM ho přeloží do strojového kódu konkrétního procesoru. Princip: <strong>Write Once, Run Anywhere.</strong></p>
+  </div>
+  <h3>Vlastnosti Javy</h3>
+  <div class="grid3" style="margin-top:.4rem;">
+    <div class="card"><strong>Přenositelnost</strong>Bytecode běží na libovolném OS se správným JVM</div>
+    <div class="card"><strong>Bezpečnost</strong>Sandboxing, typová kontrola, žádné přímé přístupy do paměti</div>
+    <div class="card"><strong>Garbage Collector</strong>Automatická správa paměti — uvolňuje objekty, které už nejsou používány</div>
+  </div>
+</div>
+
+<!-- 2. KONTEJNERY A POLE -->
+<div class="section" data-sec="2">
+  <h2><span class="num">2</span> Kontejnery a pole (Array)
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="accent-teal">
+    <p><span class="kw">Kontejner</span> = třída umožňující ukládat více objektů. Většina kontejnerů je v balíčku <span class="mono">java.util</span>. Výhody: dynamická velikost, hotové metody, práce s objekty.</p>
+  </div>
+
+  <h3>ArrayList</h3>
+  <p style="margin-bottom:.5rem;">Dynamické pole — mění velikost automaticky. Ukládá objekty (ne primitivní typy — používají se <span class="kw">wrappery</span>: <span class="mono">Integer</span>, <span class="mono">Double</span>…). Zachovává pořadí prvků.</p>
+  <div class="grid2" style="margin-bottom:.5rem;">
+    <div class="card">
+      <strong>Základní metody</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li><span class="mono">add(prvek)</span> — přidání na konec</li>
+        <li><span class="mono">add(index, prvek)</span> — přidání na pozici</li>
+        <li><span class="mono">remove(index)</span> — odstranění</li>
+        <li><span class="mono">get(index)</span> — přístup k prvku</li>
+        <li><span class="mono">size()</span> — počet prvků</li>
+        <li><span class="mono">contains(prvek)</span> — obsahuje?</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Výhody / Nevýhody</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li>✅ Jednoduché použití</li>
+        <li>✅ Dynamická velikost</li>
+        <li>✅ Hotové metody (třídění, hledání)</li>
+        <li>❌ Pomalejší při vkládání doprostřed</li>
+        <li>❌ Pouze objekty (ne primitiva přímo)</li>
+      </ul>
+    </div>
+  </div>
+<pre>ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
+list.add("Ahoj");
+list.add("Světe");
+System.out.println(list.get(0)); // vypíše: Ahoj
+System.out.println(list.size()); // vypíše: 2</pre>
+
+  <hr>
+  <h3>Pole (Array)</h3>
+  <p style="margin-bottom:.5rem;">Ukládá více hodnot <span class="kw">stejného typu</span>. Má <span class="kw">pevnou velikost</span> — nelze po vytvoření změnit. Přístup přes index (od 0).</p>
+<pre>int[] pole = {1, 2, 3, 4, 5};
+System.out.println(pole[0]);  // vypíše: 1
+System.out.println(pole.length); // délka pole
+
+// for-each iterace:
+for (int x : pole) {
+    System.out.println(x);
+}</pre>
+
+  <h3>Array vs. ArrayList</h3>
+  <table class="tbl">
+    <tr><th></th><th>Array (pole)</th><th>ArrayList</th></tr>
+    <tr><td><strong>Velikost</strong></td><td>Pevná — nelze měnit</td><td>Dynamická — roste automaticky</td></tr>
+    <tr><td><strong>Typy</strong></td><td>Primitiva i objekty</td><td>Pouze objekty (wrappery)</td></tr>
+    <tr><td><strong>Rychlost přístupu</strong></td><td>Rychlý (přímý index)</td><td>Stejný přístup</td></tr>
+    <tr><td><strong>Metody</strong></td><td>Jen <span class="mono">.length</span></td><td>add, remove, contains, sort…</td></tr>
+    <tr><td><strong>Použití</strong></td><td>Pevný počet prvků</td><td>Dynamický počet prvků</td></tr>
+  </table>
+</div>
+
+<!-- 3. CYKLY A VĚTVENÍ -->
+<div class="section" data-sec="3">
+  <h2><span class="num">3</span> Cykly a větvení
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <h3>Cykly</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong><span class="mono">for</span></strong>
+      Když <span class="kw">známe počet opakování</span>. Řídící proměnná, podmínka, krok.
+<pre style="margin-top:.5rem;">for (int i = 0; i &lt; 5; i++) {
+    System.out.println(i);
+}</pre>
+    </div>
+    <div class="cc-teal">
+      <strong><span class="mono">while</span></strong>
+      Opakuje se, <span class="kw">dokud platí podmínka</span>. Podmínka se kontroluje před každým průchodem.
+<pre style="margin-top:.5rem;">int i = 0;
+while (i &lt; 5) {
+    System.out.println(i);
+    i++;
+}</pre>
+    </div>
+    <div class="cc-amber">
+      <strong><span class="mono">do-while</span></strong>
+      <span class="kw">Provede se alespoň jednou</span>. Podmínka se kontroluje až po průchodu.
+<pre style="margin-top:.5rem;">do {
+    System.out.println(i);
+    i++;
+} while (i &lt; 5);</pre>
+    </div>
+  </div>
+
+  <hr>
+  <h3>Větvení</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card">
+      <strong><span class="mono">if / else if / else</span></strong>
+      Základní podmíněné větvení.
+<pre style="margin-top:.5rem;">if (a &gt; 0) {
+    System.out.println("Kladné");
+} else if (a == 0) {
+    System.out.println("Nula");
+} else {
+    System.out.println("Záporné");
+}</pre>
+    </div>
+    <div class="card">
+      <strong><span class="mono">switch</span></strong>
+      Více možností podle hodnoty proměnné.
+<pre style="margin-top:.5rem;">switch (den) {
+    case 1: System.out.println("Po"); break;
+    case 2: System.out.println("Út"); break;
+    default: System.out.println("Jiný");
+}</pre>
+    </div>
+  </div>
+</div>
+
+<!-- 4. OPERÁTORY -->
+<div class="section" data-sec="4">
+  <h2><span class="num">4</span> Operátory
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="grid3" style="margin-top:.4rem;">
+    <div class="card">
+      <strong>Aritmetické</strong>
+      <p style="font-family:ui-monospace,monospace;font-size:13px;margin-top:.4rem;">+ &nbsp; - &nbsp; * &nbsp; / &nbsp; %</p>
+      <p style="font-size:12px;margin-top:.3rem;"><span class="mono">%</span> = zbytek po dělení (modulo): <span class="mono">10 % 3 = 1</span></p>
+    </div>
+    <div class="card">
+      <strong>Porovnávací</strong>
+      <p style="font-family:ui-monospace,monospace;font-size:13px;margin-top:.4rem;">== &nbsp; != &nbsp; &lt; &nbsp; &gt; &nbsp; &lt;= &nbsp; &gt;=</p>
+      <p style="font-size:12px;margin-top:.3rem;">Výsledek je vždy <span class="mono">boolean</span> (true/false)</p>
+    </div>
+    <div class="card">
+      <strong>Logické</strong>
+      <p style="font-family:ui-monospace,monospace;font-size:13px;margin-top:.4rem;">&amp;&amp; &nbsp; || &nbsp; !</p>
+      <p style="font-size:12px;margin-top:.3rem;"><span class="mono">&amp;&amp;</span> AND · <span class="mono">||</span> OR · <span class="mono">!</span> NOT</p>
+    </div>
+  </div>
+  <div class="cc-amber" style="margin-top:8px;">
+    <strong>⚠ == u objektů porovnává reference, ne hodnotu!</strong>
+    <p style="font-size:13px;margin-top:.3rem;">Pro porovnání obsahu String použij <span class="mono">.equals()</span>, pro čísla v objektech <span class="mono">Integer.compare(a,b)</span>.</p>
+  </div>
+</div>
+
+<!-- 5. VÝJIMKY -->
+<div class="section" data-sec="5">
+  <h2><span class="num">5</span> Výjimky a ošetření chyb
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p><span class="kw">Výjimky</span> = mechanismus pro řešení chyb za běhu programu. Zabraňují pádu aplikace při neočekávaných situacích.</p>
+  </div>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-coral">
+      <strong>Checked výjimky</strong>
+      Musí být ošetřeny nebo deklarovány (<span class="mono">throws</span>). Kompilátor je vyžaduje. Příklady: <span class="mono">IOException</span>, <span class="mono">FileNotFoundException</span>, <span class="mono">SQLException</span>
+    </div>
+    <div class="cc-amber">
+      <strong>Unchecked výjimky (Runtime)</strong>
+      Ošetření není povinné. Příklady: <span class="mono">ArithmeticException</span> (dělení nulou), <span class="mono">NullPointerException</span>, <span class="mono">ArrayIndexOutOfBoundsException</span>
+    </div>
+  </div>
+  <h3>Try-catch-finally</h3>
+<pre>try {
+    int x = 5 / 0;  // vyvolá ArithmeticException
+} catch (ArithmeticException e) {
+    System.out.println("Chyba: " + e.getMessage());
+} catch (Exception e) {
+    System.out.println("Obecná chyba");  // zachytí ostatní
+} finally {
+    System.out.println("Toto se provede vždy");
+}</pre>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong><span class="mono">try</span></strong>Kód, kde může nastat chyba</div>
+    <div class="card"><strong><span class="mono">catch</span></strong>Zachycení konkrétní výjimky — lze mít více bloků catch</div>
+    <div class="card"><strong><span class="mono">finally</span></strong>Provede se vždy — i při výjimce. Vhodné pro uzavření souborů/spojení.</div>
+  </div>
+</div>
+
+<!-- 6. GUI -->
+<div class="section" data-sec="6">
+  <h2><span class="num">6</span> Tvorba GUI (Swing)
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-teal">
+    <p><span class="kw">GUI</span> = grafické uživatelské rozhraní. V Javě: <span class="kw">Swing</span> (starší, součást JDK) nebo <span class="kw">JavaFX</span> (modernější, oddělená knihovna).</p>
+  </div>
+  <h3>Základní Swing komponenty</h3>
+  <div class="grid4" style="margin-top:.5rem;">
+    <div class="card"><strong><span class="mono">JFrame</span></strong>Hlavní okno aplikace</div>
+    <div class="card"><strong><span class="mono">JButton</span></strong>Tlačítko</div>
+    <div class="card"><strong><span class="mono">JTextField</span></strong>Jednořádkové textové pole</div>
+    <div class="card"><strong><span class="mono">JCheckBox</span></strong>Zaškrtávací pole</div>
+    <div class="card"><strong><span class="mono">JLabel</span></strong>Textový popisek</div>
+    <div class="card"><strong><span class="mono">JTextArea</span></strong>Víceřádkové textové pole</div>
+    <div class="card"><strong><span class="mono">JComboBox</span></strong>Rozbalovací seznam</div>
+    <div class="card"><strong><span class="mono">JPanel</span></strong>Kontejner pro seskupení komponent</div>
+  </div>
+  <h3>Listener (posluchač událostí)</h3>
+  <p style="margin-bottom:.5rem;">Reaguje na akce uživatele — kliknutí, změna textu. Implementuje interface jako <span class="mono">ActionListener</span>. Dnes nejčastěji jako lambda výraz:</p>
+<pre>JFrame frame = new JFrame("Moje okno");
+frame.setSize(400, 300);
+frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+JButton btn = new JButton("Klikni");
+btn.addActionListener(e -&gt; {
+    System.out.println("Klik!");
+});
+
+frame.add(btn);
+frame.setVisible(true);</pre>
+</div>
+
+<!-- 7. SOUBORY -->
+<div class="section" data-sec="7">
+  <h2><span class="num">7</span> Práce se soubory
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card">
+      <strong>Zápis do souboru</strong>
+      Třída <span class="mono">PrintWriter</span> obalená <span class="mono">BufferedWriter</span> a <span class="mono">FileWriter</span>. Buffering = méně zápisů na disk → rychlejší.
+<pre style="margin-top:.5rem;">PrintWriter pw = new PrintWriter(
+    new BufferedWriter(
+        new FileWriter("soubor.txt")));
+pw.println("Řádek textu");
+pw.close(); // vždy zavřít!</pre>
+    </div>
+    <div class="card">
+      <strong>Čtení ze souboru</strong>
+      Třída <span class="mono">Scanner</span> nebo <span class="mono">BufferedReader</span>.
+<pre style="margin-top:.5rem;">Scanner sc = new Scanner(
+    new BufferedReader(
+        new FileReader("soubor.txt")));
+while (sc.hasNextLine()) {
+    String radek = sc.nextLine();
+    System.out.println(radek);
+}
+sc.close();</pre>
+    </div>
+  </div>
+  <div class="cc-amber" style="margin-top:8px;">
+    <p><span class="kw">Důležité:</span> Práce se soubory vyvolává checked výjimky (<span class="mono">IOException</span>) — vždy obalit do <span class="mono">try-catch</span> nebo deklarovat <span class="mono">throws IOException</span>. Vždy soubor po použití <span class="mono">close()</span>!</p>
+  </div>
+</div>
+
+<!-- 8. GIT A GITHUB -->
+<div class="section" data-sec="8">
+  <h2><span class="num">8</span> Git a GitHub
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-blue">
+      <strong>Git</strong>
+      Systém pro správu verzí zdrojového kódu — funguje <span class="kw">lokálně</span>. Sleduje historii změn, umožňuje návrat k libovolné verzi, větvení (branches), slučování (merge).
+    </div>
+    <div class="cc-teal">
+      <strong>GitHub</strong>
+      Internetová služba pro sdílení Git repositářů — funguje v <span class="kw">cloudu</span>. Spolupráce více vývojářů, pull requesty, code review, CI/CD.
+    </div>
+  </div>
+  <h3>Základní příkazy</h3>
+  <table class="tbl">
+    <tr><th>Příkaz</th><th>Co dělá</th></tr>
+    <tr><td><span class="mono">git init</span></td><td>Inicializuje nový Git repozitář ve složce</td></tr>
+    <tr><td><span class="mono">git add .</span></td><td>Přidá všechny změněné soubory do staging area</td></tr>
+    <tr><td><span class="mono">git commit -m "zpráva"</span></td><td>Uloží snímek (commit) se zprávou popisující změnu</td></tr>
+    <tr><td><span class="mono">git push</span></td><td>Nahraje lokální commity na vzdálený server (GitHub)</td></tr>
+    <tr><td><span class="mono">git pull</span></td><td>Stáhne a sloučí změny ze vzdáleného serveru</td></tr>
+    <tr><td><span class="mono">git branch nazev</span></td><td>Vytvoří novou větev pro samostatný vývoj funkce</td></tr>
+    <tr><td><span class="mono">git merge nazev</span></td><td>Sloučí větev do aktuální větve</td></tr>
+    <tr><td><span class="mono">git status</span></td><td>Zobrazí stav pracovního adresáře</td></tr>
+    <tr><td><span class="mono">git log</span></td><td>Zobrazí historii commitů</td></tr>
+  </table>
+</div>
+
+<!-- 9. SHRNUTÍ KONSTRUKCÍ -->
+<div class="section" data-sec="9">
+  <h2><span class="num">9</span> Přehled Java konstrukcí
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <table class="tbl">
+    <tr><th>Téma</th><th>Klíčové slovo / třída</th><th>Příklad</th></tr>
+    <tr><td><strong>Podmínky</strong></td><td><span class="mono">if</span>, <span class="mono">switch</span></td><td><span class="mono">if (x &gt; 0) { ... } else { ... }</span></td></tr>
+    <tr><td><strong>Cykly</strong></td><td><span class="mono">for</span>, <span class="mono">while</span>, <span class="mono">do-while</span></td><td><span class="mono">for (int i = 0; i &lt; n; i++) { ... }</span></td></tr>
+    <tr><td><strong>Pole</strong></td><td><span class="mono">int[]</span>, <span class="mono">String[]</span></td><td><span class="mono">int[] arr = new int[5];</span></td></tr>
+    <tr><td><strong>Kolekce</strong></td><td><span class="mono">ArrayList&lt;T&gt;</span></td><td><span class="mono">new ArrayList&lt;String&gt;()</span></td></tr>
+    <tr><td><strong>Výjimky</strong></td><td><span class="mono">try-catch-finally</span></td><td><span class="mono">catch (IOException e) { ... }</span></td></tr>
+    <tr><td><strong>GUI okno</strong></td><td><span class="mono">JFrame</span></td><td><span class="mono">new JFrame("Název");</span></td></tr>
+    <tr><td><strong>GUI tlačítko</strong></td><td><span class="mono">JButton</span>, <span class="mono">addActionListener</span></td><td><span class="mono">btn.addActionListener(e -&gt; { });</span></td></tr>
+    <tr><td><strong>Soubory — zápis</strong></td><td><span class="mono">PrintWriter</span>, <span class="mono">BufferedWriter</span></td><td><span class="mono">pw.println("text");</span></td></tr>
+    <tr><td><strong>Soubory — čtení</strong></td><td><span class="mono">Scanner</span>, <span class="mono">BufferedReader</span></td><td><span class="mono">sc.nextLine();</span></td></tr>
+    <tr><td><strong>Překlad kódu</strong></td><td><span class="mono">javac</span> (JDK)</td><td><span class="mono">javac Main.java → Main.class</span></td></tr>
+    <tr><td><strong>Spuštění</strong></td><td><span class="mono">java</span> (JRE/JVM)</td><td><span class="mono">java Main</span></td></tr>
+  </table>
+</div>
+
+<div class="note-footer">ITE 4.B &nbsp;·&nbsp; IT Maturita 2026 &nbsp;·&nbsp; Otázka 6 – Programovací jazyk Java</div>
+</div>
+
+<script>
+const _subj=(document.querySelector('meta[name="mat-subject"]')||{}).content||'it';
+const _num=(document.querySelector('meta[name="mat-num"]')||{}).content||'6';
+const _title=(document.querySelector('meta[name="mat-title"]')||{}).content||document.title;
+const NOTE_ID=`${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`,JSON.stringify({title:_title,subject:_subj,num:parseInt(_num)}));
+function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);}
+window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});
+function secKey(n){return `mat-sec::${NOTE_ID}::${n}`;}
+function toggleSec(btn){const sec=btn.closest('.section');const id=sec.dataset.sec;if(localStorage.getItem(secKey(id))){localStorage.removeItem(secKey(id));sec.classList.remove('flagged');btn.classList.remove('on');btn.textContent='⚑ Označit';}else{localStorage.setItem(secKey(id),'1');sec.classList.add('flagged');btn.classList.add('on');btn.textContent='⚑ Označeno';}updateSummary();}
+function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec=>{if(localStorage.getItem(secKey(sec.dataset.sec))){sec.classList.add('flagged');const btn=sec.querySelector('.sec-flag');if(btn){btn.classList.add('on');btn.textContent='⚑ Označeno';}}});updateSummary();}
+function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
+applyDark();loadFlags();
+</script>
+</body>
+</html>

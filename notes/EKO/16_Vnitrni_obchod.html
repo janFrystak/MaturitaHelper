@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="cs"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="eko">
+<meta name="mat-num" content="16">
+<meta name="mat-title" content="Vnitřní obchod a služby">
+<title>Vnitřní obchod a služby – Maturita 2026</title>
+<style>
+  :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
+  body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;--flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto;}
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px;}
+  .header p{font-size:13px;color:var(--text-muted);}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .badge{background:var(--blue-light);color:var(--blue-dark);border:0.5px solid #B5D4F4;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .dark-btn{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;}
+  .dark-btn:hover{color:var(--text);}
+  .flag-summary{display:none;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .flag-summary.visible{display:inline-block;}
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em;}
+  p,li{font-size:14px;color:var(--text-muted);}
+  ul{padding-left:1.2rem;}
+  li{margin-bottom:4px;}
+  .kw{font-weight:600;color:var(--text);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-green{background:var(--green-light);border:0.5px solid #B5DCA0;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-teal strong{color:var(--teal-dark);}.cc-blue strong{color:var(--blue-dark);}.cc-amber strong{color:var(--amber-dark);}.cc-coral strong{color:var(--coral-dark);}.cc-green strong{color:var(--green-dark);}
+  .accent-blue{border-left:3px solid #378ADD;padding-left:12px;margin:.5rem 0;}
+  .accent-teal{border-left:3px solid #1D9E75;padding-left:12px;margin:.5rem 0;}
+  .accent-amber{border-left:3px solid #EF9F27;padding-left:12px;margin:.5rem 0;}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:5px;}
+  .t-teal{background:var(--teal-light);color:var(--teal-dark);}.t-blue{background:var(--blue-light);color:var(--blue-dark);}.t-amber{background:var(--amber-light);color:var(--amber-dark);}.t-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .tbl{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:600;padding:6px 8px;border:0.5px solid var(--gray-border);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;color:var(--text-muted);}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+  .formula{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.55rem 1rem;font-size:13px;font-weight:600;color:var(--text);margin:.4rem 0;font-family:ui-monospace,monospace;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.8rem 0;}
+  @media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.header{flex-direction:column;}}
+  @media print{body{background:white;padding:1rem;}.sec-flag,.dark-btn{display:none;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Vnitřní obchod a služby</h1>
+    <p>Maturitní otázka č. 16 &nbsp;·&nbsp; Ekonomika &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+    <p style="margin-top:5px;">Obchodní činnost · Velkoobchod · Maloobchod · Cestovní ruch · Logistika · Obchodní marže · Služby</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">Otázka 16 / 20</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- 1. OBCHODNÍ ČINNOST -->
+<div class="section" data-sec="1">
+    <h2>Obchodní činnost – vnitřní obchod
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Obchod</span> = odvětví NH zajišťující oběh zboží. Je zprostředkovatelem mezi výrobou a spotřebou — vznikl na základě dělby práce. <span class="kw">Vnitřní obchod</span> = obchodní činnost na území ČR (maloobchod, velkoobchod, cestovní ruch).</p>
+  </div>
+  <h3>Funkce obchodu</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Přeměna sortimentu</strong>Přeměnit výrobní (dodavatelský) sortiment na obchodní (odběratelský)</div>
+    <div class="card"><strong>Překonání časových rozdílů</strong>Mezi místem výroby a spotřeby — řeší sezónnost (zelenina, uhlí)</div>
+    <div class="card"><strong>Zajištění kvality</strong>Správné uskladnění, hygienické kontroly, Česká obchodní inspekce</div>
+    <div class="card"><strong>Ovlivňování výroby</strong>Co do sortimentu, množství a času — zpětná vazba trhu výrobcům</div>
+    <div class="card"><strong>Logistika</strong>Zajišťování racionálních cest od výrobce ke spotřebiteli</div>
+    <div class="card"><strong>Platební schopnost</strong>Zajišťování úhrady dodavatelům — platební disciplína</div>
+  </div>
+  </div><div class="section" data-sec="2">
+    <h2>Velkoobchod a jeho typy
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
+    <p><span class="kw">Velkoobchod</span> = mezičlánek mezi výrobci/dovozci a maloobchodem. Nakupuje ve velkém od výrobců a prodává maloobchodu.</p>
+  </div>
+  <h3>Hlavní činnosti velkoobchodu</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card"><strong>Sestavuje prodejní sortiment</strong>Shromažďuje výrobky od mnoha výrobců ve stejném oboru a nabízí je maloobchodu najednou</div>
+    <div class="card"><strong>Skladuje velká množství</strong>Efektivnější skladování ve velkých skladech — maloobchod nemusí budovat vlastní</div>
+    <div class="card"><strong>Zpracovává zboží</strong>Pražení kávy, dozrávání ovoce, balení</div>
+    <div class="card"><strong>Poskytuje služby MO</strong>Informace o trhu, nákup na úvěr, poradenství</div>
+  </div>
+
+  <h3>Typy velkoobchodních jednotek</h3>
+  <table class="tbl">
+    <tbody><tr><th>Typ</th><th>Charakteristika</th><th>Příklad</th></tr>
+    <tr>
+      <td><strong>Cash and carry</strong></td>
+      <td>Samoobslužný VO — bez služeb. Maloobchodník si sám vybere, zaplatí a odveze. Prodává i drobným živnostníkům.</td>
+      <td>Makro</td>
+    </tr>
+    <tr>
+      <td><strong>Rozvážková služba</strong></td>
+      <td>Dopravuje omezený sortiment rychloobrátkového a snadno zkažlivého zboží přímo k odběratelům. Minimum skladů. Vhodný hlavně na venkově.</td>
+      <td>Rozvoz pečiva, mléka, masa</td>
+    </tr>
+    <tr>
+      <td><strong>VO s regálovou službou</strong></td>
+      <td>VO umísťuje v MO prodejnách vlastní regály. Inkasuje pouze za prodané zboží — neprodané zůstává jeho majetkem. Bezrizikové zpestření sortimentu pro MO.</td>
+      <td>Hračky, kosmetika, sezónní oblečení</td>
+    </tr>
+    <tr>
+      <td><strong>Zásilkový VO</strong></td>
+      <td>Na základě katalogů zasílaných maloobchodníkům a živnostníkům. Specializuje se na drobný, lehký sortiment rozesílaný poštou.</td>
+      <td>Koření, šperky, kosmetika</td>
+    </tr>
+  </tbody></table>
+  </div><div class="section" data-sec="3">
+    <h2>Maloobchod a jeho typy
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Maloobchod</span> = prodej zboží <span class="kw">konečnému zákazníkovi</span>. Tvoří tržby za prodej zboží, vlastních výrobků a některých služeb obyvatelstvu.</p>
+  </div>
+
+  <h3>Distribuční cesty</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-teal"><strong>Přímá cesta</strong>Výrobce → MO → spotřebitel. Vhodné pro zboží s krátkodobou trvanlivostí (pečivo, zelenina).</div>
+    <div class="cc-blue"><strong>Nepřímá cesta</strong>Výrobce → VO → MO → spotřebitel. Vhodné pro trvanlivé zboží s delší spotřebou.</div>
+  </div>
+
+  <h3>Způsoby prodeje</h3>
+  <table class="tbl">
+    <tbody><tr><th>Způsob</th><th>Charakteristika</th></tr>
+    <tr><td><strong>Pultový prodej</strong></td><td>Prostor oddělen pultem, zákazník obsloužen prodavačem. Osobní přístup, poradenství.</td></tr>
+    <tr>
+      <td><strong>Samoobsluha</strong></td>
+      <td>Výstavní uspořádání, zákazník se obsluhuje sám, platí u pokladny.
+      <br><em>Výhody pro zákazníka:</em> nerušený výběr, bližší seznámení s výrobkem, rychlý nákup.
+      <br><em>Výhody pro obchod:</em> úspora pracovní síly, širší sortiment, vyšší tržby, rychlejší obrátka.</td>
+    </tr>
+    <tr><td><strong>Volný výběr</strong></td><td>Zákazník se obsluhuje sám, ale je doobsloužen prodavačem (placení, balení).</td></tr>
+    <tr><td><strong>Automaty</strong></td><td>Plně automatizovaný prodej — nápoje, snacky, jízdenky.</td></tr>
+    <tr><td><strong>Zásilkový / internetový prodej</strong></td><td>Obchod na dálku — katalog, internet, telefon, teleshopping. Nevýhody: velké počáteční N, náklady na katalogy a reklamace.</td></tr>
+  </tbody></table>
+
+  <h3>Charakter sortimentu</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-teal"><strong>Zboží denní poptávky</strong>Potraviny, hygienické prostředky. Nejhustší prodejní síť, zákazník je vyhledává sám.</div>
+    <div class="cc-blue"><strong>Zboží časté poptávky</strong>Oblečení, obuv. Prodejny umístěny na frekventovaná místa.</div>
+    <div class="cc-amber"><strong>Zboží občasné poptávky</strong>Auta, elektronika, nábytek. Méně prodejen, zákazník je vyhledává cíleně.</div>
+  </div>
+
+  <h3>Typy maloobchodních jednotek</h3>
+  <table class="tbl">
+    <tbody><tr><th>Typ</th><th>Charakteristika</th></tr>
+    <tr><td><strong>Prodejny denní potřeby</strong></td><td>Menší potravinářské prodejny + drogerie. Pultový nebo samoobslužný prodej. Pružnější reakce na individuální potřeby. Ceny o něco vyšší než v supermarketech.</td></tr>
+    <tr><td><strong>Specializované prodejny</strong></td><td>Nepotravinářské zboží — zaměřené na určitý sortiment (železářství, nábytek, elektrospotřebiče, sklo).</td></tr>
+    <tr><td><strong>Supermarkety a hypermarkety</strong></td><td>Velké samoobslužné prodejny. Nižší ceny, množstevní rabaty, dlouhá otevírací doba, široký výběr, rozsáhlé služby.</td></tr>
+    <tr><td><strong>Obchodní domy a centra</strong></td><td>Široký sortiment pod jednou střechou. Pronájem ploch samostatným subjektům, multikino, občerstvení.</td></tr>
+    <tr><td><strong>Diskontní prodejny</strong></td><td>Nízké ceny díky nákupu velkého množství omezeného sortimentu. Bez služeb, prodej z palet.</td></tr>
+    <tr><td><strong>Podniková prodejna</strong></td><td>V majetku výrobce — přímý kontakt se zákazníkem, prodej vlastních výrobků.</td></tr>
+    <tr><td><strong>Franchising</strong></td><td>Provozovny světově známých podniků dle licence. Příklady: McDonald's, Shell, Aral.</td></tr>
+    <tr><td><strong>Stánkový prodej / tržnice</strong></td><td>Stánky sdružené do tržnic. Na ústupu.</td></tr>
+  </tbody></table>
+  </div><div class="section" data-sec="4">
+    <h2>Podniky cestovního ruchu
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
+    <p><span class="kw">Cestovní ruch</span> = forma uspokojování osobních potřeb v oblasti relaxace, turistiky, léčby a kultury při přechodném pobytu mimo trvalé bydliště ve volném čase.&nbsp;</p><p><b>Cestovní kancelář</b> (organizuje, nabízí a prodává zájezdy)&nbsp;</p><p><b>Cestovní agentura</b> (Jen prodává zájezdy)</p>
+  </div>
+  <div class="grid4" style="margin-top:.5rem;">
+    <div class="cc-blue"><strong>Osobní význam</strong>Relaxace, obnova duševních a fyzických sil</div>
+    <div class="cc-teal"><strong>Společenský význam</strong>Poznávání nových lidí, zvyků a tradic</div>
+    <div class="cc-amber"><strong>Mezinárodní význam</strong>Poznávání národních kultur a historie</div>
+    <div class="cc-coral"><strong>Ekonomický význam</strong>Příjmy ze zahraničního cestovního ruchu, zaměstnanost</div>
+  </div>
+  <p style="margin-top:.6rem;font-size:13px;">Nutné zajistit: <span class="kw">ubytování · stravování · doprava</span>. Lze individuálně nebo přes cestovní kancelář. Příklady: Czech Tourism, Veligrad Tour.</p>
+  </div><div class="section" data-sec="5">
+    <h2>Ochrana spotřebitele v obchodě
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-coral">
+      <strong>Právo na bezpečnost</strong>
+      Nikdo nesmí prodávat nebezpečné výrobky. Prodávající musí zajistit hygienické podmínky a zdravotní nezávadnost zboží.
+    </div>
+    <div class="cc-blue">
+      <strong>Právo na informovanost</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li><strong>O výrobku:</strong> vlastnosti, způsob použití, údržba, nebezpečí</li>
+        <li><strong>Označení:</strong> složení, parametry, hmotnost, datum spotřeby, <span class="kw">cena musí být viditelně uvedena vždy</span></li>
+        <li><strong>Reklamace:</strong> podmínky přístupné v každé provozovně</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Kontrolní orgány</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>ČOI</strong>Česká obchodní inspekce — kontrola cen, komu se prodává, řeší spotřebitelské spory</div>
+    <div class="card"><strong>SZPI</strong>Státní zemědělská a potravinářská inspekce — kvalita potravin</div>
+    <div class="card"><strong>NOZ</strong>Nový občanský zákoník chrání spotřebitele před podnikatelem (podnikatel má větší právní vědomí)</div>
+  </div>
+  </div><div class="section" data-sec="6">
+    <h2>Obchodní logistika a obchodní marže
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Obchodní logistika</span> = plánování, řízení a realizace toku informací a zboží tak, aby správná komodita byla na správném místě, ve správný čas a s co nejnižšími náklady.</p>
+  </div>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card">
+      <strong>Fyzické toky</strong>
+      Zboží od dodavatele k odběrateli — doprava, přejímka, uskladnění
+    </div>
+    <div class="card">
+      <strong>Informační toky</strong>
+      Doklady: dodací list · faktura · příjemka · skladní karta · výdejka
+    </div>
+  </div>
+  <h3>Dílčí druhy logistiky</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>1. Dispoziční</strong>Plánování cest, uzavírání smluv</div>
+    <div class="card"><strong>2. Dopravní</strong>Volba dopravního prostředku</div>
+    <div class="card"><strong>3. Manipulační</strong>Od výrobce ke spotřebiteli</div>
+    <div class="card"><strong>4. Skladová</strong>Příjem, uskladnění, výdej</div>
+    <div class="card"><strong>5. Distribuční</strong>Přeměna výrobního sortimentu na odběratelský</div>
+    <div class="card"><strong>6. Balící</strong>Balení, likvidace obalů</div>
+  </div>
+  <hr>
+  <h3>Obchodní marže</h3>
+  <div class="accent-amber">
+    <p><span class="kw">Obchodní marže</span> = rozdíl mezi <span class="kw">prodejní cenou</span> a <span class="kw">nákupní cenou</span> zboží. U výrobků = <span class="kw">ziskové rozpětí</span>.</p>
+  </div>
+  <div class="formula" style="margin-top:.5rem;">Obchodní marže = Prodejní cena − Nákupní cena</div>
+  <p style="margin-top:.4rem;font-size:13px;">Z účetního pohledu: rozdíl mezi účtem <strong>604</strong> (tržby za zboží) a účtem <strong>504</strong> (prodané zboží). Marže kryje provozní náklady obchodu (nájem, mzdy, energie) a tvoří zisk.</p>
+  </div><div class="section" data-sec="7">
+    <h2>Služby – definice, členění, vlastnosti, význam
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
+    <p><span class="kw">Služba</span> = nehmotná činnost sloužící k uspokojování potřeb. Z hlediska marketingu je produktem. Klíčovým výrobním faktorem ve službách je <span class="kw">práce — člověk</span>.</p>
+  </div>
+  <p style="margin-top:.5rem;">Mezi nejčastější služby patří: opravy · pohostinství a ubytování · doprava a telekomunikace · peněžnictví a pojišťovnictví.</p>
+
+  <h3>Členění služeb</h3>
+  <table class="tbl">
+    <tbody><tr><th>Hledisko</th><th>Druhy</th><th>Příklady</th></tr>
+    <tr><td><strong>Příjemce</strong></td><td>Individuální · Kolektivní</td><td>Kadeřnictví, stravování · Obrana státu, školství, osvětlení</td></tr>
+    <tr><td><strong>Charakter</strong></td><td>Věcné · Osobní</td><td>Opravny, čistírny · Knihovny, divadlo, zdravotní péče</td></tr>
+    <tr><td><strong>Ekonomická funkce</strong></td><td>Obchodní</td><td>Maloobchody, velkoobchody, banky</td></tr>
+    <tr><td><strong>Úhrada</strong></td><td>Placené · Neplacené</td><td>Většina služeb · Informační centra, poradenství</td></tr>
+  </tbody></table>
+
+  <h3>Vlastnosti služeb</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-coral"><strong>Nehmotnost</strong>Nemají fyzickou podstatu — nelze je prohlédnout ani vzít do ruky před koupí</div>
+    <div class="cc-amber"><strong>Neskladovatelnost</strong>Nelze vyrábět do zásoby — nevyužitá kapacita se ztrácí (prázdné sedadlo v letadle)</div>
+    <div class="cc-blue"><strong>Nedělitelnost</strong>Poskytnuté služby nelze nijak dělit — produkce a spotřeba probíhají současně</div>
+    <div class="cc-teal"><strong>Proměnlivost</strong>Závisí na tom, kdo, kdy a kde službu poskytuje — kvalita se liší</div>
+    <div class="cc-green"><strong>Nemožnost vlastnictví</strong>Zákazník vlastní pouze <span class="kw">právo na poskytnutí</span> služby, ne službu samotnou</div>
+    <div class="card"><strong>Význam sektoru služeb</strong>Sektor služeb je <span class="kw">tahounem NH vyspělých států</span>. ~60–70 % pracovníků pracuje v sektoru služeb.</div>
+  </div>
+  </div>
+
+<!-- 2. VELKOOBCHOD -->
+
+
+<!-- 3. MALOOBCHOD -->
+
+
+<!-- 4. CESTOVNÍ RUCH -->
+
+
+<!-- 5. OCHRANA SPOTŘEBITELE -->
+
+
+<!-- 6. OBCHODNÍ LOGISTIKA -->
+
+
+<!-- 7. SLUŽBY -->
+
+
+<div class="note-footer">ITE 4.B &nbsp;·&nbsp; Maturita 2026 &nbsp;·&nbsp; Ekonomika – Otázka 16</div>
+</div>
+
+<script>
+const _subj=(document.querySelector('meta[name="mat-subject"]')||{}).content||'eko';
+const _num=(document.querySelector('meta[name="mat-num"]')||{}).content||'16';
+const _title=(document.querySelector('meta[name="mat-title"]')||{}).content||document.title;
+const NOTE_ID=`${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`,JSON.stringify({title:_title,subject:_subj,num:parseInt(_num)}));
+function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+function toggleDark(){const on=document.body.classList.toggle('dark');localStorage.setItem('mat-dark',on?'1':'0');const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});
+function secKey(n){return `mat-sec::${NOTE_ID}::${n}`;}
+function toggleSec(btn){const sec=btn.closest('.section');const id=sec.dataset.sec;if(localStorage.getItem(secKey(id))){localStorage.removeItem(secKey(id));sec.classList.remove('flagged');btn.classList.remove('on');btn.textContent='⚑ Označit';}else{localStorage.setItem(secKey(id),'1');sec.classList.add('flagged');btn.classList.add('on');btn.textContent='⚑ Označeno';}updateSummary();}
+function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec=>{if(localStorage.getItem(secKey(sec.dataset.sec))){sec.classList.add('flagged');const btn=sec.querySelector('.sec-flag');if(btn){btn.classList.add('on');btn.textContent='⚑ Označeno';}}});updateSummary();}
+function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
+applyDark();loadFlags();
+</script>
+
+
+</body></html>

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="cs">
-<head>
+<html lang="cs"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="mat-subject" content="eko">
-<meta name="mat-num"     content="8">
-<meta name="mat-title"   content="Financování a ekonomická stránka činnosti podniku">
+<meta name="mat-num" content="8">
+<meta name="mat-title" content="Financování a ekonomická stránka činnosti podniku">
 <title>Financování podniku – Maturita 2026</title>
 <style>
   :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
@@ -83,24 +82,23 @@
   </div>
   <div class="header-right">
     <span class="badge">Otázka 8 / 20</span>
-    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+
     <span class="flag-summary" id="flagSummary"></span>
   </div>
 </div>
 
 <!-- 1. ZÁKLADNÍ POJMY -->
 <div class="section" data-sec="1">
-  <h2><span class="num">1</span> Základní pojmy financování
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <table class="tbl">
-    <tr><th>Pojem</th><th>Definice</th></tr>
+    <h2>Základní pojmy financování
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <table class="tbl">
+    <tbody><tr><th>Pojem</th><th>Definice</th></tr>
     <tr><td><strong>Finance podniku</strong></td><td>Pohyb peněžních prostředků, kapitálu a jiných fin. zdrojů při vztazích s ostatními podnikateli, zaměstnanci a státem</td></tr>
     <tr><td><strong>Peněžní prostředky</strong></td><td>Část majetku ve formě hotovosti, bankovních vkladů a cenin. Jsou nejlikvidnější a vyjadřují platební schopnost podniku.</td></tr>
     <tr><td><strong>Podnikový kapitál</strong></td><td>Souhrn peněz vložených do majetku podniku společníky a věřiteli</td></tr>
     <tr><td><strong>Financování podniku</strong></td><td>Proces získávání, alokace (rozdělování) finančních zdrojů a jejich využití k získávání potřebných statků</td></tr>
-  </table>
+  </tbody></table>
 
   <h3>Finanční cíle podniku</h3>
   <div class="grid3" style="margin-top:.5rem;">
@@ -133,15 +131,11 @@
       Okamžitá nebo krátkodobá · menší peníze · chyba neznamená fatální problém · nemění dosavadní chod podniku
     </div>
   </div>
-</div>
-
-<!-- 2. DRUHY FINANCOVÁNÍ -->
-<div class="section" data-sec="2">
-  <h2><span class="num">2</span> Druhy financování
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <h3>Podle doby</h3>
+  </div><div class="section" data-sec="2">
+    <h2>Druhy financování
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <h3>Podle doby</h3>
   <div class="grid2" style="margin-top:.4rem;">
     <div class="cc-blue">
       <strong>Krátkodobé financování (do 1 roku)</strong>
@@ -179,14 +173,11 @@
     <div class="card"><strong>Pro odběratele</strong>Nezávislost na bance · jednodušší způsob získání financování · banku může využít na jiný účel</div>
   </div>
   <p style="margin-top:.5rem;font-size:13px;">Zajištění: <span class="kw">bez zajištění</span> (při vzájemné důvěře) nebo <span class="kw">dlužním úpisem / směnkou</span>.</p>
-</div>
-
-<!-- 3. FINANČNÍ STRUKTURA -->
-<div class="section" data-sec="3">
-  <h2><span class="num">3</span> Finanční struktura
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-  <div class="accent-blue">
+  </div><div class="section" data-sec="3">
+    <h2>Finanční struktura
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
     <p><span class="kw">Finanční struktura podniku</span> = struktura podnikového kapitálu, ze kterého je financován majetek. Zachycena na <strong>straně pasiv</strong> rozvahy — poměr <span class="kw">vlastního (VK)</span> a <span class="kw">cizího kapitálu (CK)</span>.</p>
   </div>
   <div class="grid2" style="margin-top:.6rem;">
@@ -203,17 +194,13 @@
   <div class="grid3" style="margin-top:.4rem;">
     <div class="card"><strong>Zlaté bilanční pravidlo</strong>Dlouhodobý majetek → dlouhodobé zdroje (VK + dl. CK). Krátkodobý majetek → krátkodobé zdroje.</div>
     <div class="card"><strong>Zlaté pravidlo vyrovnání rizika</strong>VK ≥ CK. Čím vyšší podíl CK, tím vyšší riziko platební neschopnosti.</div>
-    <div class="card"><strong>Finanční páka</strong>CK může zvýšit rentabilitu VK — pokud výnos investice > úroková sazba CK.</div>
+    <div class="card"><strong>Finanční páka</strong>CK může zvýšit rentabilitu VK — pokud výnos investice &gt; úroková sazba CK.</div>
   </div>
-</div>
-
-<!-- 4. VLASTNÍ KAPITÁL A SAMOFINANCOVÁNÍ -->
-<div class="section" data-sec="4">
-  <h2><span class="num">4</span> Vlastní kapitál a samofinancování
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-teal">
+  </div><div class="section" data-sec="4">
+    <h2>Vlastní kapitál a samofinancování
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
     <p><span class="kw">Vlastní kapitál</span> = kapitál patřící majitelům. Je hlavním nositelem podnikatelského rizika a ukazatelem finanční jistoty.</p>
   </div>
 
@@ -277,15 +264,11 @@
     <div class="card"><strong>Statutární fondy</strong>Sociálního charakteru, dobrovolný závazek při založení. Při zisku se povinně dotují.</div>
     <div class="card"><strong>Ostatní fondy</strong>Dobrovolně zřízené, dle rozhodnutí valné hromady.</div>
   </div>
-</div>
-
-<!-- 5. CIZÍ KAPITÁL -->
-<div class="section" data-sec="5">
-  <h2><span class="num">5</span> Cizí kapitál
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-amber">
+  </div><div class="section" data-sec="5">
+    <h2>Cizí kapitál
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-amber">
     <p><span class="kw">Cizí kapitál</span> = dluh podniku, který musí v určené době splatit. Nákladem za jeho používání je <span class="kw">úrok</span>. <span class="kw">Úroková míra</span> = % podíl úroku na objemu půjčeného kapitálu.</p>
   </div>
 
@@ -330,15 +313,11 @@
       </ul>
     </div>
   </div>
-</div>
-
-<!-- 6. ČASOVÁ HODNOTA PENĚZ A RIZIKO -->
-<div class="section" data-sec="6">
-  <h2><span class="num">6</span> Faktory finančního řízení – čas a riziko
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <h3>Časová hodnota peněz</h3>
+  </div><div class="section" data-sec="6">
+    <h2>Faktory finančního řízení – čas a riziko
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <h3>Časová hodnota peněz</h3>
   <div class="accent-blue">
     <p>Stejné nominální částky mají v různých obdobích různou hodnotu. <em>Koruna dnes má jinou hodnotu než koruna zítra.</em></p>
   </div>
@@ -380,15 +359,11 @@
       </ul>
     </div>
   </div>
-</div>
-
-<!-- 7. FINANČNÍ ANALÝZA -->
-<div class="section" data-sec="7">
-  <h2><span class="num">7</span> Finanční analýza podniku
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-blue">
+  </div><div class="section" data-sec="7">
+    <h2>Finanční analýza podniku
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
     <p><span class="kw">Finanční analýza</span> = hodnocení výsledků hospodaření. Nástroj pro krátkodobé i dlouhodobé finanční řízení. Vychází z účetních výkazů (rozvaha, výkaz Z/Z, cash flow).</p>
   </div>
 
@@ -500,14 +475,11 @@
     <div class="card"><strong>Zisk na akcii</strong><div class="formula">= Zisk po zdanění / Počet vydaných akcií</div></div>
     <div class="card"><strong>Dividendový výnos</strong><div class="formula">= Dividendy / Tržní kurz akcie</div><div class="formula">Kurz akcie = tržní cena / nominální hodnota</div></div>
   </div>
-</div>
-
-<!-- 8. FINANČNÍ PLÁNOVÁNÍ, ŘÍZENÍ A KONTROLA -->
-<div class="section" data-sec="8">
-  <h2><span class="num">8</span> Finanční plánování, řízení a kontrola
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-  <div class="grid3" style="margin-top:.4rem;">
+  </div><div class="section" data-sec="8">
+    <h2>Finanční plánování, řízení a kontrola
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="grid3" style="margin-top:.4rem;">
     <div class="cc-blue">
       <strong>Finanční plánování</strong>
       Sestavování <span class="kw">finančního plánu</span> — určuje finanční cíle podniku a způsoby jejich dosažení. Krátkodobý (do 1 roku) nebo dlouhodobý. Součástí: plánovaná rozvaha, výsledovka, cash flow. Vychází z obchodního, výrobního a investičního plánu.
@@ -525,22 +497,18 @@
     <strong>Nejistota vs. riziko</strong>
     <p><span class="kw">Riziko</span> = nejistota, kterou lze <em>kvantifikovat</em> — lze odhadnout pravděpodobnost výsledku (pojistná matematika, statistika). <span class="kw">Nejistota</span> = nelze ani odhadnout pravděpodobnosti — výsledek je zcela nepředvídatelný (nová technologie, politická krize). V praxi se pojmy často prolínají.</p>
   </div>
-</div>
-
-<!-- 9. NÁKLADY, VÝNOSY, HV -->
-<div class="section" data-sec="9">
-  <h2><span class="num">9</span> Ekonomická stránka – náklady, výnosy, hospodářský výsledek
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <h3>Klíčové definice</h3>
+  </div><div class="section" data-sec="9">
+    <h2>Ekonomická stránka – náklady, výnosy, hospodářský výsledek
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <h3>Klíčové definice</h3>
   <table class="tbl">
-    <tr><th>Pojem</th><th>Definice</th></tr>
+    <tbody><tr><th>Pojem</th><th>Definice</th></tr>
     <tr><td><strong>Náklady (N)</strong></td><td>Peněžní vyjádření spotřeby majetkových složek, práce zaměstnanců a cizích výkonů při činnosti podniku</td></tr>
     <tr><td><strong>Výdaje</strong></td><td>Úbytek peněžních prostředků bez ohledu na účel. Ne každý výdaj je nákladem (nákup zásoby do skladu).</td></tr>
     <tr><td><strong>Výnosy (V)</strong></td><td>Peněžní částky, které podnik „získal" z veškerých činností za účetní období — bez ohledu na jejich inkaso</td></tr>
     <tr><td><strong>Příjmy</strong></td><td>Přírůstky peněžních prostředků podniku v určitém období</td></tr>
-  </table>
+  </tbody></table>
 
   <h3>Členění nákladů</h3>
   <div class="grid2" style="margin-top:.5rem;">
@@ -584,12 +552,7 @@
   <h3>Hospodářský výsledek</h3>
   <div class="grid3" style="margin-top:.4rem;">
     <div class="cc-teal"><strong>Zisk</strong>V &gt; N · umožňuje rozvoj a odměnu majitelů</div>
-    <div class="cc-coral"><strong>Ztráta</strong>V &lt; N · snižuje finanční zdroje</div>
-    <div class="card"><strong>HV = provozní + finanční výsledek</strong>= HV z běžné činnosti</div>
-  </div>
-  <div class="grid2" style="margin-top:8px;">
-    <div class="card"><strong>HV před zdaněním</strong>Hrubý účetní zisk — provozní + finanční výsledek</div>
-    <div class="card"><strong>HV po zdanění (disponibilní)</strong>Hrubý zisk − daň z příjmů. Tento se rozděluje.</div>
+    <div class="cc-coral"><strong>Ztráta</strong>V &lt; N · snižuje finanční zdroje</div></div><div class="grid2" style="margin-top:8px;">
   </div>
 
   <h3>Využití (disponibilního) zisku</h3>
@@ -602,15 +565,11 @@
     <span class="tag t-amber">Úhrada ztráty z minulých let</span>
     <span class="tag t-coral">Nerozdělený zisk (ponechat v podniku)</span>
   </div>
-</div>
-
-<!-- 10. KALKULACE -->
-<div class="section" data-sec="10">
-  <h2><span class="num">10</span> Kalkulace
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-teal">
+  </div><div class="section" data-sec="10">
+    <h2>Kalkulace
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
     <p><span class="kw">Kalkulace</span> = předběžné či následné zjištění vlastních nákladů a ceny na <span class="kw">1 kalkulační jednici</span> (1 ks výrobku nebo vymezený výkon).</p>
   </div>
 
@@ -639,15 +598,11 @@
       </ul>
     </div>
   </div>
-</div>
-
-<!-- 11. ROZPOČTY -->
-<div class="section" data-sec="11">
-  <h2><span class="num">11</span> Rozpočty
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-blue">
+  </div><div class="section" data-sec="11">
+    <h2>Rozpočty
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
     <p><span class="kw">Rozpočet</span> = peněžní propočet nákladů, výnosů a zisku pro daný cíl nebo aktivitu. Vyjadřuje plánovanou činnost v peněžních jednotkách — <em>žádoucí ekonomický vývoj</em>.</p>
   </div>
 
@@ -681,7 +636,37 @@
     <strong>Sestavuje se před zahájením podnikání.</strong>
     <p>Propočítává se, zda se plánovaná aktivita vyplatí. Zahrnuje: zjištění potřebného majetku a zdrojů · předpokládané N, V a HV · cash flow · rentabilita a její srovnání s alternativami.</p>
   </div>
-</div>
+  </div>
+
+<!-- 2. DRUHY FINANCOVÁNÍ -->
+
+
+<!-- 3. FINANČNÍ STRUKTURA -->
+
+
+<!-- 4. VLASTNÍ KAPITÁL A SAMOFINANCOVÁNÍ -->
+
+
+<!-- 5. CIZÍ KAPITÁL -->
+
+
+<!-- 6. ČASOVÁ HODNOTA PENĚZ A RIZIKO -->
+
+
+<!-- 7. FINANČNÍ ANALÝZA -->
+
+
+<!-- 8. FINANČNÍ PLÁNOVÁNÍ, ŘÍZENÍ A KONTROLA -->
+
+
+<!-- 9. NÁKLADY, VÝNOSY, HV -->
+
+
+<!-- 10. KALKULACE -->
+
+
+<!-- 11. ROZPOČTY -->
+
 
 <div class="note-footer">ITE 4.B &nbsp;·&nbsp; Maturita 2026 &nbsp;·&nbsp; Ekonomika – Otázka 8</div>
 </div>
@@ -701,5 +686,6 @@ function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec
 function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
 applyDark();loadFlags();
 </script>
-</body>
-</html>
+
+
+</body></html>

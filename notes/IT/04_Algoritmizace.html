@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs">
-<head>
+<html lang="cs"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="mat-subject" content="it">
@@ -102,11 +101,10 @@
 
 <!-- 1. ALGORITMUS -->
 <div class="section" data-sec="1">
-  <h2><span class="num">1</span> Definice a vlastnosti algoritmu
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-blue">
+    <h2>Definice a vlastnosti algoritmu
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
     <p><span class="kw">Algoritmus</span> = schematický postup řešení určitého problému, který je <strong>konečný, určitý, korektní a obecný</strong>.</p>
   </div>
 
@@ -139,15 +137,11 @@
   <div class="accent-amber" style="margin-top:.75rem;">
     <p><strong>Typická zkušební otázka:</strong> „Proč tohle není algoritmus?" → Obvykle chybí <span class="kw">konečnost</span> (nekonečná smyčka) nebo <span class="kw">určitost</span> (neurčitý krok jako „udělej to přiměřeně").</p>
   </div>
-</div>
-
-<!-- 2. ZPŮSOBY ZÁPISU -->
-<div class="section" data-sec="2">
-  <h2><span class="num">2</span> Způsoby zápisu algoritmu
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="grid2">
+  </div><div class="section" data-sec="2">
+    <h2>Způsoby zápisu algoritmu
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="grid2">
     <div class="card">
       <strong>1. Přirozený jazyk</strong>
       <ul style="margin-top:.4rem;">
@@ -204,30 +198,22 @@ return vysledek</pre>
     <strong>4. Programovací jazyk</strong>
     <p>Zápis přímo v konkrétním jazyce (Java, Python, C…) — lze rovnou spustit na počítači. Nejpřesnější forma, ale vázaná na konkrétní jazyk.</p>
   </div>
-</div>
-
-<!-- 3. ŽIVOTNÍ CYKLUS -->
-<div class="section" data-sec="3">
-  <h2><span class="num">3</span> Životní cyklus programu
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-  <ol class="steps">
-    <li><strong>Analýza problému</strong> — pochopení zadání, definice vstupů a požadovaných výstupů</li>
-    <li><strong>Návrh algoritmu</strong> — pseudokód nebo vývojový diagram; výběr vhodného přístupu</li>
-    <li><strong>Implementace (kódování)</strong> — přepis algoritmu do konkrétního programovacího jazyka</li>
-    <li><strong>Testování</strong> — ověření správnosti na různých vstupech, hledání chyb (debugging)</li>
-    <li><strong>Nasazení</strong> — spuštění programu v produkčním prostředí pro reálné uživatele</li>
-    <li><strong>Údržba</strong> — opravy chyb, aktualizace, přizpůsobení novým požadavkům</li>
+  </div><div class="section" data-sec="3">
+    <h2>Životní cyklus programu
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <ol class="steps">
+    <li><b>Formulace zadání</b></li><li><strong>Analýza&nbsp;</strong></li>
+    <li><strong>Návrh algoritmu</strong>&nbsp; - testování ve všech krocích</li>
+    <li><strong>Implementace (kódování)</strong>&nbsp;</li>
+    <li><strong>Nasazení</strong>&nbsp;</li>
+    <li><strong>Údržba</strong></li><li><strong>Vyřazení z provozu</strong></li>
   </ol>
-</div>
-
-<!-- 4. SLOŽITOST -->
-<div class="section" data-sec="4">
-  <h2><span class="num">4</span> Složitost algoritmů
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-blue">
+  </div><div class="section" data-sec="4">
+    <h2>Složitost algoritmů
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
     <p>Zajímá nás, který ze dvou algoritmů vrátí výsledek dříve. Čas je ale závislý na HW, jazyku, implementaci — proto <span class="kw">neměříme čas, ale počet operací</span>.</p>
   </div>
 
@@ -247,7 +233,7 @@ return vysledek</pre>
   </div>
 
   <table class="tbl">
-    <tr><th>Notace</th><th>Název</th><th>Popis</th><th>Příklady algoritmů</th></tr>
+    <tbody><tr><th>Notace</th><th>Název</th><th>Popis</th><th>Příklady algoritmů</th></tr>
     <tr>
       <td><span class="o-green">O(1)</span></td>
       <td>Konstantní</td>
@@ -290,21 +276,17 @@ return vysledek</pre>
       <td>Přidání jednoho prvku = dvojnásobek operací — rychle nepoužitelné</td>
       <td>Hanojská věž, brute-force TSP</td>
     </tr>
-  </table>
+  </tbody></table>
 
   <div class="cc-teal" style="margin-top:.75rem;">
     <strong>Polynomiální složitost</strong>
     <p>Roste jako libovolný polynom: <span class="mono">O(nᵏ)</span> kde k je konstanta. Patří sem O(n), O(n²), O(n³)… Polynomiální algoritmy jsou obecně považovány za „zvládnutelné".</p>
   </div>
-</div>
-
-<!-- 5. PROGRAMOVACÍ JAZYKY -->
-<div class="section" data-sec="5">
-  <h2><span class="num">5</span> Programovací jazyky – dělení
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <div class="accent-blue">
+  </div><div class="section" data-sec="5">
+    <h2>Programovací jazyky – dělení
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
     <p>Programátor píše <span class="kw">zdrojový kód</span>, kterému člověk rozumí, ale procesor ne. Nutný překlad: <strong>zdrojový kód → instrukce procesoru</strong>.</p>
   </div>
 
@@ -387,16 +369,12 @@ return vysledek</pre>
       <div style="margin-top:.5rem;"><span class="tag t-blue">Java</span><span class="tag t-blue">C#</span><span class="tag t-blue">C++</span><span class="tag t-blue">Kotlin</span></div>
     </div>
   </div>
-</div>
-
-<!-- 6. PŘEHLED JAZYKŮ -->
-<div class="section" data-sec="6">
-  <h2><span class="num">6</span> Přehled konkrétních jazyků
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <table class="tbl">
-    <tr><th>Jazyk</th><th>Paradigma</th><th>Překlad</th><th>Typování</th><th>Využití</th></tr>
+  </div><div class="section" data-sec="6">
+    <h2>Přehled konkrétních jazyků
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <table class="tbl">
+    <tbody><tr><th>Jazyk</th><th>Paradigma</th><th>Překlad</th><th>Typování</th><th>Využití</th></tr>
     <tr>
       <td><strong>Python</strong></td>
       <td>Objektový, funkcionální, imperativní</td>
@@ -446,21 +424,17 @@ return vysledek</pre>
       <td>Statické</td>
       <td>Dotazování a správa databází</td>
     </tr>
-  </table>
+  </tbody></table>
 
   <div class="cc-green" style="margin-top:.75rem;">
     <strong>Poznámka – Java a JVM</strong>
     <p>Java je zajímavý případ: kompiluje se do <span class="kw">bytecode</span> (ne přímo do strojového kódu), který pak spouští <span class="kw">JVM (Java Virtual Machine)</span>. Tím dosahuje přenositelnosti jako interpretovaný jazyk, ale rychlosti blízké kompilovaným jazykům. „Write once, run anywhere."</p>
   </div>
-</div>
-
-<!-- 7. PRAKTICKÉ ÚLOHY -->
-<div class="section" data-sec="7">
-  <h2><span class="num">7</span> Praktické úlohy – pseudokód a složitost
-    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
-  </h2>
-
-  <!-- Lineární vyhledávání -->
+  </div><div class="section" data-sec="7">
+    <h2>Praktické úlohy – pseudokód a složitost
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <!-- Lineární vyhledávání -->
   <h3>1. Lineární vyhledávání — hledání prvku v seznamu</h3>
   <div class="grid2" style="margin-top:.4rem;">
     <div class="card">
@@ -538,15 +512,33 @@ Vrať max</pre>
   <!-- Srovnání složitostí -->
   <h3>Srovnání složitostí úloh</h3>
   <table class="tbl">
-    <tr><th>Algoritmus</th><th>Složitost</th><th>Pro n = 1 000</th><th>Pro n = 1 000 000</th></tr>
+    <tbody><tr><th>Algoritmus</th><th>Složitost</th><th>Pro n = 1 000</th><th>Pro n = 1 000 000</th></tr>
     <tr><td>Přístup přes index</td><td><span class="o-green">O(1)</span></td><td>1 op.</td><td>1 op.</td></tr>
     <tr><td>Binární vyhledávání</td><td><span class="o-green">O(log n)</span></td><td>~10 op.</td><td>~20 op.</td></tr>
     <tr><td>Lineární vyhledávání, max</td><td><span class="o-blue">O(n)</span></td><td>1 000 op.</td><td>1 000 000 op.</td></tr>
     <tr><td>Merge Sort, Quick Sort</td><td><span class="o-blue">O(n·log n)</span></td><td>~10 000 op.</td><td>~20 000 000 op.</td></tr>
     <tr><td>Bubble Sort</td><td><span class="o-amber">O(n²)</span></td><td>1 000 000 op.</td><td>10¹² op.</td></tr>
     <tr><td>Hanojská věž</td><td><span class="o-coral">O(2ⁿ)</span></td><td>10³⁰⁰ op.</td><td>nevyčíslitelné</td></tr>
-  </table>
-</div>
+  </tbody></table>
+  </div>
+
+<!-- 2. ZPŮSOBY ZÁPISU -->
+
+
+<!-- 3. ŽIVOTNÍ CYKLUS -->
+
+
+<!-- 4. SLOŽITOST -->
+
+
+<!-- 5. PROGRAMOVACÍ JAZYKY -->
+
+
+<!-- 6. PŘEHLED JAZYKŮ -->
+
+
+<!-- 7. PRAKTICKÉ ÚLOHY -->
+
 
 <div class="note-footer">ITE 4.B &nbsp;·&nbsp; IT Maturita 2026 &nbsp;·&nbsp; Algoritmizace, programovací jazyky</div>
 </div>
@@ -566,5 +558,6 @@ function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec
 function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
 applyDark();loadFlags();
 </script>
-</body>
-</html>
+
+
+</body></html>

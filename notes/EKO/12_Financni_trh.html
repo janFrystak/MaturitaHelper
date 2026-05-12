@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="cs"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="eko">
+<meta name="mat-num" content="12">
+<meta name="mat-title" content="Finanční trh">
+<title>Finanční trh – Maturita 2026</title>
+<style>
+  :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
+  body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;--flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto;}
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px;}
+  .header p{font-size:13px;color:var(--text-muted);}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .badge{background:var(--blue-light);color:var(--blue-dark);border:0.5px solid #B5D4F4;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .dark-btn{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;}
+  .dark-btn:hover{color:var(--text);}
+  .flag-summary{display:none;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .flag-summary.visible{display:inline-block;}
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em;}
+  p,li{font-size:14px;color:var(--text-muted);}
+  ul{padding-left:1.2rem;}
+  li{margin-bottom:4px;}
+  .kw{font-weight:600;color:var(--text);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-green{background:var(--green-light);border:0.5px solid #B5DCA0;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-teal strong{color:var(--teal-dark);}.cc-blue strong{color:var(--blue-dark);}.cc-amber strong{color:var(--amber-dark);}.cc-coral strong{color:var(--coral-dark);}.cc-green strong{color:var(--green-dark);}
+  .accent-blue{border-left:3px solid #378ADD;padding-left:12px;margin:.5rem 0;}
+  .accent-teal{border-left:3px solid #1D9E75;padding-left:12px;margin:.5rem 0;}
+  .accent-amber{border-left:3px solid #EF9F27;padding-left:12px;margin:.5rem 0;}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:5px;}
+  .t-teal{background:var(--teal-light);color:var(--teal-dark);}.t-blue{background:var(--blue-light);color:var(--blue-dark);}.t-amber{background:var(--amber-light);color:var(--amber-dark);}.t-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .tbl{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:600;padding:6px 8px;border:0.5px solid var(--gray-border);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;color:var(--text-muted);}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.8rem 0;}
+  @media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.header{flex-direction:column;}}
+  @media print{body{background:white;padding:1rem;}.sec-flag,.dark-btn{display:none;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Finanční trh</h1>
+    <p>Maturitní otázka č. 12 &nbsp;·&nbsp; Ekonomika &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+    <p style="margin-top:5px;">Peníze · Finanční trh · Cenné papíry · Peněžní trh · Kapitálový trh · Burza</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">Otázka 12 / 20</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- 1. PENÍZE -->
+<div class="section" data-sec="1">
+    <h2>Peníze – vývoj, druhy, funkce, vlastnosti
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Peníze</span> = speciální druh zboží, který lze vyměnit za všechny ostatní druhy zboží. Před jejich vznikem existoval <span class="kw">barterový obchod</span> — přímá výměna zboží za zboží.</p>
+  </div>
+
+  <h3>Vývoj peněz</h3>
+  <div class="grid4" style="margin-top:.5rem;">
+    <div class="card"><strong>1. Naturální směna</strong>Výměna jednoho zboží za druhé (barter)</div>
+    <div class="card"><strong>2. Komoditní peníze</strong>Jako komodity sloužily zlato, stříbro, platina, ale i pivo, víno, maso, olej</div>
+    <div class="card"><strong>3. Papírové peníze</strong>Pohodlný, přenosný a skladovatelný prostředek směny — rozšíření v novověku</div>
+    <div class="card"><strong>4. Depozitní peníze</strong>Bezhotovostní peníze — vytváří obchodní banky při zúčtování mezi sebou</div>
+  </div>
+
+  <h3>Druhy peněz</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:.4rem;">
+    <span class="tag t-blue">Mince</span>
+    <span class="tag t-blue">Bankovky</span>
+    <span class="tag t-teal">Depozita (vklady na účtech)</span>
+    <span class="tag t-teal">Cenné papíry</span>
+  </div>
+
+  <h3>Funkce peněz</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-blue"><strong>Prostředek směny</strong>Peníze lze volně směňovat za zboží a služby — eliminují nutnost barteru</div>
+    <div class="cc-teal"><strong>Jednotka zúčtování</strong>Universální měřítko ceny — slouží k vyjádření hodnoty zboží i dluhu</div>
+    <div class="cc-amber"><strong>Uchovatel hodnoty</strong>Forma majetku — lze je uložit a použít v budoucnu</div>
+  </div>
+
+  <h3>Vlastnosti peněz</h3>
+  <table class="tbl">
+    <tbody><tr><th>Vlastnost</th><th>Popis</th></tr>
+    <tr><td><strong>Přenosnost</strong></td><td>Malé a lehké — snadný přenos</td></tr>
+    <tr><td><strong>Trvanlivost</strong></td><td>Kvalitní materiál (papír, kov) odolný opotřebení</td></tr>
+    <tr><td><strong>Uniformita</strong></td><td>Stejně označené peníze mají stejnou hodnotu (20 Kč mince = 20 Kč bankovka)</td></tr>
+    <tr><td><strong>Dělitelnost</strong></td><td>Lze rozdělit na menší části (haléře, koruny)</td></tr>
+    <tr><td><strong>Rozeznatelnost</strong></td><td>Ochrana před padělky — ochranné prvky, barevná odlišnost</td></tr>
+    <tr><td><strong>Stabilita</strong></td><td>Stabilní kupní síla — množství statků a služeb, které si za ně koupíme</td></tr>
+  </tbody></table>
+  </div><div class="section" data-sec="2">
+    <h2>Finanční trh – definice a dělení
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Finanční trh</span> = trh umožňující soustředit, rozmístit a přerozdělovat dočasně volné peníze na základě nabídky a poptávky. Střetávají se zde subjekty s přebytkem peněz (věřitelé) a subjekty s nedostatkem peněz (dlužníci).</p>
+  </div>
+
+  <h3>Dělení podle typu finančních prostředků</h3>
+  <div class="grid4" style="margin-top:.5rem;">
+    <div class="card"><strong>Dluhové trhy</strong>Trhy s pohledávkami a dluhovými CP</div>
+    <div class="card"><strong>Akciové trhy</strong>Trhy s akciemi</div>
+    <div class="card"><strong>Komoditní trhy</strong>Trhy s komoditami — zlato, stříbro, drahé kovy</div>
+    <div class="card"><strong>Devizové trhy</strong>Trhy s pohledávkami, CP a komoditami v cizích měnách</div>
+  </div>
+
+  <h3>Dělení podle doby splatnosti</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-teal">
+      <strong>Peněžní trh</strong>
+      Splatnost kratší než <span class="kw">1 rok</span>. Nízké riziko · nízký výnos · vysoká likvidita.
+      <p style="margin-top:.4rem;font-size:13px;">Nástroje: šeky · směnky · depozitní certifikáty · státní pokladniční poukázky</p>
+    </div>
+    <div class="cc-blue">
+      <strong>Kapitálový trh</strong>
+      Splatnost delší než <span class="kw">1 rok</span>. Vyšší riziko · vyšší výnos · nižší likvidita.
+      <p style="margin-top:.4rem;font-size:13px;">Nástroje: akcie · dluhopisy · hypoteční zástavní listy. Obchodování na <span class="kw">burze</span>.</p>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li><span class="kw">Primární trh</span> — první emise (prodej) CP investorům</li>
+        <li><span class="kw">Sekundární trh</span> — obchodování s již vydanými CP (burza)</li>
+      </ul>
+    </div>
+  </div>
+  </div><div class="section" data-sec="3">
+    <h2>Cenné papíry – definice, náležitosti, členění
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
+    <p><span class="kw">Cenný papír (CP)</span> = listina, díky níž uplatňujeme určitý nárok. Představuje pohledávku (peněžní nebo majetkový nárok) vlastníka vůči emitentovi. CP vytváří vztah: <span class="kw">emitent = dlužník</span> · <span class="kw">vlastník CP = věřitel</span>.</p>
+  </div>
+
+  <h3>Náležitosti cenného papíru</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:.4rem;">
+    <span class="tag t-blue">Název druhu CP (akcie, dluhopis…)</span>
+    <span class="tag t-blue">Nominální hodnota</span>
+    <span class="tag t-teal">Datum vydání</span>
+    <span class="tag t-teal">Jméno emitenta</span>
+  </div>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card"><strong>Nominální (jmenovitá) hodnota</strong>Hodnota vytištěná na CP — za tuto hodnotu se prodává prvnímu majiteli</div>
+    <div class="card"><strong>Tržní hodnota / Kurz</strong>Cena, za niž se CP nakupuje a prodává na trhu. Kolísá — závisí na nabídce/poptávce, stabilitě emitenta, ekonomické situaci. Může být vyšší i nižší než nominální hodnota.</div>
+  </div>
+
+  <h3>Členění CP</h3>
+  <table class="tbl">
+    <tbody><tr><th>Hledisko</th><th>Druhy</th></tr>
+    <tr>
+      <td><strong>Vlastnictví a převoditelnost</strong></td>
+      <td>
+        <strong>Na doručitele (majitele)</strong> — vlastníkem ten, kdo ho předloží; převod předáním<br>
+        <strong>Na řad</strong> — převod <span class="kw">rubopisem (indosamentem)</span> na rubu listiny<br>
+        <strong>Na jméno</strong> — jméno majitele na listině; převod <span class="kw">cesí</span> (postoupení pohledávky)
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Obchodovatelnost</strong></td>
+      <td>
+        <strong>Kótované</strong> — oficiálně přijaté k obchodování na burze<br>
+        <strong>Nekótované</strong> — nejsou na burze, ale lze s nimi obchodovat jinde<br>
+        <strong>Neobchodovatelné</strong> — mají neobchodovatelnost uvedenu na listině (zaměstnanecké akcie)
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Podoba</strong></td>
+      <td><strong>Listinné</strong> — v papírové podobě &nbsp;·&nbsp; <strong>Zaknihované</strong> — pouze elektronicky, evidovány na účtu</td>
+    </tr>
+    <tr>
+      <td><strong>Zosobnění práva</strong></td>
+      <td><strong>Dluhové</strong> (šeky, obligace, vkladní knížky) — vyjadřují dlužnický závazek<br><strong>Majetkové</strong> (akcie, podíly) — vyjadřují podíl na majetku</td>
+    </tr>
+    <tr>
+      <td><strong>Doba a typ trhu</strong></td>
+      <td><strong>Peněžního trhu</strong> — splatnost do 1 roku (směnky, šeky)<br><strong>Kapitálového trhu</strong> — splatnost nad 1 rok (akcie, dluhopisy)</td>
+    </tr>
+  </tbody></table>
+  </div><div class="section" data-sec="4">
+    <h2>Cenné papíry peněžního trhu
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <p style="margin-bottom:.6rem;">Krátkodobé CP se splatností <span class="kw">do 1 roku</span>. Nízké riziko · nižší výnos · vysoká likvidita. Nejdůležitější pozici zaujímá <span class="kw">mezibankovní trh</span>.</p>
+
+  <h3>Směnka</h3>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-blue">
+      <strong>Cizí směnka</strong>
+      Výstavce (<span class="kw">trasant</span>) přikazuje směnečníkovi zaplatit směnečnou částku remitentovi. Směnečník ji akceptuje podpisem (<span class="kw">akcept směnky</span>).
+      <p style="font-size:12px;margin-top:.4rem;"><strong>Náležitosti:</strong> slovo „směnka" · bezpodmínečný příkaz · jméno směnečníka · datum+místo vystavení a splatnosti · podpis trasanta · jméno remitenta</p>
+    </div>
+    <div class="cc-teal">
+      <strong>Vlastní směnka</strong>
+      Výstavce se sám zavazuje zaplatit remitentovi — je zároveň směnečníkem. Jednodušší, závazek vzniká předáním směnky.
+      <p style="font-size:12px;margin-top:.4rem;"><strong>Náležitosti:</strong> slovo „směnka" · bezpodmínečný slib · datum+místo vystavení a splatnosti · jméno remitenta · podpis výstavce</p>
+    </div>
+  </div>
+
+  <h3>Operace se směnkami</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Indosament (rubopis)</strong>Převod směnky na nového majitele písemným prohlášením na rubu. Nelze převést jen část směnečné částky.</div>
+    <div class="card"><strong>Eskont směnky</strong>Banka odkoupí směnku před splatností. Sráží <span class="kw">diskont</span> (úrok za dobu od eskontu do splatnosti). Eskontní úvěr — splatnost do 6 měsíců.</div>
+    <div class="card"><strong>Aval (směnečné rukojemství)</strong>Banka (avalista) se zaručuje za směnného dlužníka (avaláta), že zaplatí směnečnou částku.</div>
+  </div>
+
+  <hr>
+  <h3>Šek</h3>
+  <div class="accent-blue">
+    <p>Převoditelný CP, jímž výstavce (majitel účtu) dává příkaz bance (<span class="kw">šekovníkovi</span>), aby vyplatila uvedenou částku oprávněné osobě. Šek musí být vždy <span class="kw">krytý</span> — vystavení nekrytého šeku = <strong>trestný čin podvodu!</strong></p>
+  </div>
+
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card">
+      <strong>Náležitosti šeku</strong>
+      Označení „ŠEK" · bezpodmínečný příkaz zaplatit · jméno šekovníka · místo platby(banka, kde je šek vyptatitelný) · datum a místo vystavení · podpis výstavce + bankovní spojení
+    </div>
+    <div class="card">
+      <strong>Lhůty splatnosti</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li><span class="kw">8 dní</span> — vystavený a splatný ve stejné zemi</li>
+        <li><span class="kw">20 dní</span> — různé země stejného světadílu</li>
+        <li><span class="kw">70 dní</span> — různé světadíly</li>
+      </ul>
+      <p style="font-size:12px;margin-top:.3rem;">V lhůtě nelze šek odvolat. Po lhůtě ho banka neproplatí.</p>
+    </div>
+  </div>
+
+  <h3>Druhy šeků</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Bankovní</strong>Výstavcem je banka — vždy krytý (banka blokuje peníze klienta)</div>
+    <div class="card"><strong>Soukromý</strong>Výstavce je soukromá osoba</div>
+    <div class="card"><strong>Eurošek</strong>Se záruční kartou — výběr v bankomatech nebo platba v obchodech</div>
+    <div class="card"><strong>Cestovní šek</strong>Dle obchodního zákoníku — pro cestování</div>
+    <div class="card"><strong>Na řad</strong>Přesně označená osoba; převod indosamentem</div>
+    <div class="card"><strong>Na majitele</strong>Bez uvedené osoby; může si vyzvednout kdokoli; převod předáním</div>
+  </div>
+
+  <hr>
+  <h3>Ostatní CP peněžního trhu</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-amber">
+      <strong>Depozitní certifikáty</strong>
+      Potvrzení banky o přijetí vkladu na pevnou dobu. Vyšší úrok než termínovaný vklad, ale vysoká nominální hodnota. Vydávají banky k rychlému získání prostředků.
+    </div>
+    <div class="cc-teal">
+      <strong>Státní pokladniční poukázky</strong>
+      Krátkodobé dluhopisy vydávané MF ČR ke krytí schodků státního rozpočtu. Nom. hodnota 1 mil. Kč. Splatnost několik dní až 1 rok. Výhradně pro mezibankovní trh a velké investory. Zaknihované.
+    </div>
+    <div class="cc-blue">
+      <strong>Depozita</strong>
+      Termínované vklady na účtech pro krátká období s pevným úrokem. Důležitý nástroj mezibankovního trhu — banky si navzájem půjčují prostředky.
+    </div>
+  </div>
+  </div><div class="section" data-sec="5">
+    <h2>Cenné papíry kapitálového trhu
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <p style="margin-bottom:.6rem;">Splatnost delší než <span class="kw">1 rok</span>. Pořizují se jako dlouhodobé investice. Obchodovány primárně na burze.</p>
+
+  <h3>Majetkové CP — podíl na majetku emitenta</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Akcie</strong>
+      <p style="font-size:13px;margin-top:.3rem;">Majetkový CP představující <span class="kw">podíl na základním kapitálu a.s.</span> Akcionář má právo na:</p>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li>Podíl na zisku — <span class="kw">dividendy</span></li>
+        <li>Podíl na likvidačním zůstatku</li>
+        <li>Účast na řízení (hlasování na VH)</li>
+      </ul>
+      <p style="font-size:12px;margin-top:.4rem;"><strong>Kurz akcie</strong> kolísá denně — odvíjí se od stability firmy, ekonomické a politické situace. Pro investora výhodné: kurz &gt; nominál.</p>
+    </div>
+    <div class="cc-teal">
+      <strong>Podílové listy</strong>
+      <p style="font-size:13px;margin-top:.3rem;">Vydávají <span class="kw">podílové fondy</span> k získání prostředků od drobných investorů. Majitel má právo na:</p>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li>Podíl na výnosu fondu</li>
+        <li>Odpovídající část majetku fondu</li>
+      </ul>
+      <p style="font-size:12px;margin-top:.4rem;">Nemají právo zasahovat do řízení fondu. Kurz závisí na úspěšnosti fondu na trzích.</p>
+    </div>
+    <div class="cc-amber">
+      <strong>Zatímní listy</strong>
+      Vydávají a.s., které dosud nevydaly akcie. Dočasné řešení — po vydání akcií jsou zatímní listy nahrazeny akciemi stejné nominální hodnoty.
+    </div>
+  </div>
+
+  <h3>Úvěrové CP — dlužnický závazek emitenta</h3>
+  <p style="margin-bottom:.5rem;">Majitel nemá právo ovlivňovat chod instituce. Po dobu držení dostává <span class="kw">úroky</span>, po splatnosti se vrátí vložená částka.</p>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-coral">
+      <strong>Dluhopisy (obligace)</strong>
+      Dlouhodobý závazek emitenta (dlužníka) vůči majiteli CP. Druhy:
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li><span class="kw">Státní</span> — vydává stát ke krytí deficitu</li>
+        <li><span class="kw">Obecní (municipální)</span> — vydávají obce a města</li>
+        <li><span class="kw">Průmyslové (korporátní)</span> — vydávají podniky</li>
+        <li><span class="kw">Bankovní</span> — vydávají banky</li>
+      </ul>
+    </div>
+    <div class="cc-green">
+      <strong>Hypoteční zástavní listy</strong>
+      Speciální dluhopisy kryté zástavním právem na nemovitost. Vydávají pouze banky s licencí ČNB. Prostředky slouží výhradně k financování hypotečních úvěrů. Bezpečné, obchodovatelné na burze nebo RM-systému. Výnos <span class="kw">nepodléhá dani z příjmů</span>.
+    </div>
+  </div>
+
+  <h3>Deriváty (odvozené CP)</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Opce</strong>Právo vlastníka v budoucnu koupit nebo prodat určité CP za předem dohodnutou cenu</div>
+    <div class="card"><strong>Opční poukázky</strong>Vydávány spolu s obligacemi — právo v budoucnu vyměnit obligace za akcie</div>
+    <div class="card"><strong>Termínované kontrakty</strong>Povinnost (ne právo) v budoucnu prodat/koupit určité CP za dohodnutou cenu</div>
+  </div>
+  </div><div class="section" data-sec="6">
+    <h2>Burza
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Burza</span> = organizované místo, kde se střetává nabídka s poptávkou po CP (akcie, dluhopisy, certifikáty). Řídí se burzovními pravidly a zákonem. Název pochází ze slova <em>bursa</em> (kožený měšec) — zakladatel <span class="kw">Van der Burse</span>.</p>
+  </div>
+
+  <h3>Orgány burzy</h3>
+  <div class="grid4" style="margin-top:.5rem;">
+    <div class="card"><strong>Valná hromada</strong>Nejvyšší orgán</div>
+    <div class="card"><strong>Burzovní komora</strong>Statutární orgán — řídí činnost, rozhoduje o přijetí CP k obchodování</div>
+    <div class="card"><strong>Dozorčí rada</strong>Kontrolní orgán</div>
+    <div class="card"><strong>Burzovní rozhodčí soud</strong>Řeší spory vzniklé při burzovních obchodech</div>
+  </div>
+
+  <h3>Kdo může obchodovat na burze</h3>
+  <p style="margin-top:.4rem;">Na burze <span class="kw">nemůže obchodovat každý</span> — pouze vymezený okruh subjektů:</p>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem;">
+    <span class="tag t-blue">Česká národní banka</span>
+    <span class="tag t-blue">Akcionáři burzy (velké banky)</span>
+    <span class="tag t-teal">Členové burzy — makléři (složili zkoušky, přijati burzovní komorou)</span>
+  </div>
+
+  <hr>
+  <h3>Burzy v ČR</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Burza cenných papírů Praha (BCPP)</strong>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Největší organizátor trhu s CP v ČR — akciová společnost</li>
+        <li>Znovu otevřena v <span class="kw">roce 1993</span> (za komunismu uzavřena)</li>
+        <li>2001: přidružený člen Federace evropských burz (FESE)</li>
+        <li>2004: vstup ČR do EU → řádný člen FESE</li>
+        <li>2004: americká SEC udělila statut definované zahraniční burzy</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Ostatní burzy v ČR</strong>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Plodinová burza Brno</li>
+        <li>Českomoravská komoditní burza Kladno</li>
+        <li>Moravskoslezská obchodní burza Brno</li>
+      </ul>
+      <strong style="margin-top:.5rem;display:block;">RM-systém</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li>Burza zaměřená na drobné a střední investory</li>
+        <li>Majitel: FIO Banka · dohled: ČNB</li>
+        <li>Funguje online 9:00–17:00</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+  <h3>Světové burzy a burzovní indexy</h3>
+  <div class="accent-teal">
+    <p><span class="kw">Burzovní index</span> = ukazatel vývoje daného trhu. Sleduje průměrný vývoj kurzu vybraných akcií a slouží jako měřítko celkové kondice trhu.</p>
+  </div>
+  <table class="tbl">
+    <tbody><tr><th>Index</th><th>Burza / Trh</th><th>Město</th></tr>
+    <tr><td><strong>DJIA</strong> — Dow Jones Industrial Average</td><td>NYSE — New York Stock Exchange</td><td>New York (největší burza světa)</td></tr>
+    <tr><td><strong>NASDAQ</strong></td><td>National Association of Securities Dealers AQ</td><td>New York (technologické firmy)</td></tr>
+    <tr><td><strong>TSE</strong> — Tokyo Stock Exchange</td><td>Tokijská burza</td><td>Tokio</td></tr>
+    <tr><td><strong>Euronext</strong></td><td>Kombinovaná evropská burza</td><td>Amsterdam · Paříž · Brusel</td></tr>
+    <tr><td><strong>PX</strong></td><td>Burza cenných papírů Praha</td><td>Praha</td></tr>
+  </tbody></table>
+  <p style="margin-top:.5rem;font-size:13px;color:var(--text-muted);">Další významná burzovní centra: <span class="kw">Frankfurt · Londýn · Šanghaj</span></p>
+  </div>
+
+<!-- 2. FINANČNÍ TRH -->
+
+
+<!-- 3. CENNÉ PAPÍRY – OBECNĚ -->
+
+
+<!-- 4. CP PENĚŽNÍHO TRHU -->
+
+
+<!-- 5. CP KAPITÁLOVÉHO TRHU -->
+
+
+<!-- 6. BURZA -->
+
+
+<div class="note-footer">ITE 4.B &nbsp;·&nbsp; Maturita 2026 &nbsp;·&nbsp; Ekonomika – Otázka 12</div>
+</div>
+
+<script>
+const _subj=(document.querySelector('meta[name="mat-subject"]')||{}).content||'eko';
+const _num=(document.querySelector('meta[name="mat-num"]')||{}).content||'12';
+const _title=(document.querySelector('meta[name="mat-title"]')||{}).content||document.title;
+const NOTE_ID=`${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`,JSON.stringify({title:_title,subject:_subj,num:parseInt(_num)}));
+function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+function toggleDark(){const on=document.body.classList.toggle('dark');localStorage.setItem('mat-dark',on?'1':'0');const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});
+function secKey(n){return `mat-sec::${NOTE_ID}::${n}`;}
+function toggleSec(btn){const sec=btn.closest('.section');const id=sec.dataset.sec;if(localStorage.getItem(secKey(id))){localStorage.removeItem(secKey(id));sec.classList.remove('flagged');btn.classList.remove('on');btn.textContent='⚑ Označit';}else{localStorage.setItem(secKey(id),'1');sec.classList.add('flagged');btn.classList.add('on');btn.textContent='⚑ Označeno';}updateSummary();}
+function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec=>{if(localStorage.getItem(secKey(sec.dataset.sec))){sec.classList.add('flagged');const btn=sec.querySelector('.sec-flag');if(btn){btn.classList.add('on');btn.textContent='⚑ Označeno';}}});updateSummary();}
+function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
+applyDark();loadFlags();
+</script>
+
+
+</body></html>

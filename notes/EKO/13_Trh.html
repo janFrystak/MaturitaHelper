@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="cs"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="eko">
+<meta name="mat-num" content="13">
+<meta name="mat-title" content="Trh a tržní ekonomika">
+<title>Trh a tržní ekonomika – Maturita 2026</title>
+<style>
+  :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
+  body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;--flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto;}
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px;}
+  .header p{font-size:13px;color:var(--text-muted);}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .badge{background:var(--blue-light);color:var(--blue-dark);border:0.5px solid #B5D4F4;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .dark-btn{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;}
+  .dark-btn:hover{color:var(--text);}
+  .flag-summary{display:none;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .flag-summary.visible{display:inline-block;}
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em;}
+  p,li{font-size:14px;color:var(--text-muted);}
+  ul{padding-left:1.2rem;}
+  li{margin-bottom:4px;}
+  .kw{font-weight:600;color:var(--text);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-green{background:var(--green-light);border:0.5px solid #B5DCA0;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-teal strong{color:var(--teal-dark);}.cc-blue strong{color:var(--blue-dark);}.cc-amber strong{color:var(--amber-dark);}.cc-coral strong{color:var(--coral-dark);}.cc-green strong{color:var(--green-dark);}
+  .accent-blue{border-left:3px solid #378ADD;padding-left:12px;margin:.5rem 0;}
+  .accent-teal{border-left:3px solid #1D9E75;padding-left:12px;margin:.5rem 0;}
+  .accent-amber{border-left:3px solid #EF9F27;padding-left:12px;margin:.5rem 0;}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:5px;}
+  .t-teal{background:var(--teal-light);color:var(--teal-dark);}.t-blue{background:var(--blue-light);color:var(--blue-dark);}.t-amber{background:var(--amber-light);color:var(--amber-dark);}.t-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .tbl{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:600;padding:6px 8px;border:0.5px solid var(--gray-border);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;color:var(--text-muted);}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.8rem 0;}
+  @media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.header{flex-direction:column;}}
+  @media print{body{background:white;padding:1rem;}.sec-flag,.dark-btn{display:none;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Trh a tržní ekonomika</h1>
+    <p>Maturitní otázka č. 13 &nbsp;·&nbsp; Ekonomika &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+    <p style="margin-top:5px;">Ekonomické systémy · Trh · Poptávka · Nabídka · Rovnováha · Konkurence · Tržní selhání · Globalizace · Mezní užitek</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">Otázka 13 / 20</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- 1. EKONOMICKÉ SYSTÉMY -->
+<div class="section" data-sec="1">
+    <h2>Ekonomické systémy
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="grid3" style="margin-top:.4rem;">
+    <div class="cc-teal">
+      <strong>Tržní ekonomika</strong>
+      Ceny jsou určovány nabídkou a poptávkou. Žádné (nebo minimální) státní zásahy. Volný trh koordinuje ekonomiku. <em>Absolutně volný trh je abstraktní — vláda vždy alespoň minimálně zasahuje.</em>
+    </div>
+    <div class="cc-coral">
+      <strong>Plánovaná ekonomika</strong>
+      Stát určuje, co a jak se bude vyrábět. Opírá se o víceleté plány. Opak tržní ekonomiky. Znám z reálně socialistických zemí — <span class="kw">centrálně plánovaná ekonomika</span>.
+    </div>
+    <div class="cc-amber">
+      <strong>Smíšená ekonomika</strong>
+      Kombinace tržní a plánované ekonomiky. Trh funguje jako základ, stát selektivně zasahuje (regulace, sociální politika). Realita většiny moderních ekonomik.
+    </div>
+  </div>
+  </div><div class="section" data-sec="2">
+    <h2>Trh – definice, mechanismus, členění
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Trh</span> = oblast ekonomiky, kde se střetává nabídka s poptávkou a dochází ke směně mezi ekonomickými subjekty.</p>
+    <p style="margin-top:.4rem;"><span class="kw">Tržní mechanismus</span> = vnitřní řád trhu, který zabezpečuje fungování hospodářského procesu. Je založen na vzájemném působení <strong>poptávky · nabídky · cen</strong>.</p>
+  </div>
+
+  <h3>Základní prvky tržního mechanismu</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-blue"><strong>Nabídka</strong>Množství zboží, které výrobci dodají při určité ceně na trh</div>
+    <div class="cc-teal"><strong>Poptávka</strong>Množství zboží, které jsou kupující schopni koupit za určitou cenu</div>
+    <div class="cc-amber"><strong>Cena</strong>Směnná hodnota vyjádřená v penězích — kvantitativní poměr, ve kterém se 1 zboží směňuje za jiné</div>
+  </div>
+
+  <h3>Členění trhů</h3>
+  <table class="tbl">
+    <tbody><tr><th>Hledisko</th><th>Typy trhů</th></tr>
+    <tr><td><strong>Územní</strong></td><td>Místní (jarmark) · Národní (trh v rámci státu) · Světový</td></tr>
+    <tr><td><strong>Počet zboží</strong></td><td>Dílčí (jeden druh zboží) · Agregátní (veškeré zboží)</td></tr>
+    <tr><td><strong>Předmět koupě/prodeje</strong></td><td>Trh výrobních faktorů (půda, práce, kapitál) · Trh peněz · Trh produktů (výrobky a služby)</td></tr>
+  </tbody></table>
+
+  <h3>Subjekty trhu</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-teal">
+      <strong>Domácnosti</strong>
+      Vlastníci výrobních faktorů (hlavně práce). Na trhu práce tvoří <span class="kw">nabídku</span>, na trhu zboží tvoří <span class="kw">poptávku</span>. Hlavní cíl: uspokojení potřeb.
+    </div>
+    <div class="cc-blue">
+      <strong>Podniky (firmy)</strong>
+      Na trhu výrobních faktorů tvoří <span class="kw">poptávku</span>, vyrobenými statky tvoří <span class="kw">nabídku</span> na trhu zboží. Hlavní cíl: <span class="kw">zisk</span>.
+    </div>
+    <div class="cc-amber">
+      <strong>Stát</strong>
+      Vytváří zákony a zajišťuje konkurenční prostředí. Tvoří poptávku na trhu zboží (zakázky pro armádu, policii, soudy). Přerozděluje příjmy.
+    </div>
+  </div>
+  </div><div class="section" data-sec="3">
+    <h2>Poptávka
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Poptávka</span> = množství zboží Q, které jsou kupující ochotni koupit při určité ceně P.</p>
+  </div>
+
+  <h3>Druhy poptávky</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Individuální</strong>Poptávka jediného kupujícího nebo po produkci jediného výrobce</div>
+    <div class="card"><strong>Dílčí (tržní)</strong>Poptávka po jednom výrobku od všech kupujících</div>
+    <div class="card"><strong>Agregátní</strong>Součet všech poptávek všech subjektů v daném státě za 1 rok</div>
+  </div>
+
+  <h3>Zákon klesající poptávky</h3>
+  <div class="cc-blue" style="margin-top:.5rem;">
+    <p><span class="kw">Poptávané množství se mění v opačném směru než cena.</span> Platí nepřímá úměra — čím vyšší cena, tím méně zboží nakoupíme. Křivka poptávky je klesající.</p>
+    <p style="font-size:13px;margin-top:.4rem;"><strong>Posun po křivce</strong> = změna poptávaného množství vlivem změny ceny &nbsp;·&nbsp; <strong>Posun celé křivky</strong> = změna způsobená jinými než cenovými vlivy</p>
+  </div>
+
+  <h3>Faktory ovlivňující poptávku (posuny křivky)</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card">
+      <strong>a) Důchodový efekt</strong>
+      Výše příjmů ovlivňuje kupní sílu. Zvýší-li se důchody → zvýší se kupní síla → zvýší se poptávka. Sníží-li se příjmy → klesá poptávka.
+    </div>
+    <div class="card">
+      <strong>b) Substituční efekt</strong>
+      Zdraží-li se zboží, kupující ho nahradí <span class="kw">substitutem</span> (podobným levnějším zbožím). Př.: zdraží káva → lidé přejdou na čaj.
+    </div>
+    <div class="card">
+      <strong>c) Komplement</strong>
+      Zboží, které doprovází spotřebu zkoumaného zboží — bez něj nemůže fungovat. Př.: auto a benzín. Zdraží-li benzín → klesá poptávka po autech.
+    </div>
+    <div class="card">
+      <strong>d) Demografický vývoj</strong>
+      Stárnutí populace mění strukturu poptávky — roste poptávka po lécích, domovech důchodců; klesá po jiných statcích.
+    </div>
+    <div class="card">
+      <strong>e) Změny preferencí</strong>
+      Móda, zdravý životní styl, reklama, vliv médií. Př.: trend zdravé výživy → roste poptávka po zelenině, klesá po vepřovém.
+    </div>
+    <div class="card">
+      <strong>f) Ceny substitutu / komplementu</strong>
+      Zdraží-li substitut → roste poptávka po původním zboží. Zdraží-li komplement → klesá poptávka po zkoumaném zboží.
+    </div>
+  </div>
+
+  <div class="cc-teal" style="margin-top:.75rem;">
+    <strong>Elasticita (pružnost) poptávky</strong>
+    <p style="font-size:13px;margin-top:.3rem;"><span class="kw">Cenová elasticita poptávky</span> = citlivost, s jakou spotřebitelé reagují na změny cen. Měřitelná. <strong>Elastická poptávka</strong>: malá změna ceny → velká změna množství (luxusní zboží). <strong>Neelastická</strong>: změna ceny poptávku téměř neovlivní (základní potraviny, léky).</p>
+  </div>
+  </div><div class="section" data-sec="4">
+    <h2>Nabídka
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
+    <p><span class="kw">Nabídka</span> = množství zboží Q, které jsou prodávající ochotni prodat při určité ceně P.</p>
+  </div>
+
+  <h3>Druhy nabídky</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Individuální</strong>Nabídka jednoho výrobce</div>
+    <div class="card"><strong>Dílčí</strong>Nabídka jednoho výrobku od různých výrobců</div>
+    <div class="card"><strong>Agregátní</strong>Celková nabídka všech statků a služeb v NH</div>
+  </div>
+
+  <h3>Zákon rostoucí nabídky</h3>
+  <div class="cc-teal" style="margin-top:.5rem;">
+    <p><span class="kw">Růst ceny vyvolává růst nabídky, pokles ceny vyvolává pokles nabídky.</span> Vyšší ceny motivují výrobce k větší produkci a umožňují nakoupit více výrobních faktorů. Křivka nabídky je rostoucí.</p>
+  </div>
+
+  <h3>Faktory ovlivňující nabídku (posuny křivky)</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Náklady výroby</strong>Zdraží-li suroviny, energie nebo mzdy → klesá nabídka. Zavedení nové technologie → roste nabídka.</div>
+    <div class="card"><strong>Vnější podmínky podnikání</strong>Organizace trhu, daně, dotace, počasí (zemědělství), regulace.</div>
+    <div class="card"><strong>Kapitálová výnosnost</strong>Kapitál přirozeně směřuje do odvětví s vyšší rentabilitou — <span class="kw">přelévání kapitálu</span> mezi odvětvími.</div>
+  </div>
+
+  <h3>Elasticita nabídky</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Velmi krátké období</strong>Nabídka fixní — výrobci prodají jen to, co mají na skladě</div>
+    <div class="card"><strong>Krátké období</strong>Firma může zvýšit výstup, ale nemůže změnit charakter kapital. statků</div>
+    <div class="card"><strong>Dlouhé období</strong>Firma může změnit množství, technické vybavení i způsob výroby — plně elastická</div>
+  </div>
+  </div><div class="section" data-sec="5">
+    <h2>Tržní rovnováha
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Tržní rovnováha</span> = stav, kdy množství, které jsou výrobci ochotni prodat, se rovná množství, které jsou kupující ochotni koupit. <strong>Nabídka = Poptávka.</strong> Ideální stav, v praxi nedosažitelný.</p>
+    <p style="margin-top:.4rem;"><span class="kw">Rovnovážná cena</span> = cena „vyčišťující trh" — existuje právě jedna. Všechny ostatní jsou nerovnovážné.</p>
+  </div>
+
+  <div class="grid2" style="margin-top:.75rem;">
+    <div class="cc-coral">
+      <strong>Nedostatek (shortage)</strong>
+      Poptávka &gt; Nabídka. Cena je nižší než rovnovážná → zboží nestačí → výrobci zdraží → cena se přibližuje rovnováze.
+    </div>
+    <div class="cc-amber">
+      <strong>Přebytek (surplus)</strong>
+      Nabídka &gt; Poptávka. Cena je vyšší než rovnovážná → zboží leží na skladě, rostou N na skladování → výrobci zlevňují → cena klesá k rovnováze.
+    </div>
+  </div>
+  <p style="margin-top:.6rem;font-size:13px;">Rovnováha nastává v <span class="kw">průsečíku křivky poptávky a nabídky</span>. Trh se k rovnováze sám přibližuje — tato samoregulace je základem fungování tržní ekonomiky.</p>
+  </div><div class="section" data-sec="6">
+    <h2>Konkurence
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
+    <p><span class="kw">Konkurence</span> = proces, ve kterém se setkávají zájmy různých ekonomických subjektů, z nichž každý usiluje o co nejvýhodnější podmínky.</p>
+  </div>
+
+  <h3>Typy konkurence podle pozice na trhu</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card"><strong>Napříč trhem</strong>Střetávání nabídky s poptávkou. Výrobci chtějí prodávat draho, spotřebitelé kupovat levně. Rovnovážná cena je kompromis — příliš nízká pro výrobce, příliš vysoká pro spotřebitele.</div>
+    <div class="card"><strong>Na straně nabídky</strong>Výrobci soupeří o zákazníky — snaží se prodat co nejvíce za nejlepších podmínek a vytlačit konkurenty z trhu.</div>
+    <div class="card"><strong>Na straně poptávky</strong>Existuje jen při nedostatku zboží (poptávka &gt; nabídka). Spotřebitelé soupeří o omezené množství zboží → tlak na ceny nahoru. Zaniká hned, když je zboží dostatek.</div>
+    <div class="card"><strong>Cenová vs. necenová</strong><span class="kw">Cenová</span>: výrobci záměrně snižují ceny, aby odlákali zákazníky od konkurence. <span class="kw">Necenová</span>: přilákání zákazníků kvalitou, inovacemi, designem, reklamou, servisem, prodejem na úvěr.</div>
+  </div>
+
+  <h3>Dokonalá vs. nedokonalá konkurence</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-teal">
+      <strong>Dokonalá konkurence</strong>
+      Základní podmínka fungování trhu — v reálném světě <span class="kw">neexistuje</span>. Předpoklady:
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Velký počet malých firem — žádná nemůže ovlivnit tržní cenu</li>
+        <li>Stejnorodý produkt — spotřebitelé nerozeznávají výrobce</li>
+        <li>Volný vstup a výstup z odvětví</li>
+        <li>Dokonalá informovanost všech účastníků</li>
+      </ul>
+    </div>
+    <div class="cc-coral">
+      <strong>Nedokonalá konkurence</strong>
+      Realita většiny trhů. Firma vystupuje z anonymity a snaží se ovlivňovat cenu i poptávku po svých výrobcích. Extrémní forma: <span class="kw">monopol</span>.
+    </div>
+  </div>
+
+  <h3>Typy tržních struktur – nedokonalá konkurence</h3>
+  <table class="tbl">
+    <tbody><tr><th>Struktura</th><th>Počet výrobců</th><th>Charakteristika</th><th>Příklady</th></tr>
+    <tr>
+      <td><strong>Monopol</strong></td>
+      <td>1</td>
+      <td>Jediný výrobce — může diktovat ceny, nesnižuje náklady, nemá motivaci k inovacím</td>
+      <td>ČEZ (distribuce elektřiny), pošta, vodovodní sítě</td>
+    </tr>
+    <tr>
+      <td><strong>Oligopol</strong></td>
+      <td>Několik velkých</td>
+      <td>Firmy jsou na sobě závislé — sledují strategii konkurentů. Může docházet k dohodám (kartel — zakázán zákonem).</td>
+      <td>Mobilní operátoři, automobilový průmysl, bankovnictví</td>
+    </tr>
+    <tr>
+      <td><br></td><td></td><td></td><td><br></td>
+    </tr>
+  </tbody></table>
+
+  <h3>Druhy monopolů</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Administrativní</strong>Vznikají zákonem nebo vládními nařízeními (tabákový monopol, výrobci zbraní)</div>
+    <div class="card"><strong>Přirozený</strong>1 výrobce dokáže poskytovat produkt levněji než 2 a více výrobců — ekonomicky efektivní (pošta, ČEZ)</div>
+    <div class="card"><strong>Tajný</strong>Protizákonný — stát jim brání (kartely, tajné cenové dohody)</div>
+  </div>
+  </div><div class="section" data-sec="7">
+    <h2>Tržní selhání
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-amber">
+    <p><span class="kw">Tržní selhání</span> = situace, kdy trh sám nedokáže efektivně rozmístit zdroje. Ospravedlňuje státní zásahy do ekonomiky. <strong>Pozor:</strong> Tržní selhání ≠ nedokonalá konkurence!</p>
+  </div>
+
+  <h3>Hlavní případy tržního selhání</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-coral">
+      <strong>Problém tržní síly</strong>
+      Firmy s tržní silou (monopol, oligopol) mohou ovlivňovat ceny ve svůj prospěch — způsobuje neefektivitu a poškozuje spotřebitele.
+    </div>
+    <div class="cc-amber">
+      <strong>Externality</strong>
+      Vedlejší nechtěné efekty výroby nebo spotřeby, které postihují třetí strany bez kompenzace.
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li><span class="kw">Negativní</span>: znečištění ovzduší, poškození spodních vod chemickou výrobou → stát musí zasáhnout pokutami a legislativou</li>
+        <li><span class="kw">Pozitivní</span>: vzdělávání → absolvent přináší hodnotu celé společnosti, nejen zaměstnavateli</li>
+      </ul>
+    </div>
+    <div class="cc-blue">
+      <strong>Veřejné statky a neúplné trhy</strong>
+      Trh neposkytuje veřejné statky (obrana, veřejné osvětlení, justice) — jsou nedělitelné a nelze vyloučit nikoho z jejich spotřeby. Musí je zajistit stát.
+    </div>
+    <div class="cc-teal">
+      <strong>Asymetrické informace a morální hazard</strong>
+      <span class="kw">Asymetrické informace</span>: jedna strana transakce má více informací než druhá (prodejce auta zná závady, kupující ne). <span class="kw">Morální hazard</span>: pojištěný subjekt se chová rizikověji, protože náklady nese pojišťovna.
+    </div>
+  </div>
+  </div><div class="section" data-sec="8">
+    <h2>Teorie mezního užitku a náklad příležitosti
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-blue">
+    <p><span class="kw">Užitek (U)</span> = uspokojení dosahované spotřebou statků a služeb. Subjektivní pojem — co uspokojuje jednoho, nemusí uspokojovat druhého.</p>
+  </div>
+
+  <h3>Spotřebitel a jeho omezení</h3>
+  <p style="margin-bottom:.5rem;">Spotřebitel je ve spotřebě omezen:</p>
+  <div class="grid3" style="margin-top:.4rem;">
+    <div class="card"><strong>Fyzicky</strong>Nelze obléci dva kožichy zároveň</div>
+    <div class="card"><strong>Časově</strong>Nelze jet na dovolenou na dvě místa najednou</div>
+    <div class="card"><strong>Důchodem</strong>Za 15 Kč nelze koupit auto</div>
+  </div>
+  <p style="margin-top:.5rem;font-size:13px;"><span class="kw">Pravidlo racionální volby</span>: spotřebitelé v rámci svých důchodů volí statky a služby, které jim přinesou největší užitek.</p>
+
+  <hr>
+  <h3>Celkový a mezní užitek</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-teal">
+      <strong>Celkový užitek (TU)</strong>
+      Roste s množstvím spotřebovaného statku — první jednotka má pro spotřebitele největší význam, každá další přidává méně a méně užitku.
+    </div>
+    <div class="cc-blue">
+      <strong>Mezní užitek (MU)</strong>
+      Dodatečný užitek z každé další jednotky statku. Platí <span class="kw">princip klesajícího mezního užitku</span> — každá další spotřebovaná jednotka přináší menší užitek než předchozí.
+      <p style="font-size:12px;margin-top:.4rem;"><strong>MU = ΔTU / ΔQ</strong> (změna celkového užitku / změna množství)</p>
+    </div>
+  </div>
+
+  <div class="cc-amber" style="margin-top:.6rem;">
+    <strong>Rovnováha spotřebitele</strong>
+    <p style="font-size:13px;margin-top:.3rem;">Dosahuje se tehdy, když spotřebitel rozloží svůj důchod tak, aby <span class="kw">1 Kč přinášela u všech zboží stejný mezní užitek</span>. Mezní užitek poslední spotřebované jednotky určuje cenu zboží.</p>
+  </div>
+
+  <h3>Přebytky a náklad příležitosti</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Přebytek spotřebitele</strong>Rozdíl mezi maximální částkou, kterou je spotřebitel ochoten zaplatit, a částkou, kterou skutečně zaplatí</div>
+    <div class="card"><strong>Přebytek výrobce</strong>Rozdíl mezi cenou, kterou výrobce dostává, a minimální cenou, za niž by byl ochoten prodat</div>
+    <div class="card"><strong>Náklad příležitosti (obětovaná příležitost)</strong>Obětovaný výnos, který bychom mohli získat v nejlepší nevybrané alternativě. Při každém rozhodnutí se něčeho vzdáváme.</div>
+  </div>
+  </div><div class="section" data-sec="9">
+    <h2>Globalizace, lokalizace, relokalizace
+      <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+    </h2>
+    <div class="accent-teal">
+    <p><span class="kw">Globalizace</span> = dlouhodobý ekonomický, kulturní a politický proces, který rozšiřuje, prohlubuje a urychluje pohyb zboží, lidí a myšlenek přes hranice států a kontinentů.</p>
+  </div>
+
+  <h3>4 hlavní aspekty globalizace (MMF)</h3>
+  <div class="grid4" style="margin-top:.5rem;">
+    <div class="cc-blue"><strong>1. Mezinárodní obchod</strong>Volný pohyb zboží a služeb přes hranice</div>
+    <div class="cc-teal"><strong>2. Pohyb investic a kapitálu</strong>Přímé zahraniční investice, finanční trhy</div>
+    <div class="cc-amber"><strong>3. Migrace osob</strong>Pohyb pracovní síly za prací a příležitostmi</div>
+    <div class="cc-coral"><strong>4. Šíření znalostí</strong>Technologický transfer, internet, věda</div>
+  </div>
+
+  <h3>Lokalizace a relokalizace</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card">
+      <strong>Lokalizace</strong>
+      Alternativa ke globalizaci — podpora místního podnikání využívajícího místní zdroje a uspokojujícího místní potřeby. Posiluje místní soběstačnost, omezuje závislost na dovozu, diverzifikuje ekonomiku. Součást heterodoxní (alternativní) ekonomie.
+    </div>
+    <div class="card">
+      <strong>Relokalizace</strong>
+      Přirozené pokračování globalizace — globální systém kopíruje a amplifikuje centralizaci, až dojde k pnutí a degradaci lokálních systémů. Relokalizace transformuje globální informace do lokálních znalostí a akcí. Návrat části výroby blíže ke spotřebitelům.
+    </div>
+  </div>
+  </div>
+
+<!-- 2. TRH -->
+
+
+<!-- 3. POPTÁVKA -->
+
+
+<!-- 4. NABÍDKA -->
+
+
+<!-- 5. TRŽNÍ ROVNOVÁHA -->
+
+
+<!-- 6. KONKURENCE -->
+
+
+<!-- 7. TRŽNÍ SELHÁNÍ -->
+
+
+<!-- 8. TEORIE MEZNÍHO UŽITKU -->
+
+
+<!-- 9. GLOBALIZACE -->
+
+
+<div class="note-footer">ITE 4.B &nbsp;·&nbsp; Maturita 2026 &nbsp;·&nbsp; Ekonomika – Otázka 13</div>
+</div>
+
+<script>
+const _subj=(document.querySelector('meta[name="mat-subject"]')||{}).content||'eko';
+const _num=(document.querySelector('meta[name="mat-num"]')||{}).content||'13';
+const _title=(document.querySelector('meta[name="mat-title"]')||{}).content||document.title;
+const NOTE_ID=`${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`,JSON.stringify({title:_title,subject:_subj,num:parseInt(_num)}));
+function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+function toggleDark(){const on=document.body.classList.toggle('dark');localStorage.setItem('mat-dark',on?'1':'0');const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});
+function secKey(n){return `mat-sec::${NOTE_ID}::${n}`;}
+function toggleSec(btn){const sec=btn.closest('.section');const id=sec.dataset.sec;if(localStorage.getItem(secKey(id))){localStorage.removeItem(secKey(id));sec.classList.remove('flagged');btn.classList.remove('on');btn.textContent='⚑ Označit';}else{localStorage.setItem(secKey(id),'1');sec.classList.add('flagged');btn.classList.add('on');btn.textContent='⚑ Označeno';}updateSummary();}
+function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec=>{if(localStorage.getItem(secKey(sec.dataset.sec))){sec.classList.add('flagged');const btn=sec.querySelector('.sec-flag');if(btn){btn.classList.add('on');btn.textContent='⚑ Označeno';}}});updateSummary();}
+function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
+applyDark();loadFlags();
+</script>
+
+
+</body></html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="eko">
+<meta name="mat-num"     content="17">
+<meta name="mat-title"   content="Mezinárodní obchod a celnictví">
+<title>Mezinárodní obchod a celnictví – Maturita 2026</title>
+<style>
+  :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
+  body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;--flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto;}
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px;}
+  .header p{font-size:13px;color:var(--text-muted);}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .badge{background:var(--blue-light);color:var(--blue-dark);border:0.5px solid #B5D4F4;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .dark-btn{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;}
+  .dark-btn:hover{color:var(--text);}
+  .flag-summary{display:none;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .flag-summary.visible{display:inline-block;}
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em;}
+  p,li{font-size:14px;color:var(--text-muted);}
+  ul{padding-left:1.2rem;}
+  li{margin-bottom:4px;}
+  .kw{font-weight:600;color:var(--text);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-green{background:var(--green-light);border:0.5px solid #B5DCA0;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-teal strong{color:var(--teal-dark);}.cc-blue strong{color:var(--blue-dark);}.cc-amber strong{color:var(--amber-dark);}.cc-coral strong{color:var(--coral-dark);}.cc-green strong{color:var(--green-dark);}
+  .accent-blue{border-left:3px solid #378ADD;padding-left:12px;margin:.5rem 0;}
+  .accent-teal{border-left:3px solid #1D9E75;padding-left:12px;margin:.5rem 0;}
+  .accent-amber{border-left:3px solid #EF9F27;padding-left:12px;margin:.5rem 0;}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:5px;}
+  .t-teal{background:var(--teal-light);color:var(--teal-dark);}.t-blue{background:var(--blue-light);color:var(--blue-dark);}.t-amber{background:var(--amber-light);color:var(--amber-dark);}.t-coral{background:var(--coral-light);color:var(--coral-dark);}
+  .tbl{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:600;padding:6px 8px;border:0.5px solid var(--gray-border);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;color:var(--text-muted);}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+  .formula{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.55rem 1rem;font-size:13px;font-weight:600;color:var(--text);margin:.4rem 0;font-family:ui-monospace,monospace;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.8rem 0;}
+  @media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.header{flex-direction:column;}}
+  @media print{body{background:white;padding:1rem;}.sec-flag,.dark-btn{display:none;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Mezinárodní obchod a celnictví</h1>
+    <p>Maturitní otázka č. 17 &nbsp;·&nbsp; Ekonomika &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+    <p style="margin-top:5px;">Formy ZO · Komparativní výhoda · Bilance · Incoterms · Financování · EU · Clo · Celní režimy</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">Otázka 17 / 20</span>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙 Tmavý</button>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- 1. VÝZNAM A VÝHODY -->
+<div class="section" data-sec="1">
+  <h2><span class="num">1</span> Význam zahraničního obchodu a komparativní výhody
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p><span class="kw">Zahraniční obchod</span> = součást NH, spojuje národní hospodářství jedné země s druhou. Otevřená ekonomika je zapojena do mezinárodního obchodu, uzavřená ne.</p>
+  </div>
+  <h3>Trojí význam zahraničního obchodu</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-blue"><strong>Ekonomický</strong>Úspora výrobních faktorů (práce, půdy, kapitálu) → úspora nákladů. Specializace na to, co umíme nejlépe.</div>
+    <div class="cc-teal"><strong>Politický</strong>Vzájemným obchodem se navazují přátelské vztahy mezi zeměmi.</div>
+    <div class="cc-amber"><strong>Kulturní</strong>Vzájemné poznání kultury jednotlivých zemí.</div>
+  </div>
+  <hr>
+  <h3>Absolutní vs. komparativní výhoda</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card">
+      <strong>Absolutní výhoda</strong>
+      Země vyrábí a prodává zboží, které dokáže vyrobit za <span class="kw">nižší náklady než jiné státy</span> — výrobci mají vyšší produktivitu práce než ve zbývajícím světě.
+    </div>
+    <div class="card">
+      <strong>Komparativní výhoda</strong>
+      Země vyrábí a prodává zboží, u kterého má <span class="kw">nejpříznivější poměr národních nákladů vůči zahraničí</span> — tj. nejméně zaostává. I slabší ekonomika se může do obchodu zapojit.
+    </div>
+  </div>
+  <h3>Komparativní výhody a nevýhody ČR</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-teal">
+      <strong>✓ Výhody</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li>Výhodná dopravní poloha (střed Evropy)</li>
+        <li>Vysoká vzdělanost → kvalifikovaná pracovní síla</li>
+        <li>Rozmanitá přírodní struktura → cestovní ruch</li>
+        <li>Poměrně nízké mzdy a platy</li>
+        <li>Atraktivita kulturních památek</li>
+      </ul>
+    </div>
+    <div class="cc-coral">
+      <strong>✗ Nevýhody</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li>Malá rozloha, málo nerostných surovin</li>
+        <li>Klima mírného pásu — omezuje zemědělství</li>
+        <li>Ekologické znečištění přírody</li>
+        <li>Malý počet obyvatel — omezuje vnitřní trh</li>
+        <li>Nízká konkurenceschopnost výrobků v zahraničí</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2. FORMY ZAHRANIČNÍHO OBCHODU -->
+<div class="section" data-sec="2">
+  <h2><span class="num">2</span> Formy zahraničního obchodu
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="grid3" style="margin-top:.4rem;">
+    <div class="cc-teal">
+      <strong>EXPORT (vývoz)</strong>
+      Prodej zboží a služeb do zahraničí. Hmotný nebo nehmotný.
+      <ul style="font-size:13px;margin-top:.5rem;">
+        <li><span class="kw">Přímý</span> — dodavatel a odběratel v přímém kontaktu. Specifické výrobky, dobrý přehled o trhu.</li>
+        <li><span class="kw">Nepřímý</span> — vstupuje zprostředkovatel (prostředník, výhradní zástupce, obchodní zástupce, piggyback).</li>
+      </ul>
+    </div>
+    <div class="cc-blue">
+      <strong>IMPORT (dovoz)</strong>
+      Dovoz statků a služeb, které ve státě nejsou nebo jsou jich jen omezené zásoby. Hmotný nebo nehmotný.
+      <ul style="font-size:13px;margin-top:.5rem;">
+        <li><span class="kw">Přímý</span> — nakoupíme přímo od zahraničního dodavatele.</li>
+        <li><span class="kw">Nepřímý</span> — zprostředkovatel v tuzemsku nakoupí v zahraničí a prodá odběratelům.</li>
+      </ul>
+    </div>
+    <div class="cc-amber">
+      <strong>REEXPORT</strong>
+      Vývoz dovozu — reexportéři nakupují v cizině a prodávají do třetí země.
+      <ul style="font-size:13px;margin-top:.5rem;">
+        <li><span class="kw">Přímý</span> — zboží nejde přes území ČR</li>
+        <li><span class="kw">Nepřímý</span> — zboží se přiveze do ČR, pak prodá dál</li>
+      </ul>
+      <p style="font-size:12px;margin-top:.4rem;"><strong>Důvody:</strong> ekonomické (nákup ve velkém, rozprodej za vyšší ceny) · politické (překonání obchodních překážek) · doplnění vlastního sortimentu</p>
+    </div>
+  </div>
+
+  <h3>Typy zprostředkovatelů v nepřímém exportu</h3>
+  <table class="tbl">
+    <tr><th>Typ</th><th>Charakteristika</th></tr>
+    <tr><td><strong>Prostředník</strong></td><td>Prodává vlastním jménem, na vlastní účet a riziko</td></tr>
+    <tr><td><strong>Výhradní prodej</strong></td><td>Prodej jen přes jednoho výhradního zástupce v dané zemi</td></tr>
+    <tr><td><strong>Obchodní zástupce</strong></td><td>Sjednává obchody jménem firmy a na její účet — nepodniká vlastním jménem</td></tr>
+    <tr><td><strong>Piggyback</strong></td><td>Velká firma za poplatek poskytne svou prodejní síť menší firmě</td></tr>
+  </table>
+</div>
+
+<!-- 3. OBCHODNÍ POLITIKA -->
+<div class="section" data-sec="3">
+  <h2><span class="num">3</span> Obchodní politika
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-coral">
+      <strong>Protekcionismus (ochranářství)</strong>
+      Stát zasahuje do ZO s cílem:<br>
+      <ul style="font-size:13px;margin-top:.4rem;">
+        <li>Ochránit vnitřní trh před nežádoucí zahraniční konkurencí (cla, kvóty)</li>
+        <li>Podporovat vlastní výrobky na zahraničních trzích (vývozní subvence, úvěrování vývozu)</li>
+      </ul>
+      <p style="font-size:12px;margin-top:.5rem;">Zastánce: <span class="kw">John Maynard Keynes</span> (keynesiánství)</p>
+    </div>
+    <div class="cc-teal">
+      <strong>Liberalismus (volný obchod)</strong>
+      Stát omezuje zásahy do hospodářství a tedy i do ZO. Odstraňují se překážky pohybu zboží mezi státy.
+      <p style="font-size:12px;margin-top:.5rem;">Zastánce: <span class="kw">Adam Smith</span> (Pojednání o podstatě a původu bohatství národů)</p>
+      <p style="font-size:12px;margin-top:.3rem;">O liberalizaci světového obchodu se snaží <span class="kw">WTO</span> (Světová obchodní organizace).</p>
+    </div>
+  </div>
+</div>
+
+<!-- 4. BILANCE -->
+<div class="section" data-sec="4">
+  <h2><span class="num">4</span> Bilance v zahraničním obchodě
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <h3>Obchodní bilance</h3>
+  <p style="margin-bottom:.5rem;">Porovnání dovozu a vývozu NH ČR. Tři fáze: 1) vyčíslení dovozu · 2) vyčíslení vývozu · 3) výpočet rozdílu.</p>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card">
+      <strong>Struktura</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li><span class="kw">Teritoriální</span> — dle zemí, do/ze kterých směřuje</li>
+        <li><span class="kw">Komoditní</span> — dle skupin zboží (10 tříd)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Výsledek (saldo)</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li><span class="kw">Aktivní</span> — příjmy &gt; výdaje → přebytek, růst devizových rezerv</li>
+        <li><span class="kw">Pasivní</span> — příjmy &lt; výdaje → schodek, pokles rezerv</li>
+        <li><span class="kw">Vyrovnaná</span> — příjmy = výdaje</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Platební bilance</h3>
+  <div class="accent-blue">
+    <p><span class="kw">Platební bilance</span> = tok peněz ekonomiky se zahraničím. Vede ji <span class="kw">ČNB</span>. Vykazuje se čtvrtletně v Kč, EUR i USD.</p>
+  </div>
+  <table class="tbl">
+    <tr><th>Část</th><th>Obsah</th></tr>
+    <tr>
+      <td><strong>1. Běžný účet</strong></td>
+      <td>
+        <strong>Obchodní bilance</strong> — hodnota dovozu a vývozu zboží<br>
+        <strong>Bilance služeb</strong> — cestovní ruch, doprava<br>
+        <strong>Bilance výnosů</strong> — tok zisků, mezd, odměn, poplatků<br>
+        <strong>Jednostranné převody</strong> — dary, výživné, penze (bez protihodnoty)
+      </td>
+    </tr>
+    <tr>
+      <td><strong>2. Finanční účet</strong></td>
+      <td>Peněžní příjmy a výdaje ze/do zahraničí. Ukazuje stav ekonomiky a úspěšnost HP.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Chyby a opomenutí</strong></td>
+      <td>Statistické vyrovnání nesrovnalostí</td>
+    </tr>
+    <tr>
+      <td><strong>4. Změna devizových rezerv</strong></td>
+      <td>ČNB používá devizové rezervy k intervencím na měnovém trhu (při příliš silné Kč nakupuje zahraniční měny)</td>
+    </tr>
+  </table>
+</div>
+
+<!-- 5. VÝVOZNÍ A DOVOZNÍ OPERACE -->
+<div class="section" data-sec="5">
+  <h2><span class="num">5</span> Vývozní a dovozní operace
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="cc-teal">
+      <strong>Vývozní operace — příprava</strong>
+      <ol style="font-size:13px;margin-top:.4rem;padding-left:1.1rem;">
+        <li><span class="kw">Průzkum trhu</span> — výběr vhodného státu, zákazníků, cenových možností (od stolu vs. v terénu)</li>
+        <li><span class="kw">Získávání zákazníků</span> — získání trhu a zvýšení odbytu</li>
+        <li><span class="kw">Předběžná kalkulace</span> — předběžná cena výrobku</li>
+        <li><span class="kw">Vytvoření nabídky</span> — s náležitostmi kupní nabídky</li>
+      </ol>
+      <p style="font-size:12.5px;font-weight:600;margin-top:.5rem;">Realizace:</p>
+      <ol style="font-size:13px;margin-top:.2rem;padding-left:1.1rem;" start="5">
+        <li>Sepsání kupní smlouvy</li>
+        <li>Doručení dokladů a zboží</li>
+        <li>Fakturace · Obdržení platby</li>
+        <li>Výsledná kalkulace</li>
+      </ol>
+    </div>
+    <div class="cc-blue">
+      <strong>Dovozní operace — příprava</strong>
+      <ol style="font-size:13px;margin-top:.4rem;padding-left:1.1rem;">
+        <li><span class="kw">Analýza potřeby dovozu</span> — je dané zboží na domácím trhu?</li>
+        <li><span class="kw">Vyhledávání dodavatelů</span> — spolehlivost, solventnost</li>
+        <li><span class="kw">Vytvoření poptávky</span> — vlastnosti výrobku, dodací a platební podmínky</li>
+        <li><span class="kw">Vyhodnocení nabídek</span> — technická i ekonomická stránka</li>
+      </ol>
+      <p style="font-size:12.5px;font-weight:600;margin-top:.5rem;">Realizace:</p>
+      <ol style="font-size:13px;margin-top:.2rem;padding-left:1.1rem;" start="5">
+        <li>Sepsání kupní smlouvy</li>
+        <li>Převzetí zboží</li>
+        <li>Zaplacení zboží</li>
+        <li>Výsledná kalkulace</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- 6. INCOTERMS A PLATEBNÍ PODMÍNKY -->
+<div class="section" data-sec="6">
+  <h2><span class="num">6</span> Incoterms a platební podmínky
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p><span class="kw">Incoterms</span> = mezinárodní pravidla pro výklad obchodních doložek v zahraničním obchodě. Řeší povinnosti smluvních stran při celním odbavení, balení a přebírání zboží.</p>
+  </div>
+  <table class="tbl" style="margin-bottom:.75rem;">
+    <tr><th>Skupina</th><th>Zkratka</th><th>Povinnost prodávajícího</th></tr>
+    <tr><td><strong>E (Ex)</strong></td><td>EXW</td><td>Připravit zboží ve svém závodě — minimum povinností</td></tr>
+    <tr><td><strong>F (Free)</strong></td><td>FCA, FOB, FAS</td><td>Dodat zboží dopravci, kterého určí kupující</td></tr>
+    <tr><td><strong>C (Cost, Carriage)</strong></td><td>CFR, CIF, CPT, CIP</td><td>Zajistit přepravní smlouvu, ale nenese riziko po naložení</td></tr>
+    <tr><td><strong>D (Delivered)</strong></td><td>DAP, DPU, DDP</td><td>Nést všechny výlohy a rizika až do místa určení</td></tr>
+  </table>
+
+  <h3>Platební podmínky</h3>
+  <p style="margin-bottom:.5rem;">Stanoví <span class="kw">místo, dobu a způsob úhrady</span> kupní ceny. Jedna z nejdůležitějších podmínek pro kalkulaci ceny.</p>
+  <div class="cc-amber" style="margin-top:.4rem;">
+    <p>Zájmy vývozce a dovozce jsou <span class="kw">protikladné</span> — vývozce chce zaplatit co nejdřív, dovozce co nejpozději (dokud nemá jistotu, že zboží bylo dodáno včas a v kvalitě).</p>
+  </div>
+  <h3>Faktory ovlivňující volbu platební podmínky</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:.4rem;">
+    <span class="tag t-blue">Druh zboží a fin. náročnost</span>
+    <span class="tag t-blue">Teritorium obchodu</span>
+    <span class="tag t-teal">Zvláštnosti obchodní metody</span>
+    <span class="tag t-teal">Charakter obchodního partnera</span>
+    <span class="tag t-amber">Finanční situace podniku</span>
+  </div>
+</div>
+
+<!-- 7. FINANCOVÁNÍ -->
+<div class="section" data-sec="7">
+  <h2><span class="num">7</span> Financování dovozu a vývozu
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <h3>Financování dovozu</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Obchodní úvěr</strong>Prodávající (vývozce) poskytne kupujícímu (dovozci) zboží s odloženou platbou</div>
+    <div class="card"><strong>Bankovní úvěr</strong>Kupující získá peníze na zaplacení zboží od banky</div>
+    <div class="card"><strong>Leasing</strong>Majitel zboží na základě smlouvy dá právo uživateli zboží používat</div>
+  </div>
+  <div class="cc-amber" style="margin-top:8px;">
+    <strong>Importní faktoring</strong>
+    <p style="font-size:13px;margin-top:.3rem;">Firmě umožňuje získat krátkodobý úvěr na zboží od zahraničních dodavatelů bez bankovní záruky. Náklady jsou účtovány dodavateli. Výhody: rychlá platba · nižší finanční náklady · záruka budoucích příjmů.</p>
+  </div>
+
+  <hr>
+  <h3>Financování vývozu</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-teal">
+      <strong>Bankovní úvěr</strong>
+      Česká exportní banka — poskytuje finanční prostředky vývozci na základě úvěrové smlouvy.
+    </div>
+    <div class="cc-blue">
+      <strong>Faktoring</strong>
+      Odkup <span class="kw">krátkodobých</span> pohledávek (do 90 dnů) od vývozce. Faktoringová společnost vymáhá dluh a nese rizika. Vývozce obdrží 80 % pohledávky okamžitě, zbytek po uhrazení dlužníkem.
+    </div>
+    <div class="cc-coral">
+      <strong>Forfaiting</strong>
+      Odkup <span class="kw">středně a dlouhodobých</span> pohledávek. Musí být kryté (bankovní zárukou nebo avalovanou směnkou). Zabezpečuje riziko až do 100 % hodnoty pohledávky.
+    </div>
+  </div>
+</div>
+
+<!-- 8. EU A MEZINÁRODNÍ ORGANIZACE -->
+<div class="section" data-sec="8">
+  <h2><span class="num">8</span> Evropská unie a mezinárodní organizace
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <h3>Vznik EU</h3>
+  <table class="tbl">
+    <tr><th>Rok</th><th>Událost</th></tr>
+    <tr><td><strong>1951</strong></td><td><span class="kw">ESUO</span> (Evropské společenství uhlí a oceli) — 6 zakládajících států: Belgie, Francie, Itálie, Lucembursko, Nizozemsko, SRN. Cíl: mír a spolupráce po 2. sv. válce.</td></tr>
+    <tr><td><strong>1957</strong></td><td><span class="kw">EHS</span> (Evropské hospodářské společenství) + <span class="kw">Euratom</span> — společný trh zboží a služeb, společná kontrola atomové energie.</td></tr>
+    <tr><td><strong>1992</strong></td><td><span class="kw">Maastrichtská smlouva</span> — EHS přejmenováno na EU, doplněny a pozměněny zakládající smlouvy.</td></tr>
+    <tr><td><strong>2004</strong></td><td>ČR vstoupila do EU → končí samostatnost v oblasti celnictví, platí celní kodex EU.</td></tr>
+  </table>
+
+  <h3>Mezinárodní organizace</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>MMF — Mezinárodní měnový fond</strong>
+      Přidružena k OSN. Cíl: mezinárodní měnová spolupráce, stabilita směnných kurzů, půjčky státům v hospodářských potížích. ČR je členem od <span class="kw">1990</span>.
+    </div>
+    <div class="cc-teal">
+      <strong>WTO — Světová obchodní organizace</strong>
+      Sídlo Ženeva. Vznikla <span class="kw">1995</span> jako nástupce GATT. Úkol: rovnost v rámci otevřeného trhu, odstraňování překážek obchodu. ČR je členem od vzniku.
+    </div>
+  </div>
+</div>
+
+<!-- 9. CLO A CELNÍ POLITIKA -->
+<div class="section" data-sec="9">
+  <h2><span class="num">9</span> Clo – definice, funkce a druhy
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-amber">
+    <p><span class="kw">Clo</span> = dávka, kterou vybírá stát nebo skupina států (celní unie) ze zboží při přechodu přes hranice. Patří mezi <span class="kw">příjmy státního rozpočtu</span>.</p>
+  </div>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-blue"><strong>Fiskální funkce</strong>Příjem do státního rozpočtu (tento účel postupně klesá)</div>
+    <div class="cc-teal"><strong>Obchodně-politická funkce</strong>Nástroj hospodářské politiky státu i EU</div>
+    <div class="cc-amber"><strong>Cenotvorná funkce</strong>U dováženého zboží se clo započítává do prodejní ceny</div>
+  </div>
+
+  <h3>Druhy cel</h3>
+  <table class="tbl">
+    <tr><th>Hledisko</th><th>Druh</th><th>Charakteristika</th></tr>
+    <tr>
+      <td rowspan="3"><strong>Směr pohybu zboží</strong></td>
+      <td>Dovozní</td><td>Na zboží z nečlenských zemí EU — chrání výrobce ČR</td>
+    </tr>
+    <tr><td>Vývozní</td><td>Na vyvážené zboží do nečlenských zemí EU — zdražují prodej do zahraničí</td></tr>
+    <tr><td>Průvozní (tranzitní)</td><td>Na zboží převážené přes území — téměř se neuplatňuje</td></tr>
+    <tr>
+      <td rowspan="2"><strong>Způsob stanovení</strong></td>
+      <td>Všeobecné (autonomní)</td><td>Stanovena autonomně EU/státem — vyšší sazby, pro země bez dohody/WTO</td>
+    </tr>
+    <tr><td>Smluvní</td><td>Z dohod v rámci WTO — nižší sazby, nutno prokázat původ zboží</td></tr>
+    <tr>
+      <td rowspan="6"><strong>Účel</strong></td>
+      <td>Finanční</td><td>Fiskální — zajišťuje příjem do SR</td>
+    </tr>
+    <tr><td>Ochranné</td><td>Chrání domácí trh před dovozem (prohibiční = velmi vysoké)</td></tr>
+    <tr><td>Preferenční</td><td>Zvýhodněné sazby pro partnery ze zvláštních dohod</td></tr>
+    <tr><td>Odvetné</td><td>Přirážka ke clu jako odveta za obchodní opatření jiné země</td></tr>
+    <tr><td>Vyrovnávací</td><td>Vyrovnání subvencí, které jiný stát poskytuje svým vývozcům</td></tr>
+    <tr><td>Antidampingové</td><td>Na výrobky vyvážené za ceny nižší než jsou obvyklé (dumping)</td></tr>
+    <tr>
+      <td rowspan="3"><strong>Způsob výpočtu</strong></td>
+      <td>Valorické (hodnotové)</td><td>% sazba z celní hodnoty — nejčastější; sleduje změny cen</td>
+    </tr>
+    <tr><td>Specifické</td><td>Pevná sazba za množstevní jednotku (ks, tunu) — zabraňuje podfakturaci</td></tr>
+    <tr><td>Kombinované</td><td>Kombinace obou — např. 10 % valorické, min. 30 Kč/ks</td></tr>
+  </table>
+
+  <h3>Výpočet cla a celní hodnota</h3>
+  <div class="formula">Celní hodnota = cena zboží (faktura bez zahr. DPH × kurz ČNB) + náklady na ČR hranici (doprava, pojistné)</div>
+  <div class="formula">Clo (valorické) = Celní hodnota × % celní sazba</div>
+  <div class="cc-blue" style="margin-top:.6rem;">
+    <strong>Výpočet DPH při dovozu</strong>
+    <p style="font-size:13px;margin-top:.3rem;">Celní orgány vybírají DPH pouze od <span class="kw">neplátců DPH</span>.</p>
+    <div class="formula">Základ DPH = Celní hodnota + Clo + Náklady vzniklé v EU + Spotřební daň</div>
+    <div class="formula">DPH = Základ DPH × sazba DPH (zaokrouhlena nahoru na celé Kč)</div>
+  </div>
+</div>
+
+<!-- 10. CELNÍ SYSTÉM -->
+<div class="section" data-sec="10">
+  <h2><span class="num">10</span> Celní systém, režimy a kvóty
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <h3>Základní pojmy</h3>
+  <table class="tbl">
+    <tr><th>Pojem</th><th>Definice</th></tr>
+    <tr><td><strong>Celní dohled</strong></td><td>Úkony a opatření zajišťující dodržování právních norem celními orgány</td></tr>
+    <tr><td><strong>Celní kontrola</strong></td><td>Zjišťování vlastností zboží, pravost dokladů, kontrola dopravních prostředků a zavazadel</td></tr>
+    <tr><td><strong>Deklarant</strong></td><td>FO nebo PO, která podává celní prohlášení vlastním jménem</td></tr>
+    <tr><td><strong>Celní prohlášení</strong></td><td>Úkon, jímž osoba projevuje vůli, aby bylo zboží propuštěno do určitého celního režimu</td></tr>
+    <tr><td><strong>Celní dluh</strong></td><td>Povinnost zaplatit dovozní nebo vývozní clo. Vzniká okamžikem celního prohlášení nebo nezákonným dovozem.</td></tr>
+    <tr><td><strong>Celní kodex</strong></td><td>Základní celní předpis platný pro všechny státy EU. Definuje celní režimy.</td></tr>
+    <tr><td><strong>Intrastat</strong></td><td>Systém výkaznictví statistiky obchodu se zbožím <em>mezi členskými státy EU</em> (ne se třetími zeměmi)</td></tr>
+  </table>
+
+  <h3>Celní režimy při dovozu</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>Volný oběh</strong>Zboží bude v EU spotřebováno nebo prodáno, nepředpokládá se návrat</div>
+    <div class="card"><strong>Dočasné použití</strong>Zboží zapůjčeno nebo najato (leasing) — vlastník se nemění · částečné osvobození od cla</div>
+    <div class="card"><strong>Aktivní zušlechťovací styk (AZS)</strong>Zboží dovezeno, zpracováno a znovu vyvezeno jako zušlechtěný výrobek</div>
+    <div class="card"><strong>Přepracování pod celním dohledem</strong>Operace mění vlastnosti zboží — jen pro osoby usídlené v EU</div>
+    <div class="card"><strong>Tranzit</strong>Zboží přepravováno přes území EU — celní dohled po celou dobu · celní dluh nevzniká</div>
+  </div>
+
+  <h3>Celní režimy při vývozu</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card"><strong>Vývoz zboží</strong>Opuštění celního území Společenství — méně komplikovaný než dovoz</div>
+    <div class="card"><strong>Pasivní zušlechťovací styk</strong>Zboží vyvezeno za účelem zpracování, zpět dovezeno jako zušlechtěný výrobek · částečné nebo úplné osvobození od cla</div>
+  </div>
+
+  <hr>
+  <h3>Kvóta</h3>
+  <p><span class="kw">Kvóta</span> = stanovený počet nebo poměr. V ZO: <span class="kw">dovozní kvóta</span> = omezení množství určitého dováženého statku. Dalším nástrojem ochrany trhu vedle cla.</p>
+</div>
+
+<div class="note-footer">ITE 4.B &nbsp;·&nbsp; Maturita 2026 &nbsp;·&nbsp; Ekonomika – Otázka 17</div>
+</div>
+
+<script>
+const _subj=(document.querySelector('meta[name="mat-subject"]')||{}).content||'eko';
+const _num=(document.querySelector('meta[name="mat-num"]')||{}).content||'17';
+const _title=(document.querySelector('meta[name="mat-title"]')||{}).content||document.title;
+const NOTE_ID=`${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`,JSON.stringify({title:_title,subject:_subj,num:parseInt(_num)}));
+function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+function toggleDark(){const on=document.body.classList.toggle('dark');localStorage.setItem('mat-dark',on?'1':'0');const btn=document.getElementById('darkBtn');if(btn)btn.textContent=on?'☀ Světlý':'🌙 Tmavý';}
+window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});
+function secKey(n){return `mat-sec::${NOTE_ID}::${n}`;}
+function toggleSec(btn){const sec=btn.closest('.section');const id=sec.dataset.sec;if(localStorage.getItem(secKey(id))){localStorage.removeItem(secKey(id));sec.classList.remove('flagged');btn.classList.remove('on');btn.textContent='⚑ Označit';}else{localStorage.setItem(secKey(id),'1');sec.classList.add('flagged');btn.classList.add('on');btn.textContent='⚑ Označeno';}updateSummary();}
+function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec=>{if(localStorage.getItem(secKey(sec.dataset.sec))){sec.classList.add('flagged');const btn=sec.querySelector('.sec-flag');if(btn){btn.classList.add('on');btn.textContent='⚑ Označeno';}}});updateSummary();}
+function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
+applyDark();loadFlags();
+</script>
+</body>
+</html>
