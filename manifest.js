@@ -15,6 +15,16 @@ window.MAT_MANIFEST = {
     "08_Financovani.html",
     "09_Hlavni_cinnost.html",
     "10_Bankovnictvi.html",
+    "11_Hospodarska_politika.html",
+    "12_Financni_trh.html",
+    "13_Trh.html",
+    "14_Marketing.html",
+    "15_Obezny_majetek.html",
+    "16_Vnitrni_obchod.html",
+    "17_Mezinarodni_obchod.html",
+    "18_Prodejni_cinnost.html",
+    "19_Danova_soustava.html",
+    "20_Moderni_management.html"
   ],
 
   it: [
@@ -22,6 +32,8 @@ window.MAT_MANIFEST = {
     "02_Periferie.html",
     "03_Kancelársky_software.html",
     "04_Algoritmizace.html",
+    "05_OOP.html",
+    "06_Java.html",
   ],
 
   lit: [
