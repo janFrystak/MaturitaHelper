@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mat-subject" content="it">
+<meta name="mat-num" content="13">
+<meta name="mat-title" content="Linková, síťová a transportní vrstva">
+<title>Linková, síťová a transportní vrstva – IT Maturita 2026</title>
+<style>
+  :root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;--flag-accent:#EF9F27;--flag-light:#FAEEDA;--flag-dark:#633806;--flag-border:#FAC775;}
+  body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;--flag-light:#2A1E0A;--flag-dark:#F5C06A;--flag-border:#3D2C0F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2.5rem 1.5rem;}
+  .page{max-width:860px;margin:0 auto;}
+  .header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .header h1{font-size:26px;font-weight:600;margin-bottom:4px;}
+  .header p{font-size:13px;color:var(--text-muted);}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  .badge{background:var(--teal-light);color:var(--teal-dark);border:0.5px solid #9FE1CB;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .flag-summary{display:none;background:var(--flag-light);color:var(--flag-dark);border:0.5px solid var(--flag-border);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .flag-summary.visible{display:inline-block;}
+  .section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+  .section.flagged{border-color:var(--flag-border);box-shadow:inset 3px 0 0 var(--flag-accent);}
+  h2{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:0.5px solid var(--gray-border);}
+  .num{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;color:var(--text-muted);flex-shrink:0;}
+  .sec-flag{margin-left:auto;flex-shrink:0;background:none;border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+  .sec-flag:hover,.sec-flag.on{background:var(--flag-light);color:var(--flag-dark);border-color:var(--flag-border);}
+  h3{font-size:13px;font-weight:600;color:var(--text);margin:1rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em;}
+  p,li{font-size:14px;color:var(--text-muted);}
+  ul,ol{padding-left:1.2rem;}
+  li{margin-bottom:4px;}
+  .kw{font-weight:600;color:var(--text);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:.6rem;}
+  .card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .card strong{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+  .cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-green{background:var(--green-light);border:0.5px solid #B5DCA0;border-radius:var(--radius-sm);padding:.85rem 1rem;}
+  .cc-teal strong{color:var(--teal-dark);}.cc-blue strong{color:var(--blue-dark);}.cc-amber strong{color:var(--amber-dark);}.cc-coral strong{color:var(--coral-dark);}.cc-green strong{color:var(--green-dark);}
+  .accent-blue{border-left:3px solid #378ADD;padding-left:12px;margin:.5rem 0;}
+  .accent-teal{border-left:3px solid #1D9E75;padding-left:12px;margin:.5rem 0;}
+  .accent-amber{border-left:3px solid #EF9F27;padding-left:12px;margin:.5rem 0;}
+  .tbl{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:13px;}
+  .tbl th{background:var(--gray-bg);font-weight:600;padding:6px 8px;border:0.5px solid var(--gray-border);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  .tbl td{padding:6px 8px;border:0.5px solid var(--gray-border);vertical-align:top;color:var(--text-muted);}
+  .tbl td.center{text-align:center;}
+  .tbl tr:nth-child(even) td{background:var(--gray-bg);}
+  body.dark .tbl tr:nth-child(even) td{background:#161614;}
+  .mono{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:3px;padding:1px 5px;color:var(--text);}
+  pre{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12.5px;background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.75rem 1rem;margin:.5rem 0;color:var(--text);overflow-x:auto;line-height:1.6;}
+  /* header diagram */
+  .hdr{border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);overflow:hidden;margin-top:.5rem;font-size:12px;}
+  .hdr-row{display:flex;border-bottom:0.5px solid var(--gray-border);}
+  .hdr-row:last-child{border-bottom:none;}
+  .hdr-field{padding:5px 8px;border-right:0.5px solid var(--gray-border);flex:1;min-width:0;}
+  .hdr-field:last-child{border-right:none;}
+  .hdr-field strong{display:block;font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px;}
+  .hdr-field span{color:var(--text-muted);font-size:11px;}
+  .hdr-label{background:var(--gray-bg);font-size:11px;font-weight:700;color:var(--text-muted);padding:3px 8px;letter-spacing:.03em;text-transform:uppercase;}
+  hr{border:none;border-top:0.5px solid var(--gray-border);margin:.8rem 0;}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-right:4px;margin-bottom:5px;}
+  .t-teal{background:var(--teal-light);color:var(--teal-dark);}.t-blue{background:var(--blue-light);color:var(--blue-dark);}.t-amber{background:var(--amber-light);color:var(--amber-dark);}.t-coral{background:var(--coral-light);color:var(--coral-dark);}
+  @media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.header{flex-direction:column;}.hdr-row{flex-direction:column;}.hdr-field{border-right:none;border-bottom:0.5px solid var(--gray-border);}}
+  @media print{body{background:white;padding:1rem;}.sec-flag{display:none;}}
+  .note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Linková, síťová a transportní vrstva</h1>
+    <p>IT Maturita &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</p>
+    <p style="margin-top:5px;">Datagramové sítě · Směrování · Protokoly · IP · TCP/UDP · Detekce chyb · Hlavičky · CSMA/CD</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">IT · Otázka 13</span>
+    <span class="flag-summary" id="flagSummary"></span>
+  </div>
+</div>
+
+<!-- 1. TYPY SÍTÍ -->
+<div class="section" data-sec="1">
+  <h2><span class="num">1</span> Typy přenosu dat – datagram, okruh, virtuální kanál
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <div class="grid3" style="margin-top:.4rem;">
+    <div class="cc-blue">
+      <strong>Datagramové sítě (přepínání paketů)</strong>
+      <p style="font-size:13px;margin-top:.3rem;">Data se rozdělí na pakety. Každý paket nese adresu odesílatele i příjemce a jde sítí <span class="kw">samostatně</span> — může zvolit jinou cestu.</p>
+      <ul style="font-size:12px;margin-top:.4rem;">
+        <li>✓ Efektivní využití linek</li>
+        <li>✓ Odolnost proti výpadkům</li>
+        <li>✗ Pakety mohou dorazit v jiném pořadí nebo se ztratit</li>
+        <li>✗ Výpočetně náročné směrování každého paketu</li>
+      </ul>
+    </div>
+    <div class="cc-amber">
+      <strong>Spojově orientované sítě (přepínání okruhů)</strong>
+      <p style="font-size:13px;margin-top:.3rem;">Nejdřív se naváže trasa, pak se posílají data, pak se spojení ukončí. Celá linka je vyhrazena jednomu spojení. Historicky: <span class="kw">PSTN (klasická telefonní síť)</span>.</p>
+      <ul style="font-size:12px;margin-top:.4rem;">
+        <li>✓ Zaručená kapacita, stálá latence</li>
+        <li>✗ Neefektivní využití linek (linka čeká i když nikdo nemluví)</li>
+      </ul>
+    </div>
+    <div class="cc-teal">
+      <strong>Sítě s virtuálními kanály</strong>
+      <p style="font-size:13px;margin-top:.3rem;">Kombinace obou přístupů. První paket nese plnou adresu + <span class="kw">identifikátor spojení</span>. Směrovače si spojení zapamatují. Další pakety nesou jen ID.</p>
+      <ul style="font-size:12px;margin-top:.4rem;">
+        <li>✓ Jednodušší směrování (stačí ID)</li>
+        <li>✓ Pakety nedorazí v nesprávném pořadí</li>
+        <li>✗ Při výpadku se spojení rozpadne</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2. SMĚROVÁNÍ -->
+<div class="section" data-sec="2">
+  <h2><span class="num">2</span> Směrování paketů
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p><span class="kw">Směrování</span> = rozhodování, kudy paket půjde sítí. Provádí ho <span class="kw">router</span>: přijme paket → přečte cílovou IP → podívá se do směrovací tabulky → pošle dál.</p>
+  </div>
+
+  <h3>Směrovací tabulka a hledání next-hop</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card">
+      <strong>Obsah směrovací tabulky</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li><span class="kw">Cílová síť</span> — IP adresa sítě a maska</li>
+        <li><span class="kw">Next hop</span> — IP adresa dalšího routeru</li>
+        <li><span class="kw">Default gateway</span> — kam poslat, pokud nic nevyhovuje</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Algoritmus hledání</strong>
+      <ol style="font-size:13px;margin-top:.3rem;">
+        <li>Projde tabulku od prvního řádku</li>
+        <li>Pokud cílová IP patří do sítě na řádku → pošle na next-hop a skončí</li>
+        <li>Pokud ne → přejde na další řádek</li>
+        <li>Pokud nic nevyhovuje → použije default gateway, nebo zahodí</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3>Statické vs. dynamické směrování</h3>
+  <table class="tbl">
+    <tr><th></th><th>Statické</th><th>Dynamické</th></tr>
+    <tr><td><strong>Tvorba tabulky</strong></td><td>Správce ručně</td><td>Automaticky protokoly (RIP, OSPF, BGP)</td></tr>
+    <tr><td><strong>Reakce na výpadek</strong></td><td>❌ Neřeší</td><td>✅ Automatická aktualizace</td></tr>
+    <tr><td><strong>Výpočetní zátěž</strong></td><td>✅ Nezatěžuje routery</td><td>❌ Zatěžuje routery</td></tr>
+    <tr><td><strong>Chybovost</strong></td><td>❌ Riziko chyb správce</td><td>✅ Automatické</td></tr>
+    <tr><td><strong>Použití</strong></td><td>Malé sítě, speciální cesty</td><td>Větší sítě, internet</td></tr>
+  </table>
+
+  <h3>Směrovací protokoly</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="cc-coral">
+      <strong>RIP — Routing Information Protocol</strong>
+      Starší, jednoduchý. Routery si posílají celé směrovací tabulky. Vybere nejkratší cestu dle <span class="kw">hop count</span>. Omezení: <span class="kw">max. 15 skoků</span> — nevhodný pro velké sítě. Pomalá aktualizace při výpadku.
+    </div>
+    <div class="cc-blue">
+      <strong>OSPF — Open Shortest Path First</strong>
+      Moderní, pro velké sítě. Buduje <span class="kw">model celé sítě</span>. Počítá nejlepší cestu algoritmem (Dijkstra). Výpočetně náročnější, ale rychle reaguje na změny.
+    </div>
+    <div class="cc-teal">
+      <strong>BGP — Border Gateway Protocol</strong>
+      Pro směrování mezi <span class="kw">autonomními systémy</span> (AS) — velcí operátoři, mezistátní linky. Páteřní protokol internetu.
+    </div>
+  </div>
+</div>
+
+<!-- 3. PROTOKOLY SÍŤOVÉ VRSTVY -->
+<div class="section" data-sec="3">
+  <h2><span class="num">3</span> Protokoly síťové vrstvy – IP, ICMP, ARP
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <h3>IP — Internet Protocol</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="cc-blue">
+      <strong>Co dělá IP</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li>Adresuje zařízení — přiděluje <span class="kw">logické IP adresy</span></li>
+        <li>Přenáší pakety mezi různými sítěmi (síťová vrstva = L3)</li>
+        <li>Fragmentuje pakety, pokud jsou příliš velké pro danou linku (MTU)</li>
+      </ul>
+    </div>
+    <div class="cc-amber">
+      <strong>Vlastnosti IP</strong>
+      <ul style="font-size:13px;margin-top:.3rem;">
+        <li><span class="kw">Bez spojení (connectionless)</span> — každý paket je nezávislý</li>
+        <li><span class="kw">Nespolehlivý</span> — nezaručuje doručení, pořadí ani integritu dat</li>
+        <li><span class="kw">Best-effort</span> — udělá co může, ale bez garance</li>
+        <li>Spolehlivost zajišťuje až TCP nad IP</li>
+      </ul>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:8px;">
+    <div class="cc-teal">
+      <strong>IPv4</strong>
+      32bitová adresa, zapsaná jako 4 desítková čísla (např. <span class="mono">192.168.1.1</span>). Přibližně 4 miliardy adres — vyčerpáno. Řeší ho NAT a přechod na IPv6.
+    </div>
+    <div class="cc-teal">
+      <strong>IPv6</strong>
+      128bitová adresa, zapsaná hexadecimálně (např. <span class="mono">2001:db8::1</span>). 340 undeciliónů adres — prakticky nevyčerpatelné. Jednodušší hlavička než IPv4.
+    </div>
+  </div>
+
+  <hr>
+  <h3>ICMP — Internet Control Message Protocol</h3>
+  <div class="cc-coral" style="margin-top:.4rem;">
+    <p>Servisní protokol nad IP. Slouží k <span class="kw">informování o nestandardních stavech</span> a diagnostice sítě. Není určen pro přenos uživatelských dat.</p>
+    <ul style="font-size:13px;margin-top:.4rem;">
+      <li><span class="kw">ping</span> — ověření dostupnosti hosta (Echo Request / Echo Reply)</li>
+      <li><span class="kw">traceroute/tracert</span> — sledování trasy paketu přes sítě</li>
+      <li>TTL expired — informace, že paket byl zahozen (vypršel TTL)</li>
+      <li>Destination unreachable — cíl nedosažitelný</li>
+    </ul>
+  </div>
+
+  <hr>
+  <h3>ARP — Address Resolution Protocol</h3>
+  <div class="cc-green" style="margin-top:.4rem;">
+    <p>Převádí <span class="kw">IP adresu → MAC adresu</span>. Síť potřebuje obojí: IP (logická, L3) pro směrování, MAC (fyzická, L2) pro přenos v rámci lokální sítě.</p>
+    <ol style="font-size:13px;margin-top:.4rem;">
+      <li>Zařízení vyšle <span class="kw">broadcast</span> do celé sítě: „Kdo má IP 192.168.1.5?"</li>
+      <li>Cílové zařízení odpoví svou <span class="kw">MAC adresou</span> (unicast)</li>
+      <li>Výsledek se uloží do <span class="kw">ARP cache</span> — příště se neptáme znovu</li>
+    </ol>
+    <p style="font-size:12px;margin-top:.3rem;">IPv6 ekvivalent: <span class="kw">ND (Neighbor Discovery)</span></p>
+  </div>
+
+  <hr>
+  <h3>Stavové vs. bezestavové protokoly</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card">
+      <strong>Bezestavový (stateless)</strong>
+      Server řeší každý požadavek zcela nezávisle. Ihned po odpovědi může zapomenout vše. Jednoduché, škálovatelné.
+      <div style="margin-top:.4rem;"><span class="tag t-blue">HTTP</span><span class="tag t-blue">DNS</span></div>
+    </div>
+    <div class="card">
+      <strong>Stavový (stateful)</strong>
+      Výsledek závisí na předchozích požadavcích. Server si pamatuje stav spojení. Složitější, ale nutné pro přenos souborů.
+      <div style="margin-top:.4rem;"><span class="tag t-amber">FTP</span><span class="tag t-amber">TCP</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. PORT A TCP/UDP -->
+<div class="section" data-sec="4">
+  <h2><span class="num">4</span> Číslo portu, socket a protokoly TCP / UDP
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="grid2" style="margin-top:.4rem;">
+    <div class="card">
+      <strong>Port</strong>
+      Číslo (0–65535) identifikující konkrétní <span class="kw">službu nebo aplikaci</span> na zařízení. Umožňuje multiplexování — více aplikací sdílí jednu IP adresu.
+      <ul style="font-size:12px;margin-top:.4rem;">
+        <li>Porty 0–1023 = <span class="kw">dobře známé</span> (HTTP 80, HTTPS 443, FTP 21, SSH 22, DNS 53, SMTP 25)</li>
+        <li>Porty 1024–49151 = registrované</li>
+        <li>Porty 49152–65535 = dynamické/klientské</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Socket</strong>
+      Kombinace <span class="kw">IP adresa + port</span>. Jednoznačně identifikuje jedno konec spojení. Celé TCP spojení = dvojice socketů (odesílatel i příjemce).
+      <p style="font-family:ui-monospace,monospace;font-size:12px;margin-top:.5rem;background:var(--gray-bg);padding:5px 8px;border-radius:4px;">192.168.1.5:54321 ↔ 93.184.216.34:443</p>
+    </div>
+  </div>
+
+  <h3>TCP vs. UDP</h3>
+  <table class="tbl">
+    <tr><th>Vlastnost / Úkol</th><th>TCP</th><th>UDP</th></tr>
+    <tr><td><strong>Multiplex aplikací (porty)</strong></td><td class="center">✅</td><td class="center">✅</td></tr>
+    <tr><td><strong>Navázání a ukončení spojení</strong></td><td class="center">✅ (3-way handshake)</td><td class="center">❌</td></tr>
+    <tr><td><strong>Rozdělení dat na segmenty</strong></td><td class="center">✅</td><td class="center">❌</td></tr>
+    <tr><td><strong>Očíslování segmentů a oprava ztrát</strong></td><td class="center">✅</td><td class="center">❌</td></tr>
+    <tr><td><strong>Kontrola poškození dat</strong></td><td class="center">✅</td><td class="center">✅ (volitelně)</td></tr>
+    <tr><td><strong>Zachování pořadí dat</strong></td><td class="center">✅</td><td class="center">❌</td></tr>
+    <tr><td><strong>Garance doručení</strong></td><td class="center">✅</td><td class="center">❌</td></tr>
+    <tr><td><strong>Rychlost / overhead</strong></td><td class="center">Pomalejší (větší overhead)</td><td class="center">Rychlejší (malý overhead)</td></tr>
+    <tr><td><strong>Typické použití</strong></td><td>HTTP, HTTPS, FTP, email — kde na spolehlivosti záleží</td><td>Video/audio stream, DNS, online hry — kde záleží na rychlosti</td></tr>
+  </table>
+
+  <div class="grid2" style="margin-top:8px;">
+    <div class="cc-blue">
+      <strong>TCP = spolehlivost</strong>
+      <p style="font-size:13px;margin-top:.3rem;">Three-way handshake: SYN → SYN-ACK → ACK. Každý segment musí být potvrzen (ACK). Ztracené segmenty jsou znovu odeslány. Řídí tok dat (flow control).</p>
+    </div>
+    <div class="cc-amber">
+      <strong>UDP = rychlost</strong>
+      <p style="font-size:13px;margin-top:.3rem;">Žádný handshake. Data ihned odeslána bez čekání na potvrzení. Poškozené datagramy zahozeny bez náhrady. Pořadí doručení není garantováno.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 5. DETEKCE A OPRAVA CHYB -->
+<div class="section" data-sec="5">
+  <h2><span class="num">5</span> Detekce a oprava chyb
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-amber">
+    <p>Při přenosu dat dochází k chybám vlivem: <span class="kw">rušení · šumu · ztráty signálu</span>. Cílem detekce je upravit data tak, aby příjemce poznal, zda k poškození došlo.</p>
+  </div>
+
+  <h3>Princip detekce chyb</h3>
+  <div class="grid3" style="margin-top:.5rem;">
+    <div class="card"><strong>1. Dohoda na mechanismu</strong>Odesílatel a příjemce se předem dohodnou na kontrolním algoritmu (stanoven protokolem)</div>
+    <div class="card"><strong>2. Připojení kontrolních dat</strong>Odesílatel k datům připojí <span class="kw">kontrolní posloupnost bitů</span> (checksum, CRC…) vypočítanou z dat</div>
+    <div class="card"><strong>3. Ověření příjemcem</strong>Příjemce přepočítá kontrolní hodnotu. Souhlasí → data pravděpodobně OK. Nesouhlasí → chyba jistá.</div>
+  </div>
+
+  <div class="cc-coral" style="margin-top:.6rem;">
+    <strong>⚠ Žádný mechanismus nemůže odhalit všechny chyby!</strong>
+    <p style="font-size:13px;margin-top:.3rem;">Pokud kontrolní hodnota <em>nesouhlasí</em> → <span class="kw">jistě došlo k chybě</span>. Pokud <em>souhlasí</em> → data jsou <em>pravděpodobně</em> v pořádku, ale existuje malá pravděpodobnost, že chyba změnila data i checksum na jiné platné hodnoty. Lze pouze minimalizovat pravděpodobnost neodhalené chyby.</p>
+  </div>
+
+  <h3>Metody detekce a opravy chyb</h3>
+  <table class="tbl">
+    <tr><th>Metoda</th><th>Princip</th><th>Detekce</th><th>Oprava</th><th>Použití</th></tr>
+    <tr>
+      <td><strong>Parita (CRC1)</strong></td>
+      <td>Přidá 1 bit tak, aby počet jedniček byl sudý (nebo lichý). Nejjednodušší CRC.</td>
+      <td>✅ Liché počty chyb</td>
+      <td>❌</td>
+      <td>Některé typy RAM</td>
+    </tr>
+    <tr>
+      <td><strong>CRC (Cyclic Redundancy Check)</strong></td>
+      <td>Výsledek dělení polynomem. CRC32 v Ethernetu. Velká skupina kódů s podobnými vlastnostmi.</td>
+      <td>✅ Silná</td>
+      <td>❌</td>
+      <td>Ethernet, ZIP, PNG</td>
+    </tr>
+    <tr>
+      <td><strong>Hammingovy kódy</strong></td>
+      <td>Přidává více paritních bitů na různých pozicích — lze lokalizovat chybný bit.</td>
+      <td>✅</td>
+      <td>✅ Umožňuje opravit 1 bit</td>
+      <td>ECC RAM, kosmické systémy</td>
+    </tr>
+    <tr>
+      <td><strong>Kontrolní součet (checksum)</strong></td>
+      <td>Součet všech bajtů dat modulo 2^n. Jednoduchý výpočet.</td>
+      <td>✅ Slabší</td>
+      <td>❌</td>
+      <td>TCP, UDP, IP hlavička</td>
+    </tr>
+  </table>
+
+  <h3>Parita — detailní příklad</h3>
+  <div class="cc-teal" style="margin-top:.4rem;">
+    <p>Data: <span class="mono">1011001</span> (4 jedničky = sudý počet). Přidáme paritní bit <span class="mono">0</span> → <span class="mono">10110010</span>. Pokud se přenese jako <span class="mono">10<strong>0</strong>10010</span> — příjemce spočítá jedničky, výsledek je lichý → <span class="kw">chyba odhalena</span>. Pokud se změní 2 bity → parita vyjde sudě → <span class="kw">chyba neodhalena</span>.</p>
+  </div>
+
+  <h3>Kde se kontrola chyb provádí</h3>
+  <div class="grid2" style="margin-top:.5rem;">
+    <div class="card"><strong>Linková vrstva (L2)</strong>Detekce chyb — CRC v Ethernet rámci. Poškozený rámec se zahodí, ale nezajistí znovuodeslání.</div>
+    <div class="card"><strong>Transportní vrstva (L4) — TCP</strong>Detekce + oprava: checksum + sekvenční čísla + ACK + retransmission. Čím vyšší vrstva, tím komplexnější kontrola.</div>
+  </div>
+</div>
+
+<!-- 6. HLAVIČKY PROTOKOLŮ -->
+<div class="section" data-sec="6">
+  <h2><span class="num">6</span> Hlavičky protokolů
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+
+  <h3>Ethernet II (Linková vrstva, L2)</h3>
+  <div class="hdr">
+    <div class="hdr-label">Ethernet II rámec</div>
+    <div class="hdr-row">
+      <div class="hdr-field" style="flex:2;background:var(--blue-light);">
+        <strong>MAC Header — 14 B</strong>
+        <span>MAC odesílatele (6 B) + MAC příjemce (6 B) + Typ protokolu (2 B — identifikuje obsah: 0x0800 = IPv4)</span>
+      </div>
+      <div class="hdr-field" style="flex:3;background:var(--gray-bg);">
+        <strong>Data — 46 až 1500 B</strong>
+        <span>Zapouzdřený IP paket (nebo jiný protokol)</span>
+      </div>
+      <div class="hdr-field" style="flex:1;background:var(--amber-light);">
+        <strong>CRC Checksum — 4 B</strong>
+        <span>Detekce chyb celého rámce (CRC32)</span>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12.5px;margin-top:.4rem;"><span class="kw">MAC adresa</span> = 48bitová fyzická adresa síťové karty (L2). Zapisuje se hexadecimálně: <span class="mono">AA:BB:CC:DD:EE:FF</span>. Unikátní pro každou kartu.</p>
+
+  <hr>
+  <h3>IPv4 hlavička (Síťová vrstva, L3) — min. 20 B</h3>
+  <div class="hdr">
+    <div class="hdr-label">IPv4 hlavička</div>
+    <div class="hdr-row">
+      <div class="hdr-field"><strong>Verze (4 b)</strong><span>Verze IP: zde 4 (0x4)</span></div>
+      <div class="hdr-field"><strong>IHL (4 b)</strong><span>Délka hlavičky v 32bitových slovech (min. 5 = 20 B)</span></div>
+      <div class="hdr-field"><strong>TOS (8 b)</strong><span>Type of Service — priorita a kvalita přenosu (QoS)</span></div>
+      <div class="hdr-field"><strong>Celková délka (16 b)</strong><span>Délka celého datagramu v bajtech (max. 65535 B)</span></div>
+    </div>
+    <div class="hdr-row">
+      <div class="hdr-field"><strong>Identifikace (16 b)</strong><span>Unikátní ID paketu — slouží pro skládání fragmentů</span></div>
+      <div class="hdr-field"><strong>Příznaky (3 b)</strong><span>Řízení fragmentace (DF = Don't Fragment, MF = More Fragments)</span></div>
+      <div class="hdr-field" style="flex:2;"><strong>Fragment offset (13 b)</strong><span>Pozice fragmentu v původním paketu</span></div>
+    </div>
+    <div class="hdr-row">
+      <div class="hdr-field"><strong>TTL (8 b)</strong><span>Time To Live — každý router sníží o 1. Při TTL=0 zahodí → ochrana proti zacyklení</span></div>
+      <div class="hdr-field"><strong>Protokol (8 b)</strong><span>Protokol vyšší vrstvy: 6=TCP, 17=UDP, 1=ICMP</span></div>
+      <div class="hdr-field" style="flex:2;"><strong>Kontrolní součet hlavičky (16 b)</strong><span>Pouze hlavičky — pokud nesouhlasí, datagram zahozen</span></div>
+    </div>
+    <div class="hdr-row">
+      <div class="hdr-field" style="flex:2;background:var(--teal-light);"><strong>Adresa odesílatele (32 b)</strong><span>Zdrojová IP adresa</span></div>
+      <div class="hdr-field" style="flex:2;background:var(--coral-light);"><strong>Adresa příjemce (32 b)</strong><span>Cílová IP adresa</span></div>
+    </div>
+    <div class="hdr-row">
+      <div class="hdr-field" style="background:var(--gray-bg);"><strong>Data</strong><span>Zapouzdřený TCP/UDP segment nebo jiný protokol</span></div>
+    </div>
+  </div>
+
+  <hr>
+  <h3>IPv6 hlavička (Síťová vrstva, L3) — pevných 40 B</h3>
+  <div class="hdr">
+    <div class="hdr-label">IPv6 hlavička — jednodušší než IPv4</div>
+    <div class="hdr-row">
+      <div class="hdr-field"><strong>Verze (4 b)</strong><span>Zde 6</span></div>
+      <div class="hdr-field"><strong>Třída provozu (8 b)</strong><span>Obdoba TOS — QoS</span></div>
+      <div class="hdr-field" style="flex:2;"><strong>Flow label (20 b)</strong><span>Označení toku dat pro QoS</span></div>
+    </div>
+    <div class="hdr-row">
+      <div class="hdr-field"><strong>Délka dat (16 b)</strong><span>Délka bez 40B hlavičky</span></div>
+      <div class="hdr-field"><strong>Další hlavička (8 b)</strong><span>Typ rozšiřující hlavičky nebo protokol (TCP=6, UDP=17)</span></div>
+      <div class="hdr-field"><strong>Max. skoků (8 b)</strong><span>Obdoba TTL — životnost datagramu</span></div>
+    </div>
+    <div class="hdr-row">
+      <div class="hdr-field" style="background:var(--teal-light);"><strong>Adresa odesílatele (128 b = 16 B)</strong></div>
+    </div>
+    <div class="hdr-row">
+      <div class="hdr-field" style="background:var(--coral-light);"><strong>Adresa příjemce (128 b = 16 B)</strong></div>
+    </div>
+  </div>
+  <p style="font-size:12.5px;margin-top:.4rem;">IPv6 vs. IPv4: <span class="kw">bez fragmentace v hlavičce</span> (přesunuto do rozšiřující hlavičky) · <span class="kw">bez checksumu hlavičky</span> (zajišťují vyšší vrstvy) · pevná délka = rychlejší zpracování routerem.</p>
+
+  <hr>
+  <h3>TCP hlavička (Transportní vrstva, L4) — min. 20 B</h3>
+  <div class="hdr">
+    <div class="hdr-label">TCP hlavička</div>
+    <div class="hdr-row">
+      <div class="hdr-field" style="flex:2;background:var(--teal-light);"><strong>Zdrojový port (16 b)</strong><span>Port odesílající aplikace</span></div>
+      <div class="hdr-field" style="flex:2;background:var(--coral-light);"><strong>Cílový port (16 b)</strong><span>Port přijímající aplikace</span></div>
+    </div>
+    <div class="hdr-row">
+      <div class="hdr-field" style="flex:4;"><strong>Sekvenční číslo (32 b)</strong><span>Pořadové číslo prvního bajtu dat v segmentu — zajišťuje správné pořadí</span></div>
+    </div>
+    <div class="hdr-row">
+      <div class="hdr-field" style="flex:4;"><strong>Číslo potvrzení / ACK (32 b)</strong><span>Číslo dalšího očekávaného bajtu — potvrzuje příjem</span></div>
+    </div>
+    <div class="hdr-row">
+      <div class="hdr-field"><strong>Data Offset (4 b)</strong><span>Délka hlavičky v 32b slovech</span></div>
+      <div class="hdr-field" style="flex:2;"><strong>Příznaky / Flags (8 b)</strong><span>SYN · ACK · FIN · RST · PSH · URG — řídí navazování, ukončování a stav spojení</span></div>
+      <div class="hdr-field"><strong>Checksum (16 b)</strong><span>Kontrolní součet hlavičky + dat</span></div>
+    </div>
+  </div>
+
+  <hr>
+  <h3>UDP hlavička (Transportní vrstva, L4) — pevných 8 B</h3>
+  <div class="hdr">
+    <div class="hdr-label">UDP hlavička — minimalistická</div>
+    <div class="hdr-row">
+      <div class="hdr-field" style="background:var(--teal-light);"><strong>Zdrojový port (16 b)</strong></div>
+      <div class="hdr-field" style="background:var(--coral-light);"><strong>Cílový port (16 b)</strong></div>
+      <div class="hdr-field"><strong>Délka (16 b)</strong><span>Délka celého UDP datagramu (hlavička + data) v bajtech</span></div>
+      <div class="hdr-field"><strong>Checksum (16 b)</strong><span>Volitelný kontrolní součet</span></div>
+    </div>
+  </div>
+  <p style="font-size:12.5px;margin-top:.4rem;">UDP hlavička je 8× menší než TCP — nízký overhead = vyšší efektivita pro real-time přenosy.</p>
+</div>
+
+<!-- 7. ŘÍZENÍ PŘÍSTUPU KE SDÍLENÉMU MÉDIU -->
+<div class="section" data-sec="7">
+  <h2><span class="num">7</span> Řízení přístupu ke sdílenému médiu – CSMA/CD
+    <button class="sec-flag" onclick="toggleSec(this)">⚑ Označit</button>
+  </h2>
+  <div class="accent-blue">
+    <p>Problém: <span class="kw">více zařízení chce vysílat současně</span> po jednom médiu → dochází ke <span class="kw">kolizím</span>. Řeší to CSMA/CD — protokol Ethernetu (dnes přežitý díky switchům).</p>
+  </div>
+  <div class="cc-teal" style="margin-top:.6rem;">
+    <strong>CSMA/CD — Carrier Sense Multiple Access with Collision Detection</strong>
+    <ol style="font-size:13px;margin-top:.4rem;">
+      <li>Zařízení <span class="kw">poslouchá médium</span> (Carrier Sense) — je volné?</li>
+      <li>Pokud volné → začne vysílat, ale <span class="kw">zároveň stále poslouchá</span></li>
+      <li>Pokud detekuje kolizi (Collision Detection) → zastaví vysílání, vyšle <span class="kw">jam signal</span></li>
+      <li>Čeká <span class="kw">náhodný čas</span> (Binary Exponential Backoff) → zkusí znovu</li>
+    </ol>
+    <p style="font-size:12px;margin-top:.4rem;">Náhodný čas čekání → aby obě zařízení nezačala znovu přesně ve stejnou chvíli → snížení pravděpodobnosti opakované kolize.</p>
+  </div>
+  <div class="grid2" style="margin-top:8px;">
+    <div class="card"><strong>CSMA/CA (Wireless)</strong>Collision <em>Avoidance</em> — Wi-Fi. Nelze detekovat kolize za přenosu → předchází jim čekáním a rezervací média (RTS/CTS).</div>
+    <div class="card"><strong>Moderní Ethernet se switchem</strong>Full-duplex, dedikované segmenty pro každé zařízení → <span class="kw">kolize prakticky nevznikají</span>. CSMA/CD se dnes téměř nepoužívá.</div>
+  </div>
+</div>
+
+<div class="note-footer">ITE 4.B &nbsp;·&nbsp; IT Maturita 2026 &nbsp;·&nbsp; Otázka 13 – Linková, síťová a transportní vrstva</div>
+</div>
+
+<script>
+const _subj=(document.querySelector('meta[name="mat-subject"]')||{}).content||'it';
+const _num=(document.querySelector('meta[name="mat-num"]')||{}).content||'13';
+const _title=(document.querySelector('meta[name="mat-title"]')||{}).content||document.title;
+const NOTE_ID=`${_subj}-${String(parseInt(_num)).padStart(2,'0')}`;
+localStorage.setItem(`mat-reg::${NOTE_ID}`,JSON.stringify({title:_title,subject:_subj,num:parseInt(_num)}));
+function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);}
+window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});
+function secKey(n){return `mat-sec::${NOTE_ID}::${n}`;}
+function toggleSec(btn){const sec=btn.closest('.section');const id=sec.dataset.sec;if(localStorage.getItem(secKey(id))){localStorage.removeItem(secKey(id));sec.classList.remove('flagged');btn.classList.remove('on');btn.textContent='⚑ Označit';}else{localStorage.setItem(secKey(id),'1');sec.classList.add('flagged');btn.classList.add('on');btn.textContent='⚑ Označeno';}updateSummary();}
+function loadFlags(){document.querySelectorAll('.section[data-sec]').forEach(sec=>{if(localStorage.getItem(secKey(sec.dataset.sec))){sec.classList.add('flagged');const btn=sec.querySelector('.sec-flag');if(btn){btn.classList.add('on');btn.textContent='⚑ Označeno';}}});updateSummary();}
+function updateSummary(){const n=document.querySelectorAll('.section.flagged').length;const el=document.getElementById('flagSummary');if(el){el.textContent=n>0?`${n} problematické sekce`:'';el.classList.toggle('visible',n>0);}}
+applyDark();loadFlags();
+</script>
+</body>
+</html>

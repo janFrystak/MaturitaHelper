@@ -34,9 +34,31 @@ window.MAT_MANIFEST = {
     "04_Algoritmizace.html",
     "05_OOP.html",
     "06_Java.html",
+    "09_Web.html",
+    "13_Linkova_sitova_transportni.html",
   ],
 
   lit: [
+    "01_Romeo-a-Julie.html",
+    "02_Lakomec.html",
+    "03_Evzen-Onegin.html",
+    "04_Maj.html",
+    "05_Kral-Lavra.html",
+    "06_Noc-na-Karlstejne.html",
+    "07_Marysa.html",
+    "08_Zabijak.html",
+    "09_Revizor.html",
+    "10_Na-zapadni-fronte-klid.html",
+    "11_Maly-princ.html",
+    "12_Starec-a-more.html",
+    "13_Petr-a-Lucie.html",
+    "14_Farma-zvirat.html",
+    "15_Premena.html",
+    "16_Krysar.html",
+    "17_Bila-nemoc.html",
+    "18_Spalovac-mrtvol.html",
+    "19_Svejk.html",
+    "20_RUR.html"
   ],
 
   // ── Test files (pracovní listy) ────────────────────────────────────────

@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="cs"><head><meta charset="UTF-8"><meta name="mat-subject" content="cetba"><meta name="mat-num" content="1"><meta name="mat-title" content="Romeo a Julie"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Romeo a Julie – Maturitní četba</title>
+<style>:root{--teal-light:#E1F5EE;--teal-dark:#085041;--blue-light:#E6F1FB;--blue-dark:#0C447C;--amber-light:#FAEEDA;--amber-dark:#633806;--coral-light:#FAECE7;--coral-dark:#4A1B0C;--green-light:#EAF3DE;--green-dark:#27500A;--gray-bg:#F8F7F5;--gray-border:#E0DED8;--text:#1a1a18;--text-muted:#5a5955;--text-faint:#9a9895;--white:#ffffff;--radius:10px;--radius-sm:5px;}
+body.dark{--teal-light:#0D2E24;--teal-dark:#5ECBA8;--blue-light:#0D1F33;--blue-dark:#7BB8F0;--amber-light:#2A1E0A;--amber-dark:#F5C06A;--coral-light:#2A1208;--coral-dark:#F5A08A;--green-light:#132208;--green-dark:#8FD058;--gray-bg:#111110;--gray-border:#2E2D2A;--text:#F0EFEB;--text-muted:#A8A49E;--text-faint:#6A6762;--white:#1C1C1A;}
+*{box-sizing:border-box;margin:0;padding:0;}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-bg);padding:2rem 1.5rem;}.page{max-width:860px;margin:0 auto;}
+.book-header{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}.book-header h1{font-size:22px;font-weight:700;margin-bottom:2px;}.book-header .author{font-size:15px;color:var(--text-muted);margin-bottom:6px;}.book-header .meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:.5rem;}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;}.b-blue{background:var(--blue-light);color:var(--blue-dark);}.b-teal{background:var(--teal-light);color:var(--teal-dark);}.b-amber{background:var(--amber-light);color:var(--amber-dark);}.b-coral{background:var(--coral-light);color:var(--coral-dark);}
+.dark-btn{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:3px 9px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;}
+.section{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:1.25rem 1.5rem;margin-bottom:.75rem;}
+.section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:0.5px solid var(--gray-border);display:flex;align-items:center;gap:8px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.card{background:var(--gray-bg);border:0.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:.75rem .9rem;}.card label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted);display:block;margin-bottom:3px;}.card p{font-size:13.5px;color:var(--text-muted);}
+.cc-blue{background:var(--blue-light);border:0.5px solid #B5D4F4;border-radius:var(--radius-sm);padding:.75rem .9rem;}.cc-teal{background:var(--teal-light);border:0.5px solid #9FE1CB;border-radius:var(--radius-sm);padding:.75rem .9rem;}.cc-amber{background:var(--amber-light);border:0.5px solid #FAC775;border-radius:var(--radius-sm);padding:.75rem .9rem;}.cc-coral{background:var(--coral-light);border:0.5px solid #F5C4B3;border-radius:var(--radius-sm);padding:.75rem .9rem;}
+.cc-blue label{color:var(--blue-dark);}.cc-teal label{color:var(--teal-dark);}.cc-amber label{color:var(--amber-dark);}.cc-coral label{color:var(--coral-dark);}
+.cc-blue p,.cc-teal p,.cc-amber p,.cc-coral p{color:var(--text-muted);}
+.qa-row{padding:.5rem 0;border-bottom:0.5px solid var(--gray-border);font-size:13.5px;}.qa-row:last-child{border-bottom:none;padding-bottom:0;}.qa-q{font-weight:600;color:var(--text);margin-bottom:2px;}.qa-a{color:var(--text-muted);}
+.accent-blue{border-left:3px solid #378ADD;padding-left:10px;margin:.5rem 0;font-size:13.5px;color:var(--text-muted);}
+hr{border:none;border-top:0.5px solid var(--gray-border);margin:.6rem 0;}p,li{font-size:14px;color:var(--text-muted);}ul{padding-left:1.2rem;}li{margin-bottom:3px;}strong{color:var(--text);}
+.note-footer{text-align:center;font-size:11px;color:var(--text-faint);margin-top:1.5rem;padding-bottom:1rem;}
+@media(max-width:600px){.grid2,.grid3{grid-template-columns:1fr;}.book-header{flex-direction:column;}}
+@media print{body{background:white;padding:.5rem;}.dark-btn{display:none;}}</style></head>
+<body><div class="page">
+
+<div class="book-header">
+  <div>
+    <h1>Romeo a Julie</h1>
+    <div class="author">William Shakespeare &nbsp;·&nbsp; ~1595</div>
+    <div class="meta">
+      <span class="badge b-blue">Drama · Tragédie</span>
+      <span class="badge b-teal">Renesance / Alžbětinské drama</span>
+      <span class="badge b-amber">Anglická literatura</span>
+      <span class="badge b-coral">Veršované drama (blankvers)</span>
+    </div>
+  </div>
+  <button class="dark-btn" onclick="toggleDark()">🌙</button>
+</div>
+
+<div class="section">
+  <div class="section-title">📖 Literárněhistorický kontext</div>
+  <div class="grid2">
+    <div class="cc-blue"><label>Literární směr – renesance</label>
+      <p>14.–17. st. Návrat k antickým hodnotám, <strong>humanismus</strong> (člověk středem světa). V Anglii: <strong>alžbětinské drama</strong> — rozvoj divadel za vlády Alžběty I. Důraz na individualitu, vášeň, osud.</p></div>
+    <div class="cc-teal"><label>Autor</label>
+      <p><strong>William Shakespeare</strong> (1564 Stratford nad Avonou – 1616). Dramatik, básník. Člen <strong>Lord Chamberlain's Men</strong>, spoluvlastník divadla <strong>Globe</strong>. Psal tragédie, komedie, historická dramata, sonety.<br><strong>Další díla:</strong> Hamlet, Othello, Macbeth, Kupec benátský, Sen noci svatojánské</p></div>
+    <div class="cc-amber"><label>Současníci – světoví</label>
+      <p>Lope de Vega (Španělsko), Cervantes (Španělsko – Don Quijote), Rabelais (Francie – Gargantua), Montaigne (Francie – Eseje)</p></div>
+    <div class="cc-coral"><label>Současníci – čeští</label>
+      <p>Humanistická literatura; Bible kralická (1579–1613); Jan Blahoslav (Gramatika česká)</p></div>
+  </div>
+  <div class="accent-blue"><strong>Zasazení do kontextu tvorby:</strong> Napsáno ~1595, námět z italské novely (Matteo Bandello). Jedno z prvních velkých děl — předchází vrcholné tragédie (Hamlet, Othello). Poprvé vydáno 1597.</div>
+</div>
+
+<div class="section">
+  <div class="section-title">🔍 Analýza uměleckého textu</div>
+  <div class="grid3">
+    <div class="card"><label>Téma</label><p>Nešťastná láska dvou mladých lidí z znepřátelených rodů</p></div>
+    <div class="card"><label>Motiv</label><p>Láska · smrt · rod · pomsta · osud · tajný sňatek · feud</p></div>
+    <div class="card"><label>Časoprostor</label><p>Verona (Itálie), ~13.–14. st. Několik dní — rychlé tempo děje.</p></div>
+  </div>
+  <hr>
+  <div class="grid3" style="margin-top:.6rem;">
+    <div class="card"><label>Literární druh / žánr / forma</label><p><strong>Druh:</strong> drama<br><strong>Žánr:</strong> tragédie<br><strong>Forma:</strong> veršované drama (převážně)</p></div>
+    <div class="card"><label>Kompozice</label><p>Chronologická. <strong>5 aktů + prolog</strong> (sonet). Klasická tragická stavba: expozice → kolize → krize → peripetie → katastrofa.</p></div>
+    <div class="card"><label>Vyprávěcí způsob</label><p>Drama — bez vypravěče. Sbor (Chorus) uvozuje prologem. Děj plyne přes dialogy a monology postav.</p></div>
+  </div>
+  <hr>
+  <div class="card" style="margin-top:.6rem;"><label>Postavy</label>
+    <div class="grid2" style="gap:6px;margin-top:.3rem;">
+      <p><strong>Romeo Montague</strong> — mladý, impulzivní, romantický. Zpočátku miluje Rozalinu, pak se do Julie zamiluje na první pohled.<br><strong>Julie Capuletová</strong> — 13 let, navzdory mládí statečná a odhodlaná. Silnější osobnost než Romeo.</p>
+      <p><strong>Merkucio</strong> — Romeův přítel, cynický, vtipný, zemře Tybaltovou rukou.<br><strong>Tybalt</strong> — Juliin bratranec, hrdý, agresivní, zabije Merkucia.<br><strong>Bratr Vavřinec</strong> — mnich, oddá pár v tajnosti; jeho plán se zásnubním jedem selže a způsobí tragédii.</p>
+    </div>
+  </div>
+  <hr>
+  <div class="grid2" style="gap:8px;margin-top:.6rem;">
+    <div class="card"><label>Typy promluv</label><p>Dialogy · rozsáhlé monology (balkónová scéna, Romeův monolog v hrobce) · sborový prolog (sonet) · mluva stranou (aside) k publiku</p></div>
+    <div class="card"><label>Veršová výstavba</label><p><strong>Blankvers</strong> = nerýmovaný jambický pentametr (5 stop, 10 slabik). Prolog + vybraná místa jako <strong>sonet</strong> (14 veršů). Komické postavy místy prózou.</p></div>
+  </div>
+  <hr>
+  <div class="card" style="margin-top:.6rem;"><label>Jazykové prostředky a tropy</label>
+    <div class="grid2" style="gap:6px;margin-top:.3rem;">
+      <p><strong>Metafory:</strong> světelné obrazy — Julie je „slunce", „hvězda". <strong>Oxymóron:</strong> „milující nenávist". <strong>Přirovnání:</strong> „Je krásná jako noc." <strong>Apostrofa:</strong> Julie oslovuje Romea na balkóně.</p>
+      <p><strong>Kontrast:</strong> láska × nenávist, život × smrt. <strong>Gradace:</strong> stupňování napětí ke katastrofě. <strong>Ironie osudu:</strong> Romeo přijde do hrobky právě když se Julie probouzí.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">❓ Doplňkové otázky</div>
+  <div class="qa-row"><div class="qa-q">Kde se Shakespeare narodil?</div><div class="qa-a">Ve Stratfordu nad Avonou (pozor: nad Avonou, nikoli Avonem).</div></div>
+  <div class="qa-row"><div class="qa-q">S jakým divadlem byl Shakespeare spojen?</div><div class="qa-a">Divadlo Globe — hrál tam a byl jeho spoluvlastníkem. Nejprve kočovná divadla, poté společnost Lord Chamberlain's Men.</div></div>
+  <div class="qa-row"><div class="qa-q">Kolik let měli Romeo a Julie?</div><div class="qa-a">Julii je 13 let (za dva týdny narozeniny). Romeův věk není přesně uveden, je o něco starší.</div></div>
+  <div class="qa-row"><div class="qa-q">Jaký typ verše Shakespeare používal?</div><div class="qa-a">Blankvers — nerýmovaný jambický pentametr. Dále psal sonety (14 veršů: 3 kvartety + závěrečné dvojverší, rým ABAB CDCD EFEF GG).</div></div>
+  <div class="qa-row"><div class="qa-q">Proč jsou Shakespearova dramata nadčasová a hrají se dodnes?</div><div class="qa-a">Řeší univerzální lidská témata — láska, žárlivost, pomsta, ambice, osud. Psychologická hloubka postav zůstává srozumitelná bez ohledu na dobu.</div></div>
+</div>
+
+<div class="note-footer">Maturitní četba č. 1 &nbsp;·&nbsp; ITE 4.B &nbsp;·&nbsp; 2025/2026</div>
+</div>
+<script>function toggleDark(){const on=document.body.classList.toggle('dark');localStorage.setItem('mat-dark',on?'1':'0');document.querySelectorAll('.dark-btn').forEach(b=>b.textContent=on?'☀':'🌙');}function applyDark(){const on=localStorage.getItem('mat-dark')==='1';document.body.classList.toggle('dark',on);document.querySelectorAll('.dark-btn').forEach(b=>b.textContent=on?'☀':'🌙');}window.addEventListener('storage',e=>{if(e.key==='mat-dark')applyDark();});applyDark();</script>
+</body></html>
